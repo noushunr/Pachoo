@@ -141,6 +141,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:src="@drawable/ic_delete"
+                android:tint="@color/black"
                 android:textColor="@color/orange"
                 android:textSize="15sp" />
 
@@ -159,7 +160,7 @@
                 android:id="@+id/btnDeal"
                 android:layout_width="80dp"
                 android:layout_height="20dp"
-                android:background="@drawable/add_button_rounded_corner"
+                android:background="@drawable/button_bg_black"
                 android:gravity="center"
                 android:text="View Deals"
                 android:textAllCaps="true"

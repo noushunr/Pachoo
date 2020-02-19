@@ -41,7 +41,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/txt_validity"
                     android:fontFamily="@font/nunito_regular"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
 
                 <TextView
@@ -114,7 +114,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignParentRight="true"
                     android:fontFamily="@font/nunito_regular"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
 
             </RelativeLayout>
@@ -211,16 +211,13 @@
                 android:id="@+id/book_now"
                 android:layout_width="86dp"
                 android:layout_height="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/view_button"
+                android:background="@drawable/button_bg_black"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
-                android:text="Book Now"
+                android:text="@string/book_now"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="12sp"

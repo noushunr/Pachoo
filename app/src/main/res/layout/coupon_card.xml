@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/txt_validity"
-                android:textColor="@color/orange"
+                android:textColor="@color/black"
                 android:textSize="12sp" />
 
             <ImageView
@@ -51,7 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginTop="4dp"
-            android:background="@color/orange" />
+            android:background="@color/black" />
 
         <ImageView
             android:id="@+id/imgCoupon"
@@ -107,7 +107,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/view_button"
+                android:background="@drawable/button_bg_black"
                 android:elevation="4dp"
                 android:gravity="center"
                 android:paddingTop="2dp"
