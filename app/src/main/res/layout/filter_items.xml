@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/txt_filter_option"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/nunito_regular"
+        android:gravity="center"
+        android:text="womens fashion"
+        android:textSize="12sp" />
+
+    <RadioButton
+        android:id="@+id/checkbox_selected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="8dp"
+        android:buttonTint="@color/green"
+        android:paddingRight="6dp"
+        android:scaleX="0.8"
+        android:scaleY="0.8" />
+</RelativeLayout>

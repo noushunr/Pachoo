@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardUseCompatPadding="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txt_validity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/nunito_regular"
+                android:paddingHorizontal="4dp"
+                android:text="Valid till:"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_validity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/txt_validity"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="@color/orange"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/booked_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_coupon_status_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/booked_count"
+                android:layout_alignParentRight="true"
+                android:paddingHorizontal="4dp"
+                android:text="booked"
+                android:textAllCaps="true"
+                android:textColor="@color/orange"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_coupon_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/booked_count"
+                android:layout_toLeftOf="@+id/txt_coupon_status_value"
+                android:fontFamily="@font/nunito_regular"
+                android:paddingHorizontal="4dp"
+                android:text="Status:"
+                android:textSize="10sp" />
+
+
+            <ImageView
+                android:id="@+id/favorite_icon"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_heart_line"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="4dp"
+            android:background="@color/orange" />
+
+        <ImageView
+            android:id="@+id/imgCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:padding="2dp">
+
+            <TextView
+                android:id="@+id/txt_deal_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:fontFamily="@font/nunito_regular"
+                android:text="Current Deal Price"
+                android:textColor="@color/grey"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_deal_price_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_deal_price"
+                android:layout_alignParentLeft="true"
+                android:fontFamily="@null"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/txt_mrp_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_deal_price"
+                android:layout_toRightOf="@+id/txt_deal_price_value"
+                android:fontFamily="@null"
+                android:foreground="@drawable/text_view_strike"
+                android:textColor="@color/grey"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/view_deals"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/view_text_bg"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="View Deal"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/book_now"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/view_button"
+                android:elevation="4dp"
+                android:gravity="center"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:text="Book Now"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                android:textStyle="normal"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/booked_thumbnail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/booked_offer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/txt_status_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+        <!--<Button-->
+        <!--android:id="@+id/view_deals"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:visibility="gone"/>-->
+        <Button
+            android:id="@+id/write_review"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone" />
+    </LinearLayout>
+</android.support.v7.widget.CardView>

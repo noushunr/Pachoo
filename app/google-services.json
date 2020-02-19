@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1000692798688",
+    "firebase_url": "https://dealsnest-bd554.firebaseio.com",
+    "project_id": "dealsnest-bd554",
+    "storage_bucket": "dealsnest-bd554.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1000692798688:android:45de15f2c21873075a6c85",
+        "android_client_info": {
+          "package_name": "com.presentation.app.dealsnest"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1000692798688-e51327ba3eganbmbc91ekuec1tqmnium.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.presentation.app.dealsnest",
+            "certificate_hash": "5170ef3d6c6d93aaecfdf157bc5110be897fe44f"
+          }
+        },
+        {
+          "client_id": "1000692798688-inndmmkokln8f2r96dm1lri7chi9a3di.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB3Xky0aWE8qfApiKpdXmU8Fp7wOqqSi4c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1000692798688-inndmmkokln8f2r96dm1lri7chi9a3di.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

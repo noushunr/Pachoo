@@ -1,0 +1,371 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.presentation.app.dealsnest.ui.shop_details.fragments.ShopHomeFragment">
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:id="@+id/txt_offer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/offer_green_bg"
+                    android:paddingStart="16dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="4dp"
+                    android:text="upto 45% off"
+                    android:textColor="#00B07D"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/offer_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_offer"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="8dp"
+                    android:text="Food and Beverages"
+                    android:textColor="@color/text_color_black" />
+
+                <TextView
+                    android:id="@+id/deals_count"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/offer_heading"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="4dp"
+                    android:text="+12 more deals"
+                    android:textAllCaps="true"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp" />
+
+                <Button
+                    android:id="@+id/view_deals"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dp"
+                    android:layout_below="@+id/txt_offer"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/small_button_orange_round_corner"
+                    android:paddingStart="6dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="6dp"
+                    android:paddingBottom="4dp"
+                    android:text="View Deals"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:background="@drawable/popular_heading_bg"
+                    android:paddingStart="12dp"
+                    android:paddingTop="4dp"
+                    android:paddingEnd="12dp"
+                    android:paddingBottom="4dp"
+                    android:text="Most Popular"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/popular_recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/popular_bg" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="View All"
+                android:textAllCaps="true"
+                android:textColor="@color/orange" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_vertical_margin">
+
+                <TextView
+                    android:id="@+id/txt_about_this_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:text="About this place"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_about_this_place"
+                    android:layout_alignParentLeft="true"
+                    android:text="Timing"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_timing"
+                    android:layout_alignParentLeft="true"
+                    android:text="Mon - Sat" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_timing"
+                    android:layout_toRightOf="@+id/txt_day"
+                    android:text="11 AM to 11 PM" />
+
+                <View
+                    android:id="@+id/view_divided"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/tvTime"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/txt_avg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_divided"
+                    android:layout_alignParentLeft="true"
+                    android:text="Average Cost"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_avg_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_avg"
+                    android:layout_alignParentLeft="true"
+                    android:text="Cost of two -" />
+
+                <TextView
+                    android:id="@+id/txt_avg_price_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_avg"
+                    android:layout_toRightOf="@+id/txt_avg_price"
+                    android:text="500" />
+
+                <View
+                    android:id="@+id/view_divided_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/txt_avg_price_value"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/txt_find_us"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_divided_2"
+                    android:layout_alignParentLeft="true"
+                    android:text="Find Us"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <fragment
+                    android:id="@+id/map"
+                    class="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:layout_below="@+id/txt_find_us"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:id="@+id/txt_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/map"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="8dp"
+                    android:text="Address"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_address_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_address"
+                    android:layout_alignParentLeft="true"
+                    android:text="pallath square,near akshay granites,vhakkaraparambu,Vytilla,NH Bypass Road,Ernakulam" />
+
+                <View
+                    android:id="@+id/view_divided_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/txt_address_value"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/txt_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_divided_3"
+                    android:layout_alignParentLeft="true"
+                    android:text="Reviews"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_review"
+                    android:layout_alignParentLeft="true"
+                    android:text="Vinay Mohan"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/write_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_divided_3"
+                    android:layout_alignParentRight="true"
+                    android:text="Write Review"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_review_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_username"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/reference_description"
+                    android:textColor="@color/grey" />
+
+                <TextView
+                    android:id="@+id/txt_read_all_review"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_review_details"
+                    android:layout_alignParentLeft="true"
+                    android:text="Read all reviews"
+                    android:textColor="@color/orange"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/view_divided_4"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/txt_read_all_review"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="6dp"
+                    android:background="@android:color/darker_gray" />
+
+                <TextView
+                    android:id="@+id/txt_more_info"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_divided_4"
+                    android:layout_alignParentLeft="true"
+                    android:text="More Info"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_amenties"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_more_info"
+                    android:layout_alignParentLeft="true"
+                    android:text="Amenties"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_amenties_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_amenties"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_check_black_24dp"
+                    android:drawableTint="@color/default_text_grey"
+                    android:text="Take Away"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_seating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_amenties_value"
+                    android:layout_alignParentLeft="true"
+                    android:text="Seating"
+                    android:textColor="@color/text_color_black"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_seating_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_seating"
+                    android:layout_alignParentLeft="true"
+                    android:drawableLeft="@drawable/ic_check_black_24dp"
+                    android:drawableTint="@color/default_text_grey"
+                    android:text="AC Indoor Stadium"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/txt_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_seating_type"
+                    android:layout_alignParentLeft="true"
+                    android:text="Information shown above is provided by Marchant an shoffz is not liable for its accuracy"
+                    android:textColor="@color/grey"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</FrameLayout>

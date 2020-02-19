@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="colorPrimary">#ffffff</color>
+    <color name="colorPrimaryDark">#DDDDDD</color>
+    <color name="colorAccent">#000000</color>
+    <color name="bgBottomNavigation">#eaeaea</color>
+    <color name="BottomNavigationIcon">#f89d81</color>
+    <color name="hintColor">#ffffff</color>
+    <color name="hintText">#ff1e1e</color>
+    <color name="nav_menu_color">#ff8205</color>
+    <color name="text_color_black">#000</color>
+    <color name="orange">#ff5435</color>
+    <color name="lightOrange">#f5ab9e</color>
+    <color name="grey">#CFCFCF</color>
+    <color name="light_grey">#FFE9E9E9</color>
+    <color name="deal_bottom_color">#F2F2F2</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="linecolor">#EAEAEA</color>
+    <color name="txtcolor">#656565</color>
+    <color name="green">#00b07d</color>
+    <color name="yellow">#FDB813</color>
+    <color name="activities_bg">#F2F6FC</color>
+    <color name="top_bar">#F1F1F1</color>
+    <color name="category_circle">#F2F6FC</color>
+    <color name="dark_transparent">#793A3A3A</color>
+    <color name="white_transparent">#61FFFFFF</color>
+    <color name="default_text_grey">#C5C5C5</color>
+    <color name="orange_light">#F89D81</color>
+    <color name="buish_background_color">#F2F6FC</color>
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#000</color>
+</resources>

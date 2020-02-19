@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:title="My Profile" />
+        <item
+            android:id="@+id/nav_booking"
+            android:title="My Bookings" />
+        <item
+            android:id="@+id/nav_favorites"
+            android:title="My Favorites" />
+        <item
+            android:id="@+id/nav_reference"
+            android:title="Refer A Friend" />
+        <item
+            android:id="@+id/nav_notifications"
+            android:title="Notification" />
+        <item
+            android:id="@+id/nav_rate_app"
+            android:title="Rate App" />
+        <item
+            android:id="@+id/nav_help"
+            android:title="Help" />
+        <item
+            android:id="@+id/nav_logout"
+            android:title="Logout" />
+    </group>
+
+    <!--<item android:title="System Settings"-->
+    <!--android:name="android:actionMenuTextColor">-->
+    <!--<menu>-->
+    <!--<item-->
+    <!--android:id="@+id/nav_notifications"-->
+    <!--android:icon="@drawable/bell"-->
+    <!--android:title="Notification" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_rate_app"-->
+    <!--android:icon="@drawable/rating"-->
+    <!--android:title="Rate App" />-->
+    <!--<item-->
+    <!--android:id="@+id/nav_help"-->
+    <!--android:icon="@drawable/information"-->
+    <!--android:title="Help" />-->
+    <!--<item-->
+    <!--android:id="@+id/action_settings"-->
+    <!--android:icon="@drawable/ic_settings"-->
+    <!--android:title="Settings" />-->
+    <!--</menu>-->
+    <!--</item>-->
+
+</menu>

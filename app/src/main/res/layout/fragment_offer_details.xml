@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+        android:layout_marginVertical="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imOfferThumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true" />
+
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/txt_deal_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="100dp"
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_timing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_deal_name"
+                android:layout_alignParentLeft="true"
+                android:text="Timing"
+                android:textColor="@color/text_color_black"
+                android:textSize="6sp" />
+
+            <TextView
+                android:id="@+id/txt_timing_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_deal_name"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/txt_timing"
+                android:textColor="@color/text_color_black"
+                android:textSize="6sp" />
+
+            <TextView
+                android:id="@+id/txt_valid_for"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_timing"
+                android:layout_alignParentLeft="true"
+                android:text="Valid for "
+                android:textColor="@color/text_color_black"
+                android:textSize="6sp" />
+
+            <TextView
+                android:id="@+id/txt_valid_for_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_timing"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/txt_valid_for"
+                android:textColor="@color/text_color_black"
+                android:textSize="6sp" />
+
+            <TextView
+                android:id="@+id/txt_off_percentage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/offer_green_bg"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/green"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_offer_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_off_percentage"
+                android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/rupee_icon_small"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/text_color_black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_mrp_rate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_off_percentage"
+                android:layout_toLeftOf="@+id/txt_offer_rate"
+                android:background="@drawable/text_view_strike"
+                android:drawableLeft="@drawable/rupee_icon_small"
+                android:paddingHorizontal="4dp"
+                android:textColor="@color/grey"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_inc_tax"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_mrp_rate"
+                android:layout_alignParentRight="true"
+                android:paddingHorizontal="4dp"
+                android:text="Inc. of all taxes"
+                android:textColor="@color/text_color_black"
+                android:textSize="10sp" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dp"
+            android:orientation="vertical"
+            android:padding="8dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Applicable on"
+                android:textColor="@color/text_color_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvApplicableOn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valid for Dine in, Take Away \n not valid for home delivery" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Cancellation Policy"
+                android:textColor="@color/text_color_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvCancellationPolicy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Non Cancellable" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Use this before"
+                android:textColor="@color/text_color_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvExpieryDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="16 jan 2019" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Validity details"
+                android:textColor="@color/text_color_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvValidityDetails"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Valid on Dine In, Take Away, Not Valid on Home Delivery" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>

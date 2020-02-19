@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string name="app_name">Dealsnest</string>
+    <string name="api_key">AIzaSyCeINGxQ_Byi97_cWPtTkZoJERAf9UGJDE</string>
+
+    <string name="title_activity_navigation">NavigationActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">Welcome to Shoffz, Use below options to customize your experience</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
+    <string name="action_logout">Logout</string>
+    <string name="action_close">Close</string>
+    <string name="title_home">Home</string>
+    <string name="title_category">Categories</string>
+    <string name="title_coupons">Coupons</string>
+    <string name="title_favorites">Favorites</string>
+    <string name="title_booked">Bookings</string>
+    <string name="title_profile">Profile</string>
+    <string name="your_reset_email_message">We have send mail to %1$s click then in the mail to reset your password</string>
+    <string name="reference_description">The best Location-based Deal Finding App! With exclusive offers, cash back deals,coupons &amp; great discounts. You can save money every time you visit restaurants,fashion stores,grocery shop,home appliances,furniture\s,spa etc at local and national merchant locations. Discover hot deals nearby &amp; choose from a wide range of categories.  </string>
+    <string name="facebook_app_id">388229921805929</string>
+    <string name="fb_login_protocol_scheme">fb409295199808623</string>
+    <string name="shop_deal_offer">Upto %1$s off</string>
+    <string name="shop_offer_percentage">Upto %1$s  off</string>
+    <string name="deal_offer_percentage">%1$s  off</string>
+    <string name="fav_offer">%1$s off </string>
+    <string name="profile">Profile</string>
+    <string name="deals_of_the_day_view_more_count">View More( %1$s )</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="privacy_policy_and_eula">By signing up you agree to our <b>Privacy Policy</b> and <b>EULA</b></string>
+    <string name="error_api_key" translatable="false">No API key defined in gradle.properties</string>
+    <string name="description"><u>Description</u></string>
+    <string name="dealsnest_with_exclematory">Dealsnest!</string>
+    <string name="welcome_to">Welcome to</string>
+    <string name="or_login_via_email">or login via email</string>
+    <string name="facebook">facebook</string>
+    <string name="google">google</string>
+    <string name="email_id">Email ID</string>
+    <string name="password">Password</string>
+    <string name="forgot_password">Forgot Password?</string>
+
+</resources>

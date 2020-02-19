@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/activities_bg"
+    tools:context="com.presentation.app.dealsnest.ui.shop_details.ShopActivity">
+
+    <include layout="@layout/layout_app_bar_white" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/cardBooking">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/llShowImages"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_margin="@dimen/activity_vertical_margin"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        card_view:cardCornerRadius="4dp"
+                        card_view:cardElevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/image_one"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop" />
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="3dp" />
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/cvImageSecond"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:visibility="visible"
+                        card_view:cardCornerRadius="4dp"
+                        card_view:cardElevation="4dp">
+
+                        <ImageView
+                            android:id="@+id/image_second"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:scaleType="centerCrop" />
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="3dp" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_image_third"
+                        android:layout_width="0dp"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:visibility="visible">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            card_view:cardCornerRadius="4dp"
+                            card_view:cardElevation="4dp">
+
+                            <ImageView
+                                android:id="@+id/image_third"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:foregroundGravity="center"
+                                android:foregroundTint="@color/grey"
+                                android:scaleType="centerCrop" />
+
+                            <LinearLayout
+                                android:id="@+id/viewMore"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@color/dark_transparent"
+                                android:padding="2dp">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@drawable/ic_1" />
+
+                                <TextView
+                                    android:id="@+id/tvPhotoCount"
+                                    android:layout_width="56dp"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:text="+7 Photos"
+                                    android:textColor="@color/white" />
+                            </LinearLayout>
+                        </android.support.v7.widget.CardView>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginStart="@dimen/activity_vertical_margin"
+                        android:layout_marginEnd="60dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/txt_shop_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/text_color_black"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txt_location"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/nunito_regular"
+                            android:textColor="@color/text_color_black"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/ivFavorite"
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="16dp"
+                        android:src="@drawable/ic_heart_line"
+                        android:visibility="gone" />
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_marginTop="@dimen/activity_vertical_margin"
+                    android:gravity="start">
+
+                    <TextView
+                        android:id="@+id/tvCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/call_resize"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:gravity="start"
+                        android:text="Call"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_rating_resized"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:gravity="start"
+                        android:paddingEnd="17dp"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_distance_reized"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:gravity="start"
+                        android:paddingEnd="17dp"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/txt_fav_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:drawableStart="@drawable/ic_fav_resized"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:gravity="start"
+                        android:paddingEnd="17dp"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@android:color/darker_gray" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rvOfferDetails"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="32dp" />
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardBooking"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            app:cardElevation="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/number_of_item"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="Items in cart"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/txt_cost"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@null"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="12sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txt_include_tax"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="Inc. of all taxes"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+
+                <Button
+                    android:id="@+id/button_review_booking"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/button_bg_black"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="Review Booking"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="12dp" />
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+    </RelativeLayout>
+
+
+</android.support.design.widget.CoordinatorLayout>

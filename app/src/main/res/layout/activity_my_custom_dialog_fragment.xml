@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        app:cardCornerRadius="12dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/dialog_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Check your email"
+                android:textColor="@color/text_color_black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/dialog_message"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nunito_regular"
+                android:text="We have send mail to your email click then in the mail to reset your password"
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/dialog_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/nunito_regular"
+                android:text="If you dont see email,check places like junk,spam or other folders"
+                android:textColor="@color/grey"
+                android:textSize="12sp" />
+
+            <Button
+                android:id="@+id/btn_continue"
+                android:layout_width="96dp"
+                android:layout_height="32dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="80dp"
+                android:background="@drawable/add_button_rounded_corner"
+                android:text="Continue"
+                android:textColor="@color/white"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+</RelativeLayout>

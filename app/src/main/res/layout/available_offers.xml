@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/card_view"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_vertical_margin"
+    card_view:cardCornerRadius="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="5dp">
+
+            <TextView
+                android:id="@+id/txt_validity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:paddingHorizontal="4dp"
+                android:text="Valid till:" />
+
+            <TextView
+                android:id="@+id/txt_validity_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/txt_validity"
+                android:text="All Days"
+                android:textColor="@color/text_color_black"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/booked_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:text="200 Bought" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/orange" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/deals_thumbnail"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/ic_profile_fill" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/txt_deal_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="100dp"
+                    android:text="One Big Spicy Wrap + 1 Medium Fries + 1 medium coke"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/txt_timing"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_deal_name"
+                    android:layout_alignParentLeft="true"
+                    android:text="Timing"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="6sp" />
+
+                <TextView
+                    android:id="@+id/txt_timing_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_deal_name"
+                    android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/txt_timing"
+                    android:text="11 Am - 11 Pm"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="6sp" />
+
+                <TextView
+                    android:id="@+id/txt_valid_for"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_timing"
+                    android:layout_alignParentLeft="true"
+                    android:text="Valid for "
+                    android:textColor="@color/text_color_black"
+                    android:textSize="6sp" />
+
+                <TextView
+                    android:id="@+id/txt_valid_for_value"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_timing"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/txt_valid_for"
+                    android:text="1 person"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="6sp" />
+
+                <TextView
+                    android:id="@+id/txt_off_percentage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/green_line_bg_round_corner_2dp"
+                    android:paddingHorizontal="4dp"
+                    android:text="16% off"
+                    android:textColor="@color/green"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/txt_offer_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_off_percentage"
+                    android:layout_alignParentRight="true"
+                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:paddingHorizontal="4dp"
+                    android:text="270"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/txt_mrp_rate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_off_percentage"
+                    android:layout_toLeftOf="@+id/txt_offer_rate"
+                    android:background="@drawable/text_view_strike"
+                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:paddingHorizontal="4dp"
+                    android:text="320"
+                    android:textColor="@color/grey"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/txt_inc_tax"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/txt_mrp_rate"
+                    android:layout_alignParentRight="true"
+                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:paddingHorizontal="4dp"
+                    android:text="Inc. of all taxes"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="10sp" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/txt_detail_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/text_view_stroke"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Details"
+                android:textColor="@color/yellow"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_share_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="5dp"
+                android:layout_toRightOf="@+id/txt_detail_button"
+                android:background="@drawable/text_view_stroke"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Share"
+                android:textColor="@color/yellow"
+                android:textSize="10sp" />
+            <!--<TextView-->
+            <!--android:id="@+id/txt_menu_button"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_toRightOf="@+id/txt_detail_button"-->
+            <!--android:paddingHorizontal="8dp"-->
+            <!--android:paddingVertical="3dp"-->
+            <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+            <!--android:textStyle="bold"-->
+            <!--android:textColor="@color/yellow"-->
+            <!--android:textSize="10sp"-->
+            <!--android:background="@drawable/text_view_stroke"-->
+            <!--android:text="Menu"/>-->
+            <TextView
+                android:id="@+id/txt_add_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/view_text_bg"
+                android:paddingHorizontal="8dp"
+                android:paddingVertical="3dp"
+                android:text="Add +"
+                android:textColor="@color/white"
+                android:textSize="10sp" />
+
+            <LinearLayout
+                android:id="@+id/adding_layout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:gravity="center"
+                android:paddingHorizontal="8dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txt_minus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/view_text_bg"
+                    android:gravity="center"
+                    android:text="-" />
+
+                <TextView
+                    android:id="@+id/txt_quantity"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:gravity="center"
+                    android:text="6" />
+
+                <TextView
+                    android:id="@+id/txt_plus"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/view_text_bg"
+                    android:gravity="center"
+                    android:text="+" />
+            </LinearLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>

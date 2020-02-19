@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.presentation.app.dealsnest.ui.viewdeals.ShopAllDealsFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <!--<ScrollView-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_marginBottom="70dp">-->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--<RelativeLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_margin="@dimen/activity_vertical_margin">-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/image_one"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:src="@drawable/pizza_hut" />-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/image_second"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="110dp"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_toRightOf="@+id/image_one"-->
+        <!--android:src="@drawable/pizza_hut" />-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/more_images"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="110dp"-->
+        <!--android:layout_below="@+id/image_second"-->
+        <!--android:layout_toRightOf="@+id/image_one"-->
+        <!--android:foreground="@drawable/ic_1"-->
+        <!--android:foregroundGravity="center"-->
+        <!--android:foregroundTint="@color/grey"-->
+        <!--android:src="@drawable/pizza_hut" />-->
+        <!--</RelativeLayout>-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_shop_name"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+        <!--android:text="Pizza Hut"-->
+        <!--android:textColor="@color/text_color_black"-->
+        <!--android:textSize="30sp"-->
+        <!--android:textStyle="bold" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_address"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginLeft="@dimen/activity_vertical_margin"-->
+        <!--android:text="M.G Road,Ernakulam"-->
+        <!--android:textColor="@color/text_color_black"-->
+        <!--android:textSize="20sp"-->
+        <!--android:textStyle="normal" />-->
+
+        <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+        <!--android:gravity="start">-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_shop_rating"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawableLeft="@drawable/ic_dark_star"-->
+        <!--android:drawablePadding="6dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="4.8 Rating"-->
+        <!--android:textSize="12sp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_shop_distance"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawableLeft="@drawable/ic_distance"-->
+        <!--android:drawablePadding="6dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="12 km Away"-->
+        <!--android:textSize="12sp" />-->
+
+        <!--<TextView-->
+        <!--android:id="@+id/txt_shop_fav_count"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="1"-->
+        <!--android:drawableLeft="@drawable/ic_heart"-->
+        <!--android:drawablePadding="6dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="88 Favourites"-->
+        <!--android:textSize="12sp" />-->
+
+        <!--<ImageView-->
+        <!--android:id="@+id/im_Call"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight=".3"-->
+        <!--android:src="@drawable/ic_call_black_24dp"-->
+        <!--android:text="Call" />-->
+        <!--</LinearLayout>-->
+
+        <!--<View-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1dp"-->
+        <!--android:layout_marginTop="10dp"-->
+        <!--android:background="@android:color/darker_gray" />-->
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvOfferDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+    </RelativeLayout>
+    <!--</ScrollView>-->
+
+
+</FrameLayout>
