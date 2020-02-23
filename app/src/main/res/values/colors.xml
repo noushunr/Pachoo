@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <color name="colorPrimary">#ffffff</color>
-    <color name="colorPrimaryDark">#DDDDDD</color>
-    <color name="colorAccent">#000000</color>
+    <color name="colorPrimary">#6680FF</color>
+    <color name="colorPrimaryDark">#3260CE</color>
+    <color name="colorPrimaryLight">#6E8ACE</color>
+    <color name="colorAccent">#FFFFFF</color>
     <color name="bgBottomNavigation">#eaeaea</color>
-    <color name="BottomNavigationIcon">#f89d81</color>
     <color name="hintColor">#ffffff</color>
     <color name="hintText">#ff1e1e</color>
     <color name="nav_menu_color">#ff8205</color>
     <color name="text_color_black">#000</color>
-    <color name="orange">#ff5435</color>
-    <color name="lightOrange">#f5ab9e</color>
     <color name="grey">#CFCFCF</color>
     <color name="light_grey">#FFE9E9E9</color>
     <color name="deal_bottom_color">#F2F2F2</color>

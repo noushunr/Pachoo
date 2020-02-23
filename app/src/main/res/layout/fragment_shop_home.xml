@@ -106,7 +106,7 @@
                 android:gravity="center"
                 android:text="View All"
                 android:textAllCaps="true"
-                android:textColor="@color/orange" />
+                android:textColor="@color/colorPrimary" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -267,7 +267,7 @@
                     android:layout_below="@+id/view_divided_3"
                     android:layout_alignParentRight="true"
                     android:text="Write Review"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
                 <TextView
@@ -286,7 +286,7 @@
                     android:layout_below="@+id/txt_review_details"
                     android:layout_alignParentLeft="true"
                     android:text="Read all reviews"
-                    android:textColor="@color/orange"
+                    android:textColor="@color/colorPrimary"
                     android:textStyle="bold" />
 
                 <View

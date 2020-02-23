@@ -45,7 +45,7 @@
                 android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:text="Deals got over"
-                android:textColor="@color/orange"
+                android:textColor="@color/colorPrimary"
                 android:visibility="visible" />
         </LinearLayout>
 

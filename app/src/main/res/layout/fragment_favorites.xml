@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="No favorites added"
-        android:textColor="@color/orange"
+        android:textColor="@color/colorPrimary"
         android:visibility="gone" />
 
 </RelativeLayout>

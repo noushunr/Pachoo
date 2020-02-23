@@ -59,7 +59,7 @@
                 android:layout_height="36dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/orange_light_corner_round"
+                android:background="@drawable/primary_light_corner_round"
                 android:text="Edit"
                 android:textAllCaps="true"
                 android:textColor="@color/white"

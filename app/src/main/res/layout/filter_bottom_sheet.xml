@@ -65,7 +65,7 @@
             android:paddingHorizontal="4dp"
             android:paddingVertical="1dp"
             android:text="Reset"
-            android:textColor="@color/orange"
+            android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
     </RelativeLayout>
 
@@ -142,7 +142,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="true"
                 android:text="Branded"
                 android:textColor="@color/text_color_black" />
@@ -152,7 +152,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="false"
                 android:text="Non Branded"
                 android:textColor="@color/text_color_black" />
@@ -162,7 +162,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="false"
                 android:text="All"
                 android:textColor="@color/text_color_black" />
@@ -191,7 +191,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="true"
                 android:text="below 11"
                 android:textColor="@color/text_color_black" />
@@ -201,7 +201,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="false"
                 android:text="between 11 - 7k"
                 android:textColor="@color/text_color_black" />
@@ -211,7 +211,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="false"
                 android:text="between 7k - 15k"
                 android:textColor="@color/text_color_black" />
@@ -221,7 +221,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:buttonTint="@color/lightOrange"
+                android:buttonTint="@color/colorPrimaryLight"
                 android:checked="false"
                 android:text="above 15k"
                 android:textColor="@color/text_color_black" />

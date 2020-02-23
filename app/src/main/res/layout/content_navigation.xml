@@ -27,7 +27,7 @@
         android:background="?android:attr/windowBackground"
         android:foreground="?attr/selectableItemBackground"
         app:itemBackground="@color/bgBottomNavigation"
-        app:itemIconTint="@color/BottomNavigationIcon"
-        app:itemTextColor="@color/BottomNavigationIcon"
+        app:itemIconTint="@color/colorPrimary"
+        app:itemTextColor="@color/colorPrimary"
         app:menu="@menu/navigation" />
 </RelativeLayout>

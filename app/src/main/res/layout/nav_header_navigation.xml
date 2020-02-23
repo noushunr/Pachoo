@@ -17,7 +17,7 @@
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="Hello"
-            android:textColor="@color/orange"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp" />
 
         <TextView
@@ -26,7 +26,7 @@
             android:paddingTop="@dimen/nav_header_vertical_spacing"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:text="Sherin!"
-            android:textColor="@color/orange"
+            android:textColor="@color/colorPrimary"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -35,6 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:layout_marginTop="10dp"
+            android:tint="@color/colorPrimary"
             android:src="@drawable/ic_settings" />
     </LinearLayout>
 

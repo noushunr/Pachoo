@@ -49,12 +49,12 @@
     </style>
 
     <style name="RatingBar" parent="Base.Widget.AppCompat.RatingBar.Small">
-        <item name="colorControlNormal">@color/orange</item>
-        <item name="colorControlActivated">@color/lightOrange</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
+        <item name="colorControlActivated">@color/colorPrimaryLight</item>
     </style>
 
     <style name="CheckBox" parent="Base.Widget.AppCompat.CompoundButton.CheckBox">
-        <item name="colorControlNormal">@color/orange</item>
+        <item name="colorControlNormal">@color/colorPrimary</item>
     </style>
 
     <style name="SearchTextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">

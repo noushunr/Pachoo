@@ -51,7 +51,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_marginRight="120dp"
                         android:text="Have another code >"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/colorPrimary"
                         android:visibility="gone" />
 
                     <View
@@ -92,7 +92,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_marginEnd="8dp"
                         android:text="Inc. of all taxes"
-                        android:textColor="@color/orange"
+                        android:textColor="@color/colorPrimary"
                         android:textSize="12sp" />
                 </RelativeLayout>
 

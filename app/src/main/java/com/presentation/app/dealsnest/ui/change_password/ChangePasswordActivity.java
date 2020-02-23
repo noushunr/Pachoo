@@ -22,7 +22,7 @@ public class ChangePasswordActivity extends BaseActivity implements OnFragmentIn
     private Button mSubmit;
     private ImageView mClose;
     private LinearLayout mLayout;
-    private EditText edit_current_password, edit_new_password, edit_confirm_password;
+    private EditText edit_new_password, edit_confirm_password;
     private ChangePasswordPresenter passwordPresenter;
     private String REGISTER_ID_HOLDER, NEW_PASSWORD_HOLDER, CONFIRM_PASSWORD_HOLDER;
 
@@ -57,7 +57,6 @@ public class ChangePasswordActivity extends BaseActivity implements OnFragmentIn
     }
 
     private void initView() {
-        edit_current_password = findViewById(R.id.edit_current_password);
         edit_new_password = findViewById(R.id.edit_new_password);
         edit_confirm_password = findViewById(R.id.edit_confirm_password);
         mSubmit = findViewById(R.id.btn_submit);
@@ -129,12 +128,6 @@ public class ChangePasswordActivity extends BaseActivity implements OnFragmentIn
     }
 
     private boolean isValidated() {
-
-       /* if (CURRENT_PASSWORD_HOLDER.isEmpty()){
-            edit_current_password.setError("Current Password Field Is Empty");
-            edit_current_password.requestFocus();
-            return false;
-        }else */
         if (NEW_PASSWORD_HOLDER.isEmpty()) {
             edit_new_password.setError("New Password Field Is Empty");
             edit_new_password.requestFocus();

@@ -32,7 +32,7 @@
             android:layout_marginTop="16dp"
             android:isIndicator="false"
             android:numStars="5"
-            android:progressTint="@color/orange"
+            android:progressTint="@color/colorPrimary"
             android:scaleX=".7"
             android:scaleY=".7"
             android:transformPivotX="130dp"

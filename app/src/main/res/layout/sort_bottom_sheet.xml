@@ -69,7 +69,7 @@
             android:paddingHorizontal="4dp"
             android:paddingVertical="1dp"
             android:text="Reset"
-            android:textColor="@color/orange"
+            android:textColor="@color/colorPrimary"
             android:textSize="12sp" />
     </RelativeLayout>
 

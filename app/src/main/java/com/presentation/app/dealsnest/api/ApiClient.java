@@ -9,26 +9,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String IMAGE_BASE_URL = "https://shoffz.com/uploads/admin/offers/";
-    public static final String NOTIFICATION_IMAGE_URL = "https://shoffz.com/uploads/admin/notification/";
-    public static final String CATEGORY_BASE_URL = "https://shoffz.com/uploads/admin/categories/";
-    public static final String DEALS_BASE_URL = "https://shoffz.com/uploads/admin/merchants/";
-    public static final String SLIDERS_BASE_URL = "https://shoffz.com/uploads/admin/sliders/";
-    public static final String TOP_BANNER_BASE_URL = "https://shoffz.com/uploads/admin/banners/";
-    public static final String BRANDED_SHOP_BASE_URL = "https://shoffz.com/uploads/admin/merchants/";
-    public static final String MIDDLE_BANNER_BASE_URL = "https://shoffz.com/uploads/admin/banners/";
-    public static final String RECENTLY_BOOKED = "https://shoffz.com/uploads/admin/merchants/";
-    public static final String PROFILE_BASE_URL = "https://shoffz.com/uploads/admin/users/";
-    public static final String IMAGE_URL_COUPONS = "https://shoffz.com/uploads/admin/coupons/";
-    public static final String SUB_CAT_BASE_URL = "https://shoffz.com/uploads/admin/subcategories/";
-    public static final String SHOP_LIST_BANNER_BASE_URL = "https://shoffz.com/uploads/admin/banners/";
-    public static final String SHOP_LIST_SHOPS_BASE_URL = "https://shoffz.com/uploads/admin/merchants/";
-    public static final String SHOP_DETAILS_BASE_URL = "https://shoffz.com/uploads/admin/merchants/";
-    public static final String SHOP_MOST_POPULAR_BASE_URL = "https://shoffz.com/uploads/admin/offers/";
-    public static final String VIEW_ALL_BASE_URL = "https://shoffz.com/uploads/admin/offers/";
-    public static final String VIEW_ALL_COUPONS_BASE_URL = "https://shoffz.com/uploads/admin/coupons/";
-    public static final String GET_FAVOURITE_SHOP_BASE_URL = "https://shoffz.com/uploads/admin/merchants/";
-    private static final String BASE_URL = "https://shoffz.com/";
+    public static final String IMAGE_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/offers/";
+    public static final String NOTIFICATION_IMAGE_URL = "http://dealnest.co.uk/index.php/uploads/admin/notification/";
+    public static final String CATEGORY_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/categories/";
+    public static final String DEALS_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/merchants/";
+    public static final String SLIDERS_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/sliders/";
+    public static final String TOP_BANNER_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/banners/";
+    public static final String BRANDED_SHOP_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/merchants/";
+    public static final String MIDDLE_BANNER_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/banners/";
+    public static final String RECENTLY_BOOKED = "http://dealnest.co.uk/index.php/uploads/admin/merchants/";
+    public static final String PROFILE_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/users/";
+    public static final String IMAGE_URL_COUPONS = "http://dealnest.co.uk/index.php/uploads/admin/coupons/";
+    public static final String SUB_CAT_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/subcategories/";
+    public static final String SHOP_LIST_BANNER_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/banners/";
+    public static final String SHOP_LIST_SHOPS_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/merchants/";
+    public static final String SHOP_DETAILS_BASE_URL = "http://dealnest.co.uk/index.php/admin/merchants/";
+    public static final String SHOP_MOST_POPULAR_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/offers/";
+    public static final String VIEW_ALL_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/offers/";
+    public static final String VIEW_ALL_COUPONS_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/coupons/";
+    public static final String GET_FAVOURITE_SHOP_BASE_URL = "http://dealnest.co.uk/index.php/uploads/admin/merchants/";
+    private static final String BASE_URL = "http://dealnest.co.uk/index.php/";
     private static Retrofit retrofit = null;
     private static OkHttpClient.Builder httpClient = null;
 
@@ -51,7 +51,6 @@ public class ApiClient {
             httpClient.connectTimeout(30000, TimeUnit.SECONDS);
             httpClient.readTimeout(30000, TimeUnit.SECONDS).build();
             httpClient.addInterceptor(logging);
-
         }
         return httpClient;
     }

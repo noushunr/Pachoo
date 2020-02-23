@@ -7,7 +7,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">Welcome to Shoffz, Use below options to customize your experience</string>
+    <string name="nav_header_subtitle">Welcome to Dealsnest, Use below options to customize your experience</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
@@ -43,5 +43,7 @@
     <string name="forgot_password">Forgot Password?</string>
     <string name="book_now">Book Now</string>
     <string name="no_bookings">No bookings</string>
+    <string name="dealsnest">Dealsnest</string>
+    <string name="hello_dealsnest">Hello, Dealsnest</string>
 
 </resources>

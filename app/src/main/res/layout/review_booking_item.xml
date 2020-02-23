@@ -37,7 +37,7 @@
                 android:layout_height="1dp"
                 android:layout_below="@+id/txt_order_name"
                 android:layout_alignParentLeft="true"
-                android:background="@color/orange" />
+                android:background="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/order_desc"
