@@ -292,7 +292,7 @@ public class HomeMainActivity extends BaseActivity
     private void toLogin() {
         Intent toLoginIntent = LoginActivity.getActivityIntent(this);
         toLoginIntent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
-        toLoginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+//        toLoginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(toLoginIntent);
 
     }
