@@ -59,12 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().getStringExtra(Constants.FROM_INSIDE) != null) {
-            setContentView(R.layout.activity_register_white);
-            fromStr = Constants.FROM_INSIDE;
-        } else {
-            setContentView(R.layout.activity_register);
-        }
+        setContentView(R.layout.activity_register);
 
         loginRegisterPresenterInterface = new LoginRegisterPresenter(this);
 

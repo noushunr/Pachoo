@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/black"
+    android:background="@color/white"
     tools:ignore="MissingDefaultResource">
 
 
@@ -58,13 +58,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="My Profile"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,13 +82,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="My Booking"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -106,13 +106,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="My Favorites"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -130,13 +130,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Refer a friend"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -154,13 +154,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Notification"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -178,13 +178,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Rate app"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -202,13 +202,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Help"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <LinearLayout
@@ -226,13 +226,13 @@
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Logout"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="16sp" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.25dp"
-                    android:background="@color/white_transparent" />
+                    android:background="@color/black" />
             </LinearLayout>
 
             <View
@@ -253,7 +253,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Version 1.1.0"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
 
                 <TextView
@@ -261,7 +261,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Config 1.2"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
 
                 <TextView
@@ -269,7 +269,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
                     android:text="Copyrights all reserved"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
         </LinearLayout>

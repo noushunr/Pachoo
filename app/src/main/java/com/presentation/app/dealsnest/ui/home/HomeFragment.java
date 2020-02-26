@@ -294,7 +294,7 @@ public class HomeFragment extends BaseFragment implements
                 if (getActivity() != null) {
                     Glide.with(getActivity())
                             .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                            .load(/*ApiClient.TOP_BANNER_BASE_URL + TOP_BANNER*/"")
+                            .load(ApiClient.TOP_BANNER_BASE_URL + TOP_BANNER)
                             .into(mTopBanner);
                 }
             }

@@ -58,16 +58,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return new Intent(context, LoginActivity.class);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().getStringExtra(Constants.FROM_INSIDE) != null) {
-            setContentView(R.layout.activity_login_white);
-            fromStr = Constants.FROM_INSIDE;
-        } else {
-            setContentView(R.layout.activity_login);
-        }
+        setContentView(R.layout.activity_login);
 
         GlobalPreferManager.initializePreferenceManager(getApplicationContext());
         loginRegisterPresenterInterface = new LoginRegisterPresenter(this);

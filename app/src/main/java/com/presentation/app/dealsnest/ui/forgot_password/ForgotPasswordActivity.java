@@ -13,7 +13,6 @@ import android.widget.Button;
 import com.presentation.app.dealsnest.R;
 import com.presentation.app.dealsnest.ui.MyCustomDialogFragment;
 import com.presentation.app.dealsnest.utils.CommonUtils;
-import com.presentation.app.dealsnest.utils.Constants;
 
 public class ForgotPasswordActivity extends AppCompatActivity implements View.OnClickListener, ForgotPasswordViewInterface {
 
@@ -30,12 +29,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getIntent().getStringExtra(Constants.FROM_INSIDE) != null) {
-            setContentView(R.layout.activity_forgot_password_white);
-            fromStr = Constants.FROM_INSIDE;
-        } else {
-            setContentView(R.layout.activity_forgot_password);
-        }
+        setContentView(R.layout.activity_forgot_password);
         forgotPasswordPresenter = new ForgotPasswordPresenter(this);
         mEditEmailID = findViewById(R.id.edit_email_id);
         mReset = findViewById(R.id.btn_reset);
