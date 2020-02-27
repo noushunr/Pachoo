@@ -45,9 +45,9 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
         myViewHolder.tvPopularName.setText(mostPopular.getName());
         myViewHolder.tvPopularDesc.setText(mostPopular.getDescription());
         myViewHolder.tvValidityTo.setText(mostPopular.getOfferValidTo());
-        String mrpStr = "₹" + mostPopular.getMrpPrice();
-        String offerPriceStr = "₹" + mostPopular.getOfferPrice();
-        String saveStr = "₹" + SAVING;
+        String mrpStr = mContext.getString(R.string.pound_symbol) + mostPopular.getMrpPrice();
+        String offerPriceStr = mContext.getString(R.string.pound_symbol) + mostPopular.getOfferPrice();
+        String saveStr = mContext.getString(R.string.pound_symbol) + SAVING;
         myViewHolder.tvMrpPrice.setText(mrpStr);
         myViewHolder.tvOfferPrice.setText(offerPriceStr);
         myViewHolder.tvSavedPrice.setText(saveStr);

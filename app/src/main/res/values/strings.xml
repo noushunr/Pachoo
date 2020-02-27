@@ -45,5 +45,6 @@
     <string name="no_bookings">No bookings</string>
     <string name="dealsnest">Dealsnest</string>
     <string name="hello_dealsnest">Hello, Dealsnest</string>
+    <string name="pound_symbol">£</string>
 
 </resources>

@@ -70,8 +70,8 @@ public class OfferDetailAdapter extends RecyclerView.Adapter<OfferDetailAdapter.
         myViewHolder.tvDealName.setText(offer.getName());
         myViewHolder.tvValidFor.setText(offer.getValidFor() + " Person");
         myViewHolder.tvTiming.setText(timing);
-        myViewHolder.tvMrpPrice.setText("₹" + offer.getMrpPrice());
-        myViewHolder.tvOfferPrice.setText("₹" + offer.getOfferPrice());
+        myViewHolder.tvMrpPrice.setText(mContext.getString(R.string.pound_symbol) + offer.getMrpPrice());
+        myViewHolder.tvOfferPrice.setText(mContext.getString(R.string.pound_symbol) + offer.getOfferPrice());
         myViewHolder.tvOfferPercentage.setText(offer_percentage);
         if (offer.getOfferPercentage().equals("null")) {
             myViewHolder.tvOfferPercentage.setText("0" + "%");
