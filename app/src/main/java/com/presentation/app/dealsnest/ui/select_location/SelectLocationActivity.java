@@ -78,7 +78,7 @@ public class SelectLocationActivity extends BaseActivity implements PopularCitie
 
         tvToolbarTitle = findViewById(R.id.tvToolbarText);
         tvToolbarTitle.setText("Select Location");
-        String apiKey = getString(R.string.api_key);
+        String apiKey = getString(R.string.google_android_key);
 
         if (apiKey.equals("")) {
             Toast.makeText(this, getString(R.string.error_api_key), Toast.LENGTH_LONG).show();
