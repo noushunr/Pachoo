@@ -3,5 +3,5 @@
     <item
         android:width="18dp"
         android:height="18dp"
-        android:drawable="@drawable/ic_heart" />
+        android:drawable="@drawable/ic_favorites" />
 </layer-list>

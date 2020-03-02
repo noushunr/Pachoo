@@ -254,7 +254,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
         }
 
         String offer_percentage = "Upto " + shopDetail.getOfferPercentage() + "% off";
-        String km = shopDetail.getKms() + "kms";
+        String miles = shopDetail.getKms() + " miles";
 
         if (shopDetail.getImages().size() > 0)
             IMAGE_URL = Uri.parse(/*ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(0).getImages()*/"");
@@ -268,7 +268,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
         tvLocation.setText(location);
         tvCategory.setText(shopDetail.getCategory());
         tvRating.setText(shopDetail.getRatings());
-        tvDistance.setText(km);
+        tvDistance.setText(miles);
         String favCount = shopDetail.getFavCount() + " Fav";
         tvFavCount.setText(favCount);
         SHOP_CALL = shopDetail.getMobile();

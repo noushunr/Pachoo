@@ -3,6 +3,6 @@
     <item
         android:width="18dp"
         android:height="18dp"
-        android:drawable="@drawable/ic_call_black_24dp" />
+        android:drawable="@drawable/ic_call" />
 
 </layer-list>

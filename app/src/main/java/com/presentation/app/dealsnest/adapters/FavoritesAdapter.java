@@ -31,7 +31,6 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyVi
         this.mContext = mContext;
         this.favoritesModels = favoritesModels;
         this.listener = listener;
-
     }
 
     @NonNull

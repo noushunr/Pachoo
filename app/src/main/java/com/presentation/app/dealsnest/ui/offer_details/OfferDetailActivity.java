@@ -229,7 +229,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     public void setOfferDetail(OfferDetail offerDetail) {
-        String km = offerDetail.getKms() + " kms";
+        String km = offerDetail.getKms() + " miles";
         mShopName = offerDetail.getBusinessName();
         SHOP_CALL = offerDetail.getMobile();
         tvToolbarText.setText(offerDetail.getBusinessName());

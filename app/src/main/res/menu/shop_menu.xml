@@ -4,7 +4,6 @@
     <item
         android:id="@+id/navigation_share"
         android:icon="@drawable/ic_share_white"
-        android:iconTint="@color/white"
         android:title="@string/action_close"
         app:showAsAction="always" />
 </menu>
