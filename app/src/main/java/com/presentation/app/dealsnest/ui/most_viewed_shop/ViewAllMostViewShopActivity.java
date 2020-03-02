@@ -34,7 +34,7 @@ public class ViewAllMostViewShopActivity extends BaseActivity implements ViewAll
 
     private void initView() {
         tvToolbarText = findViewById(R.id.tvToolbarText);
-        tvToolbarText.setText("Shoffz");
+        tvToolbarText.setText(getString(R.string.dealsnest));
         rvMostlyViewShop = findViewById(R.id.view_all_mostly_view_shop);
         layoutManager = new GridLayoutManager(this, 2);
         rvMostlyViewShop.setLayoutManager(layoutManager);

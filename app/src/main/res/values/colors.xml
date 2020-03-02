@@ -3,7 +3,7 @@
     <color name="colorPrimary">#6680FF</color>
     <color name="colorPrimaryDark">#3260CE</color>
     <color name="colorPrimaryLight">#6E8ACE</color>
-    <color name="colorAccent">#FFFFFF</color>
+    <color name="colorAccent">#6680FF</color>
     <color name="bgBottomNavigation">#eaeaea</color>
     <color name="hintColor">#ffffff</color>
     <color name="hintText">#ff1e1e</color>

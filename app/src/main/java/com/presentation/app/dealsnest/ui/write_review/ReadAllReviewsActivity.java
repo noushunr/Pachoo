@@ -31,7 +31,7 @@ public class ReadAllReviewsActivity extends BaseActivity {
 
     private void initView() {
         tvToolbar = findViewById(R.id.tvToolbarText);
-        tvToolbar.setText("Shoffz");
+        tvToolbar.setText(getString(R.string.dealsnest));
 
         rvAllReviewRecyclerView = findViewById(R.id.all_reviews);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

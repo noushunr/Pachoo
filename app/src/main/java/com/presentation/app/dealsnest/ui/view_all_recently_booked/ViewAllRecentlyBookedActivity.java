@@ -36,7 +36,7 @@ public class ViewAllRecentlyBookedActivity extends BaseActivity implements ViewA
     private void initView() {
 
         tvToolbarText = findViewById(R.id.tvToolbarText);
-        tvToolbarText.setText("Shoffz");
+        tvToolbarText.setText(getString(R.string.dealsnest));
         rvViewAllRecentlyBooked = findViewById(R.id.view_all_recently_booked);
         layoutManager = new GridLayoutManager(this, 2);
         rvViewAllRecentlyBooked.setLayoutManager(layoutManager);

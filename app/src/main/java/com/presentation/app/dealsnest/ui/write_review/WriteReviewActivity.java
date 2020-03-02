@@ -40,7 +40,7 @@ public class WriteReviewActivity extends BaseActivity implements View.OnClickLis
         MERCHANT_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.MERCHANT_ID, "");
         REVIEWER_NAME_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
         tvHomeTitle = findViewById(R.id.tvToolbarText);
-        tvHomeTitle.setText("Shoffz");
+        tvHomeTitle.setText(getString(R.string.dealsnest));
         Intent intent = getIntent();
         OFFER_ID = intent.getStringExtra("offer_id");
         REVIEW_TYPE = intent.getStringExtra("review_type");

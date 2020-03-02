@@ -614,7 +614,7 @@
                     android:layout_below="@+id/txt_seating_type"
                     android:layout_alignParentLeft="true"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Information shown above is provided by merchant and shoffz is not liable for its accuracy"
+                    android:text="Information shown above is provided by merchant and Dealsnest is not liable for its accuracy"
                     android:textColor="@color/text_color_black"
                     android:textSize="10sp"
                     android:textStyle="normal" />

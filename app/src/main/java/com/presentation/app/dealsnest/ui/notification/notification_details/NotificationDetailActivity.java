@@ -42,7 +42,7 @@ public class NotificationDetailActivity extends BaseActivity implements Notifica
 
     private void initView() {
         tvToolbarText = findViewById(R.id.tvToolbarText);
-        tvToolbarText.setText("Shoffz");
+        tvToolbarText.setText(getString(R.string.dealsnest));
         llNoOfferFound = findViewById(R.id.llNoOfferFound);
         rvViewMerchants = findViewById(R.id.view_all_notification_deals);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

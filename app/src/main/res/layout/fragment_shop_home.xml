@@ -358,7 +358,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_seating_type"
                     android:layout_alignParentLeft="true"
-                    android:text="Information shown above is provided by Marchant an shoffz is not liable for its accuracy"
+                    android:text="Information shown above is provided by Marchant an Dealsnest is not liable for its accuracy"
                     android:textColor="@color/grey"
                     android:textStyle="bold" />
 

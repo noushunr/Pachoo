@@ -70,7 +70,7 @@
                     android:layout_marginTop="4dp"
                     android:fontFamily="@font/nunito_regular"
                     android:gravity="center"
-                    android:text="confirmed email has been sent \n to shoffzuser@gmail.com"
+                    android:text="@string/confirmed_email_has_been_sent_n_to_dealsnest_gmail_com"
                     android:textColor="@color/white"
                     android:textSize="10sp" />
 

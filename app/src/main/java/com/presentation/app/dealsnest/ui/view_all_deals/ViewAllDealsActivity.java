@@ -35,7 +35,7 @@ public class ViewAllDealsActivity extends BaseActivity implements ViewAllDealsVi
 
     private void initView() {
         tvToolbarText = findViewById(R.id.tvToolbarText);
-        tvToolbarText.setText("Shoffz");
+        tvToolbarText.setText(getString(R.string.dealsnest));
         rvViewAllDeals = findViewById(R.id.view_all_deals);
         layoutManager = new GridLayoutManager(this, 2);
         rvViewAllDeals.setLayoutManager(layoutManager);

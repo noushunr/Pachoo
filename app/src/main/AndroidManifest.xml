@@ -175,7 +175,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="shoffz.com"
+                    android:host="dealnest.co.uk/index.php"
                     android:scheme="http"
                     android:pathPrefix="/share_offer" />
             </intent-filter>
@@ -191,7 +191,7 @@
                 <category android:name="android.intent.category.BROWSABLE" />
 
                 <data
-                    android:host="shoffz.com"
+                    android:host="dealnest.co.uk/index.php"
                     android:scheme="http"
                     android:pathPrefix="/share_merchant" />
             </intent-filter>
