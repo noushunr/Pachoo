@@ -160,7 +160,7 @@
                 android:id="@+id/btnDeal"
                 android:layout_width="80dp"
                 android:layout_height="20dp"
-                android:background="@drawable/button_bg_black"
+                android:background="@drawable/button_bg_primary"
                 android:gravity="center"
                 android:text="View Deals"
                 android:textAllCaps="true"

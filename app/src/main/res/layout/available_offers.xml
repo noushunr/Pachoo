@@ -67,7 +67,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
                 android:padding="10dp">
 
                 <TextView
@@ -141,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_off_percentage"
                     android:layout_alignParentRight="true"
-                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:drawableLeft="@drawable/ic_pound"
                     android:paddingHorizontal="4dp"
                     android:text="270"
                     android:textColor="@color/text_color_black"
@@ -154,7 +153,7 @@
                     android:layout_below="@+id/txt_off_percentage"
                     android:layout_toLeftOf="@+id/txt_offer_rate"
                     android:background="@drawable/text_view_strike"
-                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:drawableLeft="@drawable/ic_pound_gray"
                     android:paddingHorizontal="4dp"
                     android:text="320"
                     android:textColor="@color/grey"
@@ -166,7 +165,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/txt_mrp_rate"
                     android:layout_alignParentRight="true"
-                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:drawableLeft="@drawable/ic_pound"
                     android:paddingHorizontal="4dp"
                     android:text="Inc. of all taxes"
                     android:textColor="@color/text_color_black"

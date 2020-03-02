@@ -282,7 +282,7 @@
                     android:id="@+id/txt_minus"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:background="@drawable/button_bg_black"
+                    android:background="@drawable/button_bg_primary"
                     android:gravity="center"
                     android:text="-"
                     android:textColor="@color/white" />
@@ -298,7 +298,7 @@
                     android:id="@+id/txt_plus"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    android:background="@drawable/button_bg_black"
+                    android:background="@drawable/button_bg_primary"
                     android:gravity="center"
                     android:text="+"
                     android:textColor="@color/white" />

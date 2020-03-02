@@ -96,7 +96,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="-6dp"
-                    android:drawableLeft="@drawable/rupee_icon_small"
+                    android:drawableLeft="@drawable/ic_pound"
                     android:drawableTint="@color/white"
                     android:fontFamily="@font/nunito_regular"
                     android:textColor="@color/white"

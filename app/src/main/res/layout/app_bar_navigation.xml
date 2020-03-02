@@ -30,9 +30,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:gravity="center"
-            android:theme="@style/Widget.BottomNavigationView"
             app:itemBackground="@color/white"
-            app:itemTextColor="@color/black"
             app:itemIconSize="20dp"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/navigation" />

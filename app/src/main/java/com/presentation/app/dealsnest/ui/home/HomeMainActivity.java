@@ -141,7 +141,7 @@ public class HomeMainActivity extends BaseActivity
         initiateFragments();
         mBottomNavigationView = findViewById(R.id.navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mBottomNavigationView.setItemIconTintList(null);
+//        mBottomNavigationView.setItemIconTintList(null);
         tvToolBarText = findViewById(R.id.tvToolbarText);
         tvToolBarText.setText("Home");
         mDrawer = findViewById(R.id.drawer_layout);

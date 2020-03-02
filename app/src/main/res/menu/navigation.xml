@@ -2,25 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_line_selector"
+        android:icon="@drawable/ic_home"
         android:title="@string/title_home" />
     <item
         android:id="@+id/navigation_categories"
-        android:icon="@drawable/ic_calender_line_selector"
+        android:icon="@drawable/ic_categories"
         android:title="@string/title_category" />
 
     <item
         android:id="@+id/navigation_coupons"
-        android:icon="@drawable/ic_deal_line_selector"
+        android:icon="@drawable/ic_coupon"
         android:title="@string/title_coupons" />
 
     <item
         android:id="@+id/navigation_favorites"
-        android:icon="@drawable/ic_heart_line_selector"
+        android:icon="@drawable/ic_favorites"
         android:title="@string/title_favorites" />
 
     <item
         android:id="@+id/navigation_booked"
-        android:icon="@drawable/ic_calender_line_selector"
+        android:icon="@drawable/ic_bookings"
         android:title="@string/title_booked" />
 </menu>
