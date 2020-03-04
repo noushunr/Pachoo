@@ -94,7 +94,7 @@ public class ReviewBookingActivity extends BaseActivity implements ReviewBooking
             allTotal = allTotal + oneOfferAmount;
         }
 
-        String totalStr = "₹" + String.format("%.2f", allTotal);
+        String totalStr = getString(R.string.pound_symbol) + String.format("%.2f", allTotal);
         tvTotalRate.setText(totalStr);
 
         mConfirmButton = findViewById(R.id.confirm_booking_button);

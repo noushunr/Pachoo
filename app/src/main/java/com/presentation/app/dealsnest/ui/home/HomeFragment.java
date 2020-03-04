@@ -327,7 +327,7 @@ public class HomeFragment extends BaseFragment implements
                 if (getActivity() != null) {
                     Glide.with(getActivity())
                             .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                            .load(/*ApiClient.MIDDLE_BANNER_BASE_URL + MIDDLE_BANNER*/"").into(mMiddleBanner);
+                            .load(ApiClient.MIDDLE_BANNER_BASE_URL + MIDDLE_BANNER).into(mMiddleBanner);
                 }
             }
         } catch (Exception e) {
@@ -374,7 +374,7 @@ public class HomeFragment extends BaseFragment implements
                 if (getActivity() != null) {
                     Glide.with(getActivity())
                             .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                            .load(/*ApiClient.MIDDLE_BANNER_BASE_URL + BOTTOM_BANNER*/"")
+                            .load(ApiClient.MIDDLE_BANNER_BASE_URL + BOTTOM_BANNER)
                             .into(mBottomBanner);
                 }
             }
@@ -605,7 +605,7 @@ public class HomeFragment extends BaseFragment implements
             ImageView imageView = Item.findViewById(R.id.banner_image);
             Glide.with(mContext)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                    .load(/*ApiClient.SLIDERS_BASE_URL + slider.getImage()*/"")
+                    .load(ApiClient.SLIDERS_BASE_URL + slider.getImage())
                     .into(imageView);
             container.addView(Item);
 

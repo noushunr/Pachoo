@@ -257,7 +257,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
         String miles = shopDetail.getKms() + " miles";
 
         if (shopDetail.getImages().size() > 0)
-            IMAGE_URL = Uri.parse(/*ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(0).getImages()*/"");
+            IMAGE_URL = Uri.parse(ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(0).getImages());
         shareLink = shopDetail.getShare_url();
 
         SHOP_LAT = Double.parseDouble(shopDetail.getLatitude());

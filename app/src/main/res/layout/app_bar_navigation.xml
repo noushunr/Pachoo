@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.presentation.app.dealsnest.ui.home.HomeMainActivity">
 
-    <include layout="@layout/layout_app_bar_white" />
+    <include layout="@layout/layout_app_bar" />
 
 
     <RelativeLayout

@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:fontFamily="@font/nunito_regular"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
