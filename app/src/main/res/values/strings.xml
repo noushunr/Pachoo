@@ -50,5 +50,6 @@
     <string name="no_coupons_available">No coupons available</string>
     <string name="deals">Deals</string>
     <string name="confirmed_email_has_been_sent_n_to_dealsnest_gmail_com">confirmed email has been sent \n to dealsnest@gmail.com</string>
+    <string name="call">Call</string>
 
 </resources>

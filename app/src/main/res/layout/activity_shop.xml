@@ -136,69 +136,104 @@
 
             </RelativeLayout>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_vertical_margin"
                 android:layout_marginTop="8dp"
                 android:gravity="start">
 
-                <TextView
-                    android:id="@+id/tvCall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:layout_weight="1"
-                    android:drawableStart="@drawable/call_resize"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:gravity="start"
-                    android:text="Call"
-                    android:textColor="@color/text_color_black"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_rating"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableStart="@drawable/ic_rating_resized"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:gravity="start"
-                    android:paddingRight="17dp"
-                    android:textColor="@color/text_color_black"
-                    android:textSize="12sp" />
+                    android:gravity="center">
 
-                <TextView
-                    android:id="@+id/txt_distance"
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/call_resize"/>
+
+                    <TextView
+                        android:id="@+id/tvCall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:text="@string/call"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_distance_reized"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:gravity="start"
-                    android:paddingRight="17dp"
+                    android:gravity="center">
 
-                    android:textColor="@color/text_color_black"
-                    android:textSize="12sp" />
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_rating_resized"/>
 
-                <TextView
-                    android:id="@+id/txt_fav_count"
+                    <TextView
+                        android:id="@+id/txt_rating"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:drawableLeft="@drawable/ic_fav_resized"
-                    android:drawablePadding="8dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:gravity="start"
-                    android:paddingRight="17dp"
-                    android:textColor="@color/text_color_black"
-                    android:textSize="12sp" />
+                    android:gravity="center">
 
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_distance_reized"/>
+
+                    <TextView
+                        android:id="@+id/txt_distance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_fav_resized"/>
+
+                    <TextView
+                        android:id="@+id/txt_fav_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:drawablePadding="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <ImageView

@@ -26,12 +26,12 @@
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/navigation"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="56dp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom"
             android:gravity="center"
             app:itemBackground="@color/white"
-            app:itemIconSize="20dp"
+            app:itemIconSize="24dp"
             app:labelVisibilityMode="labeled"
             app:menu="@menu/navigation" />
     </RelativeLayout>
