@@ -4,8 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
 
         mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("1018438052852-3t0m4e1u9l39gtab5p8s2nmnrgc30e3i.apps.googleusercontent.com")
+                .requestIdToken("777214460835-h0479v9gcod4q216io8d7oo6r8iv3hqi.apps.googleusercontent.com")
                 .requestProfile()
                 .requestEmail()
                 .requestId()

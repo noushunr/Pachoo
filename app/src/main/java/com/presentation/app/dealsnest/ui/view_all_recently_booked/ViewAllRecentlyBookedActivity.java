@@ -2,8 +2,8 @@ package com.presentation.app.dealsnest.ui.view_all_recently_booked;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import android.widget.TextView;
 
 import com.presentation.app.dealsnest.R;

@@ -2,7 +2,7 @@ package com.presentation.app.dealsnest.ui.reset_password_otp;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
