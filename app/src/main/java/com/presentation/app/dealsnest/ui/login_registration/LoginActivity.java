@@ -49,7 +49,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private LoginButton loginButton;
     private CallbackManager mFBCallbackManager;
     private String fromStr;
-    private GoogleSignInOptions mGoogleSignInOptions;
     private GoogleSignInClient mGoogleSignInClient;
     private LoginRegisterPresenterInterface loginRegisterPresenterInterface;
     private ProgressDialogFragment progressDialogFragment;
@@ -68,8 +67,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         initView();
 
 
-        mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("777214460835-h0479v9gcod4q216io8d7oo6r8iv3hqi.apps.googleusercontent.com")
+        GoogleSignInOptions mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestIdToken("777214460835-h0479v9gcod4q216io8d7oo6r8iv3hqi.apps.googleusercontent.com")
                 .requestProfile()
                 .requestEmail()
                 .requestId()

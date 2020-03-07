@@ -47,8 +47,10 @@ public class RecentlyBookedRecyclerAdapter extends RecyclerView.Adapter<Recently
 
         final RecentlyBookedShop recentlyBookedShop = list.get(i);
         myViewHolder.mOfferName.setText(recentlyBookedShop.getBusinessName());
-        myViewHolder.mOfferPrice.setText("₹" + recentlyBookedShop.getOfferPrice());
-        myViewHolder.mOfferPercentage.setText(recentlyBookedShop.getOfferPercentage() + "%");
+        String priceWithSymbol = mContext.getString(R.string.pound_symbol) + recentlyBookedShop.getOfferPrice();
+        myViewHolder.mOfferPrice.setText(priceWithSymbol);
+        String offerPercentageWithSymbol = recentlyBookedShop.getOfferPercentage() + mContext.getString(R.string.percentage_symbol);
+        myViewHolder.mOfferPercentage.setText(offerPercentageWithSymbol);
 
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))

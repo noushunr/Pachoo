@@ -333,8 +333,6 @@ public class HomeFragment extends BaseFragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     @Override

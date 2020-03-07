@@ -21,8 +21,8 @@
     <string name="title_profile">Profile</string>
     <string name="your_reset_email_message">We have send mail to %1$s click then in the mail to reset your password</string>
     <string name="reference_description">The best Location-based Deal Finding App! With exclusive offers, cash back deals,coupons &amp; great discounts. You can save money every time you visit restaurants,fashion stores,grocery shop,home appliances,furniture\s,spa etc at local and national merchant locations. Discover hot deals nearby &amp; choose from a wide range of categories.  </string>
-    <string name="facebook_app_id">388229921805929</string>
-    <string name="fb_login_protocol_scheme">fb409295199808623</string>
+    <string name="facebook_app_id">852367885267517</string>
+    <string name="fb_login_protocol_scheme">fb852367885267517</string>
     <string name="shop_deal_offer">Upto %1$s off</string>
     <string name="shop_offer_percentage">Upto %1$s  off</string>
     <string name="deal_offer_percentage">%1$s  off</string>
@@ -51,5 +51,6 @@
     <string name="deals">Deals</string>
     <string name="confirmed_email_has_been_sent_n_to_dealsnest_gmail_com">confirmed email has been sent \n to dealsnest@gmail.com</string>
     <string name="call">Call</string>
+    <string name="percentage_symbol">%</string>
 
 </resources>
