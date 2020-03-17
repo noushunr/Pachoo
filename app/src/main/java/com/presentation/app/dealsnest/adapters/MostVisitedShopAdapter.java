@@ -43,7 +43,7 @@ public class MostVisitedShopAdapter extends RecyclerView.Adapter<MostVisitedShop
         final MostViewedShop mostVisitedShops = mostVisitedShopsList.get(i);
 
         myViewHolder.TxtOfferName.setText(mostVisitedShops.getBusinessName());
-        myViewHolder.TxtOfferPrice.setText("₹" + mostVisitedShops.getOfferPrice());
+        myViewHolder.TxtOfferPrice.setText(mContext.getString(R.string.pound_symbol) + mostVisitedShops.getOfferPrice());
         myViewHolder.TxtPercentage.setText(mostVisitedShops.getOfferPercentage() + "%");
 
         Glide.with(mContext)

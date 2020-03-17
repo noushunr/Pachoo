@@ -41,10 +41,10 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final Category category = categoryArrayList.get(i);
         viewHolder.mBrandName.setText(category.getCategoryName());
-        if (category.getCategoryName().equals("More")) {
-            viewHolder.mBrandName.setText(category.getCategoryName());
-            categoryArrayList.remove(categoryArrayList.size() - 1);
-        }
+//        if (category.getCategoryName().equals("More")) {
+//            viewHolder.mBrandName.setText(category.getCategoryName());
+//            categoryArrayList.remove(categoryArrayList.size() - 1);
+//        }
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
                 .load(ApiClient.CATEGORY_BASE_URL + category.getImage())

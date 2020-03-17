@@ -321,20 +321,20 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
         if (shopDetail.getImages().size() > 0) {
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(0).getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(0).getImages())
                     .into(image_one);
         }
         if (shopDetail.getImages().size() > 1) {
             llSecondImage.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(1).getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(1).getImages())
                     .into(image_second);
         }
         if (shopDetail.getImages().size() > 2) {
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(2).getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + shopDetail.getImages().get(2).getImages())
                     .into(image_third);
         }
         if (shopDetail.getImages().size() == 2) {
@@ -370,7 +370,8 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
 
     @Override
     public void onSuccessToAddFav(String message) {
-        shopFragmentPresenter.getShopDetails(mMerchantId, USER_ID, LONGITUDE, LATITUDE, CITY_NAME);
+//        shopFragmentPresenter.getShopDetails(mMerchantId, USER_ID, LONGITUDE, LATITUDE, CITY_NAME);
+        CommonUtils.showToast(this, message);
     }
 
     @Override

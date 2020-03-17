@@ -232,7 +232,6 @@ public class HomeFragment extends BaseFragment implements
         }
     }
 
-
     @Override
     public void setCategoryList(final List<Category> categoryList) {
         mCategoryList = (ArrayList<Category>) categoryList;
@@ -512,7 +511,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onRetry() {
 
-        SELECTED_CITY = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "");
+        SELECTED_CITY = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "-1");
         if (TextUtils.isEmpty(SELECTED_CITY)) {
             getCategories("-1");
             mLocation.setText("Choose area or city");

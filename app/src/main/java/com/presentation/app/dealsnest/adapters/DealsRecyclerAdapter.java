@@ -50,13 +50,13 @@ public class DealsRecyclerAdapter extends RecyclerView.Adapter<DealsRecyclerAdap
         myViewHolder.TxtOfferName.setText(deal.getBusinessName());
 
         if (deal.getOfferPercentage() != null) {
-            myViewHolder.TxtOfferPrice.setText("₹" + deal.getOfferPrice());
+            myViewHolder.TxtOfferPrice.setText(mContext.getString(R.string.pound_symbol) + deal.getOfferPrice());
             myViewHolder.TxtPercentage.setText(deal.getOfferPercentage() + "%");
             if (deal.getOfferPercentage().equals("null")) {
                 myViewHolder.TxtPercentage.setText("0" + "%");
             }
         } else {
-            myViewHolder.TxtOfferPrice.setText("₹" + "0.00");
+            myViewHolder.TxtOfferPrice.setText(mContext.getString(R.string.pound_symbol) + "0.00");
             myViewHolder.TxtPercentage.setText("0%");
         }
 

@@ -46,10 +46,10 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.MyVi
         myViewHolder.tvPopularName.setText(items.getName());
         myViewHolder.tvPopularDesc.setText(items.getDescription());
         myViewHolder.tvValidityTo.setText(items.getOfferValidTo());
-        String mrpStr = "₹" + items.getMrpPrice();
-        String offerPriceStr = "₹" + items.getOfferPrice();
+        String mrpStr = mContext.getString(R.string.pound_symbol) + items.getMrpPrice();
+        String offerPriceStr = mContext.getString(R.string.pound_symbol) + items.getOfferPrice();
         String SAVING = String.valueOf(items.getSavings());
-        String saveStr = "₹" + SAVING;
+        String saveStr = mContext.getString(R.string.pound_symbol) + SAVING;
 
         myViewHolder.tvMrpPrice.setText(mrpStr);
         myViewHolder.tvOfferPrice.setText(offerPriceStr);

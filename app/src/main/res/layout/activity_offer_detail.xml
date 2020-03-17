@@ -243,7 +243,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/ic_fav_resized"/>
+                            android:src="@drawable/ic_heart_line"/>
 
                         <TextView
                             android:id="@+id/txt_fav_count"
@@ -328,7 +328,7 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
-                    android:background="@drawable/button_bg_black"
+                    android:background="@drawable/button_bg_primary"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
                     android:text="Review Booking"

@@ -44,7 +44,7 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
         String offerPercentage = "Upto " + shop.getOfferPercentage() + " %off";
         viewHold.tvOffPercentage.setText(offerPercentage);
         viewHold.tvShopName.setText(shop.getBusinessName());
-        viewHold.tvCost.setText(" ₹ " + shop.getOfferPrice());
+        viewHold.tvCost.setText(context.getString(R.string.pound_symbol) + shop.getOfferPrice());
         viewHold.tvDistance.setText(shop.getDistance() + " kms-");
         viewHold.tvPlace.setText(shop.getCity());
         viewHold.tvBroughtCount.setText(shop.getBought() + " bought");

@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.presentation.app.dealsnest.R;
 import com.presentation.app.dealsnest.adapters.OfferDetailAdapter;
+import com.presentation.app.dealsnest.api.ApiClient;
 import com.presentation.app.dealsnest.app_pref.GlobalPreferManager;
 import com.presentation.app.dealsnest.common.OfferDetailAdapterCallback;
 import com.presentation.app.dealsnest.models.Offer;
@@ -242,7 +243,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
         if (offerDetail.getImages().size() >= 1) {
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(0).getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(0).getImages())
                     .into(image_one);
         }
 
@@ -250,7 +251,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
             cvImageSecond.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(1).getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(1).getImages())
                     .into(image_second);
         } else {
             cvImageSecond.setVisibility(View.INVISIBLE);
@@ -259,7 +260,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
             rlThirdImage.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(2).getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(2).getImages())
                     .into(image_third);
         } else {
             rlThirdImage.setVisibility(View.INVISIBLE);
@@ -307,7 +308,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
         } else {
             cardBooking.setVisibility(View.GONE);
         }
-        String totalStr = "₹" + TOTAL;
+        String totalStr = getString(R.string.pound_symbol) + TOTAL;
         mCost.setText(totalStr);
         String noStr = itemsWithCount + " Items in cart";
         number_of_item.setText(noStr);

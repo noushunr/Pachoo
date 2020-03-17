@@ -42,7 +42,7 @@ public class ReviewBookingAdapter extends RecyclerView.Adapter<ReviewBookingAdap
         double price = Double.parseDouble(offer.getOfferPrice());
         double Total_Rate = COUNT * price;
 
-        String TOTAL = "₹" + String.format("%.2f", Total_Rate);
+        String TOTAL = mContext.getString(R.string.pound_symbol) + String.format("%.2f", Total_Rate);
         myViewHolder.tvDealName.setText(offer.getName());
         myViewHolder.tvDealDesc.setText(offer.getDescription());
         myViewHolder.tvPrice.setText(TOTAL);

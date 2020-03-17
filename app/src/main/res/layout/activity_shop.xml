@@ -221,7 +221,7 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/ic_fav_resized"/>
+                        android:src="@drawable/ic_heart_line"/>
 
                     <TextView
                         android:id="@+id/txt_fav_count"

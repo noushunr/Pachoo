@@ -50,13 +50,13 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.MyViewHold
             myViewHolder.txt_deal_price_value.setVisibility(View.GONE);
             myViewHolder.txt_deal_price.setVisibility(View.GONE);
         } else {
-            myViewHolder.txt_deal_price_value.setText("₹" + coupon.getOfferPrice());
+            myViewHolder.txt_deal_price_value.setText(mContext.getString(R.string.pound_symbol) + coupon.getOfferPrice());
         }
         if (coupon.getMrpPrice().equals("")) {
             myViewHolder.txt_mrp_value.setVisibility(View.GONE);
             myViewHolder.txt_deal_price.setVisibility(View.GONE);
         } else {
-            myViewHolder.txt_mrp_value.setText("₹" + coupon.getMrpPrice());
+            myViewHolder.txt_mrp_value.setText(mContext.getString(R.string.pound_symbol) + coupon.getMrpPrice());
         }
 
         Glide.with(mContext)

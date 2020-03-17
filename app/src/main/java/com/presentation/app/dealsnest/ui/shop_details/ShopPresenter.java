@@ -64,11 +64,11 @@ public class ShopPresenter implements ShopPresenterInterface {
         ApiClient.getApiInterface().add_fav_shop(merchant_id, user_id, fav_status).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-
                             shopFragmentViewInterface.onSuccessToAddFav(jsonObject.get("message").getAsString());
                         }
                     } catch (JsonIOException e) {
@@ -77,7 +77,7 @@ public class ShopPresenter implements ShopPresenterInterface {
                 } else {
                     shopFragmentViewInterface.onFailedToAddFav(Constants.MESSAGE);
                 }
-                dismissProgressIndicator();
+
             }
 
             @Override

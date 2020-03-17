@@ -125,7 +125,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 offersViewHolder.txt_deal_price.setVisibility(View.INVISIBLE);
                 percentOff = "0 % OFF";
             } else {
-                offersViewHolder.tvOfferPrice.setText("₹" + bookedOffers.getOfferPrice());
+                offersViewHolder.tvOfferPrice.setText(mContext.getString(R.string.pound_symbol) + bookedOffers.getOfferPrice());
                 float offerPrice = Float.parseFloat(bookedOffers.getOfferPrice());
                 float mrpPrice = Float.parseFloat(bookedOffers.getMrpPrice());
                 float offerPercentage = 100 - ((offerPrice * 100) / mrpPrice);
@@ -141,7 +141,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 offersViewHolder.tvMrpPrice.setVisibility(View.INVISIBLE);
                 offersViewHolder.txt_deal_price.setVisibility(View.INVISIBLE);
             } else {
-                offersViewHolder.tvMrpPrice.setText("₹" + bookedOffers.getMrpPrice());
+                offersViewHolder.tvMrpPrice.setText(mContext.getString(R.string.pound_symbol) + bookedOffers.getMrpPrice());
             }
         }
 

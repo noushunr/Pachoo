@@ -32,6 +32,7 @@ public class CategoriesFragment extends Fragment implements CategoriesFragmentVi
     private String SELECTED_CITY;
     private OnFragmentInteractionListener mListener;
     private CommonViewInterface mCommonListener;
+
     public static CategoriesFragment newInstance() {
         CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
