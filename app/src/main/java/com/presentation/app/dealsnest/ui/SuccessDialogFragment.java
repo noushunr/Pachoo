@@ -44,7 +44,7 @@ public class SuccessDialogFragment extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                Intent homeIntent = HomeMainActivity.getActivityIntent(getActivity());
+                Intent homeIntent = HomeMainActivity.start(getActivity());
                 homeIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 getActivity().startActivity(homeIntent);
             }

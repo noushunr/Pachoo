@@ -22,7 +22,7 @@ public class ForgotPasswordActivity extends AppCompatActivity implements View.On
     private String fromStr;
     private String EMAIL_HOLDER;
 
-    public static Intent getActivityIntent(Context context) {
+    public static Intent start(Context context) {
         return new Intent(context, ForgotPasswordActivity.class);
     }
 

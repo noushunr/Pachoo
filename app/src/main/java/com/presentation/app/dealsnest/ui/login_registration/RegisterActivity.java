@@ -1,6 +1,7 @@
 package com.presentation.app.dealsnest.ui.login_registration;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
@@ -37,30 +38,56 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, LoginRegisterViewInterface, RadioGroup.OnCheckedChangeListener {
 
     private static final String TAG = RegisterActivity.class.getSimpleName();
-    private Button btnToLogin;
-    private CallbackManager mFBCallbackManager;
-    private LoginManager mFBLoginManager;
-    private Button btnGoogleSignIn;
-    private Button btnFacebookSignIn;
-    private EditText mFirstName, mLastName, mEmailID, mPassword, mConfirmPassword, mMobile;
-    private Button mRegister;
-    private RadioGroup mGenderGroup;
     private LoginRegisterPresenterInterface loginRegisterPresenterInterface;
     private ProgressDialogFragment progressDialogFragment;
     private GoogleSignInOptions mGoogleSignInOptions;
     private GoogleSignInClient mGoogleSignInClient;
     private String fromStr;
     private int PasswordLength = 8;
+    private CallbackManager mFBCallbackManager;
+    private LoginManager mFBLoginManager;
     private String FirstNameHolder, LastNameHolder, EmailHolder, PasswordHolder, ConfirmPasswordHolder, MobileHolder, GenderHolder,profileImage;
+
+
+    @BindView(R.id.edit_first_name)
+    EditText  mFirstName;
+    @BindView(R.id.edit_last_name)
+    EditText  mLastName;
+    @BindView(R.id.edit_email_id)
+    EditText  mEmailID;
+    @BindView(R.id.edit_password)
+    EditText  mPassword;
+    @BindView(R.id.edit_confirm_password)
+    EditText  mConfirmPassword;
+    @BindView(R.id.edit_mobile)
+    EditText  mMobile;
+    @BindView(R.id.radio_group)
+    RadioGroup mGenderGroup;
+    @BindView(R.id.btnToLogin)
+    Button btnToLogin;
+    @BindView(R.id.btnRegister)
+    Button mRegister;
+    @BindView(R.id.btnFacebookSignIn)
+    Button btnFacebookSignIn;
+    @BindView(R.id.btnGoogleSignIn)
+    Button btnGoogleSignIn;
+
+    public static Intent start(Context context){
+        return new Intent(context, RegisterActivity.class);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-
+        ButterKnife.bind(this);
         loginRegisterPresenterInterface = new LoginRegisterPresenter(this);
 
         mFirstName = findViewById(R.id.edit_first_name);

@@ -447,7 +447,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
     }
 
     private void toLogin() {
-        Intent toLoginIntent = LoginActivity.getActivityIntent(this);
+        Intent toLoginIntent = LoginActivity.start(this);
         toLoginIntent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
         startActivity(toLoginIntent);
         finishAffinity();

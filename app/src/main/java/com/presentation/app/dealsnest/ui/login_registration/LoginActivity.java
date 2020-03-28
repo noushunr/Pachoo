@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,9 +44,7 @@ import butterknife.ButterKnife;
 
 public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginRegisterViewInterface {
 
-    private String EmailHolder, PasswordHolder;
     private CallbackManager mFBCallbackManager;
-    private String fromStr;
     private GoogleSignInClient mGoogleSignInClient;
     private LoginRegisterPresenterInterface loginRegisterPresenterInterface;
     private ProgressDialogFragment progressDialogFragment;
@@ -69,16 +68,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     @BindView(R.id.tvLoginAsGuest)
     TextView tvLoginAsGuest;
 
-    public static Intent getActivityIntent(Context context) {
+    public static Intent start(Context context) {
         return new Intent(context, LoginActivity.class);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         ButterKnife.bind(this);
-
         btnFacebookSignIn.setOnClickListener(this);
         btnGoogleSignIn.setOnClickListener(this);
         mLogin.setOnClickListener(this);
@@ -229,27 +226,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin: {
-                LOGIN_USER();
+                validatedFields();
                 break;
             }
             case R.id.tvSignUp: {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                if (fromStr != null) {
-                    if (fromStr.equals(Constants.FROM_INSIDE)) {
-                        intent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
-                    }
-                }
-                startActivity(intent);
+                startActivity(RegisterActivity.start(this));
                 break;
             }
             case R.id.tvForgotPassword: {
-                Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
-                if (fromStr != null) {
-                    if (fromStr.equals(Constants.FROM_INSIDE)) {
-                        i.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
-                    }
-                }
-                startActivity(i);
+                startActivity(ForgotPasswordActivity.start(this));
                 break;
             }
             case R.id.btnGoogleSignIn: {
@@ -261,32 +246,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
                 break;
             }
             case R.id.tvLoginAsGuest: {
-                startActivity(new Intent(this, HomeMainActivity.class));
+                startActivity(HomeMainActivity.start(this));
                 finishAffinity();
                 break;
             }
         }
     }
 
-    private void LOGIN_USER() {
-        EmailHolder = tiEtEmail.getText().toString();
-        PasswordHolder = tiEtPassword.getText().toString();
-        if (isValidated()) {
-            loginRegisterPresenterInterface.userLogin(EmailHolder, PasswordHolder);
-        }
-    }
-
-    private boolean isValidated() {
-        if (EmailHolder.isEmpty()) {
+    private void validatedFields() {
+        if (TextUtils.isEmpty(tiEtEmail.getText())) {
             tiEtEmail.requestFocus();
             Toast.makeText(this, "Username is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (PasswordHolder.isEmpty()) {
+        } else if (TextUtils.isEmpty(tiEtPassword.getText())) {
             tiEtPassword.requestFocus();
             Toast.makeText(this, "Password is not entered", Toast.LENGTH_SHORT).show();
-            return false;
+        } else {
+            loginRegisterPresenterInterface.userLogin(
+                    tiEtEmail.getText().toString(),
+                    tiEtPassword.getText().toString());
         }
-        return true;
     }
 
 

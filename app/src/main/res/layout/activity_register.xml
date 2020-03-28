@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="56dp"
                 android:fontFamily="@font/nunito_regular"
-                android:text="See . Tap . Shop"
+                android:text="@string/see_tap_shop"
                 android:textAllCaps="true"
                 android:textColor="@color/black"
                 android:textSize="30sp"
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito_regular"
-                android:text="Your Destination To Shop"
+                android:text="@string/your_destination_to_shop"
                 android:textColor="@color/text_color_black"
                 android:textSize="15sp" />
 

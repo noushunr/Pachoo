@@ -121,7 +121,7 @@ public class HomeMainActivity extends BaseActivity
         }
     };
 
-    public static Intent getActivityIntent(Context context) {
+    public static Intent start(Context context) {
         return new Intent(context, HomeMainActivity.class);
     }
 
@@ -293,7 +293,7 @@ public class HomeMainActivity extends BaseActivity
 
     @Override
     public void reloadPage() {
-        startActivity(HomeMainActivity.getActivityIntent(this));
+        startActivity(HomeMainActivity.start(this));
         finish();
     }
 
@@ -312,7 +312,7 @@ public class HomeMainActivity extends BaseActivity
     }
 
     private void toLogin() {
-        Intent toLoginIntent = LoginActivity.getActivityIntent(this);
+        Intent toLoginIntent = LoginActivity.start(this);
         toLoginIntent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
         toLoginIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(toLoginIntent);

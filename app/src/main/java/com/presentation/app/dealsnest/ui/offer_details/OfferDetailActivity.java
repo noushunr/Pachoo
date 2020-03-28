@@ -196,7 +196,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void toLogin() {
-        Intent toLoginIntent = LoginActivity.getActivityIntent(this);
+        Intent toLoginIntent = LoginActivity.start(this);
         toLoginIntent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
         startActivity(toLoginIntent);
         finishAffinity();
