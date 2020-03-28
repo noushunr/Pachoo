@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.presentation.app.dealsnest.BuildConfig;
 import com.presentation.app.dealsnest.R;
+import com.presentation.app.dealsnest.api.ApiClient;
 import com.presentation.app.dealsnest.app_pref.GlobalPreferManager;
 import com.presentation.app.dealsnest.common.CommonViewInterface;
 import com.presentation.app.dealsnest.common.OnFragmentInteractionListener;
@@ -123,6 +124,7 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
                 }
             }
         });
+
         imShareFacebook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -247,9 +249,11 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
         txt_email.setText(ProfileData.getEmailId());
         Glide.with(this)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
-                .load(/*ApiClient.PROFILE_BASE_URL + ProfileData.getImage()*/"")
+                .load(ApiClient.PROFILE_BASE_URL + ProfileData.getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
                 .into(profile_pic);
+        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_FIRST_NAME, ProfileData.getFirstname());
+        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_LAST_NAME, ProfileData.getLastname());
     }
 
     @Override

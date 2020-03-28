@@ -85,6 +85,7 @@ public class HomeMainActivity extends BaseActivity
     private String mUserID;
     private Geocoder geocoder;
     private String SELECTED_CITY;
+    private DrawerLayout drawer;
 
     private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -141,7 +142,6 @@ public class HomeMainActivity extends BaseActivity
         initiateFragments();
         mBottomNavigationView = findViewById(R.id.navigation);
         mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-//        mBottomNavigationView.setItemIconTintList(null);
         tvToolBarText = findViewById(R.id.tvToolbarText);
         tvToolBarText.setText("Home");
         mDrawer = findViewById(R.id.drawer_layout);
@@ -250,10 +250,9 @@ public class HomeMainActivity extends BaseActivity
         llHelp = findViewById(R.id.llHelp);
         llLogout = findViewById(R.id.llLogout);
         tvNavFirstName = findViewById(R.id.tvNavFirstName);
+        drawer = findViewById(R.id.drawer_layout);
 
-        String drawerName = "Hello " + GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
 
-        tvNavFirstName.setText(drawerName);
         llMyProfile.setOnClickListener(this);
         llMyBooking.setOnClickListener(this);
         llMyFavorites.setOnClickListener(this);
@@ -262,6 +261,29 @@ public class HomeMainActivity extends BaseActivity
         llRateApp.setOnClickListener(this);
         llHelp.setOnClickListener(this);
         llLogout.setOnClickListener(this);
+
+        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+                String drawerName = "Hello " + GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
+                tvNavFirstName.setText(drawerName);
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
     }
 
     @Override
@@ -330,7 +352,6 @@ public class HomeMainActivity extends BaseActivity
     @Override
     public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_container);
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else if (!(fragment instanceof HomeFragment)) {

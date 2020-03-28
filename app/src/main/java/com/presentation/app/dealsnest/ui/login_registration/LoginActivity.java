@@ -4,13 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
 
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
@@ -27,8 +26,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.presentation.app.dealsnest.R;
 import com.presentation.app.dealsnest.app_pref.GlobalPreferManager;
+import com.presentation.app.dealsnest.ui.BaseActivity;
 import com.presentation.app.dealsnest.ui.dialog_fragment.ProgressDialogFragment;
 import com.presentation.app.dealsnest.ui.forgot_password.ForgotPasswordActivity;
 import com.presentation.app.dealsnest.ui.home.HomeMainActivity;
@@ -37,21 +38,36 @@ import com.presentation.app.dealsnest.utils.Constants;
 
 import org.json.JSONObject;
 
-public class LoginActivity extends AppCompatActivity implements View.OnClickListener, LoginRegisterViewInterface {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-    private Button mLogin;
-    private TextView mSignUp, mForgotPassword;
-    private EditText mEmailID, mPassword;
+public class LoginActivity extends BaseActivity implements View.OnClickListener, LoginRegisterViewInterface {
+
     private String EmailHolder, PasswordHolder;
-    private Button btnFacebookSignIn;
-    private Button btnGoogleSignIn;
-    private TextView tvLoginAsGuest;
-    private LoginButton loginButton;
     private CallbackManager mFBCallbackManager;
     private String fromStr;
     private GoogleSignInClient mGoogleSignInClient;
     private LoginRegisterPresenterInterface loginRegisterPresenterInterface;
     private ProgressDialogFragment progressDialogFragment;
+
+    @BindView(R.id.loginButton)
+    LoginButton loginButton;
+    @BindView(R.id.tiEtEmail)
+    TextInputEditText tiEtEmail;
+    @BindView(R.id.tiEtPassword)
+    TextInputEditText tiEtPassword;
+    @BindView(R.id.btnLogin)
+    Button mLogin;
+    @BindView(R.id.tvSignUp)
+    TextView tvSignUp;
+    @BindView(R.id.tvForgotPassword)
+    TextView tvForgotPassword;
+    @BindView(R.id.btnFacebookSignIn)
+    Button btnFacebookSignIn;
+    @BindView(R.id.btnGoogleSignIn)
+    Button btnGoogleSignIn;
+    @BindView(R.id.tvLoginAsGuest)
+    TextView tvLoginAsGuest;
 
     public static Intent getActivityIntent(Context context) {
         return new Intent(context, LoginActivity.class);
@@ -60,15 +76,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+
+        ButterKnife.bind(this);
+
+        btnFacebookSignIn.setOnClickListener(this);
+        btnGoogleSignIn.setOnClickListener(this);
+        mLogin.setOnClickListener(this);
+        tvSignUp.setOnClickListener(this);
+        tvForgotPassword.setOnClickListener(this);
+        tvLoginAsGuest.setOnClickListener(this);
 
         GlobalPreferManager.initializePreferenceManager(getApplicationContext());
         loginRegisterPresenterInterface = new LoginRegisterPresenter(this);
         initView();
 
-
         GoogleSignInOptions mGoogleSignInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestIdToken("777214460835-h0479v9gcod4q216io8d7oo6r8iv3hqi.apps.googleusercontent.com")
                 .requestProfile()
                 .requestEmail()
                 .requestId()
@@ -81,21 +103,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void initView() {
-        loginButton = findViewById(R.id.login_button);
-        mEmailID = findViewById(R.id.edit_email);
-        mPassword = findViewById(R.id.edit_password);
-        mLogin = findViewById(R.id.btnLogin);
-        mSignUp = findViewById(R.id.link_to_register);
-        mForgotPassword = findViewById(R.id.forgot_password);
-        btnFacebookSignIn = findViewById(R.id.btnFacebookSignIn);
-        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
-        tvLoginAsGuest = findViewById(R.id.tvLoginAsGuest);
-        btnFacebookSignIn.setOnClickListener(this);
-        btnGoogleSignIn.setOnClickListener(this);
-        mLogin.setOnClickListener(this);
-        mSignUp.setOnClickListener(this);
-        mForgotPassword.setOnClickListener(this);
-        tvLoginAsGuest.setOnClickListener(this);
+
+
     }
 
     private void facebookSignIn() {
@@ -134,6 +143,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 }, 500);
             }
         }
+    }
+
+    @Override
+    protected boolean setToolbar() {
+        return false;
+    }
+
+    @Override
+    public int setLayout() {
+        return R.layout.activity_login;
+    }
+
+    @Override
+    public void reloadPage() {
+
     }
 
     private boolean handleGoogleSignInResult(Task<GoogleSignInAccount> completedTask) {
@@ -208,7 +232,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 LOGIN_USER();
                 break;
             }
-            case R.id.link_to_register: {
+            case R.id.tvSignUp: {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
                 if (fromStr != null) {
                     if (fromStr.equals(Constants.FROM_INSIDE)) {
@@ -218,7 +242,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 startActivity(intent);
                 break;
             }
-            case R.id.forgot_password: {
+            case R.id.tvForgotPassword: {
                 Intent i = new Intent(getApplicationContext(), ForgotPasswordActivity.class);
                 if (fromStr != null) {
                     if (fromStr.equals(Constants.FROM_INSIDE)) {
@@ -245,8 +269,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void LOGIN_USER() {
-        EmailHolder = mEmailID.getText().toString();
-        PasswordHolder = mPassword.getText().toString();
+        EmailHolder = tiEtEmail.getText().toString();
+        PasswordHolder = tiEtPassword.getText().toString();
         if (isValidated()) {
             loginRegisterPresenterInterface.userLogin(EmailHolder, PasswordHolder);
         }
@@ -254,11 +278,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private boolean isValidated() {
         if (EmailHolder.isEmpty()) {
-            mEmailID.requestFocus();
+            tiEtEmail.requestFocus();
             Toast.makeText(this, "Username is not entered", Toast.LENGTH_SHORT).show();
             return false;
         } else if (PasswordHolder.isEmpty()) {
-            mPassword.requestFocus();
+            tiEtPassword.requestFocus();
             Toast.makeText(this, "Password is not entered", Toast.LENGTH_SHORT).show();
             return false;
         }

@@ -1,16 +1,15 @@
 package com.presentation.app.dealsnest.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.PowerManager;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.presentation.app.dealsnest.R;
 import com.presentation.app.dealsnest.receiver.NetworkChangeReceiver;
@@ -19,7 +18,6 @@ import com.presentation.app.dealsnest.ui.dialog_fragment.ProgressDialogFragment;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected PowerManager.WakeLock mWakeLock;
 
     public static final int NO_INTERNET_CODE = 122;
     private ProgressDialogFragment progressDialogFragment;
@@ -29,10 +27,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(setLayout());
-
-        final PowerManager pm = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK, "my tag: wake up");
-        this.mWakeLock.acquire();
 
         if (setToolbar()) {
             Toolbar toolbar = findViewById(R.id.toolbar);
@@ -45,8 +39,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
-
-
     }
 
     @Override
@@ -97,13 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (mNetworkChangeReceiver != null) {
             unregisterReceiver(mNetworkChangeReceiver);
         }
-    }
-
-
-    @Override
-    protected void onDestroy() {
-        this.mWakeLock.release();
-        super.onDestroy();
     }
 
     protected abstract boolean setToolbar();

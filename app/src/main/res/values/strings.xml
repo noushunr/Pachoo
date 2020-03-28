@@ -52,5 +52,16 @@
     <string name="confirmed_email_has_been_sent_n_to_dealsnest_gmail_com">confirmed email has been sent \n to dealsnest@gmail.com</string>
     <string name="call">Call</string>
     <string name="percentage_symbol">%</string>
+    <string name="email_id">Email ID</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="login_as_guest">Login as guest</string>
+    <string name="don_t_have_an_account">Don\'t have an account</string>
+    <string name="sign_in">sign in</string>
+    <string name="or_login_via_email">or login via email</string>
+    <string name="password">Password</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="google">google</string>
+    <string name="facebook">facebook</string>
+    <string name="your_top_stop_destination">Your top stop destination</string>
 
 </resources>

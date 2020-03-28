@@ -14,7 +14,7 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
 
     private LoginRegisterViewInterface loginRegisterViewInterface;
 
-    public LoginRegisterPresenter(LoginRegisterViewInterface loginRegisterViewInterface) {
+    LoginRegisterPresenter(LoginRegisterViewInterface loginRegisterViewInterface) {
         this.loginRegisterViewInterface = loginRegisterViewInterface;
     }
 
@@ -24,34 +24,30 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
         ApiClient.getApiInterface().login(email, password).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     JsonObject jsonObject = response.body();
                     if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-
                         GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_ID, jsonObject.get("user_id").getAsString());
                         GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_FIRST_NAME, jsonObject.get("firstname").getAsString());
                         GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_LAST_NAME, jsonObject.get("lastname").getAsString());
                         GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_EMAIL, jsonObject.get("email_id").getAsString());
                         GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_MOBILE, jsonObject.get("mobile").getAsString());
                         GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_GENDER, jsonObject.get("gender").getAsString());
-
                         loginRegisterViewInterface.onSighInSuccess("Login Success");
-                        dismissProgressIndicator();
                     } else {
                         loginRegisterViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
-                        dismissProgressIndicator();
                     }
 
                 } else {
                     loginRegisterViewInterface.onResponseFailed("Failed");
-                    dismissProgressIndicator();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
                 dismissProgressIndicator();
+                loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }
         });
     }

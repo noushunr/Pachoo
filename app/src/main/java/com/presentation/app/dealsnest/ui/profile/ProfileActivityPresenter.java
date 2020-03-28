@@ -34,7 +34,12 @@ public class ProfileActivityPresenter implements ProfileActivityPresenterInterfa
     }
 
     @Override
-    public void updateProfile(final String register_id, String firstname, String lastname, String email_id, String mobile, final String profile_pic) {
+    public void updateProfile(final String register_id,
+                              String firstname,
+                              String lastname,
+                              String email_id,
+                              String mobile,
+                              final String profile_pic) {
         showProgressIndicator();
         MultipartBody.Part picprofile = null;
         if (!TextUtils.isEmpty(profile_pic)) {
