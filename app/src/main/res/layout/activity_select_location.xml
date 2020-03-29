@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/buish_background_color"
-    tools:context="com.presentation.app.dealsnest.ui.select_location.SelectLocationActivity">
+    tools:context="com.highstreets.user.ui.select_location.SelectLocationActivity">
 
     <include layout="@layout/layout_app_bar_white" />
 

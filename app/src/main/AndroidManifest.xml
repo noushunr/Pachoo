@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.presentation.app.dealsnest">
+    package="com.highstreets.user">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -13,7 +13,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="com.presentation.app.dealsnest.App"
+        android:name="com.highstreets.user.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,7 +35,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.SplashActivity"
+            android:name="com.highstreets.user.ui.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -44,36 +44,36 @@
         </activity>
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.notification.notification_details.NotificationDetailActivity"
+            android:name="com.highstreets.user.ui.notification.notification_details.NotificationDetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.booked.ViewDealActivity"
+            android:name="com.highstreets.user.ui.booked.ViewDealActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.offer_details.DetailActivity"
+            android:name="com.highstreets.user.ui.offer_details.DetailActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.NoInternetActivity"
+            android:name="com.highstreets.user.ui.NoInternetActivity"
             android:screenOrientation="portrait"
             android:launchMode="singleTask" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.write_review.ReadAllReviewsActivity"
+            android:name="com.highstreets.user.ui.write_review.ReadAllReviewsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.presentation.app.dealsnest.ui.write_review.WriteReviewActivity"
+            android:name="com.highstreets.user.ui.write_review.WriteReviewActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.login_registration.LoginActivity"
+            android:name="com.highstreets.user.ui.login_registration.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.home.HomeMainActivity"
+            android:name="com.highstreets.user.ui.home.HomeMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -81,72 +81,72 @@
         </activity>
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.login_registration.RegisterActivity"
+            android:name="com.highstreets.user.ui.login_registration.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.forgot_password.ForgotPasswordActivity"
+            android:name="com.highstreets.user.ui.forgot_password.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.reset_password_otp.ResetPasswordOTPActivity"
+            android:name="com.highstreets.user.ui.reset_password_otp.ResetPasswordOTPActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.reset_password.ResetPasswordActivity"
+            android:name="com.highstreets.user.ui.reset_password.ResetPasswordActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.change_password.ChangePasswordActivity"
+            android:name="com.highstreets.user.ui.change_password.ChangePasswordActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.profile.ProfileActivity"
+            android:name="com.highstreets.user.ui.profile.ProfileActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.select_location.SelectLocationActivity"
+            android:name="com.highstreets.user.ui.select_location.SelectLocationActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.search.SearchActivity"
+            android:name="com.highstreets.user.ui.search.SearchActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.ReferAFriendActivity"
+            android:name="com.highstreets.user.ui.ReferAFriendActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.presentation.app.dealsnest.ui.notification.NotificationActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.presentation.app.dealsnest.ui.help.HelpActivity"
+            android:name="com.highstreets.user.ui.notification.NotificationActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.sub_categories.SubCategoryActivity"
+            android:name="com.highstreets.user.ui.help.HelpActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.review_booking.ReviewBookingActivity"
+            android:name="com.highstreets.user.ui.sub_categories.SubCategoryActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.view_all_deals.ViewAllDealsActivity"
+            android:name="com.highstreets.user.ui.review_booking.ReviewBookingActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.view_all_recently_booked.ViewAllRecentlyBookedActivity"
+            android:name="com.highstreets.user.ui.view_all_deals.ViewAllDealsActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.home.MoreCategoriesActivity"
+            android:name="com.highstreets.user.ui.view_all_recently_booked.ViewAllRecentlyBookedActivity"
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.most_viewed_shop.ViewAllMostViewShopActivity"
+            android:name="com.highstreets.user.ui.home.MoreCategoriesActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.highstreets.user.ui.most_viewed_shop.ViewAllMostViewShopActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -168,7 +168,7 @@
         </activity>
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.offer_details.OfferDetailActivity"
+            android:name="com.highstreets.user.ui.offer_details.OfferDetailActivity"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -184,7 +184,7 @@
         </activity>
 
         <activity
-            android:name="com.presentation.app.dealsnest.ui.shop_details.ShopActivity"
+            android:name="com.highstreets.user.ui.shop_details.ShopActivity"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -218,13 +218,13 @@
             <!--</intent-filter>-->
         <!--</receiver>-->
 
-        <service android:name="com.presentation.app.dealsnest.fcm.MyFirebaseInstanceIDService">
+        <service android:name="com.highstreets.user.fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
-        <service android:name="com.presentation.app.dealsnest.fcm.MyFirebaseMessagingService">
+        <service android:name="com.highstreets.user.fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

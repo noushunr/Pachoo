@@ -1,0 +1,1 @@
+package com.highstreets.user.ui.favourites;import com.highstreets.user.common.CommonPresenterInterface;public interface FavoritesFragmentPresenterInterface extends CommonPresenterInterface {    void getFavouriteShop(String user_id);    void deleteFavouriteShop(String fav_id);}

@@ -8,7 +8,7 @@
     android:fitsSystemWindows="true"
     android:maxWidth="240dp"
     android:maxHeight="320dp"
-    tools:context="com.presentation.app.dealsnest.ui.SuccessDialogFragment">
+    tools:context="com.highstreets.user.ui.SuccessDialogFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="270dp"

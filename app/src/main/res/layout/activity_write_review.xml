@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/buish_background_color"
-    tools:context="com.presentation.app.dealsnest.ui.write_review.WriteReviewActivity">
+    tools:context="com.highstreets.user.ui.write_review.WriteReviewActivity">
 
     <include layout="@layout/layout_app_bar" />
 

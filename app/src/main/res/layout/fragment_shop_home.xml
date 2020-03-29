@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.presentation.app.dealsnest.ui.shop_details.fragments.ShopHomeFragment">
+    tools:context="com.highstreets.user.ui.shop_details.fragments.ShopHomeFragment">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"

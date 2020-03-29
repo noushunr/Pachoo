@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/activities_bg"
-    tools:context="com.presentation.app.dealsnest.ui.shop_details.ShopActivity">
+    tools:context="com.highstreets.user.ui.shop_details.ShopActivity">
 
     <include layout="@layout/layout_app_bar_white" />
 

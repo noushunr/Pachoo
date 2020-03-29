@@ -1,1 +1,0 @@
-package com.presentation.app.dealsnest.ui.favourites;import com.presentation.app.dealsnest.common.CommonPresenterInterface;public interface FavoritesFragmentPresenterInterface extends CommonPresenterInterface {    void getFavouriteShop(String user_id);    void deleteFavouriteShop(String fav_id);}

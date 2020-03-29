@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@drawable/splash_gradient"
-    tools:context="com.presentation.app.dealsnest.ui.SplashActivity">
+    tools:context="com.highstreets.user.ui.SplashActivity">
 
     <ImageView
         android:id="@+id/logo"

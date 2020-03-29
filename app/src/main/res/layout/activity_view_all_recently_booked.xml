@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.presentation.app.dealsnest.ui.view_all_recently_booked.ViewAllRecentlyBookedActivity">
+    tools:context="com.highstreets.user.ui.view_all_recently_booked.ViewAllRecentlyBookedActivity">
 
     <include layout="@layout/layout_app_bar" />
 
