@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.HelpAdapter;
 import com.highstreets.user.models.Help;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 

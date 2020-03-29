@@ -42,7 +42,7 @@ import com.highstreets.user.models.MostViewedShop;
 import com.highstreets.user.models.RecentlyBookedShop;
 import com.highstreets.user.models.Slider;
 import com.highstreets.user.models.TopBanner;
-import com.highstreets.user.ui.BaseFragment;
+import com.highstreets.user.ui.base.BaseFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.main.MoreCategoriesActivity;

@@ -26,7 +26,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.adapters.SearchListAdapter;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.models.SearchItem;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 
 import java.util.Arrays;
 import java.util.List;

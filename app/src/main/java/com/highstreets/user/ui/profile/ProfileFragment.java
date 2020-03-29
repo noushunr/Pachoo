@@ -27,7 +27,7 @@ import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.ProfileData;
-import com.highstreets.user.ui.BaseFragment;
+import com.highstreets.user.ui.base.BaseFragment;
 import com.highstreets.user.ui.change_password.ChangePasswordActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;

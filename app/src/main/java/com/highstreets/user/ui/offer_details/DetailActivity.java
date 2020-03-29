@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 
 public class DetailActivity extends BaseActivity {
 

@@ -18,7 +18,7 @@ import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.Coupon;
 import com.highstreets.user.models.FavoriteCouponBooking;
-import com.highstreets.user.ui.BaseFragment;
+import com.highstreets.user.ui.base.BaseFragment;
 import com.highstreets.user.ui.SuccessDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.utils.CommonUtils;

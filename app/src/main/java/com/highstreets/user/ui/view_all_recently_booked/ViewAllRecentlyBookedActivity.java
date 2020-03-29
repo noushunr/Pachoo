@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.ViewAllRecentlyBookedAdapter;
 import com.highstreets.user.models.ViewAllRecentlyBooked;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 
 import java.util.List;
 

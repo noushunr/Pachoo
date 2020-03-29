@@ -34,7 +34,7 @@ import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.ReferAFriendActivity;
 import com.highstreets.user.ui.main.bookings.BookingsFragment;
 import com.highstreets.user.ui.main.categories.CategoriesFragment;

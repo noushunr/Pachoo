@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.highstreets.user.R;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.MyCustomDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 

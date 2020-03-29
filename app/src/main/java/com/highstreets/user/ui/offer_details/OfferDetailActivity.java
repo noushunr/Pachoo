@@ -23,7 +23,7 @@ import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.login_registration.LoginActivity;
 import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
 import com.highstreets.user.ui.shop_details.ShopImagesDialogFragment;

@@ -1,4 +1,4 @@
-package com.highstreets.user.ui;
+package com.highstreets.user.ui.base;
 
 import android.content.Intent;
 import android.content.IntentFilter;

@@ -15,7 +15,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.adapters.ReviewBookingAdapter;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.models.Offer;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.SuccessDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;

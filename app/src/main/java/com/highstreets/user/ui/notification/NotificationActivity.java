@@ -12,7 +12,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.adapters.NotificationAdapter;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.models.notification_model;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 

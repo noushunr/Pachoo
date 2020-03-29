@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.ViewAllDealsAdapter;
 import com.highstreets.user.models.ViewAllDeals;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 
 import java.util.List;
 

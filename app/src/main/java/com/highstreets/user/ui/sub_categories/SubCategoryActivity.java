@@ -28,7 +28,7 @@ import com.highstreets.user.models.FilterItemModel;
 import com.highstreets.user.models.FilterPriceModel;
 import com.highstreets.user.models.SubCategory;
 import com.highstreets.user.models.shop.ShopBanner;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;

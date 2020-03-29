@@ -19,7 +19,7 @@ import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.CustomItemClickListener;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.favorites_model;
-import com.highstreets.user.ui.BaseFragment;
+import com.highstreets.user.ui.base.BaseFragment;
 
 import java.util.List;
 

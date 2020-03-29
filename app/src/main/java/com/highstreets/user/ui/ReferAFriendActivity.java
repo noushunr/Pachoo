@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.highstreets.user.BuildConfig;
 import com.highstreets.user.R;
+import com.highstreets.user.ui.base.BaseActivity;
 
 public class ReferAFriendActivity extends BaseActivity {
 

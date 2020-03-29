@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.models.ReviewGet;
-import com.highstreets.user.ui.BaseActivity;
+import com.highstreets.user.ui.base.BaseActivity;
 
 public class WriteReviewActivity extends BaseActivity implements View.OnClickListener, WriteReviewViewInterface {
 
