@@ -188,7 +188,7 @@
                     android:layout_below="@+id/txt_deal_price"
                     android:layout_alignParentEnd="true"
                     android:layout_margin="4dp"
-                    android:background="@drawable/view_text_bg"
+                    android:background="@drawable/button_bg_primary"
                     android:elevation="2dp"
                     android:gravity="center"
                     android:padding="4dp"

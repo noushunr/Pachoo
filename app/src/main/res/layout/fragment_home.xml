@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="45dp"
     android:background="@color/white"
-    tools:context="com.highstreets.user.ui.home.HomeFragment">
+    tools:context="com.highstreets.user.ui.main.home.HomeFragment">
 
     <ScrollView
         android:layout_width="match_parent"

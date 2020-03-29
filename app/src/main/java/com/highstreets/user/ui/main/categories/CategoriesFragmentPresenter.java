@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.categories;
+package com.highstreets.user.ui.main.categories;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonIOException;

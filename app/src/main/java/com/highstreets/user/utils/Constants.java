@@ -19,7 +19,7 @@ public class Constants {
     public static final String TAG_COUPONS_FRAGMENT = "tag_coupons_fragment";
     public static final String TAG_CATEGORIES_FRAGMENT = "tag_categories_fragment";
     public static final String TAG_FAVORITES_FRAGMENT = "tag_favorites_fragment";
-    public static final String TAG_BOOKED_FRAGMENT = "tag_booked_fragment";
+    public static final String TAG_BOOKINGS_FRAGMENT = "tag_bookings_fragment";
     public static final String TAG_PROFILE_FRAGMENT = "tag_profile_fragment";
     public static final String ERROR = "error";
     public static final String BOOKED = "booked";

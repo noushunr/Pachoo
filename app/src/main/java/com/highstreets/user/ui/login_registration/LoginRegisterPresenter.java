@@ -54,50 +54,47 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
 
 
     @Override
-    public void userRegister(String firstname,
-                             String lastname,
-                             String email_id,
+    public void userRegister(String firstName,
+                             String lastName,
+                             String emailId,
                              String password,
-                             String confirm_password,
+                             String confirmPassword,
                              String mobile,
                              String gender) {
         showProgressIndicator();
         ApiClient.getApiInterface().register(
-                firstname,
-                lastname,
-                email_id,
+                firstName,
+                lastName,
+                emailId,
                 password,
-                confirm_password,
+                confirmPassword,
                 mobile,
                 gender).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
                             GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_ID, jsonObject.get("register_id").getAsString());
                             loginRegisterViewInterface.onSighInSuccess("Login Successfully");
-                            dismissProgressIndicator();
                         } else {
                             loginRegisterViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
-                            dismissProgressIndicator();
                         }
-                        dismissProgressIndicator();
                     } catch (JsonIOException e) {
                         e.printStackTrace();
                     }
                 } else {
                     loginRegisterViewInterface.onResponseFailed("Failed");
-                    dismissProgressIndicator();
                 }
 
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
                 dismissProgressIndicator();
+                loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }
         });
     }
@@ -117,6 +114,7 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
                 profileImage).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     JsonObject jsonObject = response.body();
                     if (Constants.SUCCESS.equals(jsonObject.get(Constants.STATUS).getAsString())) {
@@ -129,7 +127,6 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
                     }
 
                 }
-                dismissProgressIndicator();
             }
 
             @Override

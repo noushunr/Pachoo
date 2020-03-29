@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.home;
+package com.highstreets.user.ui.main.home;
 
 import android.app.Activity;
 import android.content.Context;
@@ -44,6 +44,8 @@ import com.highstreets.user.models.Slider;
 import com.highstreets.user.models.TopBanner;
 import com.highstreets.user.ui.BaseFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
+import com.highstreets.user.ui.main.HomeMainActivity;
+import com.highstreets.user.ui.main.MoreCategoriesActivity;
 import com.highstreets.user.ui.most_viewed_shop.ViewAllMostViewShopActivity;
 import com.highstreets.user.ui.select_location.SelectLocationActivity;
 import com.highstreets.user.ui.view_all_deals.ViewAllDealsActivity;
@@ -57,7 +59,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeFragment extends BaseFragment implements
-        HomeFragmentViewInterface,
+        HomeViewInterface,
         CommonViewInterface,
         View.OnClickListener,
         CategoryRecyclerAdapter.ToAllCategories,
@@ -68,7 +70,7 @@ public class HomeFragment extends BaseFragment implements
     private ViewPager mViewPager;
     private CustomPagerAdapter mPagerAdapter;
     private ActionBar toolbar;
-    private HomeFragmentPresenterInterface homeFragmentPresenter;
+    private HomePresenterInterface homeFragmentPresenter;
     private TextView mLocation;
     private ImageView mTopBanner, mMiddleBanner, mBottomBanner;
     private ProgressDialogFragment progressDialogFragment;
@@ -107,7 +109,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        homeFragmentPresenter = new HomeFragmentPresenter(context, this);
+        homeFragmentPresenter = new HomePresenter(context, this);
     }
 
     @Override
@@ -199,7 +201,6 @@ public class HomeFragment extends BaseFragment implements
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SelectLocationActivity.class);
                 startActivityForResult(intent, LOCATION_REQUEST_CODE);
-
             }
         });
 

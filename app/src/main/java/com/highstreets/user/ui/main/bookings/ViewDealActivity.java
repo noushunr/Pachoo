@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.booked;
+package com.highstreets.user.ui.main.bookings;
 
 import android.content.Context;
 import android.content.Intent;
@@ -64,7 +64,7 @@ public class ViewDealActivity extends BaseActivity {
             tvValidTill.setText(getIntent().getStringExtra("validity_till"));
         }
         if (getIntent().getStringExtra("total") != null) {
-            tvTotal.setText("₹" + getIntent().getStringExtra("total"));
+            tvTotal.setText(getString(R.string.pound_symbol) + getIntent().getStringExtra("total"));
         }
         if (getIntent().getStringExtra("merchant") != null) {
             tvMerchantName.setText(getIntent().getStringExtra("merchant"));

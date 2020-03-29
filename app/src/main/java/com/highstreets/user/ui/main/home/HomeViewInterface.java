@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.home;
+package com.highstreets.user.ui.main.home;
 
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.models.BottomBanner;
@@ -13,7 +13,7 @@ import com.highstreets.user.models.TopBanner;
 
 import java.util.List;
 
-public interface HomeFragmentViewInterface extends CommonViewInterface {
+public interface HomeViewInterface extends CommonViewInterface {
 
     void setCategoryList(List<Category> categoryList);
 

@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.coupons;
+package com.highstreets.user.ui.main.coupons;
 
 import android.content.Context;
 import android.os.Bundle;

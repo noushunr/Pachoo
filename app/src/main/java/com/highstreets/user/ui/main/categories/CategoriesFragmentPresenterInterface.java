@@ -1,5 +1,5 @@
 
-package com.highstreets.user.ui.categories;
+package com.highstreets.user.ui.main.categories;
 
 import com.highstreets.user.common.CommonPresenterInterface;
 

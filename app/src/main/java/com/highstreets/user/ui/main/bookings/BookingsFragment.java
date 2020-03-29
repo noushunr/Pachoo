@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.booked;
+package com.highstreets.user.ui.main.bookings;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import java.util.List;
 
 
-public class BookedFragment extends BaseFragment implements BookedFragmentViewInterface {
+public class BookingsFragment extends BaseFragment implements BookingsViewInterface {
     private View view;
     private RecyclerView mBookedRecyclerView;
     private BookedAdapter mBookedAdapter;
@@ -34,7 +34,7 @@ public class BookedFragment extends BaseFragment implements BookedFragmentViewIn
     private ProgressDialogFragment progressDialogFragment;
     private ActionBar toolbar;
     private TextView tvNoData;
-    private BookedFragmentPresenter bookedFragmentPresenter;
+    private BookingsPresenter bookingsPresenter;
     private String USER_ID;
     private OnFragmentInteractionListener mListener;
     private CommonViewInterface mCommonListener;
@@ -45,7 +45,7 @@ public class BookedFragment extends BaseFragment implements BookedFragmentViewIn
 
         setHasOptionsMenu(true);
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
-        bookedFragmentPresenter = new BookedFragmentPresenter(getActivity(), this);
+        bookingsPresenter = new BookingsPresenter(getActivity(), this);
         USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
         progressDialogFragment = new ProgressDialogFragment();
         view = inflater.inflate(R.layout.fragment_booked, container, false);
@@ -55,7 +55,7 @@ public class BookedFragment extends BaseFragment implements BookedFragmentViewIn
     }
 
     private void getBookedOffer(String user_id) {
-        bookedFragmentPresenter.getBookedOffers(user_id);
+        bookingsPresenter.getBookedOffers(user_id);
     }
 
     private void initView() {

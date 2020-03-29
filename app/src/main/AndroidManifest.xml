@@ -48,7 +48,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.highstreets.user.ui.booked.ViewDealActivity"
+            android:name="com.highstreets.user.ui.main.bookings.ViewDealActivity"
             android:screenOrientation="portrait" />
 
         <activity
@@ -73,7 +73,7 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
 
         <activity
-            android:name="com.highstreets.user.ui.home.HomeMainActivity"
+            android:name="com.highstreets.user.ui.main.HomeMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
@@ -142,7 +142,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name="com.highstreets.user.ui.home.MoreCategoriesActivity"
+            android:name="com.highstreets.user.ui.main.MoreCategoriesActivity"
             android:screenOrientation="portrait" />
 
         <activity

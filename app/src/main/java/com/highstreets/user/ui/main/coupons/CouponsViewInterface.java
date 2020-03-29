@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.coupons;
+package com.highstreets.user.ui.main.coupons;
 
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.models.Coupon;

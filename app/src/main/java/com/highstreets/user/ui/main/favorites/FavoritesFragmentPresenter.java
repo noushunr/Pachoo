@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.favourites;
+package com.highstreets.user.ui.main.favorites;
 
 import android.content.Context;
 

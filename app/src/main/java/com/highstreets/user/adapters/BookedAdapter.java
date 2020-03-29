@@ -17,7 +17,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.common.CustomItemClickListener;
 import com.highstreets.user.models.BookedOffers;
-import com.highstreets.user.ui.booked.ViewDealActivity;
+import com.highstreets.user.ui.main.bookings.ViewDealActivity;
 import com.highstreets.user.ui.write_review.WriteReviewActivity;
 import com.highstreets.user.utils.Constants;
 

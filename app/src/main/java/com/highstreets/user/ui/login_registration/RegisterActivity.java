@@ -31,7 +31,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.ui.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
-import com.highstreets.user.ui.home.HomeMainActivity;
+import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
 

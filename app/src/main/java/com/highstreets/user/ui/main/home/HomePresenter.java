@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.home;
+package com.highstreets.user.ui.main.home;
 
 import android.content.Context;
 
@@ -25,14 +25,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeFragmentPresenter implements HomeFragmentPresenterInterface {
+public class HomePresenter implements HomePresenterInterface {
 
-    private HomeFragmentViewInterface homeFragmentViewInterface;
+    private HomeViewInterface homeViewInterface;
     private Context context;
 
-    public HomeFragmentPresenter(Context context, HomeFragmentViewInterface homeFragmentViewInterface) {
+    public HomePresenter(Context context, HomeViewInterface homeViewInterface) {
         this.context = context;
-        this.homeFragmentViewInterface = homeFragmentViewInterface;
+        this.homeViewInterface = homeViewInterface;
     }
 
     @Override
@@ -66,24 +66,24 @@ public class HomeFragmentPresenter implements HomeFragmentPresenterInterface {
                             }.getType());
                             List<MostViewedShop> mostViewedShopList = new Gson().fromJson(data.get("most_viewed_shops").getAsJsonArray(), new TypeToken<List<MostViewedShop>>() {
                             }.getType());
-                            homeFragmentViewInterface.setCategoryList(categoryList);
-                            homeFragmentViewInterface.setDealList(dealList);
-                            homeFragmentViewInterface.setSliderList(sliderList);
-                            homeFragmentViewInterface.setTopBannerList(topBannerList);
-                            homeFragmentViewInterface.setBrandedShopList(brandedShopList);
-                            homeFragmentViewInterface.setMiddleBannerList(middleBannerList);
-                            homeFragmentViewInterface.setRecentlyBookedList(recentlyBookedShopList);
-                            homeFragmentViewInterface.setBottomBannersList(bottomBannerList);
-                            homeFragmentViewInterface.setMostViewedShops(mostViewedShopList);
+                            homeViewInterface.setCategoryList(categoryList);
+                            homeViewInterface.setDealList(dealList);
+                            homeViewInterface.setSliderList(sliderList);
+                            homeViewInterface.setTopBannerList(topBannerList);
+                            homeViewInterface.setBrandedShopList(brandedShopList);
+                            homeViewInterface.setMiddleBannerList(middleBannerList);
+                            homeViewInterface.setRecentlyBookedList(recentlyBookedShopList);
+                            homeViewInterface.setBottomBannersList(bottomBannerList);
+                            homeViewInterface.setMostViewedShops(mostViewedShopList);
 
                         } else {
-                            homeFragmentViewInterface.onServerError(jsonObject.get(Constants.MESSAGE).getAsString());
+                            homeViewInterface.onServerError(jsonObject.get(Constants.MESSAGE).getAsString());
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    homeFragmentViewInterface.onResponseFailed("Failed");
+                    homeViewInterface.onResponseFailed("Failed");
                 }
             }
 
@@ -91,9 +91,9 @@ public class HomeFragmentPresenter implements HomeFragmentPresenterInterface {
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 dismissProgressIndicator();
                 if (CommonUtils.isNetworkAvailable(context)) {
-                    homeFragmentViewInterface.onResponseFailed(Constants.ERROR_MESSAGE_SERVER);
+                    homeViewInterface.onResponseFailed(Constants.ERROR_MESSAGE_SERVER);
                 } else {
-                    homeFragmentViewInterface.noInternet();
+                    homeViewInterface.noInternet();
                 }
             }
         });
@@ -102,12 +102,12 @@ public class HomeFragmentPresenter implements HomeFragmentPresenterInterface {
 
     @Override
     public void showProgressIndicator() {
-        homeFragmentViewInterface.showProgressIndicator();
+        homeViewInterface.showProgressIndicator();
     }
 
     @Override
     public void dismissProgressIndicator() {
-        homeFragmentViewInterface.dismissProgressIndicator();
+        homeViewInterface.dismissProgressIndicator();
     }
 
 

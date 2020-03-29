@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.highstreets.user.ui.booked.BookedFragment">
+    tools:context="com.highstreets.user.ui.main.bookings.BookingsFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/booked_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp" />
+        android:layout_height="wrap_content"/>
 
     <TextView
         android:id="@+id/tvNoData"

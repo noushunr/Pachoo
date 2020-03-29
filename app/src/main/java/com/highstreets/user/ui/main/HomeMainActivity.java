@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.home;
+package com.highstreets.user.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
@@ -36,15 +36,16 @@ import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.ui.BaseActivity;
 import com.highstreets.user.ui.ReferAFriendActivity;
-import com.highstreets.user.ui.booked.BookedFragment;
-import com.highstreets.user.ui.categories.CategoriesFragment;
-import com.highstreets.user.ui.coupons.CouponsFragment;
+import com.highstreets.user.ui.main.bookings.BookingsFragment;
+import com.highstreets.user.ui.main.categories.CategoriesFragment;
+import com.highstreets.user.ui.main.coupons.CouponsFragment;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.PlayStoreUpdateDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
-import com.highstreets.user.ui.favourites.FavoritesFragment;
+import com.highstreets.user.ui.main.favorites.FavoritesFragment;
 import com.highstreets.user.ui.help.HelpActivity;
 import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.main.home.HomeFragment;
 import com.highstreets.user.ui.notification.NotificationActivity;
 import com.highstreets.user.ui.profile.ProfileFragment;
 import com.highstreets.user.ui.search.SearchActivity;
@@ -56,6 +57,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -66,26 +69,41 @@ public class HomeMainActivity extends BaseActivity
         View.OnClickListener,
         LocationListener {
 
-    private Toolbar toolbar;
-    private BottomNavigationView mBottomNavigationView;
     private ProgressDialogFragment progressDialogFragment;
-    private DrawerLayout mDrawer;
-    private TextView tvToolBarText;
-    private LinearLayout llMyProfile;
-    private LinearLayout llMyBooking;
-    private LinearLayout llMyFavorites;
-    private LinearLayout llReferAFriend;
-    private LinearLayout llNotification;
-    private LinearLayout llRateApp;
-    private LinearLayout llHelp;
-    private LinearLayout llLogout;
-    private TextView tvNavFirstName;
     private LocationChange mLocationChange;
     private String tokenId;
     private String mUserID;
     private Geocoder geocoder;
     private String SELECTED_CITY;
-    private DrawerLayout drawer;
+
+    @BindView(R.id.tvToolbarText)
+    TextView tvToolBarText;
+    @BindView(R.id.tvNavFirstName)
+    TextView tvNavFirstName;
+    @BindView(R.id.llMyProfile)
+    LinearLayout llMyProfile;
+    @BindView(R.id.llMyBooking)
+    LinearLayout llMyBooking;
+    @BindView(R.id.llMyFavorites)
+    LinearLayout llMyFavorites;
+    @BindView(R.id.llReferAFriend)
+    LinearLayout llReferAFriend;
+    @BindView(R.id.llNotification)
+    LinearLayout llNotification;
+    @BindView(R.id.llRateApp)
+    LinearLayout llRateApp;
+    @BindView(R.id.llHelp)
+    LinearLayout llHelp;
+    @BindView(R.id.llLogout)
+    LinearLayout llLogout;
+
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.bottomNavigation)
+    BottomNavigationView bottomNavigation;
+    @BindView(R.id.drawerLayout)
+    DrawerLayout drawerLayout;
+
 
     private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -113,7 +131,7 @@ public class HomeMainActivity extends BaseActivity
                     if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
                         toLogin();
                     } else {
-                        loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKED_FRAGMENT));
+                        loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));
                     }
                     return true;
             }
@@ -128,7 +146,7 @@ public class HomeMainActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ButterKnife.bind(this);
         toolbar = findViewById(R.id.toolbar);
         mUserID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
         try {
@@ -137,17 +155,14 @@ public class HomeMainActivity extends BaseActivity
             e.printStackTrace();
         }
 
-
         addDeviceToken(mUserID, tokenId, "1");
         initiateFragments();
-        mBottomNavigationView = findViewById(R.id.navigation);
-        mBottomNavigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         tvToolBarText = findViewById(R.id.tvToolbarText);
-        tvToolBarText.setText("Home");
-        mDrawer = findViewById(R.id.drawer_layout);
+        tvToolBarText.setText(R.string.home);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        mDrawer.addDrawerListener(toggle);
+                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
         initViews();
 
@@ -165,7 +180,7 @@ public class HomeMainActivity extends BaseActivity
         mLocationChange = (LocationChange) mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT);
 
         loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
-        mBottomNavigationView.setSelectedItemId(R.id.navigation_home);
+        bottomNavigation.setSelectedItemId(R.id.navigation_home);
     }
 
     @Override
@@ -215,7 +230,7 @@ public class HomeMainActivity extends BaseActivity
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
             SELECTED_CITY = addresses.get(0).getLocality();
             GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_LOCATED, true);
-            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_container);
+            Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.flContainer);
             if (fragment instanceof HomeFragment) {
                 mLocationChange.onLocationChanged(SELECTED_CITY);
             }
@@ -241,17 +256,6 @@ public class HomeMainActivity extends BaseActivity
     }
 
     private void initViews() {
-        llMyProfile = findViewById(R.id.llMyProfile);
-        llMyBooking = findViewById(R.id.llMyBooking);
-        llMyFavorites = findViewById(R.id.llMyFavorites);
-        llReferAFriend = findViewById(R.id.llReferAFriend);
-        llNotification = findViewById(R.id.llNotification);
-        llRateApp = findViewById(R.id.llRateApp);
-        llHelp = findViewById(R.id.llHelp);
-        llLogout = findViewById(R.id.llLogout);
-        tvNavFirstName = findViewById(R.id.tvNavFirstName);
-        drawer = findViewById(R.id.drawer_layout);
-
 
         llMyProfile.setOnClickListener(this);
         llMyBooking.setOnClickListener(this);
@@ -262,7 +266,7 @@ public class HomeMainActivity extends BaseActivity
         llHelp.setOnClickListener(this);
         llLogout.setOnClickListener(this);
 
-        drawer.addDrawerListener(new DrawerLayout.DrawerListener() {
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
 
@@ -307,7 +311,7 @@ public class HomeMainActivity extends BaseActivity
         mFragmentHashMap.put(Constants.TAG_CATEGORIES_FRAGMENT, new CategoriesFragment());
         mFragmentHashMap.put(Constants.TAG_COUPONS_FRAGMENT, new CouponsFragment());
         mFragmentHashMap.put(Constants.TAG_FAVORITES_FRAGMENT, new FavoritesFragment());
-        mFragmentHashMap.put(Constants.TAG_BOOKED_FRAGMENT, new BookedFragment());
+        mFragmentHashMap.put(Constants.TAG_BOOKINGS_FRAGMENT, new BookingsFragment());
         mFragmentHashMap.put(Constants.TAG_PROFILE_FRAGMENT, new ProfileFragment());
     }
 
@@ -320,7 +324,7 @@ public class HomeMainActivity extends BaseActivity
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
+        transaction.replace(R.id.flContainer, fragment);
         try {
             transaction.commit();
         } catch (IllegalStateException e) {
@@ -332,7 +336,7 @@ public class HomeMainActivity extends BaseActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.home_search, menu);
         MenuItem menuItem = menu.findItem(R.id.navigation_searching);
-        if (getSupportFragmentManager().findFragmentById(R.id.frame_container) instanceof HomeFragment)
+        if (getSupportFragmentManager().findFragmentById(R.id.flContainer) instanceof HomeFragment)
             menuItem.setVisible(true);
         else
             menuItem.setVisible(false);
@@ -351,12 +355,12 @@ public class HomeMainActivity extends BaseActivity
 
     @Override
     public void onBackPressed() {
-        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_container);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.flContainer);
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START);
         } else if (!(fragment instanceof HomeFragment)) {
             loadFragment(new HomeFragment());
-            mBottomNavigationView.setSelectedItemId(R.id.navigation_home);
+            bottomNavigation.setSelectedItemId(R.id.navigation_home);
         } else {
             super.onBackPressed();
         }
@@ -417,7 +421,7 @@ public class HomeMainActivity extends BaseActivity
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_PROFILE_FRAGMENT));
-                    mDrawer.closeDrawers();
+                    drawerLayout.closeDrawers();
                 }
 
                 break;
@@ -426,9 +430,9 @@ public class HomeMainActivity extends BaseActivity
                 if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
-                    loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKED_FRAGMENT));
-                    mBottomNavigationView.setSelectedItemId(R.id.navigation_booked);
-                    mDrawer.closeDrawers();
+                    loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));
+                    bottomNavigation.setSelectedItemId(R.id.navigation_booked);
+                    drawerLayout.closeDrawers();
                 }
 
                 break;
@@ -438,21 +442,21 @@ public class HomeMainActivity extends BaseActivity
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
-                    mBottomNavigationView.setSelectedItemId(R.id.navigation_favorites);
-                    mDrawer.closeDrawers();
+                    bottomNavigation.setSelectedItemId(R.id.navigation_favorites);
+                    drawerLayout.closeDrawers();
                 }
 
                 break;
             }
             case R.id.llReferAFriend: {
                 startActivity(ReferAFriendActivity.getActivityIntent(this));
-                mDrawer.closeDrawers();
+                drawerLayout.closeDrawers();
                 break;
             }
 
             case R.id.llNotification: {
                 startActivity(new Intent(HomeMainActivity.this, NotificationActivity.class));
-                mDrawer.closeDrawers();
+                drawerLayout.closeDrawers();
                 break;
             }
             case R.id.llRateApp: {
@@ -462,7 +466,7 @@ public class HomeMainActivity extends BaseActivity
                 } catch (android.content.ActivityNotFoundException anfe) {
                     startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
                 }
-                mDrawer.closeDrawers();
+                drawerLayout.closeDrawers();
                 break;
             }
 

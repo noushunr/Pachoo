@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.categories;
+package com.highstreets.user.ui.main.categories;
 
 import android.content.Context;
 import android.os.Bundle;

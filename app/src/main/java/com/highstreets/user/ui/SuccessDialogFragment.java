@@ -15,7 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.ui.home.HomeMainActivity;
+import com.highstreets.user.ui.main.HomeMainActivity;
 
 public class SuccessDialogFragment extends DialogFragment {
 

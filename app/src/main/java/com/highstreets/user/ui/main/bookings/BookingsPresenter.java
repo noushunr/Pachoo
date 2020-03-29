@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.booked;
+package com.highstreets.user.ui.main.bookings;
 
 import android.content.Context;
 
@@ -18,13 +18,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class BookedFragmentPresenter implements BookedFragmentPresenterInterface {
+public class BookingsPresenter implements BookingsPresenterInterface {
 
-    private BookedFragmentViewInterface bookedFragmentViewInterface;
+    private BookingsViewInterface bookingsViewInterface;
     private Context context;
 
-    public BookedFragmentPresenter(Context context, BookedFragmentViewInterface bookedFragmentViewInterface) {
-        this.bookedFragmentViewInterface = bookedFragmentViewInterface;
+    public BookingsPresenter(Context context, BookingsViewInterface bookingsViewInterface) {
+        this.bookingsViewInterface = bookingsViewInterface;
         this.context = context;
     }
 
@@ -44,15 +44,15 @@ public class BookedFragmentPresenter implements BookedFragmentPresenterInterface
 
                             List<BookedOffers> bookedModelList = new Gson().fromJson(data, new TypeToken<List<BookedOffers>>() {
                             }.getType());
-                            bookedFragmentViewInterface.onLoadingBookedOffersSuccess(bookedModelList);
+                            bookingsViewInterface.onLoadingBookedOffersSuccess(bookedModelList);
                         } else {
-                            bookedFragmentViewInterface.onLoadingBookedOffersFailed(Constants.MESSAGE);
+                            bookingsViewInterface.onLoadingBookedOffersFailed(Constants.MESSAGE);
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    bookedFragmentViewInterface.onResponseFailed(Constants.MESSAGE);
+                    bookingsViewInterface.onResponseFailed(Constants.MESSAGE);
                 }
             }
 
@@ -60,9 +60,9 @@ public class BookedFragmentPresenter implements BookedFragmentPresenterInterface
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 dismissProgressIndicator();
                 if (CommonUtils.isNetworkAvailable(context)) {
-                    bookedFragmentViewInterface.onResponseFailed(Constants.ERROR);
+                    bookingsViewInterface.onResponseFailed(Constants.ERROR);
                 } else {
-                    bookedFragmentViewInterface.noInternet();
+                    bookingsViewInterface.noInternet();
                 }
             }
         });
@@ -70,11 +70,11 @@ public class BookedFragmentPresenter implements BookedFragmentPresenterInterface
 
     @Override
     public void showProgressIndicator() {
-        bookedFragmentViewInterface.showProgressIndicator();
+        bookingsViewInterface.showProgressIndicator();
     }
 
     @Override
     public void dismissProgressIndicator() {
-        bookedFragmentViewInterface.dismissProgressIndicator();
+        bookingsViewInterface.dismissProgressIndicator();
     }
 }

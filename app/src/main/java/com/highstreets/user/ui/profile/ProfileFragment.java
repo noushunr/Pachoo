@@ -32,8 +32,8 @@ import com.highstreets.user.ui.change_password.ChangePasswordActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 
-
 public class ProfileFragment extends BaseFragment implements ProfileActivityViewInterface {
+
     public static final int STORAGE_PERMISSION_CODE = 123;
     private LinearLayout mLayout;
     private View view;
@@ -58,7 +58,6 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
                              Bundle savedInstanceState) {
 
         requestStoragePermission();
-
         view = inflater.inflate(R.layout.fragment_profile, container, false);
         mListener.setTitle("Profile");
         mLogout = view.findViewById(R.id.button_logout);
