@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -27,6 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputEditText;
 import com.presentation.app.dealsnest.R;
 import com.presentation.app.dealsnest.app_pref.GlobalPreferManager;
 import com.presentation.app.dealsnest.ui.dialog_fragment.ProgressDialogFragment;
@@ -53,21 +56,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private int PasswordLength = 8;
     private CallbackManager mFBCallbackManager;
     private LoginManager mFBLoginManager;
-    private String FirstNameHolder, LastNameHolder, EmailHolder, PasswordHolder, ConfirmPasswordHolder, MobileHolder, GenderHolder,profileImage;
+    private String  GenderHolder, profileImage;
 
-
-    @BindView(R.id.edit_first_name)
-    EditText  mFirstName;
-    @BindView(R.id.edit_last_name)
-    EditText  mLastName;
-    @BindView(R.id.edit_email_id)
-    EditText  mEmailID;
-    @BindView(R.id.edit_password)
-    EditText  mPassword;
-    @BindView(R.id.edit_confirm_password)
-    EditText  mConfirmPassword;
-    @BindView(R.id.edit_mobile)
-    EditText  mMobile;
+    @BindView(R.id.itEtFirstName)
+    TextInputEditText itEtFirstName;
+    @BindView(R.id.tiEtLastName)
+    TextInputEditText tiEtLastName;
+    @BindView(R.id.tiEtEmailID)
+    TextInputEditText tiEtEmailID;
+    @BindView(R.id.tiEtPassword)
+    TextInputEditText tiEtPassword;
+    @BindView(R.id.tiEtConfirmPassword)
+    TextInputEditText tiEtConfirmPassword;
+    @BindView(R.id.tiEtMobile)
+    TextInputEditText tiEtMobile;
     @BindView(R.id.radio_group)
     RadioGroup mGenderGroup;
     @BindView(R.id.btnToLogin)
@@ -89,18 +91,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         loginRegisterPresenterInterface = new LoginRegisterPresenter(this);
-
-        mFirstName = findViewById(R.id.edit_first_name);
-        mLastName = findViewById(R.id.edit_last_name);
-        mEmailID = findViewById(R.id.edit_email_id);
-        mPassword = findViewById(R.id.edit_password);
-        mConfirmPassword = findViewById(R.id.edit_confirm_password);
-        mMobile = findViewById(R.id.edit_mobile);
-        mGenderGroup = findViewById(R.id.radio_group);
-        btnToLogin = findViewById(R.id.btnToLogin);
-        mRegister = findViewById(R.id.btnRegister);
-        btnFacebookSignIn = findViewById(R.id.btnFacebookSignIn);
-        btnGoogleSignIn = findViewById(R.id.btnGoogleSignIn);
 
         btnToLogin.setOnClickListener(this);
         mRegister.setOnClickListener(this);
@@ -162,18 +152,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnToLogin: {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                if (fromStr != null) {
-                    if (fromStr.equals(Constants.FROM_INSIDE)) {
-                        intent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
-                    }
-                }
-                startActivity(intent);
+                startActivity(LoginActivity.start(this));
                 finish();
                 break;
             }
             case R.id.btnRegister: {
-                USER_REGISTRATION();
+                validateFields();
                 break;
             }
             case R.id.btnFacebookSignIn: {
@@ -202,29 +186,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private void googleSignIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, Constants.GOOGLE_SIGN_IN_CODE);
-    }
-
-    private void USER_REGISTRATION() {
-        FirstNameHolder = mFirstName.getText().toString();
-        LastNameHolder = mLastName.getText().toString();
-        EmailHolder = mEmailID.getText().toString();
-        PasswordHolder = mPassword.getText().toString();
-        ConfirmPasswordHolder = mConfirmPassword.getText().toString();
-        MobileHolder = mMobile.getText().toString();
-        RadioButton checkedGender = mGenderGroup.findViewById(mGenderGroup.getCheckedRadioButtonId());
-        GenderHolder = checkedGender.getText().toString();
-
-        if (isValidated()) {
-            loginRegisterPresenterInterface.userRegister(FirstNameHolder,
-                    LastNameHolder,
-                    EmailHolder,
-                    PasswordHolder,
-                    ConfirmPasswordHolder,
-                    MobileHolder,
-                    GenderHolder);
-
-        }
-
     }
 
     @Override
@@ -260,53 +221,52 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private boolean isValidated() {
+    private void validateFields() {
+        String emailId = tiEtEmailID.getText().toString();
+        String password = tiEtPassword.getText().toString();
+        String confirmPassword = tiEtConfirmPassword.getText().toString();
+        String mobile = tiEtMobile.getText().toString();
+        RadioButton checkedGender = mGenderGroup.findViewById(mGenderGroup.getCheckedRadioButtonId());
 
-        if (FirstNameHolder.isEmpty()) {
-            mFirstName.requestFocus();
-            Toast.makeText(this, "First Name is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (LastNameHolder.isEmpty()) {
-            mLastName.requestFocus();
-            Toast.makeText(this, "Last Name is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (EmailHolder.isEmpty()) {
-            mEmailID.requestFocus();
-            Toast.makeText(this, "Email ID is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!EmailHolder.matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+")) {
-            mEmailID.requestFocus();
-            Toast.makeText(this, "Email ID is not valid", Toast.LENGTH_SHORT).show();
-            return false;
-
-        } else if (PasswordHolder.isEmpty()) {
-            mPassword.requestFocus();
-            Toast.makeText(this, "Password is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (PasswordHolder.length() < PasswordLength) {
-            mPassword.requestFocus();
-            Toast.makeText(this, "Password is less than 8 Characters", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (ConfirmPasswordHolder.isEmpty()) {
-            mConfirmPassword.requestFocus();
-            Toast.makeText(this, "Confirm Password is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!PasswordHolder.equals(ConfirmPasswordHolder)) {
-            mConfirmPassword.requestFocus();
-            Toast.makeText(this, "Password Mismatched", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (MobileHolder.isEmpty()) {
-            mMobile.requestFocus();
-            Toast.makeText(this, "Mobile is not entered", Toast.LENGTH_SHORT).show();
-            return false;
-        } else if (!MobileHolder.matches("^[6-9]\\d{9}$")) {
-            mMobile.requestFocus();
-            Toast.makeText(this, "Please Enter Valid 10 Digits Number", Toast.LENGTH_SHORT).show();
-            return false;
-
+        if (TextUtils.isEmpty(itEtFirstName.getText())) {
+            itEtFirstName.requestFocus();
+            CommonUtils.showToast(this, "First Name is not entered");
+        } else if (TextUtils.isEmpty(tiEtLastName.getText())) {
+            tiEtLastName.requestFocus();
+            CommonUtils.showToast(this, "Last Name is not entered");
+        } else if (TextUtils.isEmpty(emailId)) {
+            tiEtEmailID.requestFocus();
+            CommonUtils.showToast(this, "Email ID is not entered");
+        } else if (!emailId.matches("[a-zA-Z0-9._-]+@[a-z]+.[a-z]+")) {
+            tiEtEmailID.requestFocus();
+            CommonUtils.showToast(this, "Email ID is not valid");
+        } else if (TextUtils.isEmpty(password)) {
+            tiEtPassword.requestFocus();
+            CommonUtils.showToast(this, "Password is not entered");
+        } else if (password.length() < PasswordLength) {
+            tiEtPassword.requestFocus();
+            CommonUtils.showToast(this, "Password is less than 8 Characters");
+        } else if (TextUtils.isEmpty(confirmPassword)) {
+            tiEtConfirmPassword.requestFocus();
+            CommonUtils.showToast(this, "Confirm Password is not entered");
+        } else if (!password.equals(confirmPassword)) {
+            tiEtConfirmPassword.requestFocus();
+            CommonUtils.showToast(this, "Password Mismatched");
+        } else if (TextUtils.isEmpty(mobile)) {
+            tiEtMobile.requestFocus();
+            CommonUtils.showToast(this, "Mobile is not entered");
+        } else if (!mobile.matches("^[6-9]\\d{9}$")) {
+            tiEtMobile.requestFocus();
+            CommonUtils.showToast(this, "Please Enter Valid 10 Digits Number");
+        } else {
+            loginRegisterPresenterInterface.userRegister(tiEtLastName.getText().toString(),
+                    tiEtLastName.getText().toString(),
+                    emailId,
+                    password,
+                    confirmPassword,
+                    mobile,
+                    checkedGender.getText().toString());
         }
-
-        return true;
     }
 
     @Override

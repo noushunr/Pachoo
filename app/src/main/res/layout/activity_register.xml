@@ -120,11 +120,11 @@
                 android:textColorHint="@color/text_color_black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_first_name"
+                    android:id="@+id/itEtFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
-                    android:hint="First Name"
+                    android:hint="@string/first_name"
                     android:imeOptions="actionNext"
                     android:inputType="textEmailAddress"
                     android:singleLine="true"
@@ -142,7 +142,7 @@
                 android:textColorHint="@color/text_color_black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_last_name"
+                    android:id="@+id/tiEtLastName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
@@ -165,7 +165,7 @@
                 android:textColorHint="@color/text_color_black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_email_id"
+                    android:id="@+id/tiEtEmailID"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
@@ -188,11 +188,11 @@
                 android:textColorHint="@color/text_color_black">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_mobile"
+                    android:id="@+id/tiEtMobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
-                    android:hint="Mobile"
+                    android:hint="@string/mobile"
                     android:imeOptions="actionDone"
                     android:inputType="numberSigned"
                     android:singleLine="true"
@@ -212,14 +212,13 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_password"
+                    android:id="@+id/tiEtPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
-                    android:hint="Password"
+                    android:hint="@string/password"
                     android:imeOptions="actionNext"
                     android:inputType="textPassword"
-                    android:password="true"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/text_color_black"
@@ -237,14 +236,13 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edit_confirm_password"
+                    android:id="@+id/tiEtConfirmPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/nunito_regular"
-                    android:hint="Confirm Password"
+                    android:hint="@string/confirm_password"
                     android:imeOptions="actionDone"
                     android:inputType="textPassword"
-                    android:password="true"
                     android:singleLine="true"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/text_color_black"
@@ -257,16 +255,15 @@
                 android:id="@+id/radio_group"
                 android:layout_width="match_parent"
                 android:layout_height="32dp"
-                android:layout_above="@+id/btnLogin"
                 android:layout_marginTop="16dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Gender"
+                    android:text="@string/gender"
                     android:textColor="@color/text_color_black"
                     android:textSize="12sp"
                     android:textStyle="bold" />
@@ -314,7 +311,8 @@
                     android:textColor="@drawable/radio_text_color_white_selector"
                     android:textSize="12sp" />
             </RadioGroup>
-            <!-- Register Button -->
+
+
             <Button
                 android:id="@+id/btnRegister"
                 android:layout_width="fill_parent"

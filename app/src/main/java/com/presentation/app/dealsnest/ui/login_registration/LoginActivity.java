@@ -226,7 +226,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin: {
-                validatedFields();
+                validateFields();
                 break;
             }
             case R.id.tvSignUp: {
@@ -253,7 +253,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener,
         }
     }
 
-    private void validatedFields() {
+    private void validateFields() {
         if (TextUtils.isEmpty(tiEtEmail.getText())) {
             tiEtEmail.requestFocus();
             Toast.makeText(this, "Username is not entered", Toast.LENGTH_SHORT).show();

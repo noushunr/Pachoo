@@ -59,5 +59,10 @@
     <string name="your_top_stop_destination">Your top stop destination</string>
     <string name="see_tap_shop">See . Tap . Shop</string>
     <string name="your_destination_to_shop">Your Destination To Shop</string>
+    <string name="mobile">Mobile</string>
+    <string name="password">Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="gender">Gender</string>
+    <string name="first_name">First Name</string>
 
 </resources>
