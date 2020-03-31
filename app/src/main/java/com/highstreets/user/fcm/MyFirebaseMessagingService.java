@@ -50,7 +50,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             NotificationCompat.Builder builder =
                     new NotificationCompat.Builder(this, "")
                             .setSmallIcon(R.mipmap.ic_launcher)
-                            .setContentTitle(getString(R.string.dealsnest))
+                            .setContentTitle(getString(R.string.high_streets))
                             .setContentText(remoteMessage.getData().get("title"))
                             .setSubText(remoteMessage.getData().get("body"))
                             .setDefaults(Notification.DEFAULT_ALL)

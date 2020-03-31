@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
+import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Image;
 
 import java.util.ArrayList;
@@ -103,7 +104,7 @@ public class ShopImagesDialogFragment extends DialogFragment implements View.OnC
             ImageView imageView = view.findViewById(R.id.shop_images);
             Glide.with(mContext)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                    .load(/*ApiClient.SHOP_DETAILS_BASE_URL + items.getImages()*/"")
+                    .load(ApiClient.SHOP_DETAILS_BASE_URL + items.getImages())
                     .into(imageView);
             container.addView(view);
             return view;

@@ -27,6 +27,7 @@ import com.highstreets.user.adapters.SearchListAdapter;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.models.SearchItem;
 import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.utils.CommonUtils;
 
 import java.util.Arrays;
 import java.util.List;
@@ -152,8 +153,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.edit_search_localities:
                 if (TextUtils.isEmpty(edit_near_me.getText())) {
-                    edit_near_me.setError("please select a city or area");
+                    CommonUtils.showToast(this,"please select a city or area");
+                    edSearchItem.setEnabled(false);
+                    edSearchItem.setFocusable(false);
                 } else {
+                    edSearchItem.setEnabled(true);
                     SEARCH_LOCALITIES_HOLDER = edSearchItem.getText().toString();
                     if (SEARCH_LOCALITIES_HOLDER.isEmpty()) {
                         edSearchItem.setError("Enter something you want to search");

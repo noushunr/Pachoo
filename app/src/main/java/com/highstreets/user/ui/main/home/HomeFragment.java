@@ -128,7 +128,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mListener.setTitle(getString(R.string.dealsnest));
+        mListener.setTitle(getString(R.string.high_streets));
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         view = inflater.inflate(R.layout.fragment_home, container, false);
         initView();
