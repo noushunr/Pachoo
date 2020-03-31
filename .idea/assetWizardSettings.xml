@@ -51,7 +51,7 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
-                                                <entry key="scalingPercent" value="38" />
+                                                <entry key="scalingPercent" value="44" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -62,8 +62,8 @@
                                   <option name="values">
                                     <map>
                                       <entry key="backgroundAssetType" value="COLOR" />
-                                      <entry key="backgroundColor" value="ffffff" />
-                                      <entry key="foregroundImage" value="C:\Users\Adminn\Downloads\sale.png" />
+                                      <entry key="backgroundColor" value="5570fb" />
+                                      <entry key="foregroundImage" value="D:\Project Files\Dealsnest\App icon only.png" />
                                     </map>
                                   </option>
                                 </PersistentState>

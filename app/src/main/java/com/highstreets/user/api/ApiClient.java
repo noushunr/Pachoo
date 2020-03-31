@@ -28,7 +28,7 @@ public class ApiClient {
     public static final String VIEW_ALL_BASE_URL = "http://dealnest.co.uk/uploads/admin/offers/";
     public static final String VIEW_ALL_COUPONS_BASE_URL = "http://dealnest.co.uk/uploads/admin/coupons/";
     public static final String GET_FAVOURITE_SHOP_BASE_URL = "http://dealnest.co.uk/uploads/admin/merchants/";
-    private static final String BASE_URL = "http://dealnest.co.uk/index.php/";
+    private static final String BASE_URL = "http://highstreets.uk/index.php/";
     private static Retrofit retrofit = null;
     private static OkHttpClient.Builder httpClient = null;
 

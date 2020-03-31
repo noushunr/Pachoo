@@ -6,21 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/splash_gradient"
-    tools:context="com.highstreets.user.ui.SplashActivity">
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="180dp"
-        android:layout_height="0dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/logo_blue"
-        android:padding="16dp"
-        android:tint="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintDimensionRatio="h,1:1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    android:background="@drawable/highstreets_splash"
+    tools:context="com.highstreets.user.ui.SplashActivity"/>

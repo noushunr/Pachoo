@@ -11,83 +11,85 @@
     tools:context="com.highstreets.user.ui.SuccessDialogFragment">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="270dp"
-        android:layout_height="340dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        app:cardUseCompatPadding="true"
         android:layout_centerInParent="true"
         app:cardCornerRadius="16dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/blue">
+            android:background="@drawable/blue"
+            android:paddingStart="16dp"
+            android:paddingTop="56dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="56dp">
 
             <ImageView
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:padding="40dp"
+                android:id="@+id/imageView"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:src="@drawable/ic_tick_success"
-                app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-                app:layout_constraintEnd_toEndOf="@+id/linearLayout"
-                app:layout_constraintStart_toStartOf="@+id/linearLayout"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintBottom_toTopOf="@+id/textView2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
+            <TextView
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
+                android:layout_marginTop="24dp"
+                android:text="Congratulation"
+                android:textColor="@color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/tv_email_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+
+            <TextView
+                android:id="@+id/tv_email_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/nunito_regular"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:padding="16dp"
+                android:text="@string/your_booking_has_been_confirmed"
+                android:textColor="@color/white"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/close_success_dialog"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <Button
+                android:id="@+id/close_success_dialog"
+                android:layout_width="96dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="24dp"
+                android:background="@drawable/button_bg_white"
+                android:gravity="center"
+                android:text="@string/close"
+                android:textAllCaps="true"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Congratulation"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:gravity="center"
-                    android:text="Your Booking has been confirmed"
-                    android:textColor="@color/white"
-                    android:textSize="10sp"
-                    android:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/tv_email_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:fontFamily="@font/nunito_regular"
-                    android:gravity="center"
-                    android:text="@string/confirmed_email_has_been_sent_n_to_dealsnest_gmail_com"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
-
-                <Button
-                    android:id="@+id/close_success_dialog"
-                    android:layout_width="96dp"
-                    android:layout_height="32dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/button_bg_white"
-                    android:gravity="center"
-                    android:text="close"
-                    android:textAllCaps="true"
-                    android:textColor="@color/black"
-                    android:textSize="12dp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_email_id" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

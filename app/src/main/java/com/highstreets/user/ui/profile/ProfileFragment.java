@@ -31,8 +31,9 @@ import com.highstreets.user.ui.base.BaseFragment;
 import com.highstreets.user.ui.change_password.ChangePasswordActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
+import com.highstreets.user.ui.profile.profile_edit.ProfileEditActivity;
 
-public class ProfileFragment extends BaseFragment implements ProfileActivityViewInterface {
+public class ProfileFragment extends BaseFragment implements ProfileViewInterface {
 
     public static final int STORAGE_PERMISSION_CODE = 123;
     private LinearLayout mLayout;
@@ -43,7 +44,7 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
     private TextView txt_number;
     private TextView txt_email;
     private ImageView profile_pic;
-    private ProfileActivityPresenter profileActivityPresenter;
+    private ProfilePresenter profilePresenter;
     private OnFragmentInteractionListener mListener;
     private ProgressDialogFragment progressDialogFragment;
     private CommonViewInterface mCommonListener;
@@ -75,12 +76,12 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
         mUpdateProfile = view.findViewById(R.id.update_button);
         txt_username.setText(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, ""));
         txt_email.setText(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_EMAIL, ""));
-        profileActivityPresenter = new ProfileActivityPresenter(getContext(), this);
+        profilePresenter = new ProfilePresenter(getContext(), this);
 
         mEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getActivity(), ProfileActivity.class));
+                startActivity(new Intent(getActivity(), ProfileEditActivity.class));
             }
         });
 
@@ -181,8 +182,8 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
     @Override
     public void onResume() {
         super.onResume();
-        if (profileActivityPresenter != null)
-            profileActivityPresenter.loadProfileDetails(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""));
+        if (profilePresenter != null)
+            profilePresenter.loadProfileDetails(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""));
 
     }
 
@@ -292,7 +293,7 @@ public class ProfileFragment extends BaseFragment implements ProfileActivityView
 
     @Override
     public void onRetry() {
-        profileActivityPresenter.loadProfileDetails(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""));
+        profilePresenter.loadProfileDetails(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""));
     }
 
 }

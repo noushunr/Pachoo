@@ -3,7 +3,7 @@ package com.highstreets.user.ui.profile;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.models.ProfileData;
 
-public interface ProfileActivityViewInterface extends CommonViewInterface {
+public interface ProfileViewInterface extends CommonViewInterface {
 
     void failedToUpdateProfile(String message);
 

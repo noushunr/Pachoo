@@ -23,13 +23,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ProfileActivityPresenter implements ProfileActivityPresenterInterface {
+public class ProfilePresenter implements ProfilePresenterInterface {
 
-    private ProfileActivityViewInterface profileActivityViewInterface;
+    private ProfileViewInterface profileViewInterface;
     private Context context;
 
-    public ProfileActivityPresenter(Context context, ProfileActivityViewInterface profileActivityViewInterface) {
-        this.profileActivityViewInterface = profileActivityViewInterface;
+    public ProfilePresenter(Context context, ProfileViewInterface profileViewInterface) {
+        this.profileViewInterface = profileViewInterface;
         this.context = context;
     }
 
@@ -62,15 +62,15 @@ public class ProfileActivityPresenter implements ProfileActivityPresenterInterfa
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
                             String IMG = jsonObject.get("image").getAsString();
-                            profileActivityViewInterface.onProfileUpdateSuccess("Profile Updated", IMG);
+                            profileViewInterface.onProfileUpdateSuccess("Profile Updated", IMG);
                         } else {
-                            profileActivityViewInterface.failedToUpdateProfile(Constants.MESSAGE);
+                            profileViewInterface.failedToUpdateProfile(Constants.MESSAGE);
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
                     }
                 } else {
-                    profileActivityViewInterface.onResponseFailed(Constants.MESSAGE);
+                    profileViewInterface.onResponseFailed(Constants.MESSAGE);
                 }
             }
 
@@ -78,9 +78,9 @@ public class ProfileActivityPresenter implements ProfileActivityPresenterInterfa
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 dismissProgressIndicator();
                 if (CommonUtils.isNetworkAvailable(context)) {
-                    profileActivityViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
+                    profileViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
                 } else {
-                    profileActivityViewInterface.noInternet();
+                    profileViewInterface.noInternet();
                 }
             }
         });
@@ -98,15 +98,15 @@ public class ProfileActivityPresenter implements ProfileActivityPresenterInterfa
                     JsonObject loginData = contentResponse.getAsJsonObject();
                     ProfileData ProfileData = new Gson().fromJson(loginData, new TypeToken<ProfileData>() {
                     }.getType());
-                    profileActivityViewInterface.onLoadingProfileSuccess(ProfileData);
+                    profileViewInterface.onLoadingProfileSuccess(ProfileData);
                     dismissProgressIndicator();
                 }
             }
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
-                profileActivityViewInterface.dismissProgressIndicator();
-                profileActivityViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
+                profileViewInterface.dismissProgressIndicator();
+                profileViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }
         });
     }
@@ -114,11 +114,11 @@ public class ProfileActivityPresenter implements ProfileActivityPresenterInterfa
 
     @Override
     public void showProgressIndicator() {
-        profileActivityViewInterface.showProgressIndicator();
+        profileViewInterface.showProgressIndicator();
     }
 
     @Override
     public void dismissProgressIndicator() {
-        profileActivityViewInterface.dismissProgressIndicator();
+        profileViewInterface.dismissProgressIndicator();
     }
 }

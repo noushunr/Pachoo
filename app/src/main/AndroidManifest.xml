@@ -13,14 +13,15 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
-        android:name="com.highstreets.user.App"
+        android:name=".App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
         android:theme="@style/AppTheme.NoActionBar"
+        android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
+        <activity android:name=".ui.profile.ProfileActivity"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -29,131 +30,104 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_android_key" />
-
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name="com.highstreets.user.ui.SplashActivity"
+            android:name=".ui.SplashActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.highstreets.user.ui.notification.notification_details.NotificationDetailActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.main.bookings.ViewDealActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.offer_details.DetailActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.NoInternetActivity"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask" />
-
-        <activity
-            android:name="com.highstreets.user.ui.write_review.ReadAllReviewsActivity"
+            android:name=".ui.notification.notification_details.NotificationDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.highstreets.user.ui.write_review.WriteReviewActivity"
+            android:name=".ui.main.bookings.ViewDealActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.login_registration.LoginActivity"
+            android:name=".ui.offer_details.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.NoInternetActivity"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.write_review.ReadAllReviewsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.write_review.WriteReviewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.login_registration.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-
         <activity
-            android:name="com.highstreets.user.ui.main.HomeMainActivity"
+            android:name=".ui.main.HomeMainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar">
-
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
-            android:name="com.highstreets.user.ui.login_registration.RegisterActivity"
+            android:name=".ui.login_registration.RegisterActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-
         <activity
-            android:name="com.highstreets.user.ui.forgot_password.ForgotPasswordActivity"
+            android:name=".ui.forgot_password.ForgotPasswordActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-
         <activity
-            android:name="com.highstreets.user.ui.reset_password_otp.ResetPasswordOTPActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.reset_password.ResetPasswordActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.change_password.ChangePasswordActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.profile.ProfileActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.select_location.SelectLocationActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.search.SearchActivity"
-            android:screenOrientation="portrait" />
-
-        <activity
-            android:name="com.highstreets.user.ui.ReferAFriendActivity"
+            android:name=".ui.reset_password_otp.ResetPasswordOTPActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.highstreets.user.ui.notification.NotificationActivity"
+            android:name=".ui.reset_password.ResetPasswordActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.help.HelpActivity"
+            android:name=".ui.change_password.ChangePasswordActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.sub_categories.SubCategoryActivity"
+            android:name=".ui.profile.profile_edit.ProfileEditActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.review_booking.ReviewBookingActivity"
+            android:name=".ui.select_location.SelectLocationActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.view_all_deals.ViewAllDealsActivity"
+            android:name=".ui.search.SearchActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.view_all_recently_booked.ViewAllRecentlyBookedActivity"
+            android:name=".ui.ReferAFriendActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.main.MoreCategoriesActivity"
+            android:name=".ui.notification.NotificationActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.highstreets.user.ui.most_viewed_shop.ViewAllMostViewShopActivity"
+            android:name=".ui.help.HelpActivity"
             android:screenOrientation="portrait" />
-
+        <activity
+            android:name=".ui.sub_categories.SubCategoryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.review_booking.ReviewBookingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view_all_deals.ViewAllDealsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.view_all_recently_booked.ViewAllRecentlyBookedActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.main.MoreCategoriesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.most_viewed_shop.ViewAllMostViewShopActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:label="@string/app_name" />
-
         <activity
             android:name="com.facebook.CustomTabActivity"
             android:exported="true">
@@ -166,9 +140,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.highstreets.user.ui.offer_details.OfferDetailActivity"
+            android:name=".ui.offer_details.OfferDetailActivity"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -178,13 +151,12 @@
 
                 <data
                     android:host="dealnest.co.uk/index.php"
-                    android:scheme="http"
-                    android:pathPrefix="/share_offer" />
+                    android:pathPrefix="/share_offer"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.highstreets.user.ui.shop_details.ShopActivity"
+            android:name=".ui.shop_details.ShopActivity"
             android:screenOrientation="portrait">
             <intent-filter android:autoVerify="true">
                 <action android:name="android.intent.action.VIEW" />
@@ -194,8 +166,8 @@
 
                 <data
                     android:host="dealnest.co.uk/index.php"
-                    android:scheme="http"
-                    android:pathPrefix="/share_merchant" />
+                    android:pathPrefix="/share_merchant"
+                    android:scheme="http" />
             </intent-filter>
         </activity>
 
@@ -207,24 +179,20 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider>
-
-        <!--<receiver-->
-            <!--android:name=".receiver.NetworkChangeReceiver"-->
-            <!--android:label="NetworkChangeReceiver">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE" />-->
-                <!--<action android:name="android.net.wifi.WIFI_STATE_CHANGED" />-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
-
-        <service android:name="com.highstreets.user.fcm.MyFirebaseInstanceIDService">
+        </provider> <!-- <receiver -->
+        <!-- android:name=".receiver.NetworkChangeReceiver" -->
+        <!-- android:label="NetworkChangeReceiver"> -->
+        <!-- <intent-filter> -->
+        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
+        <!-- <action android:name="android.net.wifi.WIFI_STATE_CHANGED" /> -->
+        <!-- </intent-filter> -->
+        <!-- </receiver> -->
+        <service android:name=".fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-        <service android:name="com.highstreets.user.fcm.MyFirebaseMessagingService">
+        <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

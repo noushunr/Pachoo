@@ -82,6 +82,7 @@
                     android:id="@+id/txt_offer_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textStyle="bold"
                     android:fontFamily="@font/nunito_regular"
                     android:textColor="@color/white"
                     android:textSize="12sp" />

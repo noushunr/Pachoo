@@ -11,6 +11,9 @@ import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
@@ -27,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.R;
@@ -67,14 +71,17 @@ public class HomeMainActivity extends BaseActivity
         implements OnFragmentInteractionListener,
         CommonViewInterface,
         View.OnClickListener,
-        LocationListener {
+        LocationListener,
+        BottomNavigationView.OnNavigationItemSelectedListener {
 
     private ProgressDialogFragment progressDialogFragment;
     private LocationChange mLocationChange;
     private String tokenId;
-    private String mUserID;
+    private String userId;
     private Geocoder geocoder;
     private String SELECTED_CITY;
+    private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
+    private HomeMainPresenterInterface homeMainPresenterInterface;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolBarText;
@@ -105,40 +112,6 @@ public class HomeMainActivity extends BaseActivity
     DrawerLayout drawerLayout;
 
 
-    private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-            invalidateOptionsMenu();
-            switch (menuItem.getItemId()) {
-                case R.id.navigation_home:
-                    loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
-                    return true;
-                case R.id.navigation_categories:
-                    loadFragment(mFragmentHashMap.get(Constants.TAG_CATEGORIES_FRAGMENT));
-                    return true;
-                case R.id.navigation_coupons:
-                    loadFragment(mFragmentHashMap.get(Constants.TAG_COUPONS_FRAGMENT));
-                    return true;
-                case R.id.navigation_favorites:
-                    if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
-                        toLogin();
-                    } else {
-                        loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
-                    }
-                    return true;
-                case R.id.navigation_booked:
-                    if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
-                        toLogin();
-                    } else {
-                        loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));
-                    }
-                    return true;
-            }
-            return false;
-        }
-    };
-
     public static Intent start(Context context) {
         return new Intent(context, HomeMainActivity.class);
     }
@@ -147,18 +120,10 @@ public class HomeMainActivity extends BaseActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        toolbar = findViewById(R.id.toolbar);
-        mUserID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-        try {
-            tokenId = FirebaseInstanceId.getInstance().getToken();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 
-        addDeviceToken(mUserID, tokenId, "1");
-        initiateFragments();
-        bottomNavigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        tvToolBarText = findViewById(R.id.tvToolbarText);
+        userId = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
+        homeMainPresenterInterface = new HomeMainPresenter();
+        bottomNavigation.setOnNavigationItemSelectedListener(this);
         tvToolBarText.setText(R.string.home);
         final ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -176,11 +141,22 @@ public class HomeMainActivity extends BaseActivity
         if (!GlobalPreferManager.getBoolean(GlobalPreferManager.Keys.IS_LOGIN, false)) {
             llLogout.setVisibility(View.GONE);
         }
-
         mLocationChange = (LocationChange) mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT);
-
+        getFirebaseToken();
+        initiateFragments();
         loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
         bottomNavigation.setSelectedItemId(R.id.navigation_home);
+    }
+
+    private void getFirebaseToken() {
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                return;
+            }
+            tokenId = task.getResult().getToken();
+            homeMainPresenterInterface.addTokens(userId, tokenId, "1");
+        });
+
     }
 
     @Override
@@ -189,34 +165,6 @@ public class HomeMainActivity extends BaseActivity
         checkNewBuildAvailable();
     }
 
-
-    public void addDeviceToken(String user_id, String token, String type) {
-        ApiClient.getApiInterface().addTokens(user_id, token, type).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-
-                if (response.isSuccessful()) {
-                    try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            Log.e("Status", jsonObject.get("message").getAsString());
-                        } else {
-                            Log.e("Status", jsonObject.get("message").getAsString());
-                        }
-                    } catch (JsonIOException e) {
-                        e.printStackTrace();
-                    }
-                } else {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-
-            }
-        });
-    }
 
     @Override
     public void onLocationChanged(Location location) {
@@ -423,7 +371,6 @@ public class HomeMainActivity extends BaseActivity
                     loadFragment(mFragmentHashMap.get(Constants.TAG_PROFILE_FRAGMENT));
                     drawerLayout.closeDrawers();
                 }
-
                 break;
             }
             case R.id.llMyBooking: {
@@ -479,6 +426,41 @@ public class HomeMainActivity extends BaseActivity
                 break;
             }
         }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        invalidateOptionsMenu();
+        switch (menuItem.getItemId()) {
+            case R.id.navigation_home:
+                loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
+                return true;
+            case R.id.navigation_categories:
+                loadFragment(mFragmentHashMap.get(Constants.TAG_CATEGORIES_FRAGMENT));
+                return true;
+            case R.id.navigation_coupons:
+                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                    toLogin();
+                } else {
+                    loadFragment(mFragmentHashMap.get(Constants.TAG_COUPONS_FRAGMENT));
+                }
+                return true;
+            case R.id.navigation_favorites:
+                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                    toLogin();
+                } else {
+                    loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
+                }
+                return true;
+            case R.id.navigation_booked:
+                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                    toLogin();
+                } else {
+                    loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));
+                }
+                return true;
+        }
+        return false;
     }
 
     public interface LocationChange {

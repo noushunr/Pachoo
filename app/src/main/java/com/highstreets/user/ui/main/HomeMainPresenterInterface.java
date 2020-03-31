@@ -1,4 +1,10 @@
 package com.highstreets.user.ui.main;
 
-public interface HomeMainPresenterInterface {
+import com.highstreets.user.common.CommonPresenterInterface;
+
+public interface HomeMainPresenterInterface extends CommonPresenterInterface {
+
+    void addTokens(String userId,
+                   String token,
+                   String type);
 }
