@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import com.google.android.material.textfield.TextInputEditText;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -203,7 +205,7 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
                 startActivity(intent);
                 break;
             case R.id.update_button:
-                UPDATE_PROFILE();
+                checkFields();
                 break;
         }
     }
@@ -257,41 +259,22 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
         }
     }
 
-    private void UPDATE_PROFILE() {
-
-        FIRST_NAME_HOLDER = edit_first_name.getText().toString();
-        LAST_NAME_HOLDER = edit_last_name.getText().toString();
-        EMAIL_ID_HOLDER = edit_email.getText().toString();
-        MOBILE_HOLDER = edit_number.getText().toString();
-        if (isValidated()) {
-            profilePresenter.updateProfile(REGISTER_ID_HOLDER, FIRST_NAME_HOLDER, LAST_NAME_HOLDER, EMAIL_ID_HOLDER, MOBILE_HOLDER, image);
-        }
-
-
-    }
-
-    private boolean isValidated() {
-
-        FIRST_NAME_HOLDER = edit_first_name.getText().toString();
-        LAST_NAME_HOLDER = edit_last_name.getText().toString();
-        EMAIL_ID_HOLDER = edit_email.getText().toString();
-        MOBILE_HOLDER = edit_number.getText().toString();
-
-        if (FIRST_NAME_HOLDER.isEmpty()) {
+    private void checkFields() {
+        if (TextUtils.isEmpty(edit_first_name.getText())) {
             edit_first_name.setError("First Name Is Not Entered");
             edit_first_name.requestFocus();
-        } else if (LAST_NAME_HOLDER.isEmpty()) {
+        } else if (TextUtils.isEmpty(edit_last_name.getText())) {
             edit_last_name.setError("Last Name Is Not Entered");
             edit_last_name.requestFocus();
-        } else if (EMAIL_ID_HOLDER.isEmpty()) {
+        } else if (TextUtils.isEmpty(edit_email.getText())) {
             edit_email.setError("Email ID Is Not Entered");
             edit_email.requestFocus();
-        } else if (MOBILE_HOLDER.isEmpty()) {
+        } else if (TextUtils.isEmpty(edit_number.getText())) {
             edit_number.setError("Mobile Number Is Not Entered");
             edit_number.requestFocus();
+        } else {
+            profilePresenter.updateProfile(REGISTER_ID_HOLDER, FIRST_NAME_HOLDER, LAST_NAME_HOLDER, EMAIL_ID_HOLDER, MOBILE_HOLDER, image);
         }
-
-        return true;
     }
 
     @Override
