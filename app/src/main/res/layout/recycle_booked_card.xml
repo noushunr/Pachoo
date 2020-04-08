@@ -2,7 +2,7 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
     card_view:cardCornerRadius="5dp"
@@ -15,7 +15,7 @@
         android:padding="8dp">
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
             <TextView
@@ -48,59 +48,81 @@
                 android:fontFamily="@font/nunito_regular"
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp" />
-
-            <TextView
-                android:id="@+id/txt_coupon_status_value"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/booked_count"
-                android:layout_alignParentRight="true"
-                android:paddingHorizontal="4dp"
-                android:text="booked"
-                android:textAllCaps="true"
-                android:textColor="@color/black"
-                android:textSize="10sp" />
-
-            <TextView
-                android:id="@+id/txt_coupon_status"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/booked_count"
-                android:layout_toLeftOf="@+id/txt_coupon_status_value"
-                android:fontFamily="@font/nunito_regular"
-                android:paddingHorizontal="4dp"
-                android:text="Status:"
-                android:textSize="10sp" />
-
-
-            <ImageView
-                android:id="@+id/favorite_icon"
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:src="@drawable/ic_heart_line"
-                android:visibility="gone" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="0.5dp"
             android:layout_marginTop="4dp"
-            android:background="@color/black" />
-
-        <ImageView
-            android:id="@+id/imgCoupon"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop" />
+            android:background="@android:color/darker_gray" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:padding="2dp">
+            android:padding="4dp">
+
+            <ImageView
+                android:id="@+id/booked_thumbnail"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="4dp" />
+
+            <TextView
+                android:id="@+id/booked_offer_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:layout_toRightOf="@+id/booked_thumbnail"
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/booked_desc"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/booked_offer_name"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_toRightOf="@+id/booked_thumbnail"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="@color/text_color_black"
+                android:textSize="10sp" />
+
+            <TextView
+                android:id="@+id/txt_status"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/txt_status_value"
+                android:fontFamily="@font/nunito_regular"
+                android:paddingHorizontal="4dp"
+                android:text="Status: "
+                android:textColor="@color/text_color_black"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/txt_status_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:fontFamily="@font/nunito_regular"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/darker_gray" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/txt_deal_price"
@@ -108,7 +130,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
-                android:fontFamily="@font/nunito_regular"
                 android:text="Current Deal Price"
                 android:textColor="@color/grey"
                 android:textSize="10sp" />
@@ -119,17 +140,19 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_deal_price"
                 android:layout_alignParentLeft="true"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@null"
                 android:paddingHorizontal="4dp"
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp"
-                android:textStyle="normal" />
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/txt_mrp_value"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_deal_price"
+                android:layout_marginTop="5dp"
                 android:layout_toRightOf="@+id/txt_deal_price_value"
                 android:fontFamily="@null"
                 android:foreground="@drawable/text_view_strike"
@@ -137,70 +160,73 @@
                 android:textSize="12sp" />
 
             <Button
+                android:id="@+id/write_review"
+                android:layout_width="wrap_content"
+                android:layout_height="24dp"
+                android:layout_below="@+id/txt_deal_price"
+                android:layout_margin="4dp"
+                android:layout_toLeftOf="@+id/view_deals"
+                android:background="@drawable/view_text_bg"
+                android:elevation="2dp"
+                android:gravity="center"
+                android:padding="4dp"
+                android:text="Write Offer Review"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:visibility="gone" />
+
+            <Button
                 android:id="@+id/view_deals"
                 android:layout_width="wrap_content"
                 android:layout_height="24dp"
+                android:layout_below="@+id/txt_deal_price"
                 android:layout_alignParentEnd="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_margin="4dp"
                 android:background="@drawable/button_bg_primary"
                 android:elevation="2dp"
                 android:gravity="center"
                 android:padding="4dp"
-                android:text="@string/view_deal"
+                android:text="View Deal"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="8sp"
                 android:textStyle="bold" />
-
-            <Button
-                android:id="@+id/book_now"
-                android:layout_width="wrap_content"
-                android:layout_height="24dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/button_bg_black"
-                android:elevation="4dp"
-                android:gravity="center"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:text="Book Now"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="8sp"
-                android:textStyle="normal"
-                android:visibility="gone" />
         </RelativeLayout>
 
         <ImageView
-            android:id="@+id/booked_thumbnail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/imgCoupon"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
             android:visibility="gone" />
 
-        <TextView
-            android:id="@+id/booked_offer_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
-        <TextView
-            android:id="@+id/txt_status_value"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-        <!--<Button-->
-        <!--android:id="@+id/view_deals"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:visibility="gone"/>-->
         <Button
-            android:id="@+id/write_review"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:id="@+id/book_now"
+            android:layout_width="86dp"
+            android:layout_height="24dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/button_bg_black"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:text="@string/book_now"
+            android:textAllCaps="true"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="normal"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/favorite_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_heart_line"
             android:visibility="gone" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>

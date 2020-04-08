@@ -93,11 +93,7 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
 
     @Override
     public void onLoadingBookedOffersSuccess(final List<BookedOffers> booked_modelList) {
-        mBookedAdapter = new BookedAdapter(getContext(), booked_modelList, new CustomItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
-            }
-        });
+        mBookedAdapter = new BookedAdapter(getContext(), booked_modelList);
         mBookedRecyclerView.setAdapter(mBookedAdapter);
         if (booked_modelList.size() <= 0) {
             tvNoData.setVisibility(View.VISIBLE);

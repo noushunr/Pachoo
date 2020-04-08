@@ -36,7 +36,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.MyViewHold
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
-        View ItemView = LayoutInflater.from(mContext).inflate(R.layout.coupon_card, viewGroup, false);
+        View ItemView = LayoutInflater.from(mContext).inflate(R.layout.recycle_coupon_item, viewGroup, false);
         return new MyViewHolder(ItemView);
     }
 

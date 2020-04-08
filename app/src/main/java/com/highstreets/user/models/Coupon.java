@@ -17,6 +17,9 @@ public class Coupon {
     @SerializedName("description")
     @Expose
     private String description;
+    @SerializedName("shop_address")
+    @Expose
+    private String shopAddress;
     @SerializedName("state")
     @Expose
     private String state;
@@ -87,6 +90,14 @@ public class Coupon {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getShopAddress() {
+        return shopAddress;
+    }
+
+    public void setShopAddress(String shopAddress) {
+        this.shopAddress = shopAddress;
     }
 
     public String getState() {

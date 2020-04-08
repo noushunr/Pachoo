@@ -15,7 +15,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.common.CustomItemClickListener;
 import com.highstreets.user.models.BookedOffers;
 import com.highstreets.user.ui.main.bookings.ViewDealActivity;
 import com.highstreets.user.ui.write_review.WriteReviewActivity;
@@ -27,7 +26,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context mContext;
     private List<BookedOffers> bookedModels;
 
-    public BookedAdapter(Context mContext, List<BookedOffers> bookedModels, CustomItemClickListener listener) {
+    public BookedAdapter(Context mContext, List<BookedOffers> bookedModels) {
         this.mContext = mContext;
         this.bookedModels = bookedModels;
     }
@@ -42,11 +41,11 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         View v = null;
         switch (viewType) {
             case 0:
-                v = inflater.inflate(R.layout.booked_coupon_item, viewGroup, false);
+                v = inflater.inflate(R.layout.recycle_booked_coupon_item, viewGroup, false);
                 break;
 
             case 1:
-                v = inflater.inflate(R.layout.booked_card, viewGroup, false);
+                v = inflater.inflate(R.layout.recycle_booked_card, viewGroup, false);
                 break;
         }
 

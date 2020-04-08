@@ -2,59 +2,55 @@ package com.highstreets.user.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
+import android.content.IntentSender;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.core.view.GravityCompat;
-import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.appcompat.app.ActionBarDrawerToggle;
-import androidx.appcompat.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.appupdate.AppUpdateManager;
+import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.UpdateAvailability;
+import com.google.android.play.core.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
-import com.google.gson.JsonIOException;
-import com.google.gson.JsonObject;
 import com.highstreets.user.R;
-import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
-import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.ReferAFriendActivity;
+import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
+import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
+import com.highstreets.user.ui.help.HelpActivity;
+import com.highstreets.user.ui.login_registration.LoginActivity;
 import com.highstreets.user.ui.main.bookings.BookingsFragment;
 import com.highstreets.user.ui.main.categories.CategoriesFragment;
 import com.highstreets.user.ui.main.coupons.CouponsFragment;
-import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
-import com.highstreets.user.ui.dialog_fragment.PlayStoreUpdateDialogFragment;
-import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.main.favorites.FavoritesFragment;
-import com.highstreets.user.ui.help.HelpActivity;
-import com.highstreets.user.ui.login_registration.LoginActivity;
 import com.highstreets.user.ui.main.home.HomeFragment;
 import com.highstreets.user.ui.notification.NotificationActivity;
 import com.highstreets.user.ui.profile.ProfileFragment;
 import com.highstreets.user.ui.search.SearchActivity;
+import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
-import com.highstreets.user.utils.GooglePlayAppVersion;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -63,9 +59,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class HomeMainActivity extends BaseActivity
         implements OnFragmentInteractionListener,
@@ -82,6 +75,7 @@ public class HomeMainActivity extends BaseActivity
     private String SELECTED_CITY;
     private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
     private HomeMainPresenterInterface homeMainPresenterInterface;
+    private static final int MY_UPDATE_REQUEST_CODE = 112;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolBarText;
@@ -468,28 +462,32 @@ public class HomeMainActivity extends BaseActivity
     }
 
     private void checkNewBuildAvailable() {
-        new GooglePlayAppVersion(getPackageName(), new GooglePlayAppVersion.Listener() {
-            @Override
-            public void result(String version) {
-                PackageManager manager = getPackageManager();
-                PackageInfo info = null;
+        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
+        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
                 try {
-                    info = manager.getPackageInfo(getPackageName(), 0);
-                } catch (PackageManager.NameNotFoundException e) {
+                    appUpdateManager.startUpdateFlowForResult(
+                            appUpdateInfo,
+                            AppUpdateType.IMMEDIATE,
+                            this,
+                            MY_UPDATE_REQUEST_CODE);
+                } catch (IntentSender.SendIntentException e) {
                     e.printStackTrace();
                 }
-                if (version != null && !version.isEmpty()) {
-                    if (Float.valueOf(info.versionName) < Float.valueOf(version)) {
-                        DialogFragment dialogFragment = PlayStoreUpdateDialogFragment.newInstance();
-                        dialogFragment.setCancelable(false);
-                        dialogFragment.show(getSupportFragmentManager(), "playStore_fragment");
+            }
+        });
+    }
 
-                    }
-
-                }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == MY_UPDATE_REQUEST_CODE) {
+            if (resultCode != RESULT_OK) {
+                CommonUtils.showToast(this, "Update failed");
             }
         }
-        ).execute();
     }
 
 }
