@@ -56,14 +56,13 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
                 .load(ApiClient.SHOP_MOST_POPULAR_BASE_URL + mostPopular.getFeaturedImage()).into(myViewHolder.imPopularThumbnail);
 
-        myViewHolder.tvViewDeals.setOnClickListener(new View.OnClickListener() {
+        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent offerDetailIntent = OfferDetailActivity.getActivityIntent(mContext);
                 offerDetailIntent.putExtra(Constants.MERCHANT_ID, mostPopular.getMerchantId());
                 offerDetailIntent.putExtra(Constants.OFFER_ID, mostPopular.getId());
                 offerDetailIntent.putExtra(Constants.OFFER_DETAIL_TYPE, Constants.OFFER_TYPE_SINGLE);
-
                 mContext.startActivity(offerDetailIntent);
             }
         });
@@ -81,7 +80,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView imPopularThumbnail;
-        private TextView tvPopularName, tvSavedPrice, tvPopularDesc, tvValidityTo, tvMrpPrice, tvOfferPrice, tvViewDeals;
+        private TextView tvPopularName, tvSavedPrice, tvPopularDesc, tvValidityTo, tvMrpPrice, tvOfferPrice;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -91,7 +90,6 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
             tvValidityTo = itemView.findViewById(R.id.popular_validity_value);
             tvMrpPrice = itemView.findViewById(R.id.popular_mrp_value);
             tvOfferPrice = itemView.findViewById(R.id.popular_offer_price_value);
-            tvViewDeals = itemView.findViewById(R.id.popular_view_deals);
             tvSavedPrice = itemView.findViewById(R.id.popular_saved_value);
         }
     }

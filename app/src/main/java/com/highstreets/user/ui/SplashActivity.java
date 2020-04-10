@@ -10,7 +10,7 @@ import android.view.WindowManager;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.ui.main.HomeMainActivity;
-import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 
 public class SplashActivity extends AppCompatActivity {
 

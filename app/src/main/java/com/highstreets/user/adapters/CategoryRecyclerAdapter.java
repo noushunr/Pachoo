@@ -16,12 +16,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Category;
-import com.highstreets.user.ui.sub_categories.SubCategoryActivity;
+import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
 import com.highstreets.user.utils.Constants;
 
 import java.util.List;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.MyViewHolder> {
 

@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Category;
-import com.highstreets.user.ui.sub_categories.SubCategoryActivity;
+import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
 import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
@@ -41,10 +41,6 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         final Category category = categoryArrayList.get(i);
         viewHolder.mBrandName.setText(category.getCategoryName());
-//        if (category.getCategoryName().equals("More")) {
-//            viewHolder.mBrandName.setText(category.getCategoryName());
-//            categoryArrayList.remove(categoryArrayList.size() - 1);
-//        }
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
                 .load(ApiClient.CATEGORY_BASE_URL + category.getImage())

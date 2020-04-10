@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
     android:padding="8dp"
-    tools:context="com.highstreets.user.ui.login_registration.RegisterActivity">
+    tools:context=".ui.auth.login_registration.RegisterActivity">
 
     <ScrollView
         android:layout_width="match_parent"

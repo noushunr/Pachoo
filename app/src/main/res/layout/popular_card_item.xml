@@ -143,17 +143,6 @@
 
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/popular_view_deals"
-                    android:layout_width="48dp"
-                    android:layout_height="16dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:background="@drawable/button_bg_primary"
-                    android:text="View"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
 

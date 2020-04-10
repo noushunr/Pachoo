@@ -24,7 +24,7 @@ import com.highstreets.user.common.OfferDetailAdapterCallback;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
 import com.highstreets.user.ui.base.BaseActivity;
-import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
 import com.highstreets.user.ui.shop_details.ShopImagesDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OfferDetailActivity extends BaseActivity implements View.OnClickListener, OfferDetailViewInterface, OfferDetailAdapterCallback {
+
     private RecyclerView rvOfferDetails;
     private RecyclerView.LayoutManager layoutManager;
     private ImageView image_one;
@@ -112,7 +113,6 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
             offerDetailPresenterInterface.getOfferDetails(merchantId, offerId, "-1", "-1", "-1");
         }
     }
-
 
     @Override
     protected boolean setToolbar() {

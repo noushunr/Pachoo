@@ -41,7 +41,7 @@ import com.highstreets.user.models.ShopDetail;
 import com.highstreets.user.models.shop_images;
 import com.highstreets.user.models.shops_most_popular;
 import com.highstreets.user.ui.base.BaseActivity;
-import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.offer_details.OfferDetailActivity;
 import com.highstreets.user.ui.write_review.ReadAllReviewsActivity;
 import com.highstreets.user.ui.write_review.WriteReviewActivity;

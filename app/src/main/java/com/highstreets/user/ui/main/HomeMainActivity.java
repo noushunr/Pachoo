@@ -3,6 +3,8 @@ package com.highstreets.user.ui.main;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -40,7 +42,7 @@ import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.help.HelpActivity;
-import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.main.bookings.BookingsFragment;
 import com.highstreets.user.ui.main.categories.CategoriesFragment;
 import com.highstreets.user.ui.main.coupons.CouponsFragment;
@@ -81,6 +83,8 @@ public class HomeMainActivity extends BaseActivity
     TextView tvToolBarText;
     @BindView(R.id.tvNavFirstName)
     TextView tvNavFirstName;
+    @BindView(R.id.tvVersionName)
+    TextView tvVersionName;
     @BindView(R.id.llMyProfile)
     LinearLayout llMyProfile;
     @BindView(R.id.llMyBooking)
@@ -104,6 +108,7 @@ public class HomeMainActivity extends BaseActivity
     BottomNavigationView bottomNavigation;
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
+
 
 
     public static Intent start(Context context) {
@@ -218,6 +223,13 @@ public class HomeMainActivity extends BaseActivity
             public void onDrawerOpened(@NonNull View drawerView) {
                 String drawerName = "Hello " + GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
                 tvNavFirstName.setText(drawerName);
+                try {
+                    PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                    String versionName = getString(R.string.version_name)+" "+pInfo.versionName;
+                    tvVersionName.setText(versionName);
+                } catch (PackageManager.NameNotFoundException e) {
+                    e.printStackTrace();
+                }
             }
 
             @Override

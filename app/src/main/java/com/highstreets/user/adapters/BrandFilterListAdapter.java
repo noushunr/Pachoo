@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.models.FilterItem;
-import com.highstreets.user.ui.sub_categories.SubCategoryActivity;
+import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
 
 import java.util.List;
 

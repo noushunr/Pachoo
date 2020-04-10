@@ -20,7 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
-import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 
 public class LogoutDialogFragment extends DialogFragment implements View.OnClickListener {
 

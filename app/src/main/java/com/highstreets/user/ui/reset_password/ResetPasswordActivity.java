@@ -10,7 +10,7 @@ import android.widget.Button;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
-import com.highstreets.user.ui.login_registration.LoginActivity;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.utils.CommonUtils;
 
 public class ResetPasswordActivity extends AppCompatActivity implements View.OnClickListener, ResetPasswordViewInterface {

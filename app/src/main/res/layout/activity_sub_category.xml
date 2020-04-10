@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.highstreets.user.ui.sub_categories.SubCategoryActivity">
+    tools:context=".ui.main.categories.sub_categories.SubCategoryActivity">
 
     <include layout="@layout/layout_app_bar" />
 

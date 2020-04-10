@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.sub_categories;
+package com.highstreets.user.ui.main.categories.sub_categories;
 
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.models.FilterItemModel;

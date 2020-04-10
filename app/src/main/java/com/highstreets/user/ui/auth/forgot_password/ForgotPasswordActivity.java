@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.forgot_password;
+package com.highstreets.user.ui.auth.forgot_password;
 
 import android.content.Context;
 import android.content.Intent;

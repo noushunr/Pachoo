@@ -1,5 +1,5 @@
 
-package com.highstreets.user.ui.forgot_password;
+package com.highstreets.user.ui.auth.forgot_password;
 
 import com.highstreets.user.common.CommonViewInterface;
 

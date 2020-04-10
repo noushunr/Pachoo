@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.login_registration;
+package com.highstreets.user.ui.auth.login_registration;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

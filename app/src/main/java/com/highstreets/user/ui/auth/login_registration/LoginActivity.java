@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.login_registration;
+package com.highstreets.user.ui.auth.login_registration;
 
 import android.content.Context;
 import android.content.Intent;
@@ -32,7 +32,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
-import com.highstreets.user.ui.forgot_password.ForgotPasswordActivity;
+import com.highstreets.user.ui.auth.forgot_password.ForgotPasswordActivity;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
