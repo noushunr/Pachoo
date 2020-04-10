@@ -76,7 +76,7 @@ dependencies {
     implementation 'com.airbnb.android:lottie:2.7.0'
 
     //circular image
-    implementation 'de.hdodenhof:circleimageview:2.2.0'
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     //upload service
     implementation 'net.gotev:uploadservice:2.1'

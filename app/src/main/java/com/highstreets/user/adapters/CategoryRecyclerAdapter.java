@@ -21,6 +21,8 @@ import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecyclerAdapter.MyViewHolder> {
 
     private Context mContext;
