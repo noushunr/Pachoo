@@ -47,7 +47,7 @@ import com.highstreets.user.ui.main.coupons.CouponsFragment;
 import com.highstreets.user.ui.main.favorites.FavoritesFragment;
 import com.highstreets.user.ui.main.home.HomeFragment;
 import com.highstreets.user.ui.notification.NotificationActivity;
-import com.highstreets.user.ui.profile.ProfileFragment;
+import com.highstreets.user.ui.profile.ProfileActivity;
 import com.highstreets.user.ui.search.SearchActivity;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
@@ -254,7 +254,6 @@ public class HomeMainActivity extends BaseActivity
         mFragmentHashMap.put(Constants.TAG_COUPONS_FRAGMENT, new CouponsFragment());
         mFragmentHashMap.put(Constants.TAG_FAVORITES_FRAGMENT, new FavoritesFragment());
         mFragmentHashMap.put(Constants.TAG_BOOKINGS_FRAGMENT, new BookingsFragment());
-        mFragmentHashMap.put(Constants.TAG_PROFILE_FRAGMENT, new ProfileFragment());
     }
 
     private void toLogin() {
@@ -362,8 +361,8 @@ public class HomeMainActivity extends BaseActivity
                 if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
-                    loadFragment(mFragmentHashMap.get(Constants.TAG_PROFILE_FRAGMENT));
-                    drawerLayout.closeDrawers();
+                   startActivity(ProfileActivity.start(this));
+                   drawerLayout.closeDrawers();
                 }
                 break;
             }

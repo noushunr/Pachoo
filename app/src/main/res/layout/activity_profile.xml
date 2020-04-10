@@ -1,37 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.highstreets.user.ui.profile.ProfileFragment">
+    tools:context="com.highstreets.user.ui.profile.ProfileActivity">
 
     <include layout="@layout/layout_app_bar"/>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        android:layout_marginBottom="20dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:orientation="vertical"
             android:padding="@dimen/activity_vertical_margin">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/ivProfilePic"
+                android:id="@+id/profile_pic"
                 android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:src="@drawable/ic_user"
+                android:layout_height="75dp"
                 android:layout_gravity="center"
                 android:scaleType="centerCrop" />
 
             <TextView
-                android:id="@+id/tvUsername"
+                android:id="@+id/txt_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -41,7 +40,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvNumber"
+                android:id="@+id/txt_number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -49,7 +48,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tvEmail"
+                android:id="@+id/txt_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
@@ -58,25 +57,135 @@
                 android:textColor="@color/text_color_black" />
 
             <Button
-                android:id="@+id/btnEdit"
+                android:id="@+id/button_edit"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
                 android:background="@drawable/primary_light_corner_round"
-                android:text="@string/edit"
+                android:text="Edit"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 
+            <LinearLayout
+                android:id="@+id/edit_layout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <ImageView
+                    android:id="@+id/close_icon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/ic_close" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/edit_text_horizontal_margin"
+                    android:textColorHint="@color/text_color_black"
+                    app:hintTextAppearance="@color/text_color_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_first_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="First Name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/text_color_black"
+                        android:textColorHint="@color/text_color_black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/edit_text_horizontal_margin"
+                    android:textColorHint="@color/text_color_black"
+                    app:hintTextAppearance="@color/text_color_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_last_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Last Name"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/text_color_black"
+                        android:textColorHint="@color/text_color_black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/edit_text_horizontal_margin"
+                    android:textColorHint="@color/text_color_black"
+                    app:hintTextAppearance="@color/text_color_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_number"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Number"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone"
+                        android:textColor="@color/text_color_black"
+                        android:textColorHint="@color/text_color_black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/edit_text_horizontal_margin"
+                    android:textColorHint="@color/text_color_black"
+                    app:hintTextAppearance="@color/text_color_black">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edit_email"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Email"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/text_color_black"
+                        android:textColorHint="@color/text_color_black" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <Button
+                    android:id="@+id/button_change_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password"
+                    android:textAllCaps="true" />
+
+                <Button
+                    android:id="@+id/update_button"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Update Profile"
+                    android:textAllCaps="true" />
+            </LinearLayout>
+
             <Button
-                android:id="@+id/btnLogout"
+                android:id="@+id/button_logout"
                 android:layout_width="match_parent"
                 android:layout_height="36dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/button_bg"
-                android:text="@string/logout"
+                android:text="Logout"
                 android:textAllCaps="true"
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp" />
@@ -87,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:gravity="center"
-                android:text="@string/share_to_your_friends"
+                android:text="Share To your friends"
                 android:textAllCaps="true"
                 android:textColor="@color/text_color_black"
                 android:textSize="14sp"
@@ -100,10 +209,10 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nunito_regular"
                 android:gravity="center"
-                android:text="@string/share_the_app_with_your_friends_and_earn_referral_income"
+                android:text="Share the app with your friends and earn referral income"
                 android:textAllCaps="false"
                 android:textColor="@color/text_color_black"
-                android:textSize="12sp" />
+                android:textSize="10dp" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/social_media_card"
@@ -124,21 +233,21 @@
                     android:padding="8dp">
 
                     <ImageView
-                        android:id="@+id/ivWhatsApp"
+                        android:id="@+id/icon_whatsapp"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/card_horizontal_margin"
                         android:src="@drawable/ic_whatsapp" />
 
                     <ImageView
-                        android:id="@+id/ivFacebook"
+                        android:id="@+id/icon_facebook"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/card_horizontal_margin"
                         android:src="@drawable/ic_facebook_dark" />
 
                     <ImageView
-                        android:id="@+id/ivTwitter"
+                        android:id="@+id/icon_twitter"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/card_horizontal_margin"
@@ -146,7 +255,7 @@
                         android:visibility="gone" />
 
                     <ImageView
-                        android:id="@+id/ivMore"
+                        android:id="@+id/icon_more"
                         android:layout_width="60dp"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="@dimen/card_horizontal_margin"
@@ -157,5 +266,4 @@
         </LinearLayout>
 
     </androidx.core.widget.NestedScrollView>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

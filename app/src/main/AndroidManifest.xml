@@ -21,7 +21,6 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.profile.ProfileActivity"></activity>
 
         <uses-library
             android:name="org.apache.http.legacy"
@@ -88,6 +87,9 @@
         <activity
             android:name=".ui.change_password.ChangePasswordActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".ui.profile.ProfileActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.profile.profile_edit.ProfileEditActivity"
             android:screenOrientation="portrait" />
