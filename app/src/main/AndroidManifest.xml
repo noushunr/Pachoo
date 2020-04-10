@@ -181,28 +181,20 @@
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/provider_paths" />
-        </provider> <!-- <receiver -->
-        <!-- android:name=".receiver.NetworkChangeReceiver" -->
-        <!-- android:label="NetworkChangeReceiver"> -->
-        <!-- <intent-filter> -->
-        <!-- <action android:name="android.net.conn.CONNECTIVITY_CHANGE" /> -->
-        <!-- <action android:name="android.net.wifi.WIFI_STATE_CHANGED" /> -->
-        <!-- </intent-filter> -->
-        <!-- </receiver> -->
+        </provider>
+
         <service android:name=".fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
+
         <service android:name=".fcm.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
-        <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="fb08f4d1ba443ca79e326d9cfd4fcdf73a1d0a06" />
     </application>
 
 </manifest>
