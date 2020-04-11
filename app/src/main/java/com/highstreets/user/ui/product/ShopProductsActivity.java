@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.offer_details;
+package com.highstreets.user.ui.product;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
-import com.highstreets.user.adapters.OfferDetailAdapter;
+import com.highstreets.user.adapters.ProductListAdapter;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
@@ -33,7 +33,7 @@ import com.highstreets.user.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OfferDetailActivity extends BaseActivity implements View.OnClickListener, OfferDetailViewInterface, OfferDetailAdapterCallback {
+public class ShopProductsActivity extends BaseActivity implements View.OnClickListener, ShopProductsViewInterface, OfferDetailAdapterCallback {
 
     private RecyclerView rvOfferDetails;
     private RecyclerView.LayoutManager layoutManager;
@@ -63,11 +63,11 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
     private String TOTAL;
     private String SHOP_CALL;
     private String mShopName;
-    private OfferDetailPresenterInterface offerDetailPresenterInterface;
-    private OfferDetailAdapter viewSingleDealAdapter;
+    private ShopProductsPresenterInterface shopProductsPresenterInterface;
+    private ProductListAdapter viewSingleDealAdapter;
 
     public static Intent getActivityIntent(Context context) {
-        return new Intent(context, OfferDetailActivity.class);
+        return new Intent(context, ShopProductsActivity.class);
     }
 
     @Override
@@ -77,7 +77,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
 
-        offerDetailPresenterInterface = new OfferDetailPresenter(this);
+        shopProductsPresenterInterface = new ShopProductsPresenter(this);
         USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
         LATITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LATITUDE, "");
         LONGITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LONGITUDE, "");
@@ -89,15 +89,15 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
             if (type.equals(Constants.OFFER_TYPE_SINGLE)) {
                 String offerId = getIntent().getStringExtra(Constants.OFFER_ID);
                 if (!LATITUDE.equals("") && !LONGITUDE.equals("")) {
-                    offerDetailPresenterInterface.getOfferDetails(merchantId, offerId, USER_ID, LATITUDE, LONGITUDE);
+                    shopProductsPresenterInterface.getOfferDetails(merchantId, offerId, USER_ID, LATITUDE, LONGITUDE);
                 } else {
-                    offerDetailPresenterInterface.getOfferDetails(merchantId, offerId, USER_ID, "-1", "-1");
+                    shopProductsPresenterInterface.getOfferDetails(merchantId, offerId, USER_ID, "-1", "-1");
                 }
             } else {
                 if (!LATITUDE.equals("") && !LONGITUDE.equals("")) {
-                    offerDetailPresenterInterface.getAllOfferDetails(merchantId, USER_ID, LATITUDE, LONGITUDE);
+                    shopProductsPresenterInterface.getAllOfferDetails(merchantId, USER_ID, LATITUDE, LONGITUDE);
                 } else {
-                    offerDetailPresenterInterface.getAllOfferDetails(merchantId, USER_ID, "-1", "-1");
+                    shopProductsPresenterInterface.getAllOfferDetails(merchantId, USER_ID, "-1", "-1");
                 }
             }
         } else {
@@ -110,7 +110,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
             String merchantId = merchant[0];
             String offerId = parts[2];
 
-            offerDetailPresenterInterface.getOfferDetails(merchantId, offerId, "-1", "-1", "-1");
+            shopProductsPresenterInterface.getOfferDetails(merchantId, offerId, "-1", "-1", "-1");
         }
     }
 
@@ -274,7 +274,7 @@ public class OfferDetailActivity extends BaseActivity implements View.OnClickLis
             llviewMore.setVisibility(View.GONE);
         }
 
-        viewSingleDealAdapter = new OfferDetailAdapter(this, offerDetail.getOffers(), offerDetail.getTiming());
+        viewSingleDealAdapter = new ProductListAdapter(this, offerDetail.getOffers(), offerDetail.getTiming());
         rvOfferDetails.setAdapter(viewSingleDealAdapter);
         shopImagesDialogFragment = ShopImagesDialogFragment.newInstance(offerDetail.getImages());
     }

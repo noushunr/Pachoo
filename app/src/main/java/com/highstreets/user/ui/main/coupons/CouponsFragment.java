@@ -77,11 +77,6 @@ public class CouponsFragment extends BaseFragment implements CouponsViewInterfac
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.home_search, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public void onDetach() {

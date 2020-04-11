@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -39,6 +41,8 @@ import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.ui.ReferAFriendActivity;
 import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.cart.CartActivity;
+import com.highstreets.user.ui.custom.CountDrawable;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.help.HelpActivity;
@@ -75,6 +79,7 @@ public class HomeMainActivity extends BaseActivity
     private String userId;
     private Geocoder geocoder;
     private String SELECTED_CITY;
+    private Menu defaultMenu;
     private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
     private HomeMainPresenterInterface homeMainPresenterInterface;
     private static final int MY_UPDATE_REQUEST_CODE = 112;
@@ -286,8 +291,14 @@ public class HomeMainActivity extends BaseActivity
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        setCount(this, "10", menu);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.home_search, menu);
+        getMenuInflater().inflate(R.menu.home_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.navigation_searching);
         if (getSupportFragmentManager().findFragmentById(R.id.flContainer) instanceof HomeFragment)
             menuItem.setVisible(true);
@@ -299,11 +310,35 @@ public class HomeMainActivity extends BaseActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.navigation_searching:
+            case R.id.navigation_searching: {
                 startActivity(new Intent(HomeMainActivity.this, SearchActivity.class));
                 break;
+            }
+            case R.id.navigation_cart: {
+                startActivity(CartActivity.start(this));
+                break;
+            }
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void setCount(Context context, String count, Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.navigation_cart);
+        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+
+        CountDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_group_count);
+        if (reuse != null && reuse instanceof CountDrawable) {
+            badge = (CountDrawable) reuse;
+        } else {
+            badge = new CountDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_group_count, badge);
     }
 
     @Override

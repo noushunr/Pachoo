@@ -78,5 +78,6 @@
     <string name="select_place">Select Place</string>
     <string name="restuarent_localities_amp_more"><![CDATA[Restuarent, localities, & more]]></string>
     <string name="version_name">Version </string>
+    <string name="cart">Cart</string>
 
 </resources>

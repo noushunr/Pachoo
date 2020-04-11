@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.offer_details;
+package com.highstreets.user.ui.product;
 
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,7 +10,7 @@ import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.ui.base.BaseActivity;
 
-public class DetailActivity extends BaseActivity {
+public class ProductDetailActivity extends BaseActivity {
 
     private ImageView ivImage;
     private TextView tvName;

@@ -21,4 +21,5 @@
     <dimen name="facebook_icon">20dp</dimen>
     <dimen name="design_bottom_navigation_text_size" tools:override="true">12sp</dimen>
     <dimen name="design_bottom_navigation_active_text_size" tools:override="true">12sp</dimen>
+    <dimen name="badge_count_textsize">10sp</dimen>
 </resources>

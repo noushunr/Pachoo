@@ -236,10 +236,10 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void setCategoryList(final List<Category> categoryList) {
         mCategoryList = (ArrayList<Category>) categoryList;
-        List<Category> listOf10Categories = mCategoryList.subList(0, 9);
-        addRemoveItem = categoryList.get(categoryList.size() - 1);
-        listOf10Categories.add(addRemoveItem);
-        categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), listOf10Categories, this);
+//        List<Category> listOf10Categories = mCategoryList.subList(0, 9);
+//        addRemoveItem = categoryList.get(categoryList.size() - 1);
+//        listOf10Categories.add(addRemoveItem);
+        categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), categoryList, this);
         mCategoryRecycler.setAdapter(categoryRecyclerAdapter);
     }
 

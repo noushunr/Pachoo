@@ -74,13 +74,6 @@ public class FavoritesFragment extends BaseFragment implements FavoritesFragment
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.home_search, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
-
-
-    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;

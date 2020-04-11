@@ -1,4 +1,4 @@
-package com.highstreets.user.ui.offer_details;
+package com.highstreets.user.ui.product;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -15,12 +15,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class OfferDetailPresenter implements OfferDetailPresenterInterface {
+public class ShopProductsPresenter implements ShopProductsPresenterInterface {
 
-    private OfferDetailViewInterface offerDetailViewInterface;
+    private ShopProductsViewInterface shopProductsViewInterface;
 
-    public OfferDetailPresenter(OfferDetailViewInterface offerDetailViewInterface) {
-        this.offerDetailViewInterface = offerDetailViewInterface;
+    public ShopProductsPresenter(ShopProductsViewInterface shopProductsViewInterface) {
+        this.shopProductsViewInterface = shopProductsViewInterface;
     }
 
     @Override
@@ -36,10 +36,10 @@ public class OfferDetailPresenter implements OfferDetailPresenterInterface {
                             JsonArray offerDetailArray = jsonObject.get("data").getAsJsonArray();
                             List<OfferDetail> offerDetailList = new Gson().fromJson(offerDetailArray, new TypeToken<List<OfferDetail>>() {
                             }.getType());
-                            offerDetailViewInterface.setOfferDetail(offerDetailList.get(0));
+                            shopProductsViewInterface.setOfferDetail(offerDetailList.get(0));
                             dismissProgressIndicator();
                         } else {
-                            offerDetailViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
+                            shopProductsViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
                             dismissProgressIndicator();
                         }
                     } catch (JsonIOException e) {
@@ -53,7 +53,7 @@ public class OfferDetailPresenter implements OfferDetailPresenterInterface {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 dismissProgressIndicator();
-                offerDetailViewInterface.onResponseFailed(Constants.ERRORS);
+                shopProductsViewInterface.onResponseFailed(Constants.ERRORS);
             }
         });
     }
@@ -71,10 +71,10 @@ public class OfferDetailPresenter implements OfferDetailPresenterInterface {
                             JsonArray offerDetailArray = jsonObject.get("data").getAsJsonArray();
                             List<OfferDetail> offerDetailList = new Gson().fromJson(offerDetailArray, new TypeToken<List<OfferDetail>>() {
                             }.getType());
-                            offerDetailViewInterface.setOfferDetail(offerDetailList.get(0));
+                            shopProductsViewInterface.setOfferDetail(offerDetailList.get(0));
                             dismissProgressIndicator();
                         } else {
-                            offerDetailViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
+                            shopProductsViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
                             dismissProgressIndicator();
                         }
                     } catch (JsonIOException e) {
@@ -94,11 +94,11 @@ public class OfferDetailPresenter implements OfferDetailPresenterInterface {
 
     @Override
     public void showProgressIndicator() {
-        offerDetailViewInterface.showProgressIndicator();
+        shopProductsViewInterface.showProgressIndicator();
     }
 
     @Override
     public void dismissProgressIndicator() {
-        offerDetailViewInterface.dismissProgressIndicator();
+        shopProductsViewInterface.dismissProgressIndicator();
     }
 }

@@ -29,6 +29,9 @@ import com.highstreets.user.ui.change_password.ChangePasswordActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.profile.profile_edit.ProfileEditActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class ProfileActivity extends BaseActivity implements ProfileViewInterface {
 
     public static final int STORAGE_PERMISSION_CODE = 123;
@@ -41,6 +44,9 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
     private ImageView profile_pic;
     private ProfilePresenter profilePresenter;
 
+    @BindView(R.id.tvToolbarText)
+    TextView tvToolbarText;
+
     public static Intent start(Context context){
         return new Intent(context, ProfileActivity.class);
     }
@@ -48,10 +54,9 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setTitle(getString(R.string.profile));
-        getSupportActionBar().setDisplayShowTitleEnabled(true);
+        tvToolbarText.setText(getString(R.string.profile));
 
         requestStoragePermission();
         mLogout = findViewById(R.id.button_logout);

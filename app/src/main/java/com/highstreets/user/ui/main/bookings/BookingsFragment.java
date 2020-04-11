@@ -17,7 +17,6 @@ import com.highstreets.user.R;
 import com.highstreets.user.adapters.BookedAdapter;
 import com.highstreets.user.app_pref.GlobalPreferManager;
 import com.highstreets.user.common.CommonViewInterface;
-import com.highstreets.user.common.CustomItemClickListener;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.BookedOffers;
 import com.highstreets.user.ui.base.BaseFragment;
@@ -85,11 +84,6 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
         mListener = null;
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        inflater.inflate(R.menu.home_search, menu);
-        super.onCreateOptionsMenu(menu, inflater);
-    }
 
     @Override
     public void onLoadingBookedOffersSuccess(final List<BookedOffers> booked_modelList) {

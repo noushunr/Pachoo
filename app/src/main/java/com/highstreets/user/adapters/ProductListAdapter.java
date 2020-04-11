@@ -23,7 +23,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
 import com.highstreets.user.models.Offer;
-import com.highstreets.user.ui.offer_details.DetailActivity;
+import com.highstreets.user.ui.product.ProductDetailActivity;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -32,14 +32,14 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class OfferDetailAdapter extends RecyclerView.Adapter<OfferDetailAdapter.MyViewHolder> {
+public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
 
     private Context mContext;
     private List<Offer> offerList;
     private OfferDetailAdapterCallback listener;
     private String timing;
 
-    public OfferDetailAdapter(Context mContext, List<Offer> offerList, String timing) {
+    public ProductListAdapter(Context mContext, List<Offer> offerList, String timing) {
         this.mContext = mContext;
         this.offerList = offerList;
         this.timing = timing.replaceAll(" ", "");
@@ -80,22 +80,17 @@ public class OfferDetailAdapter extends RecyclerView.Adapter<OfferDetailAdapter.
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
                 .load(ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage()).into(myViewHolder.imDealThumbnail);
 
-        myViewHolder.mDetails.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent toDetilsIntent = new Intent(mContext, DetailActivity.class);
-                toDetilsIntent.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage());
-                toDetilsIntent.putExtra("name", offer.getName());
-                toDetilsIntent.putExtra("desc", offer.getDescription());
-                toDetilsIntent.putExtra("validity_for", offer.getValidFor() + " Person");
-                toDetilsIntent.putExtra("timing", timing);
-                toDetilsIntent.putExtra("mrp", offer.getOfferPrice());
-                toDetilsIntent.putExtra("offer_percentage", offer_percentage);
-                toDetilsIntent.putExtra("valid_till", offer.getOfferValidTo());
-
-                mContext.startActivity(toDetilsIntent);
-            }
+        myViewHolder.mDetails.setOnClickListener(v -> {
+            Intent toDetailsIntent = new Intent(mContext, ProductDetailActivity.class);
+            toDetailsIntent.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage());
+            toDetailsIntent.putExtra("name", offer.getName());
+            toDetailsIntent.putExtra("desc", offer.getDescription());
+            toDetailsIntent.putExtra("validity_for", offer.getValidFor() + " Person");
+            toDetailsIntent.putExtra("timing", timing);
+            toDetailsIntent.putExtra("mrp", offer.getOfferPrice());
+            toDetailsIntent.putExtra("offer_percentage", offer_percentage);
+            toDetailsIntent.putExtra("valid_till", offer.getOfferValidTo());
+            mContext.startActivity(toDetailsIntent);
         });
 
         myViewHolder.mShare.setOnClickListener(new View.OnClickListener() {

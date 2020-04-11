@@ -42,7 +42,7 @@ import com.highstreets.user.models.shop_images;
 import com.highstreets.user.models.shops_most_popular;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
-import com.highstreets.user.ui.offer_details.OfferDetailActivity;
+import com.highstreets.user.ui.product.ShopProductsActivity;
 import com.highstreets.user.ui.write_review.ReadAllReviewsActivity;
 import com.highstreets.user.ui.write_review.WriteReviewActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -418,7 +418,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
                 }
                 break;
             case R.id.view_deals:
-                Intent offerDetailIntent = OfferDetailActivity.getActivityIntent(this);
+                Intent offerDetailIntent = ShopProductsActivity.getActivityIntent(this);
                 offerDetailIntent.putExtra(Constants.MERCHANT_ID, mMerchantId);
                 offerDetailIntent.putExtra(Constants.OFFER_DETAIL_TYPE, Constants.OFFER_TYPE_ALL);
                 startActivity(offerDetailIntent);

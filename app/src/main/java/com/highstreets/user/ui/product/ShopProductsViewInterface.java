@@ -1,8 +1,8 @@
-package com.highstreets.user.ui.offer_details;
+package com.highstreets.user.ui.product;
 
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.models.OfferDetail;
 
-public interface OfferDetailViewInterface extends CommonViewInterface {
+public interface ShopProductsViewInterface extends CommonViewInterface {
   void setOfferDetail(OfferDetail offerDetail);
 }

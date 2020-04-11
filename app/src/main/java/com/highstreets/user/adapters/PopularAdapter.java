@@ -15,7 +15,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.MostPopular;
-import com.highstreets.user.ui.offer_details.OfferDetailActivity;
+import com.highstreets.user.ui.product.ShopProductsActivity;
 import com.highstreets.user.utils.Constants;
 
 import java.util.List;
@@ -59,7 +59,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent offerDetailIntent = OfferDetailActivity.getActivityIntent(mContext);
+                Intent offerDetailIntent = ShopProductsActivity.getActivityIntent(mContext);
                 offerDetailIntent.putExtra(Constants.MERCHANT_ID, mostPopular.getMerchantId());
                 offerDetailIntent.putExtra(Constants.OFFER_ID, mostPopular.getId());
                 offerDetailIntent.putExtra(Constants.OFFER_DETAIL_TYPE, Constants.OFFER_TYPE_SINGLE);
