@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.cart.CartActivity"></activity>
+        <activity android:name=".ui.address.AddressActivity"/>
+        <activity android:name=".ui.cart.CartActivity" />
 
         <uses-library
             android:name="org.apache.http.legacy"

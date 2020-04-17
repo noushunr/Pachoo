@@ -331,10 +331,10 @@
                     android:background="@drawable/button_bg_primary"
                     android:paddingStart="16dp"
                     android:paddingEnd="16dp"
-                    android:text="Review Booking"
+                    android:text="@string/add_to_cart"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="12dp" />
+                    android:textSize="12sp" />
             </RelativeLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>

@@ -292,7 +292,7 @@ public class HomeMainActivity extends BaseActivity
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        setCount(this, "10", menu);
+//        setCount(this, "", menu);
         return super.onPrepareOptionsMenu(menu);
     }
 

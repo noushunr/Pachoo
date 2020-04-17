@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:layout_marginBottom="8dp"
-    android:layout_marginStart="4dp"
-    android:layout_marginEnd="4dp"
-    android:layout_gravity="center"
     android:gravity="center"
+    android:layout_margin="4dp"
     android:orientation="vertical"
-    android:shape="ring">
+    android:shape="ring"
+    app:cardCornerRadius="4dp"
+    app:cardUseCompatPadding="true">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/thumbnail"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
-        app:civ_border_width="1dp"
-        app:civ_border_color="@color/colorPrimary"
-        android:layout_gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/ic_automobiles" />
-
-    <TextView
-        android:id="@+id/txt_brands_name"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginTop="8dp"
-        android:gravity="center"
-        android:text="womens fashion"
-        android:textColor="@color/black"
-        android:textSize="10sp" />
+        android:layout_height="match_parent"
+        android:padding="8dp"
+        android:background="@color/colorPrimary">
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/txt_brands_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:maxLines="2"
+            android:text="womens fashion"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_gravity="center"
+            android:padding="4dp"
+            android:layout_marginTop="8dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_automobiles"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_brands_name" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+</androidx.cardview.widget.CardView>

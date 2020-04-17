@@ -24,6 +24,8 @@
                 android:orientation="vertical"
                 android:padding="16dp">
 
+
+
                 <TextView
                     android:id="@+id/tvShopName"
                     android:layout_width="match_parent"
@@ -200,7 +202,7 @@
                 android:layout_marginBottom="8dp"
                 android:textColor="@color/white"
                 android:background="@drawable/small_button_orange_round_corner"
-                android:text="Confirm Booking"
+                android:text="@string/confirm"
                 android:textAllCaps="true"
                 android:textSize="12dp" />
         </androidx.cardview.widget.CardView>

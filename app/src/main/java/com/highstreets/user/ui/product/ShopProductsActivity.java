@@ -171,10 +171,13 @@ public class ShopProductsActivity extends BaseActivity implements View.OnClickLi
                 if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
-                    Intent reviewBookingIntent = ReviewBookingActivity.getActivityIntent(this);
-                    reviewBookingIntent.putExtra(Constants.SHOP_NAME, mShopName);
-                    reviewBookingIntent.putParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY, offersAddedToBuy);
-                    startActivity(reviewBookingIntent);
+                    shopProductsPresenterInterface.addToCart(
+                            GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""),
+                            offersAddedToBuy);
+//                    Intent reviewBookingIntent = ReviewBookingActivity.getActivityIntent(this);
+//                    reviewBookingIntent.putExtra(Constants.SHOP_NAME, mShopName);
+//                    reviewBookingIntent.putParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY, offersAddedToBuy);
+//                    startActivity(reviewBookingIntent);
                 }
 
                 break;

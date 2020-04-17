@@ -9,26 +9,26 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
 
-    public static final String IMAGE_BASE_URL = "http://highstreets.uk/uploads/admin/offers/";
-    public static final String NOTIFICATION_IMAGE_URL = "http://highstreets.uk/uploads/admin/notification/";
-    public static final String CATEGORY_BASE_URL = "http://highstreets.uk/uploads/admin/categories/";
-    public static final String DEALS_BASE_URL = "http://highstreets.uk/uploads/admin/merchants/";
-    public static final String SLIDERS_BASE_URL = "http://highstreets.uk/uploads/admin/sliders/";
-    public static final String TOP_BANNER_BASE_URL = "http://highstreets.uk/uploads/admin/banners/";
-    public static final String BRANDED_SHOP_BASE_URL = "http://highstreets.uk/uploads/admin/merchants/";
-    public static final String MIDDLE_BANNER_BASE_URL = "http://highstreets.uk/uploads/admin/banners/";
-    public static final String RECENTLY_BOOKED = "http://highstreets.uk/uploads/admin/merchants/";
-    public static final String PROFILE_BASE_URL = "http://highstreets.uk/uploads/admin/users/";
-    public static final String IMAGE_URL_COUPONS = "http://highstreets.uk/uploads/admin/coupons/";
-    public static final String SUB_CAT_BASE_URL = "http://highstreets.uk/uploads/admin/subcategories/";
-    public static final String SHOP_LIST_BANNER_BASE_URL = "http://highstreets.uk/uploads/admin/banners/";
-    public static final String SHOP_LIST_SHOPS_BASE_URL = "http://highstreets.uk/uploads/admin/merchants/";
-    public static final String SHOP_DETAILS_BASE_URL = "http://highstreets.uk/uploads/admin/merchants/";
-    public static final String SHOP_MOST_POPULAR_BASE_URL = "http://highstreets.uk/uploads/admin/offers/";
-    public static final String VIEW_ALL_BASE_URL = "http://highstreets.uk/uploads/admin/offers/";
-    public static final String VIEW_ALL_COUPONS_BASE_URL = "http://highstreets.uk/uploads/admin/coupons/";
-    public static final String GET_FAVOURITE_SHOP_BASE_URL = "http://highstreets.uk/uploads/admin/merchants/";
-    private static final String BASE_URL = "http://highstreets.uk/index.php/";
+    public static final String IMAGE_BASE_URL = "http://35.178.167.7/uploads/admin/offers/";
+    public static final String NOTIFICATION_IMAGE_URL = "http://35.178.167.7/uploads/admin/notification/";
+    public static final String CATEGORY_BASE_URL = "http://35.178.167.7/uploads/admin/categories/";
+    public static final String DEALS_BASE_URL = "http://35.178.167.7/uploads/admin/merchants/";
+    public static final String SLIDERS_BASE_URL = "http://35.178.167.7/uploads/admin/sliders/";
+    public static final String TOP_BANNER_BASE_URL = "http://35.178.167.7/uploads/admin/banners/";
+    public static final String BRANDED_SHOP_BASE_URL = "http://35.178.167.7/uploads/admin/merchants/";
+    public static final String MIDDLE_BANNER_BASE_URL = "http://35.178.167.7/uploads/admin/banners/";
+    public static final String RECENTLY_BOOKED = "http://35.178.167.7/uploads/admin/merchants/";
+    public static final String PROFILE_BASE_URL = "http://35.178.167.7/uploads/admin/users/";
+    public static final String IMAGE_URL_COUPONS = "http://35.178.167.7/uploads/admin/coupons/";
+    public static final String SUB_CAT_BASE_URL = "http://35.178.167.7/uploads/admin/subcategories/";
+    public static final String SHOP_LIST_BANNER_BASE_URL = "http://35.178.167.7/uploads/admin/banners/";
+    public static final String SHOP_LIST_SHOPS_BASE_URL = "http://35.178.167.7/uploads/admin/merchants/";
+    public static final String SHOP_DETAILS_BASE_URL = "http://35.178.167.7/uploads/admin/merchants/";
+    public static final String SHOP_MOST_POPULAR_BASE_URL = "http://35.178.167.7/uploads/admin/offers/";
+    public static final String VIEW_ALL_BASE_URL = "http://35.178.167.7/uploads/admin/offers/";
+    public static final String VIEW_ALL_COUPONS_BASE_URL = "http://35.178.167.7/uploads/admin/coupons/";
+    public static final String GET_FAVOURITE_SHOP_BASE_URL = "http://35.178.167.7/uploads/admin/merchants/";
+    private static final String BASE_URL = "http://35.178.167.7/index.php/";
     private static Retrofit retrofit = null;
     private static OkHttpClient.Builder httpClient = null;
 

@@ -6,9 +6,11 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
 import com.highstreets.user.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -18,15 +20,25 @@ import retrofit2.Response;
 public class ShopProductsPresenter implements ShopProductsPresenterInterface {
 
     private ShopProductsViewInterface shopProductsViewInterface;
+    private int noOfferAddedToCart = 0;
 
     public ShopProductsPresenter(ShopProductsViewInterface shopProductsViewInterface) {
         this.shopProductsViewInterface = shopProductsViewInterface;
     }
 
     @Override
-    public void getOfferDetails(String merchant_id, String offer_id, String user_id, String latitude, String longitude) {
+    public void getOfferDetails(String merchant_id,
+                                String offer_id,
+                                String user_id,
+                                String latitude,
+                                String longitude) {
         showProgressIndicator();
-        ApiClient.getApiInterface().getOfferDetails(merchant_id, offer_id, user_id, latitude, longitude).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().getOfferDetails(
+                merchant_id,
+                offer_id,
+                user_id,
+                latitude,
+                longitude).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
@@ -59,9 +71,16 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
     }
 
     @Override
-    public void getAllOfferDetails(String merchantId, String user_id, String latitude, String longitude) {
+    public void getAllOfferDetails(String merchantId,
+                                   String user_id,
+                                   String latitude,
+                                   String longitude) {
         showProgressIndicator();
-        ApiClient.getApiInterface().getAllOfferDetails(merchantId, user_id, latitude, longitude).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().getAllOfferDetails(
+                merchantId,
+                user_id,
+                latitude,
+                longitude).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 if (response.isSuccessful()) {
@@ -90,6 +109,35 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
                 dismissProgressIndicator();
             }
         });
+    }
+
+    @Override
+    public void addToCart(String userId, ArrayList<Offer> offerArrayList){
+        showProgressIndicator();
+        int noOfOffers = offerArrayList.size();
+        for (Offer offer : offerArrayList){
+            ApiClient.getApiInterface().addToCart(
+                    userId,
+                    offer.getId(),
+                    String.valueOf(offer.getCount())).enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    if (response.isSuccessful()){
+
+                        noOfferAddedToCart++;
+                        if (noOfferAddedToCart == noOfOffers){
+                            dismissProgressIndicator();
+                            noOfferAddedToCart = 0;
+                        }
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                }
+            });
+        }
     }
 
     @Override

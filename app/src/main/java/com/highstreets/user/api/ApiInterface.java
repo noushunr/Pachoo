@@ -239,6 +239,12 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/users/Users/getNotificationDetails")
     Call<JsonObject> getNotificationDetails(@Field("notification_id") String notification_id);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/addToCart")
+    Call<JsonObject> addToCart(@Field("customer_id") String userId,
+                               @Field("product_id") String productId,
+                               @Field("qty") String qty);
 }
 
 

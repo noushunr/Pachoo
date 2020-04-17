@@ -42,7 +42,7 @@ public class AllCategoriesAdapter extends RecyclerView.Adapter<AllCategoriesAdap
         final Category category = categoryArrayList.get(i);
         viewHolder.mBrandName.setText(category.getCategoryName());
         Glide.with(mContext)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
+                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.hight_steet_png))
                 .load(ApiClient.CATEGORY_BASE_URL + category.getImage())
                 .into(viewHolder.mThumbnail);
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
