@@ -46,22 +46,21 @@ public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.MyViewHold
         myViewHolder.SubCategoryName.setText(subCategory.getSubCategory());
 
         Glide.with(mContext)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
                 .load(ApiClient.SUB_CAT_BASE_URL + subCategory.getSubcategoryImage())
                 .apply(RequestOptions.circleCropTransform())
                 .into(myViewHolder.SubCategoryThumbnail);
 
         if (subCategory.isSelected())
-            myViewHolder.bgThumbnail.setBackground(mContext.getResources().getDrawable(R.drawable.sub_category_bg));
+            myViewHolder.bgThumbnail.setBackgroundColor(mContext.getResources().getColor(R.color.white_transparent));
         else
             myViewHolder.bgThumbnail.setBackgroundColor(Color.TRANSPARENT);
 
         myViewHolder.SubCategoryThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (SubCategory sub : subCategoryModelList)
+                for (SubCategory sub : subCategoryModelList) {
                     sub.setSelected(false);
-
+                }
                 subCategory.setSelected(true);
                 subCategoryAdapterCallback.getShops(subCategory.getId(), subCategory.getCategoryId());
                 notifyItemChanged(i);
