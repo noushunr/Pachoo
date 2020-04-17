@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center"
-    android:layout_margin="4dp"
+    android:layout_margin="2dp"
     android:orientation="vertical"
     android:shape="ring"
     app:cardCornerRadius="4dp"
@@ -14,8 +14,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_automobiles"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <TextView
             android:id="@+id/txt_brands_name"
@@ -24,27 +34,16 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:maxLines="2"
+            android:padding="2dp"
             android:text="womens fashion"
             android:textColor="@color/white"
-            android:textSize="12sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/thumbnail"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center"
-            android:padding="4dp"
-            android:layout_marginTop="8dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_automobiles"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_brands_name" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

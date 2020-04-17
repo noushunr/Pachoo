@@ -48,8 +48,6 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         myViewHolder.mBrandName.setText(category.getCategoryName());
         Glide.with(mContext)
-                .setDefaultRequestOptions(new RequestOptions()
-                        .placeholder(R.drawable.hight_steet_png))
                 .load(ApiClient.CATEGORY_BASE_URL + category.getImage())
                 .into(myViewHolder.mThumbnail);
 
