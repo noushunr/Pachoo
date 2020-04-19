@@ -5,8 +5,6 @@ import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -14,7 +12,7 @@ import android.widget.TextView;
 import com.airbnb.lottie.LottieAnimationView;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.FavoritesAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.CustomItemClickListener;
 import com.highstreets.user.common.OnFragmentInteractionListener;
@@ -51,8 +49,8 @@ public class FavoritesFragment extends BaseFragment implements FavoritesFragment
 
         favoritesFragmentPresenter = new FavoritesFragmentPresenter(mContext, this);
         setHasOptionsMenu(true);
-        GlobalPreferManager.initializePreferenceManager(getContext());
-        USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
+        SharedPrefs.initializePreferenceManager(getContext());
+        USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
 
         initView();
         getFavourites(USER_ID);

@@ -24,7 +24,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.SearchListAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.SearchItem;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -80,7 +80,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     private void initView() {
 
-        NEAR_ME_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "");
+        NEAR_ME_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
         edit_near_me = findViewById(R.id.edit_near_me);
         edSearchItem = findViewById(R.id.edit_search_localities);
         tvToolbar = findViewById(R.id.tvToolbarText);

@@ -3,7 +3,7 @@ package com.highstreets.user.ui.review_booking;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
@@ -36,7 +36,7 @@ public class ReviewBookingPresenter implements ReviewBookingPresenterInterface {
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
 
-                            GlobalPreferManager.setString(GlobalPreferManager.Keys.BOOKING_ID, jsonObject.get("booking_id").getAsString());
+                            SharedPrefs.setString(SharedPrefs.Keys.BOOKING_ID, jsonObject.get("booking_id").getAsString());
                             reviewBookingViewInterface.onLoadingReviewBookingSuccess(jsonObject.get("message").getAsString());
 
                         } else {

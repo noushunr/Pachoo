@@ -2,9 +2,8 @@ package com.highstreets.user;
 
 import android.app.Application;
 
-import com.facebook.CallbackManager;
 import com.facebook.FacebookSdk;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 
 public class App extends Application {
 
@@ -12,7 +11,7 @@ public class App extends Application {
   @Override
   public void onCreate() {
     super.onCreate();
-    GlobalPreferManager.initializePreferenceManager(this);
+    SharedPrefs.initializePreferenceManager(this);
     FacebookSdk.sdkInitialize(getApplicationContext());
   }
 

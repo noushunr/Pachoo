@@ -2,13 +2,140 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:padding="8dp">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/ivItemImage"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@color/colorPrimary"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="16sp"
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:text="@string/item_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/ivItemImage"
+        app:layout_constraintTop_toTopOf="@+id/ivItemImage" />
+
+    <TextView
+        android:id="@+id/tvQuantityText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="@string/quantity_colon"
+        app:layout_constraintStart_toStartOf="@+id/tvItemName"
+        app:layout_constraintTop_toBottomOf="@+id/tvItemName" />
+
+    <TextView
+        android:id="@+id/tvQuantity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/_2"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvQuantityText"
+        app:layout_constraintStart_toEndOf="@+id/tvQuantityText"
+        app:layout_constraintTop_toTopOf="@+id/tvQuantityText" />
+
+    <TextView
+        android:id="@+id/tvPriceText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price_colon"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@+id/tvQuantityText"
+        app:layout_constraintTop_toBottomOf="@+id/tvQuantityText" />
+
+    <TextView
+        android:id="@+id/tvPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/price"
+        android:layout_marginStart="4dp"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPriceText"
+        app:layout_constraintStart_toEndOf="@+id/tvPriceText"
+        app:layout_constraintTop_toTopOf="@+id/tvPriceText" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="@+id/tvPriceText"
+        app:layout_constraintTop_toBottomOf="@+id/tvPriceText">
+
+        <Button
+            android:id="@+id/btnMinus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/button_bg_primary"
+            android:gravity="center"
+            android:text="@string/minus"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvCount"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="@string/_6" />
+
+        <Button
+            android:id="@+id/btnPlus"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/button_bg_primary"
+            android:gravity="center"
+            android:text="@string/plus"
+            android:textColor="@color/white" />
+
+    </LinearLayout>
+
+
+
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="8dp"
+        android:visibility="gone"
+        android:background="@color/colorPrimary"
+        android:text="@string/remove"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/btnView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivItemImage" />
+
+    <Button
+        android:id="@+id/btnView"
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:background="@color/colorPrimary"
+        android:layout_marginStart="8dp"
+        android:text="@string/view"
+        android:visibility="gone"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="@+id/btnRemove"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btnRemove"
+        app:layout_constraintTop_toTopOf="@+id/btnRemove" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

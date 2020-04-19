@@ -22,7 +22,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.BuildConfig;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.ProfileData;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.change_password.ChangePasswordActivity;
@@ -72,8 +72,8 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
         imMore = findViewById(R.id.icon_more);
         mChangePassword = findViewById(R.id.button_change_password);
         mUpdateProfile = findViewById(R.id.update_button);
-        txt_username.setText(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, ""));
-        txt_email.setText(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_EMAIL, ""));
+        txt_username.setText(SharedPrefs.getString(SharedPrefs.Keys.USER_FIRST_NAME, ""));
+        txt_email.setText(SharedPrefs.getString(SharedPrefs.Keys.USER_EMAIL, ""));
         profilePresenter = new ProfilePresenter(this, this);
 
         mEditProfile.setOnClickListener(new View.OnClickListener() {
@@ -182,7 +182,7 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
     public void onResume() {
         super.onResume();
         if (profilePresenter != null)
-            profilePresenter.loadProfileDetails(GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""));
+            profilePresenter.loadProfileDetails(SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""));
 
     }
 
@@ -245,8 +245,8 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
                 .load(ApiClient.PROFILE_BASE_URL + ProfileData.getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
                 .into(profile_pic);
-        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_FIRST_NAME, ProfileData.getFirstname());
-        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_LAST_NAME, ProfileData.getLastname());
+        SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, ProfileData.getFirstname());
+        SharedPrefs.setString(SharedPrefs.Keys.USER_LAST_NAME, ProfileData.getLastname());
     }
 
     @Override

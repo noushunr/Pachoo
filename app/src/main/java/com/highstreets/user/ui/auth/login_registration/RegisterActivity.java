@@ -28,7 +28,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.main.HomeMainActivity;
@@ -291,7 +291,7 @@ public class RegisterActivity extends BaseActivity implements
     @Override
     public void onSighInSuccess(String message) {
         CommonUtils.showToast(this, message);
-        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_LOGIN, true);
+        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, true);
         startActivity(new Intent(this, HomeMainActivity.class));
         finishAffinity();
     }

@@ -29,7 +29,7 @@ import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.auth.forgot_password.ForgotPasswordActivity;
@@ -85,7 +85,7 @@ public class LoginActivity extends BaseActivity implements
         tvForgotPassword.setOnClickListener(this);
         tvLoginAsGuest.setOnClickListener(this);
 
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
         loginRegisterPresenterInterface = new LoginRegisterPresenter(this);
         initView();
 
@@ -310,8 +310,8 @@ public class LoginActivity extends BaseActivity implements
 
     @Override
     public void onSighInSuccess(String message) {
-        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_REGISTERED, true);
-        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_LOGIN, true);
+        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_REGISTERED, true);
+        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, true);
         startActivity(new Intent(this, HomeMainActivity.class));
         finishAffinity();
     }

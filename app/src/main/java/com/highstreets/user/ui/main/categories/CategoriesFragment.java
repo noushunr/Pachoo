@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.AllCategoriesAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.Category;
@@ -53,7 +53,7 @@ public class CategoriesFragment extends Fragment implements CategoriesFragmentVi
         rvCategoryList.setHasFixedSize(false);
         rvCategoryList.setNestedScrollingEnabled(false);
 
-        SELECTED_CITY = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "");
+        SELECTED_CITY = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
         if (TextUtils.isEmpty(SELECTED_CITY)) {
             categoriesFragmentPresenterInterface.getCategories("-1");
         } else {

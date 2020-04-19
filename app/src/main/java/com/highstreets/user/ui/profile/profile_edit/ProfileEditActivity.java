@@ -27,7 +27,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.ProfileData;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.change_password.ChangePasswordActivity;
@@ -117,13 +117,13 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
         requestStoragePermission();
         profilePresenter = new ProfilePresenter(this, this);
 
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
-        REGISTER_ID_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-        FIRST_NAME_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
-        LAST_NAME_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_LAST_NAME, "");
-        EMAIL_ID_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_EMAIL, "");
-        MOBILE_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_MOBILE, "");
-        IMAGE_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_IMAGE, "");
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
+        REGISTER_ID_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+        FIRST_NAME_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_FIRST_NAME, "");
+        LAST_NAME_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_LAST_NAME, "");
+        EMAIL_ID_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_EMAIL, "");
+        MOBILE_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_MOBILE, "");
+        IMAGE_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_IMAGE, "");
 
         USERNAME_HOLDER = FIRST_NAME_HOLDER + " " + LAST_NAME_HOLDER;
         initView();
@@ -298,7 +298,7 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
                 .load(ApiClient.PROFILE_BASE_URL + ProfileData.getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
                 .into(ProfilePic);
-        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_IMAGE, ProfileData.getImage());
+        SharedPrefs.setString(SharedPrefs.Keys.USER_IMAGE, ProfileData.getImage());
         edit_first_name.setText(ProfileData.getFirstname());
         edit_last_name.setText(ProfileData.getLastname());
         edit_email.setText(ProfileData.getEmailId());

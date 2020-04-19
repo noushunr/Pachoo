@@ -9,7 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.reset_password.ResetPasswordActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -28,7 +28,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity implements View.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password_otp);
 
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
         mId = getIntent().getStringExtra("id");
@@ -101,7 +101,7 @@ public class ResetPasswordOTPActivity extends AppCompatActivity implements View.
     @Override
     public void onResetSuccess(String message) {
         CommonUtils.showToast(this, message);
-        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_REGISTERED, true);
+        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_REGISTERED, true);
         Intent intent = new Intent(ResetPasswordOTPActivity.this, ResetPasswordActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -36,7 +36,7 @@ import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.ui.ReferAFriendActivity;
@@ -125,7 +125,7 @@ public class HomeMainActivity extends BaseActivity
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
 
-        userId = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
+        userId = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         homeMainPresenterInterface = new HomeMainPresenter();
         bottomNavigation.setOnNavigationItemSelectedListener(this);
         tvToolBarText.setText(R.string.home);
@@ -142,7 +142,7 @@ public class HomeMainActivity extends BaseActivity
             }
         }
 
-        if (!GlobalPreferManager.getBoolean(GlobalPreferManager.Keys.IS_LOGIN, false)) {
+        if (!SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN, false)) {
             llLogout.setVisibility(View.GONE);
         }
         mLocationChange = (LocationChange) mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT);
@@ -181,7 +181,7 @@ public class HomeMainActivity extends BaseActivity
             double longitude = location.getLongitude();
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
             SELECTED_CITY = addresses.get(0).getLocality();
-            GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_LOCATED, true);
+            SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOCATED, true);
             Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.flContainer);
             if (fragment instanceof HomeFragment) {
                 mLocationChange.onLocationChanged(SELECTED_CITY);
@@ -226,7 +226,7 @@ public class HomeMainActivity extends BaseActivity
 
             @Override
             public void onDrawerOpened(@NonNull View drawerView) {
-                String drawerName = "Hello " + GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
+                String drawerName = "Hello " + SharedPrefs.getString(SharedPrefs.Keys.USER_FIRST_NAME, "");
                 tvNavFirstName.setText(drawerName);
                 try {
                     PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
@@ -290,11 +290,6 @@ public class HomeMainActivity extends BaseActivity
         }
     }
 
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-//        setCount(this, "", menu);
-        return super.onPrepareOptionsMenu(menu);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -304,6 +299,10 @@ public class HomeMainActivity extends BaseActivity
             menuItem.setVisible(true);
         else
             menuItem.setVisible(false);
+        defaultMenu = menu;
+        if (!SharedPrefs.getString(SharedPrefs.Keys.CART_COUNT,"").equals("")){
+            setCount(this, SharedPrefs.getString(SharedPrefs.Keys.CART_COUNT,""), defaultMenu);
+        }
         return true;
     }
 
@@ -405,7 +404,7 @@ public class HomeMainActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llMyProfile: {
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                    startActivity(ProfileActivity.start(this));
@@ -414,7 +413,7 @@ public class HomeMainActivity extends BaseActivity
                 break;
             }
             case R.id.llMyBooking: {
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));
@@ -425,7 +424,7 @@ public class HomeMainActivity extends BaseActivity
                 break;
             }
             case R.id.llMyFavorites: {
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
@@ -479,21 +478,21 @@ public class HomeMainActivity extends BaseActivity
                 loadFragment(mFragmentHashMap.get(Constants.TAG_CATEGORIES_FRAGMENT));
                 return true;
             case R.id.navigation_coupons:
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_COUPONS_FRAGMENT));
                 }
                 return true;
             case R.id.navigation_favorites:
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
                 }
                 return true;
             case R.id.navigation_booked:
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));

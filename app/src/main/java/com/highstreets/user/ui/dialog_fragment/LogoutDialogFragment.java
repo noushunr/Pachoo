@@ -19,7 +19,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 
 public class LogoutDialogFragment extends DialogFragment implements View.OnClickListener {
@@ -80,9 +80,9 @@ public class LogoutDialogFragment extends DialogFragment implements View.OnClick
         Auth.GoogleSignInApi.signOut(mGoogleApiClient);
         LoginManager.getInstance().logOut();
         AccessToken.setCurrentAccessToken(null);
-        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_LOGIN, false);
-        GlobalPreferManager.remove(GlobalPreferManager.Keys.USER_ID);
-        GlobalPreferManager.clear();
+        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, false);
+        SharedPrefs.remove(SharedPrefs.Keys.USER_ID);
+        SharedPrefs.clear();
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);

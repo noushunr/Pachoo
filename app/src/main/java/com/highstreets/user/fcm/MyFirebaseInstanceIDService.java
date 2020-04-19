@@ -2,7 +2,7 @@ package com.highstreets.user.fcm;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
@@ -14,6 +14,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-        GlobalPreferManager.setString(GlobalPreferManager.Keys.TOKEN, token);
+        SharedPrefs.setString(SharedPrefs.Keys.TOKEN, token);
     }
 }

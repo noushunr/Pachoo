@@ -8,7 +8,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.FilterItemModel;
 import com.highstreets.user.models.FilterPriceModel;
 import com.highstreets.user.models.SubCategory;
@@ -45,13 +45,13 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
                             JsonArray subCategoryArray = jsonObject.get(Constants.DATA).getAsJsonArray();
                             for (int i = 0; i < subCategoryArray.size(); i++) {
                                 JsonObject object = subCategoryArray.get(i).getAsJsonObject();
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_ID, object.get("id").getAsString());
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_NAME, object.get("sub_category").getAsString());
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_CREATED_DATE, object.get("created_date").getAsString());
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_UPDATED_DATE, object.get("updated_date").getAsString());
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_IMAGE, object.get("subcategory_image").getAsString());
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_STATUS, object.get("status").getAsString());
-                                GlobalPreferManager.setString(GlobalPreferManager.Keys.SUB_CATEGORY_IP, object.get("ip").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_ID, object.get("id").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_NAME, object.get("sub_category").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_CREATED_DATE, object.get("created_date").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_UPDATED_DATE, object.get("updated_date").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_IMAGE, object.get("subcategory_image").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_STATUS, object.get("status").getAsString());
+                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_IP, object.get("ip").getAsString());
                             }
 
                             List<SubCategory> brandsModelsList = new Gson().fromJson(subCategoryArray, new TypeToken<List<SubCategory>>() {

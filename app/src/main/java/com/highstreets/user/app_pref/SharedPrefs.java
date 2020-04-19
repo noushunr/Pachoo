@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class GlobalPreferManager {
+public class SharedPrefs {
     private static SharedPreferences preferences;
 
     public static void initializePreferenceManager(Context context) {
@@ -204,6 +204,7 @@ public class GlobalPreferManager {
         public static final String USER_PROFILE_ID = "user_profile_id";
         public static final String CITY = "city";
         public static final String CHECKED_ITEM_ID = "checked_item_id";
+        public static final String CART_COUNT = "cart_count";
     }
 
 

@@ -11,7 +11,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.ReviewGet;
 import com.highstreets.user.ui.base.BaseActivity;
 
@@ -36,9 +36,9 @@ public class WriteReviewActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-        MERCHANT_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.MERCHANT_ID, "");
-        REVIEWER_NAME_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_FIRST_NAME, "");
+        USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+        MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, "");
+        REVIEWER_NAME_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_FIRST_NAME, "");
         tvHomeTitle = findViewById(R.id.tvToolbarText);
         tvHomeTitle.setText(getString(R.string.high_streets));
         Intent intent = getIntent();
@@ -93,8 +93,8 @@ public class WriteReviewActivity extends BaseActivity implements View.OnClickLis
 
         if (REVIEW_HOLDER.equals("") && RATING_HOLDER != null) {
             SHOP_RATING = String.valueOf(RATING_HOLDER);
-            USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-            MERCHANT_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.MERCHANT_ID, "");
+            USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+            MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, "");
             if (isValidated()) {
                 if (REVIEW_TYPE.equals("0")) {
                     writeReviewPresenter.write_offer_review(USER_ID, OFFERS_MERCHANT_ID, OFFER_ID, REVIEWER_NAME_HOLDER, REVIEW_HOLDER, SHOP_RATING);
@@ -105,8 +105,8 @@ public class WriteReviewActivity extends BaseActivity implements View.OnClickLis
             }
         } else {
             SHOP_RATING = String.valueOf(RATING_HOLDER);
-            USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-            MERCHANT_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.MERCHANT_ID, "");
+            USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+            MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, "");
             if (isValidated()) {
                 if (REVIEW_TYPE.equals("0")) {
                     writeReviewPresenter.write_offer_review(USER_ID, OFFERS_MERCHANT_ID, OFFER_ID, REVIEWER_NAME_HOLDER, REVIEW_HOLDER, SHOP_RATING);

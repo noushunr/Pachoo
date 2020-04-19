@@ -7,15 +7,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.BookedAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.BookedOffers;
@@ -45,7 +43,7 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
         setHasOptionsMenu(true);
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         bookingsPresenter = new BookingsPresenter(getActivity(), this);
-        USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
+        USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         progressDialogFragment = new ProgressDialogFragment();
         view = inflater.inflate(R.layout.fragment_booked, container, false);
         initView();

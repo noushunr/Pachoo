@@ -33,7 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.PopularAdapter;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.Image;
 import com.highstreets.user.models.MostPopular;
 import com.highstreets.user.models.Review;
@@ -95,13 +95,13 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         mMerchantId = getIntent().getStringExtra(Constants.MERCHANT_ID);
-        USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-        MERCHANT_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.SHOP_LIST_MERCHANT_ID, "");
+        USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+        MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.SHOP_LIST_MERCHANT_ID, "");
 
-        CITY_NAME = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "");
-        LATITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LATITUDE, "");
-        LONGITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LONGITUDE, "");
-        GlobalPreferManager.setString(GlobalPreferManager.Keys.MERCHANT_ID, mMerchantId);
+        CITY_NAME = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
+        LATITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE, "");
+        LONGITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LONGITUDE, "");
+        SharedPrefs.setString(SharedPrefs.Keys.MERCHANT_ID, mMerchantId);
         shopFragmentPresenter = new ShopPresenter(this);
         res = getResources();
 
@@ -406,7 +406,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
                 shopImagesDialogFragment.show(getSupportFragmentManager(), null);
                 break;
             case R.id.write_review:
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     Intent toWriteReviewIntent = WriteReviewActivity.getActivityIntent(this);
@@ -425,7 +425,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
                 break;
 
             case R.id.ivFavorite:
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     if (isFavorite) {

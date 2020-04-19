@@ -22,7 +22,7 @@ import com.highstreets.user.adapters.BrandFilterListAdapter;
 import com.highstreets.user.adapters.PriceFilterListAdapter;
 import com.highstreets.user.adapters.ShopListAdapter;
 import com.highstreets.user.adapters.SubCatAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.FilterItem;
 import com.highstreets.user.models.FilterItemModel;
 import com.highstreets.user.models.FilterPriceModel;
@@ -71,9 +71,9 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
         tvToolbarText.setText(getIntent().getStringExtra(Constants.CATEGORY_NAME));
         categoryId = getIntent().getStringExtra(Constants.CATEGORY_ID);
 
-        CITY_NAME = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "");
-        LATITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LATITUDE, "");
-        LONGITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LONGITUDE, "");
+        CITY_NAME = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
+        LATITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE, "");
+        LONGITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LONGITUDE, "");
 
         subCategoryPresenter = new SubCategoryPresenter(this, this);
 
@@ -124,8 +124,8 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
         mApplyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SELECTED_BRAND = GlobalPreferManager.getString(GlobalPreferManager.Keys.SELECTED_BRAND, "");
-                SELECTED_PRICE = GlobalPreferManager.getString(GlobalPreferManager.Keys.SELECTED_PRICE, "");
+                SELECTED_BRAND = SharedPrefs.getString(SharedPrefs.Keys.SELECTED_BRAND, "");
+                SELECTED_PRICE = SharedPrefs.getString(SharedPrefs.Keys.SELECTED_PRICE, "");
                 if (!isBrandSelected() && !isPriceSelected()) {
                     getShopList(CITY_NAME, categoryId, "-1", LATITUDE, LONGITUDE);
                 } else {
@@ -218,14 +218,14 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
                     public void onClick(View v) {
                         mSortGroup.clearCheck();
                         subCategoryPresenter.getSubCategories(categoryId);
-                        GlobalPreferManager.remove(GlobalPreferManager.Keys.CHECKED_ITEM_ID);
+                        SharedPrefs.remove(SharedPrefs.Keys.CHECKED_ITEM_ID);
                         dialog.dismiss();
                     }
                 });
                 mApplyButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        if (mSortGroup.findViewById(GlobalPreferManager.getInt(GlobalPreferManager.Keys.CHECKED_ITEM_ID, 0)) == null) {
+                        if (mSortGroup.findViewById(SharedPrefs.getInt(SharedPrefs.Keys.CHECKED_ITEM_ID, 0)) == null) {
                             getShopList(CITY_NAME, categoryId, "-1", LATITUDE, LONGITUDE);
                         } else {
                             if (!CITY_NAME.equals("") && !LATITUDE.equals("") && !LONGITUDE.equals("")) {
@@ -256,7 +256,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
                 mSortGroup.setVisibility(View.VISIBLE);
                 mSort.setSelected(true);
                 mSort.setPressed(false);
-                RadioButton radioButton = mSortGroup.findViewById(GlobalPreferManager.getInt(GlobalPreferManager.Keys.CHECKED_ITEM_ID, 0));
+                RadioButton radioButton = mSortGroup.findViewById(SharedPrefs.getInt(SharedPrefs.Keys.CHECKED_ITEM_ID, 0));
                 if (radioButton != null) {
                     radioButton.setChecked(true);
                 }
@@ -273,7 +273,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
 
                             int idx = mSortGroup.indexOfChild(rb);
                             SortedOption = String.valueOf(idx);
-                            GlobalPreferManager.setInt(GlobalPreferManager.Keys.CHECKED_ITEM_ID, checkedId);
+                            SharedPrefs.setInt(SharedPrefs.Keys.CHECKED_ITEM_ID, checkedId);
                         }
                     }
                 });

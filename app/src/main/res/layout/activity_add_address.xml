@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".ui.address.add_address.AddAddressActivity">
+
+    <include layout="@layout/layout_app_bar"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteX="8dp"
+                tools:layout_editor_absoluteY="8dp">
+
+                <EditText
+                    android:id="@+id/tvFirstName"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/first_name"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/tvLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/last_name"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/tvMobile"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/mobile"
+                    android:inputType="number"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/tvDistrict"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/district"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/tvCity"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/city"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/tvState"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/state"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/tvPostcode"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/postcode"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/rvAddresses1"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/address_line_1"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <EditText
+                    android:id="@+id/rvAddresses2"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/address_line_2"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnAddAddress"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/button_bg_primary"
+                android:text="@string/add_address"
+                android:textColor="@color/white"
+                android:layout_marginTop="16dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

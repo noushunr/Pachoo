@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.main.HomeMainActivity;
@@ -34,8 +34,8 @@ public class ChangePasswordActivity extends BaseActivity implements OnFragmentIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         passwordPresenter = new ChangePasswordPresenter(this);
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
-        REGISTER_ID_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
+        REGISTER_ID_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
 
         initView();
     }

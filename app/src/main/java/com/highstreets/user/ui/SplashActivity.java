@@ -14,7 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 
@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
 
-        if (GlobalPreferManager.getBoolean(GlobalPreferManager.Keys.IS_LOGIN, false)) {
+        if (SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN, false)) {
             startActivity(new Intent(SplashActivity.this, HomeMainActivity.class));
             finish();
         } else {

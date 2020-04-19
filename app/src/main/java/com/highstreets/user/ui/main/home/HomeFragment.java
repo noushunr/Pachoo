@@ -30,7 +30,7 @@ import com.highstreets.user.adapters.DealsRecyclerAdapter;
 import com.highstreets.user.adapters.MostVisitedShopAdapter;
 import com.highstreets.user.adapters.RecentlyBookedRecyclerAdapter;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.BottomBanner;
@@ -133,7 +133,7 @@ public class HomeFragment extends BaseFragment implements
         view = inflater.inflate(R.layout.fragment_home, container, false);
         initView();
 
-        SELECTED_CITY = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "");
+        SELECTED_CITY = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
         if (TextUtils.isEmpty(SELECTED_CITY)) {
             isCitySelected = false;
             getCategories("-1");
@@ -222,10 +222,10 @@ public class HomeFragment extends BaseFragment implements
                 LATITUDE = data.getStringExtra("lat");
                 LONGITUDE = data.getStringExtra("lon");
                 CITY_ID = data.getStringExtra("city_id");
-                GlobalPreferManager.setString(GlobalPreferManager.Keys.GET_CITY_NAME, SELECTED_CITY);
-                GlobalPreferManager.setString(GlobalPreferManager.Keys.GET_CITY_LATITUDE, LATITUDE);
-                GlobalPreferManager.setString(GlobalPreferManager.Keys.GET_CITY_LONGITUDE, LONGITUDE);
-                GlobalPreferManager.setString(GlobalPreferManager.Keys.GET_CITY_ID, CITY_ID);
+                SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_NAME, SELECTED_CITY);
+                SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_LATITUDE, LATITUDE);
+                SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_LONGITUDE, LONGITUDE);
+                SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_ID, CITY_ID);
                 mLocation.setText(SELECTED_CITY);
                 isCitySelected = true;
                 getCategories(SELECTED_CITY);
@@ -512,7 +512,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void onRetry() {
 
-        SELECTED_CITY = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_NAME, "-1");
+        SELECTED_CITY = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "-1");
         if (TextUtils.isEmpty(SELECTED_CITY)) {
             getCategories("-1");
             mLocation.setText("Choose area or city");

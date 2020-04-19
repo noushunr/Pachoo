@@ -43,7 +43,7 @@ import com.google.android.libraries.places.widget.AutocompleteActivity;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.PopularCitiesAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.location_model;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -89,7 +89,7 @@ public class SelectLocationActivity extends BaseActivity implements PopularCitie
             Places.initialize(getApplicationContext(), apiKey);
         }
 
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
         selectLocationPresenter = new SelectLocationPresenter(this);
         getPopularCities();
         geocoder = new Geocoder(this, Locale.getDefault());

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -26,10 +26,10 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reset_password);
 
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
         resetPasswordPresenter = new ResetPasswordPresenter(this);
 
-        REGISTER_ID_HOLDER = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
+        REGISTER_ID_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
 
         EditNewPassword = findViewById(R.id.edit_password);
         EditConfirmPassword = findViewById(R.id.edit_confirm_password);
@@ -79,7 +79,7 @@ public class ResetPasswordActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onResetPasswordSuccess(String message) {
         CommonUtils.showToast(this, message);
-        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_REGISTERED, true);
+        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_REGISTERED, true);
         Intent intent = new Intent(ResetPasswordActivity.this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.FilterItem;
 
 import java.util.List;
@@ -50,7 +50,7 @@ public class PriceFilterListAdapter extends RecyclerView.Adapter<PriceFilterList
                     notifyDataSetChanged();
 
                     String SELECTED = myViewHolder.tvPrice.getText().toString();
-                    GlobalPreferManager.setString(GlobalPreferManager.Keys.SELECTED_PRICE, SELECTED);
+                    SharedPrefs.setString(SharedPrefs.Keys.SELECTED_PRICE, SELECTED);
 
                 }
             }

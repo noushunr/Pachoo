@@ -1,6 +1,8 @@
 package com.highstreets.user.api;
 
 import com.google.gson.JsonObject;
+import com.highstreets.user.ui.cart.model.CartResponse;
+import com.highstreets.user.ui.product.model.AddToCartResponse;
 
 import java.util.Map;
 
@@ -242,9 +244,39 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/addToCart")
-    Call<JsonObject> addToCart(@Field("customer_id") String userId,
-                               @Field("product_id") String productId,
-                               @Field("qty") String qty);
+    Call<AddToCartResponse> addToCart(@Field("customer_id") String userId,
+                                      @Field("product_id") String productId,
+                                      @Field("qty") String qty);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getCartProducts")
+    Call<CartResponse> getCartProducts(@Field("customer_id") String userId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/saveAddress")
+    Call<JsonObject> addAddress(@Field("firstname") String firstName,
+                                @Field("lastname") String lastName,
+                                @Field("mobile") String mobile,
+                                @Field("district") String district,
+                                @Field("city") String city,
+                                @Field("state") String state,
+                                @Field("postcode") String postcode,
+                                @Field("address_1") String address_1,
+                                @Field("address_2") String address_2);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/saveAddress")
+    Call<JsonObject> editAddress(@Field("customer_id") String userId,
+                                 @Field("address_id") String addressId,
+                                 @Field("firstname") String firstName,
+                                 @Field("lastname") String lastName,
+                                 @Field("mobile") String mobile,
+                                 @Field("district") String district,
+                                 @Field("city") String city,
+                                 @Field("state") String state,
+                                 @Field("postcode") String postcode,
+                                 @Field("address_1") String address_1,
+                                 @Field("address_2") String address_2);
 }
 
 

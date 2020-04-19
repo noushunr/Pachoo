@@ -3,7 +3,7 @@ package com.highstreets.user.ui.auth.login_registration;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
@@ -28,12 +28,12 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
                 if (response.isSuccessful()) {
                     JsonObject jsonObject = response.body();
                     if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_ID, jsonObject.get("user_id").getAsString());
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_FIRST_NAME, jsonObject.get("firstname").getAsString());
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_LAST_NAME, jsonObject.get("lastname").getAsString());
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_EMAIL, jsonObject.get("email_id").getAsString());
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_MOBILE, jsonObject.get("mobile").getAsString());
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_GENDER, jsonObject.get("gender").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_ID, jsonObject.get("user_id").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, jsonObject.get("firstname").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_LAST_NAME, jsonObject.get("lastname").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_EMAIL, jsonObject.get("email_id").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_MOBILE, jsonObject.get("mobile").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_GENDER, jsonObject.get("gender").getAsString());
                         loginRegisterViewInterface.onSighInSuccess("Login Success");
                     } else {
                         loginRegisterViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
@@ -77,7 +77,7 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
                     try {
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_ID, jsonObject.get("register_id").getAsString());
+                            SharedPrefs.setString(SharedPrefs.Keys.USER_ID, jsonObject.get("register_id").getAsString());
                             loginRegisterViewInterface.onSighInSuccess("Login Successfully");
                         } else {
                             loginRegisterViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
@@ -118,11 +118,11 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
                 if (response.isSuccessful()) {
                     JsonObject jsonObject = response.body();
                     if (Constants.SUCCESS.equals(jsonObject.get(Constants.STATUS).getAsString())) {
-                        GlobalPreferManager.setBoolean(GlobalPreferManager.Keys.IS_LOGIN, true);
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_ID, jsonObject.get("user_id").getAsString());
+                        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, true);
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_ID, jsonObject.get("user_id").getAsString());
                         if (jsonObject.has("email"))
-                            GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_EMAIL, jsonObject.get("email").getAsString());
-                        GlobalPreferManager.setString(GlobalPreferManager.Keys.USER_FIRST_NAME, jsonObject.get("name").getAsString());
+                            SharedPrefs.setString(SharedPrefs.Keys.USER_EMAIL, jsonObject.get("email").getAsString());
+                        SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, jsonObject.get("name").getAsString());
                         loginRegisterViewInterface.onSighInSuccess(jsonObject.get("message").getAsString());
                     }
 

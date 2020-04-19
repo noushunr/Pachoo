@@ -5,7 +5,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.ReviewGet;
 import com.highstreets.user.utils.Constants;
 
@@ -33,7 +33,7 @@ public class WriteReviewPresenter implements WriteReviewPresenterInterface {
                     try {
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            GlobalPreferManager.setString(GlobalPreferManager.Keys.WRITE_SHOP_REVIEW_ID, jsonObject.get("review_id").getAsString());
+                            SharedPrefs.setString(SharedPrefs.Keys.WRITE_SHOP_REVIEW_ID, jsonObject.get("review_id").getAsString());
                             writeReviewViewInterface.onReviewSubmitSuccess("Successfully Submitted");
                             dismissProgressIndicator();
                         } else {
@@ -66,7 +66,7 @@ public class WriteReviewPresenter implements WriteReviewPresenterInterface {
                     try {
                         JsonObject jsonObject = response.body();
                         if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            GlobalPreferManager.setString(GlobalPreferManager.Keys.WRITE_OFFER_REVIEW_ID, jsonObject.get("review_id").getAsString());
+                            SharedPrefs.setString(SharedPrefs.Keys.WRITE_OFFER_REVIEW_ID, jsonObject.get("review_id").getAsString());
                             writeReviewViewInterface.onReviewSubmitSuccess("Successfully Submitted");
                             dismissProgressIndicator();
                         } else {

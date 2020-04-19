@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.ReviewBookingAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.SuccessDialogFragment;
@@ -48,8 +48,8 @@ public class ReviewBookingActivity extends BaseActivity implements ReviewBooking
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-        MERCHANT_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.MERCHANT_ID, "");
+        USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+        MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, "");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         offerArrayList = getIntent().getParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY);
         mShopName = getIntent().getStringExtra(Constants.SHOP_NAME);

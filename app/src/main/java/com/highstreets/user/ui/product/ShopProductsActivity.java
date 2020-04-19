@@ -4,9 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import androidx.cardview.widget.CardView;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,18 +12,23 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.ProductListAdapter;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
-import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
-import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
+import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.main.HomeMainActivity;
+import com.highstreets.user.ui.product.model.AddToCartResponse;
 import com.highstreets.user.ui.shop_details.ShopImagesDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
@@ -33,7 +36,10 @@ import com.highstreets.user.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShopProductsActivity extends BaseActivity implements View.OnClickListener, ShopProductsViewInterface, OfferDetailAdapterCallback {
+public class ShopProductsActivity extends BaseActivity implements
+        View.OnClickListener,
+        ShopProductsViewInterface,
+        OfferDetailAdapterCallback {
 
     private RecyclerView rvOfferDetails;
     private RecyclerView.LayoutManager layoutManager;
@@ -65,6 +71,7 @@ public class ShopProductsActivity extends BaseActivity implements View.OnClickLi
     private String mShopName;
     private ShopProductsPresenterInterface shopProductsPresenterInterface;
     private ProductListAdapter viewSingleDealAdapter;
+    private Menu menu;
 
     public static Intent getActivityIntent(Context context) {
         return new Intent(context, ShopProductsActivity.class);
@@ -78,9 +85,9 @@ public class ShopProductsActivity extends BaseActivity implements View.OnClickLi
         initView();
 
         shopProductsPresenterInterface = new ShopProductsPresenter(this);
-        USER_ID = GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "");
-        LATITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LATITUDE, "");
-        LONGITUDE = GlobalPreferManager.getString(GlobalPreferManager.Keys.GET_CITY_LONGITUDE, "");
+        USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
+        LATITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE, "");
+        LONGITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LONGITUDE, "");
 
         String type = getIntent().getStringExtra(Constants.OFFER_DETAIL_TYPE);
         if (type != null) {
@@ -168,11 +175,11 @@ public class ShopProductsActivity extends BaseActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_review_booking:
-                if (GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, "").equals("")) {
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     shopProductsPresenterInterface.addToCart(
-                            GlobalPreferManager.getString(GlobalPreferManager.Keys.USER_ID, ""),
+                            SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""),
                             offersAddedToBuy);
 //                    Intent reviewBookingIntent = ReviewBookingActivity.getActivityIntent(this);
 //                    reviewBookingIntent.putExtra(Constants.SHOP_NAME, mShopName);
@@ -283,6 +290,15 @@ public class ShopProductsActivity extends BaseActivity implements View.OnClickLi
     }
 
     @Override
+    public void setAddedToCartSuccess(AddToCartResponse addToCartResponse) {
+        SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, String.valueOf(addToCartResponse.getCartCount()));
+        CommonUtils.showToast(this, addToCartResponse.getMessage());
+        Intent toHomeIntent = HomeMainActivity.start(this);
+        toHomeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(toHomeIntent);
+    }
+
+    @Override
     public void onClick(List<Offer> offerList) {
         int itemsWithCount = 0;
         offersAddedToBuy = new ArrayList<>();
@@ -317,4 +333,5 @@ public class ShopProductsActivity extends BaseActivity implements View.OnClickLi
         number_of_item.setText(noStr);
         mTotalPrice = 0;
     }
+
 }

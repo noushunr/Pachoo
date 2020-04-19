@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.NotificationAdapter;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.notification_model;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
@@ -38,11 +38,11 @@ public class NotificationActivity extends BaseActivity implements NotificationVi
         super.onCreate(savedInstanceState);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        GlobalPreferManager.initializePreferenceManager(getApplicationContext());
+        SharedPrefs.initializePreferenceManager(getApplicationContext());
         notificationPresenter = new NotificationPresenter(this);
-        NOTIFICATION_TITLE = GlobalPreferManager.getString(GlobalPreferManager.Keys.NOTIFICATION_TITLE, "");
-        NOTIFICATION_DESCRIPTION = GlobalPreferManager.getString(GlobalPreferManager.Keys.NOTIFICATION_DESCRIPTION, "");
-        NOTIFICATION_LOGO = GlobalPreferManager.getString(GlobalPreferManager.Keys.OFFER_IMAGE, "");
+        NOTIFICATION_TITLE = SharedPrefs.getString(SharedPrefs.Keys.NOTIFICATION_TITLE, "");
+        NOTIFICATION_DESCRIPTION = SharedPrefs.getString(SharedPrefs.Keys.NOTIFICATION_DESCRIPTION, "");
+        NOTIFICATION_LOGO = SharedPrefs.getString(SharedPrefs.Keys.OFFER_IMAGE, "");
         initView();
 
 

@@ -11,7 +11,7 @@ import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.app_pref.GlobalPreferManager;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.FilterItem;
 import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
 
@@ -51,7 +51,7 @@ public class BrandFilterListAdapter extends RecyclerView.Adapter<BrandFilterList
                     notifyDataSetChanged();
 
                     String SELECTED = myViewHolderAdapter.tvFilterOptionName.getText().toString();
-                    GlobalPreferManager.setString(GlobalPreferManager.Keys.SELECTED_BRAND, SELECTED);
+                    SharedPrefs.setString(SharedPrefs.Keys.SELECTED_BRAND, SELECTED);
                 }
             }
         });

@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
+import com.highstreets.user.ui.product.model.AddToCartResponse;
 import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
@@ -119,21 +120,21 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
             ApiClient.getApiInterface().addToCart(
                     userId,
                     offer.getId(),
-                    String.valueOf(offer.getCount())).enqueue(new Callback<JsonObject>() {
+                    String.valueOf(offer.getCount())).enqueue(new Callback<AddToCartResponse>() {
                 @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
                     if (response.isSuccessful()){
-
                         noOfferAddedToCart++;
                         if (noOfferAddedToCart == noOfOffers){
                             dismissProgressIndicator();
                             noOfferAddedToCart = 0;
+                            shopProductsViewInterface.setAddedToCartSuccess(response.body());
                         }
                     }
                 }
 
                 @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
+                public void onFailure(Call<AddToCartResponse> call, Throwable t) {
 
                 }
             });
