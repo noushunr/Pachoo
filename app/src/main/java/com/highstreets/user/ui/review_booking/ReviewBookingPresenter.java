@@ -4,6 +4,7 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
@@ -21,16 +22,45 @@ public class ReviewBookingPresenter implements ReviewBookingPresenterInterface {
     }
 
     @Override
-    public void getReviewBooking(String user_id, String merchant_id, ArrayList<String> offer_id, ArrayList<String> quantity, ArrayList<String> price) {
+    public void getCartProducts(String userId) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().getCartProducts(userId).enqueue(new Callback<CartResponse>() {
+            @Override
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()){
+                    reviewBookingViewInterface.setCartData(response.body().getCartData());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CartResponse> call, Throwable t) {
+                dismissProgressIndicator();
+            }
+        });
+    }
+
+    @Override
+    public void getReviewBooking(String user_id,
+                                 String merchant_id,
+                                 ArrayList<String> offer_id,
+                                 ArrayList<String> quantity,
+                                 ArrayList<String> price) {
 
         String[] offerId = offer_id.toArray(new String[offer_id.size()]);
         String[] cost = price.toArray(new String[price.size()]);
         String[] qty = quantity.toArray(new String[quantity.size()]);
 
         showProgressIndicator();
-        ApiClient.getApiInterface().get_review_booking(user_id, merchant_id, offerId, qty, cost).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().confirmBooking(
+                user_id,
+                merchant_id,
+                offerId,
+                qty,
+                cost).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
                         JsonObject jsonObject = response.body();
@@ -48,7 +78,7 @@ public class ReviewBookingPresenter implements ReviewBookingPresenterInterface {
                 } else {
                     reviewBookingViewInterface.onResponseFailed(Constants.MESSAGE);
                 }
-                dismissProgressIndicator();
+
             }
 
             @Override
@@ -60,7 +90,6 @@ public class ReviewBookingPresenter implements ReviewBookingPresenterInterface {
 
     @Override
     public void showProgressIndicator() {
-
         reviewBookingViewInterface.showProgressIndicator();
     }
 

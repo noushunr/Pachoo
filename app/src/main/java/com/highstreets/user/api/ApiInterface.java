@@ -1,6 +1,9 @@
 package com.highstreets.user.api;
 
 import com.google.gson.JsonObject;
+import com.highstreets.user.ui.address.add_address.select_city.model.CityResponse;
+import com.highstreets.user.ui.address.add_address.select_district.model.DistrictResponse;
+import com.highstreets.user.ui.address.add_address.select_state.model.StatesResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 
@@ -165,11 +168,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/confirmBooking")
-    Call<JsonObject> get_review_booking(@Field("user_id") String user_id,
-                                        @Field("merchant_id") String merchant_id,
-                                        @Field("offer_id[]") String[] offer_id,
-                                        @Field("qty[]") String[] quantity,
-                                        @Field("price[]") String[] price
+    Call<JsonObject> confirmBooking(@Field("user_id") String user_id,
+                                    @Field("merchant_id") String merchant_id,
+                                    @Field("offer_id[]") String[] offer_id,
+                                    @Field("qty[]") String[] quantity,
+                                    @Field("price[]") String[] price
     );
 
     @FormUrlEncoded
@@ -262,7 +265,9 @@ public interface ApiInterface {
                                 @Field("state") String state,
                                 @Field("postcode") String postcode,
                                 @Field("address_1") String address_1,
-                                @Field("address_2") String address_2);
+                                @Field("address_2") String address_2,
+                                @Field("lattitude") String latitude,
+                                @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("api/users/Users/saveAddress")
@@ -276,7 +281,20 @@ public interface ApiInterface {
                                  @Field("state") String state,
                                  @Field("postcode") String postcode,
                                  @Field("address_1") String address_1,
-                                 @Field("address_2") String address_2);
+                                 @Field("address_2") String address_2,
+                                 @Field("lattitude") String latitude,
+                                 @Field("longitude") String longitude);
+
+    @GET("api/users/Users/getStates")
+    Call<StatesResponse> getStates();
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getDistrict")
+    Call<DistrictResponse> getDistrict(@Field("state_id") String stateId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getCity")
+    Call<CityResponse> getCity(@Field("district_id") String districtId);
 }
 
 

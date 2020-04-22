@@ -3,44 +3,44 @@ package com.highstreets.user.ui.review_booking;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.fragment.app.DialogFragment;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.fragment.app.DialogFragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.ReviewBookingAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
-import com.highstreets.user.models.Offer;
-import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.SuccessDialogFragment;
+import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.cart.model.CartData;
+import com.highstreets.user.ui.cart.model.Product;
 import com.highstreets.user.utils.CommonUtils;
-import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class ReviewBookingActivity extends BaseActivity implements ReviewBookingViewInterface, View.OnClickListener {
+public class ReviewBookingActivity extends BaseActivity implements
+        ReviewBookingViewInterface,
+        View.OnClickListener {
 
     private Button mConfirmButton;
     private TextView tvTotalRate;
     private RecyclerView rvReviewBooking;
-    private RecyclerView.LayoutManager layoutManager;
-    private ReviewBookingAdapter reviewBookingAdapter;
     private TextView tvToolbarText;
-    private TextView tvShopName;
-    private String mShopName;
     private ReviewBookingPresenter reviewBookingPresenter;
-    private ArrayList<Offer> offerArrayList = new ArrayList<>();
+    private List<Product> productList;
     private String USER_ID, MERCHANT_ID;
     private ArrayList<String> offerList = new ArrayList<>();
     private ArrayList<String> priceList = new ArrayList<>();
     private ArrayList<String> QtyList = new ArrayList<>();
 
-    public static Intent getActivityIntent(Context context) {
+    public static Intent start(Context context) {
         return new Intent(context, ReviewBookingActivity.class);
     }
 
@@ -48,14 +48,12 @@ public class ReviewBookingActivity extends BaseActivity implements ReviewBooking
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        initView();
         USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, "");
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        offerArrayList = getIntent().getParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY);
-        mShopName = getIntent().getStringExtra(Constants.SHOP_NAME);
-
         reviewBookingPresenter = new ReviewBookingPresenter(this);
-        initView();
+        reviewBookingPresenter.getCartProducts(USER_ID);
     }
 
     @Override
@@ -74,28 +72,15 @@ public class ReviewBookingActivity extends BaseActivity implements ReviewBooking
     }
 
     private void initView() {
-
         tvTotalRate = findViewById(R.id.txt_total_amount_value);
-        tvToolbarText = findViewById(R.id.tvToolbarText);
-        tvToolbarText.setText("Review Booking");
-        tvShopName = findViewById(R.id.tvShopName);
-        tvShopName.setText(mShopName);
-        rvReviewBooking = findViewById(R.id.review_booking_recycler_view);
-        RecyclerView.ItemDecoration decoration = new DividerItemDecoration(this, LinearLayoutManager.VERTICAL);
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        rvReviewBooking.setLayoutManager(layoutManager);
-        rvReviewBooking.setHasFixedSize(false);
-        rvReviewBooking.addItemDecoration(decoration);
-        reviewBookingAdapter = new ReviewBookingAdapter(this, offerArrayList);
-        rvReviewBooking.setAdapter(reviewBookingAdapter);
-        double allTotal = 0;
-        for (Offer offer : offerArrayList) {
-            double oneOfferAmount = ((double) offer.getCount()) * (Double.parseDouble(offer.getOfferPrice()));
-            allTotal = allTotal + oneOfferAmount;
-        }
 
-        String totalStr = getString(R.string.pound_symbol) + String.format("%.2f", allTotal);
-        tvTotalRate.setText(totalStr);
+        tvToolbarText = findViewById(R.id.tvToolbarText);
+        tvToolbarText.setText(R.string.review_booking);
+
+        rvReviewBooking = findViewById(R.id.review_booking_recycler_view);
+        rvReviewBooking.setLayoutManager(new LinearLayoutManager(this));
+        rvReviewBooking.setHasFixedSize(false);
+        rvReviewBooking.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
         mConfirmButton = findViewById(R.id.confirm_booking_button);
         mConfirmButton.setOnClickListener(this);
@@ -114,6 +99,14 @@ public class ReviewBookingActivity extends BaseActivity implements ReviewBooking
     @Override
     public void onLoadingReviewBookingFailed(String message) {
         CommonUtils.showToast(this, message);
+    }
+
+    @Override
+    public void setCartData(CartData cartData) {
+        productList = cartData.getProductList();
+        rvReviewBooking.setAdapter(new ReviewBookingAdapter(this, productList));
+        String grandTotal = getString(R.string.pound_symbol) +cartData.getGrandTotal();
+        tvTotalRate.setText(grandTotal);
     }
 
     @Override
@@ -145,11 +138,10 @@ public class ReviewBookingActivity extends BaseActivity implements ReviewBooking
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.confirm_booking_button:
-                for (Offer model : offerArrayList) {
-                    model.getOfferTypeId();
-                    offerList.add(model.getId());
-                    priceList.add(model.getOfferPrice());
-                    QtyList.add(String.valueOf(model.getCount()));
+                for (Product product : productList) {
+                    offerList.add(product.getProductId());
+                    priceList.add(product.getOfferPrice());
+                    QtyList.add(product.getQty());
                 }
                 reviewBookingPresenter.getReviewBooking(USER_ID, MERCHANT_ID, offerList, QtyList, priceList);
                 break;

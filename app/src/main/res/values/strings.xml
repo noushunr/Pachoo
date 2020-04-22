@@ -89,14 +89,14 @@
     <string name="remove">remove</string>
     <string name="view">view</string>
     <string name="add_address">add address</string>
+    <string name="add_address_first_caps">Add Address</string>
     <string name="name">Name</string>
     <string name="last_name">Last Name</string>
     <string name="district">District</string>
     <string name="city">City</string>
     <string name="postcode">Postcode</string>
     <string name="state">State</string>
-    <string name="address_line_1">Address Line 1</string>
-    <string name="address_line_2">Address Line 2</string>
+    <string name="address_line_2">Address Line</string>
     <string name="price_colon">Total Price:</string>
     <string name="price">price</string>
     <string name="sub_total_colon">Sub Total:</string>
@@ -105,5 +105,16 @@
     <string name="place_order">Place order</string>
     <string name="quantity_colon">Quantity:</string>
     <string name="_2">2</string>
+    <string name="_continue">continue</string>
+    <string name="cash_on_delivery">Cash on delivery</string>
+    <string name="pay_now">Pay now</string>
+    <string name="collect_from_shop">Collect from shop</string>
+    <string name="select_option">Select Option</string>
+    <string name="review_booking">Review Booking</string>
+    <string name="select_an_option">Select an option</string>
+    <string name="select_state">Select State</string>
+    <string name="select_county">Select County</string>
+    <string name="select_city">Select City</string>
+    <string name="county">County</string>
 
 </resources>

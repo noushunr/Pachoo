@@ -27,7 +27,7 @@
                 tools:layout_editor_absoluteY="8dp">
 
                 <EditText
-                    android:id="@+id/tvFirstName"
+                    android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
@@ -37,7 +37,7 @@
                     android:paddingEnd="8dp" />
 
                 <EditText
-                    android:id="@+id/tvLastName"
+                    android:id="@+id/etLastName"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
@@ -47,7 +47,7 @@
                     android:paddingEnd="8dp" />
 
                 <EditText
-                    android:id="@+id/tvMobile"
+                    android:id="@+id/etMobile"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
@@ -57,38 +57,44 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <EditText
+                <TextView
+                    android:id="@+id/tvState"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
+                    android:background="@drawable/edit_text_stroke_black"
+                    android:hint="@string/state"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
+
+                <TextView
                     android:id="@+id/tvDistrict"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/district"
+                    android:hint="@string/county"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <EditText
+                <TextView
                     android:id="@+id/tvCity"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/city"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
                 <EditText
-                    android:id="@+id/tvState"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/state"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp" />
-
-                <EditText
-                    android:id="@+id/tvPostcode"
+                    android:id="@+id/etPostcode"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
@@ -97,25 +103,27 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <EditText
-                    android:id="@+id/rvAddresses1"
+                <TextView
+                    android:id="@+id/tvSelectPlace"
                     android:layout_width="match_parent"
                     android:layout_height="48dp"
                     android:layout_marginTop="8dp"
+                    android:gravity="center_vertical"
+                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/address_line_1"
+                    android:hint="@string/select_place"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
                 <EditText
-                    android:id="@+id/rvAddresses2"
+                    android:id="@+id/etAddressesLine"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
+                    android:layout_height="120dp"
                     android:layout_marginTop="8dp"
+                    android:gravity="start"
+                    android:padding="8dp"
                     android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/address_line_2"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp" />
+                    android:hint="@string/address_line_2"/>
 
             </LinearLayout>
 

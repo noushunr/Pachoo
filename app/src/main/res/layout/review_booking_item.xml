@@ -13,6 +13,7 @@
             android:id="@+id/deals_thumbnail"
             android:layout_width="60dp"
             android:layout_height="60dp"
+            android:background="@color/colorPrimary"
             android:layout_gravity="center_vertical"
             android:layout_margin="8dp" />
 

@@ -1,30 +1,30 @@
 package com.highstreets.user.adapters;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
-import com.highstreets.user.models.Offer;
+import com.highstreets.user.ui.cart.model.Product;
 
 import java.util.List;
 
 public class ReviewBookingAdapter extends RecyclerView.Adapter<ReviewBookingAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Offer> reviewBookings;
+    private List<Product> productList;
 
-    public ReviewBookingAdapter(Context mContext, List<Offer> reviewBookings) {
+    public ReviewBookingAdapter(Context mContext, List<Product> productList) {
         this.mContext = mContext;
-        this.reviewBookings = reviewBookings;
+        this.productList = productList;
     }
 
     @NonNull
@@ -36,24 +36,24 @@ public class ReviewBookingAdapter extends RecyclerView.Adapter<ReviewBookingAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        Offer offer = reviewBookings.get(i);
+        Product product = productList.get(i);
 
-        int COUNT = offer.getCount();
-        double price = Double.parseDouble(offer.getOfferPrice());
-        double Total_Rate = COUNT * price;
+//        int COUNT = product.getCount();
+//        double price = Double.parseDouble(product.getOfferPrice());
+//        double Total_Rate = COUNT * price;
 
-        String TOTAL = mContext.getString(R.string.pound_symbol) + String.format("%.2f", Total_Rate);
-        myViewHolder.tvDealName.setText(offer.getName());
-        myViewHolder.tvDealDesc.setText(offer.getDescription());
+        String TOTAL = mContext.getString(R.string.pound_symbol) + String.format("%.2f", product.getTotalPrice());
+        myViewHolder.tvDealName.setText(product.getTitle());
+        myViewHolder.tvDealDesc.setText(product.getDescription());
         myViewHolder.tvPrice.setText(TOTAL);
         Glide.with(mContext)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                .load(ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage()).into(myViewHolder.imThumbnail);
+                .load(ApiClient.VIEW_ALL_BASE_URL + product.getImage())
+                .into(myViewHolder.imThumbnail);
     }
 
     @Override
     public int getItemCount() {
-        return reviewBookings.size();
+        return productList.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {

@@ -21,7 +21,15 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.address.add_address.AddAddressActivity"></activity>
+        <activity android:name=".ui.payment.PaymentOptionsActivity">
+        </activity>
+        <activity android:name=".ui.address.add_address.AddAddressActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.address.AddressActivity" />
         <activity android:name=".ui.cart.CartActivity" />
 
@@ -39,11 +47,11 @@
         <activity
             android:name=".ui.SplashActivity"
             android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+<!--                <category android:name="android.intent.category.LAUNCHER" />-->
+<!--            </intent-filter>-->
         </activity>
         <activity
             android:name=".ui.notification.notification_details.NotificationDetailActivity"

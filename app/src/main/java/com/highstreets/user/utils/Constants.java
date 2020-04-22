@@ -37,4 +37,9 @@ public class Constants {
     public static final String SHOP_NAME = "shop_name";
     public static final String FROM_INSIDE = "from_inside";
     public static final int DIALOG_NO_INTERNET = 156;
+
+    public static final int PAYMENT_TYPE_CASH_ON_DELIVERY = 1;
+    public static final int PAYMENT_TYPE_PAY_NOW = 2;
+    public static final int PAYMENT_TYPE_COLLECT_FROM_SHOP = 3;
+    public static final String PAYMENT_TYPE = "payment_type";
 }

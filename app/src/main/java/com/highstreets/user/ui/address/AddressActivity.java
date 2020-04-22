@@ -1,11 +1,10 @@
 package com.highstreets.user.ui.address;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.highstreets.user.R;
 import com.highstreets.user.ui.base.BaseActivity;
