@@ -74,7 +74,7 @@ public class PaymentOptionsActivity extends BaseActivity {
 
     private List<PaymentType> getPaymentTypes(){
         List<PaymentType> paymentTypeList = new ArrayList<>();
-        paymentTypeList.add(new PaymentType(Constants.PAYMENT_TYPE_CASH_ON_DELIVERY, getString(R.string.cash_on_delivery)));
+//        paymentTypeList.add(new PaymentType(Constants.PAYMENT_TYPE_CASH_ON_DELIVERY, getString(R.string.cash_on_delivery)));
         paymentTypeList.add(new PaymentType(Constants.PAYMENT_TYPE_PAY_NOW, getString(R.string.pay_now)));
         paymentTypeList.add(new PaymentType(Constants.PAYMENT_TYPE_COLLECT_FROM_SHOP, getString(R.string.collect_from_shop)));
         return paymentTypeList;

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.CartAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.cart.model.Product;
@@ -105,7 +106,7 @@ public class CartActivity extends BaseActivity implements
                 switch (data.getIntExtra(Constants.PAYMENT_TYPE, 0)) {
                     case Constants.PAYMENT_TYPE_CASH_ON_DELIVERY:
                     case Constants.PAYMENT_TYPE_PAY_NOW:{
-                        // select address
+                        startActivity(AddressActivity.start(this));
                         break;
                     }
                     case Constants.PAYMENT_TYPE_COLLECT_FROM_SHOP: {

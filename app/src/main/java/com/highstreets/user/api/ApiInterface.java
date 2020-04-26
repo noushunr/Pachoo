@@ -1,9 +1,12 @@
 package com.highstreets.user.api;
 
 import com.google.gson.JsonObject;
+import com.highstreets.user.ui.address.add_address.model.AddressResponse;
+import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
 import com.highstreets.user.ui.address.add_address.select_city.model.CityResponse;
 import com.highstreets.user.ui.address.add_address.select_district.model.DistrictResponse;
 import com.highstreets.user.ui.address.add_address.select_state.model.StatesResponse;
+import com.highstreets.user.ui.address.model.AllAddressResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 
@@ -257,21 +260,22 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/saveAddress")
-    Call<JsonObject> addAddress(@Field("firstname") String firstName,
-                                @Field("lastname") String lastName,
-                                @Field("mobile") String mobile,
-                                @Field("district") String district,
-                                @Field("city") String city,
-                                @Field("state") String state,
-                                @Field("postcode") String postcode,
-                                @Field("address_1") String address_1,
-                                @Field("address_2") String address_2,
-                                @Field("lattitude") String latitude,
-                                @Field("longitude") String longitude);
+    Call<AddressSavedResponse> addAddress(@Field("customer_id")String userId,
+                                          @Field("firstname") String firstName,
+                                          @Field("lastname") String lastName,
+                                          @Field("mobile") String mobile,
+                                          @Field("district") String district,
+                                          @Field("city") String city,
+                                          @Field("state") String state,
+                                          @Field("postcode") String postcode,
+                                          @Field("address_1") String address_1,
+                                          @Field("address_2") String address_2,
+                                          @Field("lattitude") String latitude,
+                                          @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("api/users/Users/saveAddress")
-    Call<JsonObject> editAddress(@Field("customer_id") String userId,
+    Call<AddressSavedResponse> editAddress(@Field("customer_id") String userId,
                                  @Field("address_id") String addressId,
                                  @Field("firstname") String firstName,
                                  @Field("lastname") String lastName,
@@ -285,6 +289,15 @@ public interface ApiInterface {
                                  @Field("lattitude") String latitude,
                                  @Field("longitude") String longitude);
 
+    @FormUrlEncoded
+    @POST("api/users/Users/getAddress")
+    Call<AllAddressResponse> getAllAddresses(@Field("customer_id") String userId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getAddress")
+    Call<AddressResponse> getAddress(@Field("customer_id") String userId,
+                                     @Field("address_id") String addressId);
+
     @GET("api/users/Users/getStates")
     Call<StatesResponse> getStates();
 
@@ -295,6 +308,11 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/users/Users/getCity")
     Call<CityResponse> getCity(@Field("district_id") String districtId);
+
+    @FormUrlEncoded
+    @POST()
+    Call<JsonObject> createEphemeralKey(@Field("customer_id") String userId,
+                                        @Field("api_version") String apiVersion);
 }
 
 

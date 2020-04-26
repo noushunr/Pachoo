@@ -42,4 +42,5 @@ public class Constants {
     public static final int PAYMENT_TYPE_PAY_NOW = 2;
     public static final int PAYMENT_TYPE_COLLECT_FROM_SHOP = 3;
     public static final String PAYMENT_TYPE = "payment_type";
+    public static final String EDIT_ADDRESS_ID = "edit_address_id";
 }

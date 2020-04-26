@@ -16,7 +16,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="8dp">
+            android:padding="16dp">
 
             <LinearLayout
                 android:id="@+id/linearLayout"
@@ -29,8 +29,9 @@
                 <EditText
                     android:id="@+id/etFirstName"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/first_name"
                     android:paddingStart="8dp"
@@ -39,8 +40,9 @@
                 <EditText
                     android:id="@+id/etLastName"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/last_name"
                     android:paddingStart="8dp"
@@ -49,8 +51,9 @@
                 <EditText
                     android:id="@+id/etMobile"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/mobile"
                     android:inputType="number"
@@ -60,10 +63,10 @@
                 <TextView
                     android:id="@+id/tvState"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/state"
                     android:paddingStart="8dp"
@@ -72,10 +75,10 @@
                 <TextView
                     android:id="@+id/tvDistrict"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/county"
                     android:paddingStart="8dp"
@@ -84,10 +87,10 @@
                 <TextView
                     android:id="@+id/tvCity"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/city"
                     android:paddingStart="8dp"
@@ -96,8 +99,9 @@
                 <EditText
                     android:id="@+id/etPostcode"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/postcode"
                     android:paddingStart="8dp"
@@ -106,10 +110,10 @@
                 <TextView
                     android:id="@+id/tvSelectPlace"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp"
                     android:gravity="center_vertical"
-                    android:textSize="18sp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/select_place"
                     android:paddingStart="8dp"
@@ -118,9 +122,10 @@
                 <EditText
                     android:id="@+id/etAddressesLine"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="16dp"
                     android:gravity="start"
+                    android:textSize="16sp"
                     android:padding="8dp"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/address_line_2"/>
