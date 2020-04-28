@@ -93,7 +93,8 @@ public class CartActivity extends BaseActivity implements
             tvGrandTotal.setText(grandTotal);
 
             btnPlaceOrder.setOnClickListener(view -> {
-                startActivityForResult(PaymentOptionsActivity.start(this), SELECT_PAYMENT_OPTION_CODE);
+//                startActivityForResult(PaymentOptionsActivity.start(this), SELECT_PAYMENT_OPTION_CODE);
+                startActivity(AddressActivity.start(this));
             });
         }
     }

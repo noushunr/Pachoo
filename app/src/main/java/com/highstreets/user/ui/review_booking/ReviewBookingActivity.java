@@ -13,13 +13,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.adapters.ReviewBookingAdapter;
+import com.highstreets.user.models.Offer;
+import com.highstreets.user.ui.review_booking.adapter.OfferBookingAdapter;
+import com.highstreets.user.ui.review_booking.adapter.ReviewBookingAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.SuccessDialogFragment;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.cart.model.Product;
 import com.highstreets.user.utils.CommonUtils;
+import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,10 +38,10 @@ public class ReviewBookingActivity extends BaseActivity implements
     private TextView tvToolbarText;
     private ReviewBookingPresenter reviewBookingPresenter;
     private List<Product> productList;
+    private ArrayList<Offer> offerArrayList;
+    private boolean isBooking;
     private String USER_ID, MERCHANT_ID;
-    private ArrayList<String> offerList = new ArrayList<>();
-    private ArrayList<String> priceList = new ArrayList<>();
-    private ArrayList<String> QtyList = new ArrayList<>();
+
 
     public static Intent start(Context context) {
         return new Intent(context, ReviewBookingActivity.class);
@@ -53,7 +56,22 @@ public class ReviewBookingActivity extends BaseActivity implements
         USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         MERCHANT_ID = SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, "");
         reviewBookingPresenter = new ReviewBookingPresenter(this);
-        reviewBookingPresenter.getCartProducts(USER_ID);
+        if (getIntent().getParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY) != null){
+            isBooking = true;
+            offerArrayList = getIntent().getParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY);
+            rvReviewBooking.setAdapter(new OfferBookingAdapter(offerArrayList));
+            double grandTotalDouble = 0;
+            for (Offer offer : offerArrayList){
+                int COUNT = offer.getCount();
+                double price = Double.parseDouble(offer.getOfferPrice());
+                double totalRate = COUNT * price;
+                grandTotalDouble += totalRate;
+            }
+            String grandTotal = getString(R.string.pound_symbol) + grandTotalDouble;
+            tvTotalRate.setText(grandTotal);
+        } else {
+            reviewBookingPresenter.getCartProducts(USER_ID);
+        }
     }
 
     @Override
@@ -137,14 +155,30 @@ public class ReviewBookingActivity extends BaseActivity implements
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.confirm_booking_button:
-                for (Product product : productList) {
-                    offerList.add(product.getProductId());
-                    priceList.add(product.getOfferPrice());
-                    QtyList.add(product.getQty());
-                }
-                reviewBookingPresenter.getReviewBooking(USER_ID, MERCHANT_ID, offerList, QtyList, priceList);
+            case R.id.confirm_booking_button: {
+                postData();
                 break;
+            }
         }
+    }
+
+    private void postData() {
+        ArrayList<String> offerList = new ArrayList<>();
+        ArrayList<String> priceList = new ArrayList<>();
+        ArrayList<String> qtyList = new ArrayList<>();
+        if (isBooking) {
+            for (Offer offer : offerArrayList){
+                offerList.add(offer.getId());
+                priceList.add(offer.getOfferPrice());
+                qtyList.add(String.valueOf(offer.getCount()));
+            }
+        } else {
+            for (Product product : productList) {
+                offerList.add(product.getProductId());
+                priceList.add(product.getOfferPrice());
+                qtyList.add(product.getQty());
+            }
+        }
+        reviewBookingPresenter.getReviewBooking(USER_ID, MERCHANT_ID, offerList, qtyList, priceList);
     }
 }

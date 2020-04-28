@@ -281,18 +281,18 @@
             android:visibility="gone"
             app:cardElevation="8dp">
 
-            <RelativeLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="8dp"
                 android:gravity="center_vertical">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
                         android:id="@+id/number_of_item"
@@ -322,20 +322,40 @@
 
 
                 <Button
-                    android:id="@+id/button_review_booking"
+                    android:id="@+id/btnAddToCart"
                     android:layout_width="wrap_content"
-                    android:layout_height="40dp"
+                    android:layout_height="32dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginEnd="16dp"
                     android:background="@drawable/button_bg_primary"
-                    android:paddingStart="16dp"
-                    android:paddingEnd="16dp"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:layout_marginEnd="8dp"
                     android:text="@string/add_to_cart"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
-            </RelativeLayout>
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <Button
+                    android:id="@+id/btnBookOffer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="32dp"
+                    android:background="@drawable/button_bg_primary"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:text="@string/book_offer"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/btnAddToCart"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
     </RelativeLayout>
 

@@ -3,6 +3,7 @@ package com.highstreets.user.api;
 import com.google.gson.JsonObject;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
+import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
 import com.highstreets.user.ui.address.add_address.select_city.model.CityResponse;
 import com.highstreets.user.ui.address.add_address.select_district.model.DistrictResponse;
 import com.highstreets.user.ui.address.add_address.select_state.model.StatesResponse;
@@ -313,6 +314,31 @@ public interface ApiInterface {
     @POST()
     Call<JsonObject> createEphemeralKey(@Field("customer_id") String userId,
                                         @Field("api_version") String apiVersion);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/placeOrder")
+    Call<JsonObject> placeOrder(@Field("customer_id") String userId,
+                                @Field("address_id") String addressId,
+                                @Field("payment_method") String paymentMethod);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getOrders")
+    Call<JsonObject> getOrders(@Field("customer_id") String userId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getOrder")
+    Call<JsonObject> getOrder(@Field("customer_id") String userId,
+                              @Field("order_id") String orderId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/getFinalBalance")
+    Call<JsonObject> getFinalBalance(@Field("customer_id") String userId,
+                                     @Field("address_id") String addressId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/checkPostcode")
+    Call<PostcodeResponse> checkPostcode(@Field("postcode") String postcode);
+
 }
 
 

@@ -20,6 +20,7 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
+import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
 import com.highstreets.user.ui.address.add_address.select_city.CityDialogFragment;
 import com.highstreets.user.ui.address.add_address.select_city.adapter.CityAdapter;
 import com.highstreets.user.ui.address.add_address.select_city.model.City;
@@ -57,6 +58,7 @@ public class AddAddressActivity extends BaseActivity implements
     private boolean isEditAddress;
     private String userId;
     private String addressId;
+    private boolean validPostcode;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolbarText;
@@ -74,12 +76,17 @@ public class AddAddressActivity extends BaseActivity implements
     TextView tvState;
     @BindView(R.id.etPostcode)
     EditText etPostcode;
+    @BindView(R.id.tvPostcodeResult)
+    TextView tvPostcodeResult;
+    @BindView(R.id.btnPostcodeCheck)
+    Button btnPostcodeCheck;
     @BindView(R.id.tvSelectPlace)
     TextView tvSelectPlace;
     @BindView(R.id.etAddressesLine)
     EditText etAddressesLine;
     @BindView(R.id.btnAddAddress)
     Button btnAddAddress;
+
 
     public static Intent start(Context context) {
         return new Intent(context, AddAddressActivity.class);
@@ -107,6 +114,8 @@ public class AddAddressActivity extends BaseActivity implements
         tvDistrict.setOnClickListener(this);
         tvCity.setOnClickListener(this);
         btnAddAddress.setOnClickListener(this);
+        btnPostcodeCheck.setOnClickListener(this);
+
         btnAddAddress.setText(isEditAddress ? getString(R.string.save_address) : getString(R.string.add_address));
 
 
@@ -185,6 +194,15 @@ public class AddAddressActivity extends BaseActivity implements
                 startAutocompleteActivity();
                 break;
             }
+            case R.id.btnPostcodeCheck:{
+                if (TextUtils.isEmpty(etPostcode.getText())){
+                    etPostcode.setError("Enter Postcode");
+                    etPostcode.findFocus();
+                } else {
+                    addAddressPresenterInterface.checkPostcode(etPostcode.getText().toString());
+                }
+                break;
+            }
         }
     }
 
@@ -209,6 +227,9 @@ public class AddAddressActivity extends BaseActivity implements
             tvCity.findFocus();
         } else if (TextUtils.isEmpty(etPostcode.getText())) {
             etPostcode.setError("This field is required");
+            etPostcode.findFocus();
+        } else if (!validPostcode){
+            etPostcode.setError("Check postcode");
             etPostcode.findFocus();
         } else if (TextUtils.isEmpty(tvSelectPlace.getText()) || latLng == null) {
             tvSelectPlace.setError("This field is required");
@@ -326,6 +347,20 @@ public class AddAddressActivity extends BaseActivity implements
     public void addressAddedResult(AddressSavedResponse addressSavedResponse) {
         if (addressSavedResponse.getStatus().equals(Constants.SUCCESS)) {
             CommonUtils.showToast(this, addressSavedResponse.getMessage());
+        }
+    }
+
+    @Override
+    public void setPostcodeResult(PostcodeResponse postcodeResponse) {
+        tvPostcodeResult.setVisibility(View.VISIBLE);
+        if (postcodeResponse.getStatus().equals(Constants.ERROR)){
+            tvPostcodeResult.setText(postcodeResponse.getMessage());
+            tvPostcodeResult.setTextColor(getResources().getColor(R.color.red));
+            validPostcode = false;
+        } else {
+            tvPostcodeResult.setText(postcodeResponse.getMessage());
+            tvPostcodeResult.setTextColor(getResources().getColor(R.color.green));
+            validPostcode = true;
         }
     }
 }

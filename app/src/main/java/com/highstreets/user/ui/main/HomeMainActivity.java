@@ -53,6 +53,7 @@ import com.highstreets.user.ui.main.coupons.CouponsFragment;
 import com.highstreets.user.ui.main.favorites.FavoritesFragment;
 import com.highstreets.user.ui.main.home.HomeFragment;
 import com.highstreets.user.ui.notification.NotificationActivity;
+import com.highstreets.user.ui.orders.MyOrdersActivity;
 import com.highstreets.user.ui.profile.ProfileActivity;
 import com.highstreets.user.ui.search.SearchActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -94,6 +95,8 @@ public class HomeMainActivity extends BaseActivity
     LinearLayout llMyProfile;
     @BindView(R.id.llMyBooking)
     LinearLayout llMyBooking;
+    @BindView(R.id.llMyOrders)
+    LinearLayout llMyOrders;
     @BindView(R.id.llMyFavorites)
     LinearLayout llMyFavorites;
     @BindView(R.id.llReferAFriend)
@@ -212,6 +215,7 @@ public class HomeMainActivity extends BaseActivity
         llMyProfile.setOnClickListener(this);
         llMyBooking.setOnClickListener(this);
         llMyFavorites.setOnClickListener(this);
+        llMyOrders.setOnClickListener(this);
         llReferAFriend.setOnClickListener(this);
         llNotification.setOnClickListener(this);
         llRateApp.setOnClickListener(this);
@@ -431,7 +435,15 @@ public class HomeMainActivity extends BaseActivity
                     bottomNavigation.setSelectedItemId(R.id.navigation_favorites);
                     drawerLayout.closeDrawers();
                 }
-
+                break;
+            }
+            case R.id.llMyOrders:{
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
+                    toLogin();
+                } else {
+                    startActivity(MyOrdersActivity.start(this));
+                    drawerLayout.closeDrawers();
+                }
                 break;
             }
             case R.id.llReferAFriend: {

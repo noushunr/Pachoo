@@ -29,6 +29,7 @@ import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
+import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
 import com.highstreets.user.ui.shop_details.ShopImagesDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
@@ -59,6 +60,7 @@ public class ShopProductsActivity extends BaseActivity implements
     private TextView tvPhotoCount;
     private TextView tvToolbarText;
     private Button button_review_booking;
+    private Button btnBookOffer;
     private CardView cardBooking;
     private LinearLayout llShowImages, llSecondImage, llviewMore;
     private RelativeLayout rlThirdImage;
@@ -160,7 +162,8 @@ public class ShopProductsActivity extends BaseActivity implements
         llviewMore = findViewById(R.id.viewMore);
         llShowImages.setOnClickListener(this);
         cardBooking = findViewById(R.id.cardBooking);
-        button_review_booking = findViewById(R.id.button_review_booking);
+        button_review_booking = findViewById(R.id.btnAddToCart);
+        btnBookOffer = findViewById(R.id.btnBookOffer);
 
         rvOfferDetails = findViewById(R.id.rvOfferDetails);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -168,31 +171,39 @@ public class ShopProductsActivity extends BaseActivity implements
         rvOfferDetails.setHasFixedSize(false);
 
         button_review_booking.setOnClickListener(this);
+        btnBookOffer.setOnClickListener(this);
         tvCall.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.button_review_booking:
+            case R.id.btnAddToCart: {
                 if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
                     shopProductsPresenterInterface.addToCart(
                             SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""),
                             offersAddedToBuy);
-//                    Intent reviewBookingIntent = ReviewBookingActivity.getActivityIntent(this);
-//                    reviewBookingIntent.putExtra(Constants.SHOP_NAME, mShopName);
-//                    reviewBookingIntent.putParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY, offersAddedToBuy);
-//                    startActivity(reviewBookingIntent);
                 }
-
                 break;
-            case R.id.llShowImages:
+            }
+            case R.id.btnBookOffer:{
+                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
+                    toLogin();
+                } else {
+                    Intent reviewBookingIntent = ReviewBookingActivity.start(this);
+                    reviewBookingIntent.putExtra(Constants.SHOP_NAME, mShopName);
+                    reviewBookingIntent.putParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY, offersAddedToBuy);
+                    startActivity(reviewBookingIntent);
+                }
+                break;
+            }
+            case R.id.llShowImages: {
                 shopImagesDialogFragment.show(getSupportFragmentManager(), null);
                 break;
-
-            case R.id.tvCall:
+            }
+            case R.id.tvCall: {
                 tvCall.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -201,6 +212,7 @@ public class ShopProductsActivity extends BaseActivity implements
                     }
                 });
                 break;
+            }
         }
 
     }
@@ -316,7 +328,6 @@ public class ShopProductsActivity extends BaseActivity implements
                 double price = Double.parseDouble(offer.getOfferPrice());
                 double totalPrice = noOf * price;
                 mTotalPrice = mTotalPrice + totalPrice;
-
                 TOTAL = String.format("%.2f", mTotalPrice);
             }
 

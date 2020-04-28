@@ -47,7 +47,6 @@ public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.MyViewHold
 
         Glide.with(mContext)
                 .load(ApiClient.SUB_CAT_BASE_URL + subCategory.getSubcategoryImage())
-                .apply(RequestOptions.circleCropTransform())
                 .into(myViewHolder.SubCategoryThumbnail);
 
         if (subCategory.isSelected())

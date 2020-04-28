@@ -40,14 +40,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvNumber" />
 
-    <TextView
-        android:id="@+id/tvEditAddress"
+    <Button
+        android:id="@+id/btnEditAddress"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="24dp"
+        android:minWidth="56dp"
         android:padding="4dp"
         android:text="@string/edit"
-        android:background="?selectableItemBackground"
-        android:textColor="@color/colorPrimary"
+        android:background="@drawable/button_bg_primary"
+        android:textColor="@color/white"
+        android:textSize="10sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -1,4 +1,4 @@
-package com.highstreets.user.adapters;
+package com.highstreets.user.ui.review_booking.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

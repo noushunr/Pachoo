@@ -120,6 +120,18 @@
     <string name="address">Address</string>
     <string name="addresses">Addresses</string>
     <string name="save_address">save address</string>
+    <string name="my_orders">My Orders</string>
+    <string name="my_favorites">My Favorites</string>
+    <string name="my_booking">My Booking</string>
+    <string name="my_profile">My Profile</string>
+    <string name="refer_a_friend">Refer a friend</string>
+    <string name="notification">Notification</string>
+    <string name="rate_app">Rate app</string>
+    <string name="help">Help</string>
+    <string name="orders">Orders</string>
+    <string name="book_offer">Book Offer</string>
+    <string name="select_an_address">Select an address</string>
+    <string name="check">check</string>
 
 
 </resources>

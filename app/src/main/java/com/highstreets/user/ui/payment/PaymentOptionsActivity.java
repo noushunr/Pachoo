@@ -51,7 +51,7 @@ public class PaymentOptionsActivity extends BaseActivity {
 
         btnContinue.setOnClickListener(view -> {
             if (checkSelection()) {
-                CommonUtils.showToast(this, paymentTypeSelected.getType());
+//                CommonUtils.showToast(this, paymentTypeSelected.getType());
                 Intent selectedOptionIntent = new Intent();
                 selectedOptionIntent.putExtra(Constants.PAYMENT_TYPE, paymentTypeSelected.getId());
                 setResult(Activity.RESULT_OK, selectedOptionIntent);

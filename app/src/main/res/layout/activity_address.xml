@@ -16,9 +16,10 @@
         <Button
             android:id="@+id/btnAddAddress"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_margin="8dp"
             android:text="@string/add_address"
+            android:textSize="12sp"
             android:textColor="@color/white"
             android:background="@drawable/button_bg_primary"
             app:layout_constraintEnd_toEndOf="parent"
@@ -28,11 +29,26 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAddresses"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btnContinue"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/btnAddAddress" />
+
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_margin="8dp"
+            android:background="@drawable/button_bg_primary"
+            android:text="@string/_continue"
+            android:textColor="@color/white"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

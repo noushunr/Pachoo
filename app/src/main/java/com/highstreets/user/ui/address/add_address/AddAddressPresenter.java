@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
+import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -131,6 +132,25 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
             @Override
             public void onFailure(Call<AddressResponse> call, Throwable t) {
 
+            }
+        });
+    }
+
+    @Override
+    public void checkPostcode(String postcode) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().checkPostcode(postcode).enqueue(new Callback<PostcodeResponse>() {
+            @Override
+            public void onResponse(Call<PostcodeResponse> call, Response<PostcodeResponse> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()){
+                    addAddressViewInterface.setPostcodeResult(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostcodeResponse> call, Throwable t) {
+                dismissProgressIndicator();
             }
         });
     }

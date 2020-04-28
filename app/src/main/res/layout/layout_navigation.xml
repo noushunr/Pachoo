@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:ignore="MissingDefaultResource">
 
 
@@ -57,7 +57,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="My Profile"
+                    android:text="@string/my_profile"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -81,7 +81,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="My Booking"
+                    android:text="@string/my_booking"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -105,7 +105,31 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="My Favorites"
+                    android:text="@string/my_favorites"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.25dp"
+                    android:background="@color/black" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llMyOrders"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="@string/my_orders"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -129,7 +153,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Refer a friend"
+                    android:text="@string/refer_a_friend"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -153,7 +177,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Notification"
+                    android:text="@string/notification"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -177,7 +201,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Rate app"
+                    android:text="@string/rate_app"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -201,7 +225,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Help"
+                    android:text="@string/help"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
@@ -225,7 +249,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Logout"
+                    android:text="@string/logout"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 

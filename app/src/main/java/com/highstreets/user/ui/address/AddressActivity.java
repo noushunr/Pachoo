@@ -18,6 +18,7 @@ import com.highstreets.user.ui.address.add_address.AddAddressActivity;
 import com.highstreets.user.ui.address.model.Address;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.CartActivity;
+import com.highstreets.user.utils.CommonUtils;
 
 import java.util.List;
 
@@ -28,6 +29,7 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
 
     private AddressPresenterInterface addressPresenterInterface;
     private String userId;
+    private List<Address> addressList;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolbarText;
@@ -35,6 +37,8 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
     RecyclerView rvAddresses;
     @BindView(R.id.btnAddAddress)
     Button btnAddAddress;
+    @BindView(R.id.btnContinue)
+    Button btnContinue;
 
     public static Intent start(Context context) {
         return new Intent(context, AddressActivity.class);
@@ -51,8 +55,26 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
         rvAddresses.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         addressPresenterInterface = new AddressPresenter(this);
         addressPresenterInterface.getAllAddress(userId);
+        clickHandles();
+    }
 
+    private void clickHandles() {
         btnAddAddress.setOnClickListener(view -> startActivity(AddAddressActivity.start(AddressActivity.this)));
+        btnContinue.setOnClickListener(view -> {
+            if (checkSelection()){
+                CommonUtils.showToast(this, "Move to flow");
+            } else {
+                CommonUtils.showToast(this, getString(R.string.select_an_address));
+            }
+        });
+    }
+
+    private boolean checkSelection() {
+        for (Address address : addressList){
+            if (address.isSelected())
+                return true;
+        }
+        return false;
     }
 
     @Override
@@ -97,6 +119,7 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
 
     @Override
     public void setAllAddress(List<Address> addressList) {
+        this.addressList = addressList;
         if (addressList != null && addressList.size() > 0){
             rvAddresses.setAdapter(new AddressAdapter(addressList));
         }
