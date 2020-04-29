@@ -11,6 +11,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
+import com.highstreets.user.ui.address.model.Address;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
@@ -51,6 +52,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         userId = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         addressId = getIntent().getStringExtra(Constants.ADDRESS_ID);
         placeOrderPresenterInterface = new PlaceOrderPresenter(this);
@@ -108,7 +110,13 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
 
     @Override
     public void setAddressResponse(AddressResponse addressResponse) {
-
+        if (addressResponse != null){
+            Address address = addressResponse.getAddress();
+            String name = address.getFirstname() + " " + address.getLastname();
+            tvName.setText(name);
+            tvNumber.setText(address.getMobile());
+            tvAddress.setText(address.getAddress2());
+        }
     }
 
     @Override
@@ -133,6 +141,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
             if (postResponse.getStatus().equals(Constants.ERROR)){
                 CommonUtils.showToast(this, postResponse.getMessage());
             } else {
+                SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, "");
                 Intent homeIntent = HomeMainActivity.start(this);
                 homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(homeIntent);

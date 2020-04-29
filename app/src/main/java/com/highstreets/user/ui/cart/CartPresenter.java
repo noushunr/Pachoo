@@ -4,7 +4,9 @@ import android.content.Context;
 
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.cart.model.CartResponse;
+import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +42,12 @@ public class CartPresenter implements CartPresenterInterface {
             public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
-                    cartViewInterface.setCartData(response.body().getCartData());
+                    CartResponse cartResponse = response.body();
+                    if (!cartResponse.getStatus().equals(Constants.ERROR)) {
+                        cartViewInterface.setCartData(cartResponse.getCartData());
+                    } else {
+                        SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, "");
+                    }
                 }
             }
 

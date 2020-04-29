@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,7 +24,6 @@ import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.ProfileData;
 import com.highstreets.user.ui.base.BaseActivity;
-import com.highstreets.user.ui.change_password.ChangePasswordActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
 import com.highstreets.user.ui.profile.profile_edit.ProfileEditActivity;
 
@@ -36,7 +34,7 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
 
     public static final int STORAGE_PERMISSION_CODE = 123;
     private LinearLayout mLayout;
-    private Button mEditProfile, mChangePassword, mUpdateProfile, mLogout;
+    private Button mEditProfile, mLogout;
     private ImageView imShareWhatsapp, imShareFacebook, imSharetwitter, imMore;
     private TextView txt_username;
     private TextView txt_number;
@@ -47,7 +45,7 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
     @BindView(R.id.tvToolbarText)
     TextView tvToolbarText;
 
-    public static Intent start(Context context){
+    public static Intent start(Context context) {
         return new Intent(context, ProfileActivity.class);
     }
 
@@ -70,110 +68,74 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
         imShareFacebook = findViewById(R.id.icon_facebook);
         imSharetwitter = findViewById(R.id.icon_twitter);
         imMore = findViewById(R.id.icon_more);
-        mChangePassword = findViewById(R.id.button_change_password);
-        mUpdateProfile = findViewById(R.id.update_button);
         txt_username.setText(SharedPrefs.getString(SharedPrefs.Keys.USER_FIRST_NAME, ""));
         txt_email.setText(SharedPrefs.getString(SharedPrefs.Keys.USER_EMAIL, ""));
         profilePresenter = new ProfilePresenter(this, this);
 
-        mEditProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProfileActivity.this , ProfileEditActivity.class));
+        mEditProfile.setOnClickListener(v ->
+                startActivity(new Intent(ProfileActivity.this, ProfileEditActivity.class)));
+        mLogout.setOnClickListener(v ->
+                new LogoutDialogFragment().show(ProfileActivity.this.getSupportFragmentManager(), "logout_fragment"));
+
+        imShareWhatsapp.setOnClickListener(v -> {
+            Intent whatsappIntent = new Intent();
+            whatsappIntent.setAction(Intent.ACTION_SEND);
+            whatsappIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            whatsappIntent.setType("text/plain");
+            whatsappIntent.setPackage("com.whatsapp");
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            try {
+                startActivity(whatsappIntent);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(ProfileActivity.this, "Whatsapp have not been installed.", Toast.LENGTH_LONG).show();
+
             }
         });
 
-        mChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ProfileActivity.this, ChangePasswordActivity.class);
-                startActivity(intent);
+        imShareFacebook.setOnClickListener(v -> {
+            Intent whatsappIntent = new Intent();
+            whatsappIntent.setAction(Intent.ACTION_SEND);
+            whatsappIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            whatsappIntent.setType("text/plain");
+            whatsappIntent.setPackage("com.facebook.katana");
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            try {
+                startActivity(whatsappIntent);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(ProfileActivity.this, "Facebook have not been installed.", Toast.LENGTH_LONG).show();
             }
         });
 
-        mUpdateProfile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLayout.setVisibility(View.GONE);
+        imSharetwitter.setOnClickListener(v -> {
+            Intent whatsappIntent = new Intent();
+            whatsappIntent.setAction(Intent.ACTION_SEND);
+            whatsappIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            whatsappIntent.setType("text/plain");
+            whatsappIntent.setPackage("com.twitter.android");
+            whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            try {
+                startActivity(whatsappIntent);
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(ProfileActivity.this, "Twitter have not been installed.", Toast.LENGTH_LONG).show();
             }
         });
 
-        mLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new LogoutDialogFragment().show( ProfileActivity.this.getSupportFragmentManager(), "logout_fragment");
-            }
-        });
+        imMore.setOnClickListener(v -> {
+            Intent shareIntent = new Intent();
+            shareIntent.setAction(Intent.ACTION_SEND);
+            shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
 
-        imShareWhatsapp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent whatsappIntent = new Intent();
-                whatsappIntent.setAction(Intent.ACTION_SEND);
-                whatsappIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                String shareMessage = "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
-                whatsappIntent.setType("text/plain");
-                whatsappIntent.setPackage("com.whatsapp");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                try {
-                    startActivity(whatsappIntent);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(ProfileActivity.this , "Whatsapp have not been installed.", Toast.LENGTH_LONG).show();
-
-                }
-            }
-        });
-
-        imShareFacebook.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent whatsappIntent = new Intent();
-                whatsappIntent.setAction(Intent.ACTION_SEND);
-                whatsappIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                String shareMessage = "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
-                whatsappIntent.setType("text/plain");
-                whatsappIntent.setPackage("com.facebook.katana");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                try {
-                    startActivity(whatsappIntent);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(ProfileActivity.this, "Facebook have not been installed.", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        imSharetwitter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent whatsappIntent = new Intent();
-                whatsappIntent.setAction(Intent.ACTION_SEND);
-                whatsappIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-                String shareMessage = "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
-                whatsappIntent.setType("text/plain");
-                whatsappIntent.setPackage("com.twitter.android");
-                whatsappIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                try {
-                   startActivity(whatsappIntent);
-                } catch (android.content.ActivityNotFoundException ex) {
-                    Toast.makeText(ProfileActivity.this, "Twitter have not been installed.", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        imMore.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent shareIntent = new Intent();
-                shareIntent.setAction(Intent.ACTION_SEND);
-                shareIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-
-                String shareMessage = "\nLet me recommend you this application\n\n";
-                shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
-                shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-                shareIntent.setType("text/plain");
-                startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.app_name)));
-            }
+            String shareMessage = "\nLet me recommend you this application\n\n";
+            shareMessage = shareMessage + "https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID + "\n\n";
+            shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
+            shareIntent.setType("text/plain");
+            startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.app_name)));
         });
     }
 
@@ -266,7 +228,7 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
 
     @Override
     public void dismissProgressIndicator() {
-       dismissProgress();
+        dismissProgress();
     }
 
     @Override

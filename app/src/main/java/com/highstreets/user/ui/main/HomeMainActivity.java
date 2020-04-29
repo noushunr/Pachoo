@@ -170,6 +170,7 @@ public class HomeMainActivity extends BaseActivity
     protected void onResume() {
         super.onResume();
         checkNewBuildAvailable();
+        invalidateOptionsMenu();
     }
 
 

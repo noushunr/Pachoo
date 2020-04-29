@@ -9,6 +9,7 @@ import com.highstreets.user.ui.address.add_address.select_district.model.Distric
 import com.highstreets.user.ui.address.add_address.select_state.model.StatesResponse;
 import com.highstreets.user.ui.address.model.AllAddressResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
+import com.highstreets.user.ui.orders.model.OrdersResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 
@@ -323,7 +324,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/getOrders")
-    Call<JsonObject> getOrders(@Field("customer_id") String userId);
+    Call<OrdersResponse> getOrders(@Field("customer_id") String userId);
 
     @FormUrlEncoded
     @POST("api/users/Users/getOrder")

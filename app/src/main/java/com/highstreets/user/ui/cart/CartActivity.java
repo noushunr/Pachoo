@@ -3,7 +3,6 @@ package com.highstreets.user.ui.cart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -19,7 +18,6 @@ import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.cart.model.Product;
-import com.highstreets.user.ui.payment.PaymentOptionsActivity;
 import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
 import com.highstreets.user.utils.Constants;
 
