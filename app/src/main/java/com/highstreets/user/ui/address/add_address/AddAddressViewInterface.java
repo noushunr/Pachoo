@@ -2,7 +2,7 @@ package com.highstreets.user.ui.address.add_address;
 
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
-import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
+import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.address.model.Address;
 
 public interface AddAddressViewInterface extends CommonViewInterface {
@@ -11,5 +11,5 @@ public interface AddAddressViewInterface extends CommonViewInterface {
 
     void addressAddedResult(AddressSavedResponse addressSavedResponse);
 
-    void setPostcodeResult(PostcodeResponse postcodeResponse);
+    void setPostcodeResult(PostResponse postResponse);
 }

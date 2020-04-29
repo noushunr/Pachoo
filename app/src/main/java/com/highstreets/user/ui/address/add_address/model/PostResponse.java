@@ -3,7 +3,7 @@ package com.highstreets.user.ui.address.add_address.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class PostcodeResponse {
+public class PostResponse {
     @SerializedName("status")
     @Expose
     private String status;

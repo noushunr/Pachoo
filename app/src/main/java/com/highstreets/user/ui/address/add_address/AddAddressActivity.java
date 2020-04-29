@@ -20,7 +20,7 @@ import com.google.android.libraries.places.widget.model.AutocompleteActivityMode
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
-import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
+import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.address.add_address.select_city.CityDialogFragment;
 import com.highstreets.user.ui.address.add_address.select_city.adapter.CityAdapter;
 import com.highstreets.user.ui.address.add_address.select_city.model.City;
@@ -351,14 +351,14 @@ public class AddAddressActivity extends BaseActivity implements
     }
 
     @Override
-    public void setPostcodeResult(PostcodeResponse postcodeResponse) {
+    public void setPostcodeResult(PostResponse postResponse) {
         tvPostcodeResult.setVisibility(View.VISIBLE);
-        if (postcodeResponse.getStatus().equals(Constants.ERROR)){
-            tvPostcodeResult.setText(postcodeResponse.getMessage());
+        if (postResponse.getStatus().equals(Constants.ERROR)){
+            tvPostcodeResult.setText(postResponse.getMessage());
             tvPostcodeResult.setTextColor(getResources().getColor(R.color.red));
             validPostcode = false;
         } else {
-            tvPostcodeResult.setText(postcodeResponse.getMessage());
+            tvPostcodeResult.setText(postResponse.getMessage());
             tvPostcodeResult.setTextColor(getResources().getColor(R.color.green));
             validPostcode = true;
         }

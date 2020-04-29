@@ -3,12 +3,13 @@ package com.highstreets.user.api;
 import com.google.gson.JsonObject;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
-import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
+import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.address.add_address.select_city.model.CityResponse;
 import com.highstreets.user.ui.address.add_address.select_district.model.DistrictResponse;
 import com.highstreets.user.ui.address.add_address.select_state.model.StatesResponse;
 import com.highstreets.user.ui.address.model.AllAddressResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
+import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 
 import java.util.Map;
@@ -176,8 +177,7 @@ public interface ApiInterface {
                                     @Field("merchant_id") String merchant_id,
                                     @Field("offer_id[]") String[] offer_id,
                                     @Field("qty[]") String[] quantity,
-                                    @Field("price[]") String[] price
-    );
+                                    @Field("price[]") String[] price);
 
     @FormUrlEncoded
     @POST("api/users/Users/addFavouriteShop")
@@ -317,7 +317,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/placeOrder")
-    Call<JsonObject> placeOrder(@Field("customer_id") String userId,
+    Call<PostResponse> placeOrder(@Field("customer_id") String userId,
                                 @Field("address_id") String addressId,
                                 @Field("payment_method") String paymentMethod);
 
@@ -332,12 +332,12 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/getFinalBalance")
-    Call<JsonObject> getFinalBalance(@Field("customer_id") String userId,
-                                     @Field("address_id") String addressId);
+    Call<FinalBalanceItem> getFinalBalance(@Field("customer_id") String userId,
+                                           @Field("address_id") String addressId);
 
     @FormUrlEncoded
     @POST("api/users/Users/checkPostcode")
-    Call<PostcodeResponse> checkPostcode(@Field("postcode") String postcode);
+    Call<PostResponse> checkPostcode(@Field("postcode") String postcode);
 
 }
 

@@ -1,10 +1,9 @@
 package com.highstreets.user.ui.address.add_address;
 
-import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
-import com.highstreets.user.ui.address.add_address.model.PostcodeResponse;
+import com.highstreets.user.ui.address.add_address.model.PostResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -139,9 +138,9 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
     @Override
     public void checkPostcode(String postcode) {
         showProgressIndicator();
-        ApiClient.getApiInterface().checkPostcode(postcode).enqueue(new Callback<PostcodeResponse>() {
+        ApiClient.getApiInterface().checkPostcode(postcode).enqueue(new Callback<PostResponse>() {
             @Override
-            public void onResponse(Call<PostcodeResponse> call, Response<PostcodeResponse> response) {
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
                     addAddressViewInterface.setPostcodeResult(response.body());
@@ -149,7 +148,7 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<PostcodeResponse> call, Throwable t) {
+            public void onFailure(Call<PostResponse> call, Throwable t) {
                 dismissProgressIndicator();
             }
         });
