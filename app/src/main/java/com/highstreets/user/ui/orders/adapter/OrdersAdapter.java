@@ -1,16 +1,23 @@
 package com.highstreets.user.ui.orders.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.ui.orders.model.Order;
+import com.highstreets.user.ui.orders.order_details.OrderDetailsActivity;
+import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
@@ -39,13 +46,21 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
         Order order = orderList.get(position);
         String name = order.getFirstname() + " " + order.getLastname();
         holder.tvName.setText(name);
-        holder.tvNumber.setText(order.getTelephone());
-        holder.tvEmail.setText(order.getEmail());
         holder.tvTotal.setText(context.getString(R.string.pound_symbol) + order.getTotal());
         holder.tvOrderId.setText(order.getOrderId());
+        Glide.with(context)
+                .load(order.getQrCodeImage())
+                .into(holder.ivQRCodeImage);
+
+        holder.ivQRCodeImage.setOnClickListener(view -> {
+            ShowQRCodeDialogFragment.newInstance(order.getQrCodeImage())
+                    .show(((AppCompatActivity)context).getSupportFragmentManager(), null);
+        });
 
         holder.itemView.setOnClickListener(view -> {
-
+            Intent orderDetailsIntent = OrderDetailsActivity.start(context);
+            orderDetailsIntent.putExtra(Constants.ORDER_ID, order.getOrderId());
+            context.startActivity(orderDetailsIntent);
         });
     }
 
@@ -57,14 +72,12 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
     public class ViewHold extends RecyclerView.ViewHolder {
         @BindView(R.id.tvName)
         TextView tvName;
-        @BindView(R.id.tvNumber)
-        TextView tvNumber;
-        @BindView(R.id.tvEmail)
-        TextView tvEmail;
         @BindView(R.id.tvTotal)
         TextView tvTotal;
         @BindView(R.id.tvOrderId)
         TextView tvOrderId;
+        @BindView(R.id.ivQRCodeImage)
+        ImageView ivQRCodeImage;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);

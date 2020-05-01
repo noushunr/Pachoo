@@ -17,6 +17,7 @@ import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.model.CartData;
+import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.ui.cart.model.Product;
 import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
 import com.highstreets.user.utils.Constants;
@@ -26,7 +27,8 @@ import butterknife.ButterKnife;
 
 public class CartActivity extends BaseActivity implements
         CartViewInterface,
-        CartAdapter.QuantityChange {
+        CartAdapter.QuantityChange,
+        CartAdapter.RemoveCartItem {
 
     private static final int SELECT_PAYMENT_OPTION_CODE = 100;
     private CartPresenterInterface cartPresenterInterface;
@@ -98,6 +100,12 @@ public class CartActivity extends BaseActivity implements
     }
 
     @Override
+    public void deleteResponse(DeleteCartItemResponse deleteCartItemResponse) {
+        SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, String.valueOf(deleteCartItemResponse.getCartCount()));
+        cartPresenterInterface.getCartProducts(SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""));
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SELECT_PAYMENT_OPTION_CODE){
@@ -150,5 +158,12 @@ public class CartActivity extends BaseActivity implements
     @Override
     public void decrementCount(Product product) {
 
+    }
+
+    @Override
+    public void remove(String cartId) {
+        cartPresenterInterface.deleteCart(
+                SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""),
+                cartId);
     }
 }

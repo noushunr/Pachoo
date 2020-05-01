@@ -1,10 +1,14 @@
 package com.highstreets.user.ui.place_order;
 
-import com.google.gson.JsonObject;
+import android.util.Log;
+
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
+import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
+import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,6 +16,7 @@ import retrofit2.Response;
 
 public class PlaceOrderPresenter implements PlaceOrderPresenterInterface {
 
+    private static final String TAG = PlaceOrderPresenter.class.getSimpleName();
     private PlaceOrderViewInterface placeOrderViewInterface;
 
     public PlaceOrderPresenter(PlaceOrderViewInterface placeOrderViewInterface) {
@@ -38,6 +43,7 @@ public class PlaceOrderPresenter implements PlaceOrderPresenterInterface {
         ).enqueue(new Callback<FinalBalanceItem>() {
             @Override
             public void onResponse(Call<FinalBalanceItem> call, Response<FinalBalanceItem> response) {
+                dismissProgressIndicator();
                 if (response.isSuccessful()){
                     placeOrderViewInterface.setFinalBalance(response.body());
                 }
@@ -46,26 +52,30 @@ public class PlaceOrderPresenter implements PlaceOrderPresenterInterface {
             @Override
             public void onFailure(Call<FinalBalanceItem> call, Throwable t) {
                 dismissProgressIndicator();
+                Log.e(TAG, "onFailure: " + t.getMessage());
             }
         });
     }
 
     @Override
-    public void getAddress(String userId, String addressId) {
-        ApiClient.getApiInterface().getAddress(
-                userId,
-                addressId
-        ).enqueue(new Callback<AddressResponse>() {
+    public void getCartProducts(String userId) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().getCartProducts(userId).enqueue(new Callback<CartResponse>() {
             @Override
-            public void onResponse(Call<AddressResponse> call, Response<AddressResponse> response) {
+            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
-                    placeOrderViewInterface.setAddressResponse(response.body());
+                    CartResponse cartResponse = response.body();
+                    if (!cartResponse.getStatus().equals(Constants.ERROR)) {
+                        placeOrderViewInterface.setCartData(cartResponse.getCartData());
+                    } else {
+                        SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, "");
+                    }
                 }
             }
 
             @Override
-            public void onFailure(Call<AddressResponse> call, Throwable t) {
+            public void onFailure(Call<CartResponse> call, Throwable t) {
                 dismissProgressIndicator();
             }
         });

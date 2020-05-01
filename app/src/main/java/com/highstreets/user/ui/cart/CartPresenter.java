@@ -1,11 +1,13 @@
 package com.highstreets.user.ui.cart;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.cart.model.CartResponse;
+import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
@@ -16,6 +18,7 @@ public class CartPresenter implements CartPresenterInterface {
 
     private Context context;
     private CartViewInterface  cartViewInterface;
+    private static final String TAG = "CartPresenter";
 
     public CartPresenter(Context context) {
         this.context = context;
@@ -54,6 +57,26 @@ public class CartPresenter implements CartPresenterInterface {
             @Override
             public void onFailure(Call<CartResponse> call, Throwable t) {
                 dismissProgressIndicator();
+            }
+        });
+    }
+
+    @Override
+    public void deleteCart(String userId, String cartId) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().deleteCart(userId, cartId).enqueue(new Callback<DeleteCartItemResponse>() {
+            @Override
+            public void onResponse(Call<DeleteCartItemResponse> call, Response<DeleteCartItemResponse> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()){
+                    cartViewInterface.deleteResponse(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteCartItemResponse> call, Throwable t) {
+                dismissProgressIndicator();
+                Log.e(TAG, "onFailure: " + t.getMessage());
             }
         });
     }

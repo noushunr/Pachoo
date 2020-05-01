@@ -1,22 +1,21 @@
 package com.highstreets.user.ui;
 
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
 import android.os.Handler;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.util.Base64;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
-import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
+import com.highstreets.user.ui.main.HomeMainActivity;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -34,15 +33,14 @@ public class SplashActivity extends AppCompatActivity {
         setContentView(R.layout.activity_splash);
 
         if (SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN, false)) {
-            startActivity(new Intent(SplashActivity.this, HomeMainActivity.class));
-            finish();
+            new Handler().postDelayed(() -> {
+                startActivity(HomeMainActivity.start(SplashActivity.this));
+                finish();
+            }, SPLASH_TIME_OUT);
         } else {
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    startActivity(new Intent(SplashActivity.this, LoginActivity.class));
-                    finish();
-                }
+            new Handler().postDelayed(() -> {
+                startActivity(LoginActivity.start(SplashActivity.this));
+                finish();
             }, SPLASH_TIME_OUT);
         }
 

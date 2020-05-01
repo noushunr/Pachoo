@@ -26,6 +26,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
     private List<Product> productList;
     private Context context;
     private QuantityChange quantityChange;
+    private RemoveCartItem removeCartItem;
 
     public CartAdapter(List<Product> productList) {
         this.productList = productList;
@@ -37,6 +38,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         context = parent.getContext();
         if (context instanceof QuantityChange){
             quantityChange = (QuantityChange) context;
+        }
+        if (context instanceof RemoveCartItem){
+            removeCartItem = (RemoveCartItem) context;
         }
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycle_cart_item, parent, false);
         return new ViewHold(view);
@@ -52,6 +56,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         Glide.with(context)
                 .load(ApiClient.VIEW_ALL_BASE_URL + product.getImage())
                 .into(holder.ivItemImage);
+
+        holder.btnRemove.setOnClickListener(view -> {
+            removeCartItem.remove(product.getCartId());
+        });
 
 //        holder.btnMinus.setOnClickListener(view -> {
 //            quantityChange.decrementCount(product);
@@ -86,8 +94,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         TextView tvCount;
         @BindView(R.id.btnRemove)
         Button btnRemove;
-        @BindView(R.id.btnView)
-        Button btnView;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);
@@ -99,4 +105,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         void incrementCount(Product product);
         void decrementCount(Product product);
     }
+
+    public interface RemoveCartItem{
+        void remove(String cartId);
+    }
+
 }

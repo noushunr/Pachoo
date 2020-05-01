@@ -136,8 +136,14 @@
     <string name="delivery_charge_colon">Delivery charge:</string>
     <string name="service_charge_colon">Service charge:</string>
     <string name="_123">123</string>
-    <string name="total_colon">Total:</string>
+    <string name="total_colon">Total Amount:</string>
     <string name="order_id_colon">Order ID:</string>
+    <string name="_0">0</string>
+    <string name="confirm_orders">Confirm Orders</string>
+    <string name="order_details">Order Details</string>
+    <string name="shipping_charge_colon">Shipping Charge:</string>
+    <string name="total_charge_colon">Total Charge:</string>
+    <string name="orderid_colon">OrderID:</string>
 
 
 </resources>

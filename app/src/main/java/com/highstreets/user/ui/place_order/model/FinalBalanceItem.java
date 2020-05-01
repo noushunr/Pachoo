@@ -12,7 +12,7 @@ public class FinalBalanceItem {
     private String subtotal;
     @SerializedName("delivery_charge")
     @Expose
-    private Integer deliveryCharge;
+    private double deliveryCharge;
     @SerializedName("service_charge")
     @Expose
     private String serviceCharge;
@@ -36,11 +36,11 @@ public class FinalBalanceItem {
         this.subtotal = subtotal;
     }
 
-    public Integer getDeliveryCharge() {
+    public double getDeliveryCharge() {
         return deliveryCharge;
     }
 
-    public void setDeliveryCharge(Integer deliveryCharge) {
+    public void setDeliveryCharge(double deliveryCharge) {
         this.deliveryCharge = deliveryCharge;
     }
 

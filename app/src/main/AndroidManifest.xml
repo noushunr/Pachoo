@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.place_order.PlaceOrderActivity"></activity>
+        <activity android:name=".ui.orders.order_details.OrderDetailsActivity"></activity>
+        <activity android:name=".ui.place_order.PlaceOrderActivity" />
         <activity android:name=".ui.orders.MyOrdersActivity" />
         <activity android:name=".ui.payment.stripe.StripeCheckoutActivity" />
         <activity android:name=".ui.payment.PaymentOptionsActivity" />

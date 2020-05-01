@@ -9,7 +9,9 @@ import com.highstreets.user.ui.address.add_address.select_district.model.Distric
 import com.highstreets.user.ui.address.add_address.select_state.model.StatesResponse;
 import com.highstreets.user.ui.address.model.AllAddressResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
+import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.ui.orders.model.OrdersResponse;
+import com.highstreets.user.ui.orders.order_details.model.OrderDetailsResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 
@@ -261,6 +263,11 @@ public interface ApiInterface {
     Call<CartResponse> getCartProducts(@Field("customer_id") String userId);
 
     @FormUrlEncoded
+    @POST("api/users/Users/deleteCart")
+    Call<DeleteCartItemResponse> deleteCart(@Field("customer_id") String userId,
+                                            @Field("cart_id") String cartId);
+
+    @FormUrlEncoded
     @POST("api/users/Users/saveAddress")
     Call<AddressSavedResponse> addAddress(@Field("customer_id")String userId,
                                           @Field("firstname") String firstName,
@@ -328,8 +335,8 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/getOrder")
-    Call<JsonObject> getOrder(@Field("customer_id") String userId,
-                              @Field("order_id") String orderId);
+    Call<OrderDetailsResponse> getOrder(@Field("customer_id") String userId,
+                                        @Field("order_id") String orderId);
 
     @FormUrlEncoded
     @POST("api/users/Users/getFinalBalance")

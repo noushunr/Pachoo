@@ -1,10 +1,10 @@
 
-package com.highstreets.user.ui.orders.model;
+package com.highstreets.user.ui.orders.order_details.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Order {
+public class OrderDetails {
 
     @SerializedName("order_id")
     @Expose
@@ -108,9 +108,6 @@ public class Order {
     @SerializedName("rating_status")
     @Expose
     private String ratingStatus;
-    @SerializedName("order_status")
-    @Expose
-    private String orderStatus;
     @SerializedName("qr_code_image")
     @Expose
     private String qrCodeImage;
@@ -387,14 +384,6 @@ public class Order {
         this.ratingStatus = ratingStatus;
     }
 
-    public String getOrderStatus() {
-        return orderStatus;
-    }
-
-    public void setOrderStatus(String orderStatus) {
-        this.orderStatus = orderStatus;
-    }
-
     public String getQrCodeImage() {
         return qrCodeImage;
     }
@@ -402,4 +391,5 @@ public class Order {
     public void setQrCodeImage(String qrCodeImage) {
         this.qrCodeImage = qrCodeImage;
     }
+
 }

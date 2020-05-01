@@ -44,4 +44,5 @@ public class Constants {
     public static final String PAYMENT_TYPE = "payment_type";
     public static final String EDIT_ADDRESS_ID = "edit_address_id";
     public static final String ADDRESS_ID = "address_id";
+    public static final String ORDER_ID = "order_id";
 }

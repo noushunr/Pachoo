@@ -7,8 +7,7 @@ public interface PlaceOrderPresenterInterface extends CommonPresenterInterface {
     void getFinalBalance(String userId,
                          String addressId);
 
-    void getAddress(String userId,
-                    String addressId);
+    void getCartProducts(String userId);
 
     void placeOrder(String userId,
                     String addressId,

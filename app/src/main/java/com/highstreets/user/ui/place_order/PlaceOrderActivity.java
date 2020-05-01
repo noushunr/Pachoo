@@ -7,14 +7,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.airbnb.lottie.L;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.address.model.Address;
 import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
+import com.highstreets.user.ui.review_booking.adapter.ReviewBookingAdapter;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
 
@@ -27,12 +34,8 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     private String addressId;
     private PlaceOrderPresenterInterface placeOrderPresenterInterface;
 
-    @BindView(R.id.tvName)
-    TextView tvName;
-    @BindView(R.id.tvNumber)
-    TextView tvNumber;
-    @BindView(R.id.tvAddress)
-    TextView tvAddress;
+    @BindView(R.id.tvToolbarText)
+    TextView tvToolbarText;
     @BindView(R.id.tvSubTotal)
     TextView tvSubTotal;
     @BindView(R.id.tvDeliveryCharge)
@@ -43,6 +46,8 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     TextView tvGrandTotal;
     @BindView(R.id.btnPlaceOrder)
     Button btnPlaceOrder;
+    @BindView(R.id.rvOrderItems)
+    RecyclerView rvOrderItems;
 
     public static Intent start(Context context){
         return new Intent(context, PlaceOrderActivity.class);
@@ -53,10 +58,13 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        tvToolbarText.setText(R.string.confirm_orders);
         userId = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         addressId = getIntent().getStringExtra(Constants.ADDRESS_ID);
+        rvOrderItems.setLayoutManager(new LinearLayoutManager(this));
+        rvOrderItems.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         placeOrderPresenterInterface = new PlaceOrderPresenter(this);
-        placeOrderPresenterInterface.getFinalBalance(userId, addressId);
+        placeOrderPresenterInterface.getCartProducts(userId);
         btnPlaceOrder.setEnabled(false);
         clickHandles();
     }
@@ -104,24 +112,12 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
 
     @Override
     public void showProgressIndicator() {
-
         showProgress();
     }
 
-    @Override
-    public void setAddressResponse(AddressResponse addressResponse) {
-        if (addressResponse != null){
-            Address address = addressResponse.getAddress();
-            String name = address.getFirstname() + " " + address.getLastname();
-            tvName.setText(name);
-            tvNumber.setText(address.getMobile());
-            tvAddress.setText(address.getAddress2());
-        }
-    }
 
     @Override
     public void setFinalBalance(FinalBalanceItem finalBalanceItem) {
-        placeOrderPresenterInterface.getAddress(userId, addressId);
         if (finalBalanceItem != null) {
             String subTotal = getString(R.string.pound_symbol) + finalBalanceItem.getSubtotal();
             String deliveryCharge = getString(R.string.pound_symbol) + finalBalanceItem.getDeliveryCharge();
@@ -141,11 +137,18 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
             if (postResponse.getStatus().equals(Constants.ERROR)){
                 CommonUtils.showToast(this, postResponse.getMessage());
             } else {
+                CommonUtils.showToast(this, postResponse.getMessage());
                 SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, "");
                 Intent homeIntent = HomeMainActivity.start(this);
                 homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(homeIntent);
             }
         }
+    }
+
+    @Override
+    public void setCartData(CartData cartData) {
+        rvOrderItems.setAdapter(new ReviewBookingAdapter(this, cartData.getProductList()));
+        placeOrderPresenterInterface.getFinalBalance(userId, addressId);
     }
 }
