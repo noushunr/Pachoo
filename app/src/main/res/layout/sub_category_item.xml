@@ -18,7 +18,6 @@
             android:id="@+id/thumbnail"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:padding="4dp"
             android:scaleType="centerCrop"
             android:src="@drawable/ic_automobiles"
             app:layout_constraintBottom_toBottomOf="parent"

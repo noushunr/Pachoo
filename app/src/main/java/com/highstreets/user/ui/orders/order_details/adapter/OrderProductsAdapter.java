@@ -41,7 +41,8 @@ public class OrderProductsAdapter extends RecyclerView.Adapter<OrderProductsAdap
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
         Product product = productList.get(position);
         holder.tvProductName.setText(product.getName());
-        holder.tvQuantity.setText(product.getQuantity());
+        int quantity = (int) Double.parseDouble(product.getQuantity());
+        holder.tvQuantity.setText(String.valueOf(quantity));
         holder.tvPrice.setText(context.getString(R.string.pound_symbol) + product.getTotal());
         Glide.with(context)
                 .load(ApiClient.VIEW_ALL_BASE_URL + product.getFeaturedImage())
