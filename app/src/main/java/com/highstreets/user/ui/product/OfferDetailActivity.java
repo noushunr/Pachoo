@@ -1,5 +1,7 @@
 package com.highstreets.user.ui.product;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,7 +12,7 @@ import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.ui.base.BaseActivity;
 
-public class ProductDetailActivity extends BaseActivity {
+public class OfferDetailActivity extends BaseActivity {
 
     private ImageView ivImage;
     private TextView tvName;
@@ -20,6 +22,10 @@ public class ProductDetailActivity extends BaseActivity {
     private TextView tvValidFor;
     private TextView tvDescription;
     private TextView tvToolbarText;
+
+    public static Intent start(Context context) {
+        return new Intent(context, OfferDetailActivity.class);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

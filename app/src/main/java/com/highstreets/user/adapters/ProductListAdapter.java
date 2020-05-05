@@ -23,7 +23,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
 import com.highstreets.user.models.Offer;
-import com.highstreets.user.ui.product.ProductDetailActivity;
+import com.highstreets.user.ui.product.OfferDetailActivity;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
@@ -81,7 +81,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 .load(ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage()).into(myViewHolder.imDealThumbnail);
 
         myViewHolder.mDetails.setOnClickListener(v -> {
-            Intent toDetailsIntent = new Intent(mContext, ProductDetailActivity.class);
+            Intent toDetailsIntent = new Intent(mContext, OfferDetailActivity.class);
             toDetailsIntent.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage());
             toDetailsIntent.putExtra("name", offer.getName());
             toDetailsIntent.putExtra("desc", offer.getDescription());

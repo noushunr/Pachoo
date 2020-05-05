@@ -10,6 +10,7 @@ import com.highstreets.user.ui.address.add_address.select_state.model.StatesResp
 import com.highstreets.user.ui.address.model.AllAddressResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
+import com.highstreets.user.ui.cart.product_details.model.ProductDetailsResponse;
 import com.highstreets.user.ui.orders.model.OrdersResponse;
 import com.highstreets.user.ui.orders.order_details.model.OrderDetailsResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
@@ -318,10 +319,6 @@ public interface ApiInterface {
     @POST("api/users/Users/getCity")
     Call<CityResponse> getCity(@Field("district_id") String districtId);
 
-    @FormUrlEncoded
-    @POST()
-    Call<JsonObject> createEphemeralKey(@Field("customer_id") String userId,
-                                        @Field("api_version") String apiVersion);
 
     @FormUrlEncoded
     @POST("api/users/Users/placeOrder")
@@ -347,6 +344,9 @@ public interface ApiInterface {
     @POST("api/users/Users/checkPostcode")
     Call<PostResponse> checkPostcode(@Field("postcode") String postcode);
 
+    @FormUrlEncoded
+    @POST("api/users/Users/getProduct")
+    Call<ProductDetailsResponse> getProduct(@Field("product_id") String productId);
 }
 
 

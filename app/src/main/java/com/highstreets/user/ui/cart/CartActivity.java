@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.adapters.CartAdapter;
+import com.highstreets.user.ui.cart.adapter.CartAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.base.BaseActivity;

@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -48,9 +49,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.tvAddress.setText(address.getAddress2());
 
         if (address.isSelected()){
-            holder.clAddress.setBackgroundColor(context.getResources().getColor(R.color.grey));
+            holder.checkAddress.setChecked(true);
         } else {
-            holder.clAddress.setBackgroundColor(context.getResources().getColor(R.color.transparent));
+            holder.checkAddress.setChecked(false);
         }
 
         holder.clAddress.setOnClickListener(view -> {
@@ -62,6 +63,17 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             }
             notifyDataSetChanged();
         });
+
+        holder.checkAddress.setOnClickListener(view -> {
+            if (address.isSelected()){
+                address.setSelected(false);
+            } else {
+                clearSelection();
+                address.setSelected(true);
+            }
+            notifyDataSetChanged();
+        });
+
 
         holder.btnEditAddress.setOnClickListener(view -> {
             Intent editAddressIntent = AddAddressActivity.start(context);
@@ -93,6 +105,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         TextView tvAddress;
         @BindView(R.id.btnEditAddress)
         Button btnEditAddress;
+        @BindView(R.id.checkAddress)
+        CheckBox checkAddress;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);

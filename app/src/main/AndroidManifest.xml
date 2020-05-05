@@ -21,7 +21,8 @@
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
         tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.orders.order_details.OrderDetailsActivity"></activity>
+        <activity android:name=".ui.cart.product_details.ProductDetailsActivity"></activity>
+        <activity android:name=".ui.orders.order_details.OrderDetailsActivity" />
         <activity android:name=".ui.place_order.PlaceOrderActivity" />
         <activity android:name=".ui.orders.MyOrdersActivity" />
         <activity android:name=".ui.payment.stripe.StripeCheckoutActivity" />
@@ -68,7 +69,7 @@
             android:name=".ui.main.bookings.ViewDealActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.product.ProductDetailActivity"
+            android:name=".ui.product.OfferDetailActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.NoInternetActivity"

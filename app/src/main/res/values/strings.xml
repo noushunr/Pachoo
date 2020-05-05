@@ -144,6 +144,7 @@
     <string name="shipping_charge_colon">Shipping Charge:</string>
     <string name="total_charge_colon">Total Charge:</string>
     <string name="orderid_colon">OrderID:</string>
+    <string name="details">Details</string>
 
 
 </resources>

@@ -53,4 +53,14 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
+    <CheckBox
+        android:id="@+id/checkAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnEditAddress"
+        app:layout_constraintEnd_toStartOf="@+id/btnEditAddress"
+        app:layout_constraintTop_toTopOf="@+id/btnEditAddress" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

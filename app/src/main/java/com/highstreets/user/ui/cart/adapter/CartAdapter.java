@@ -1,6 +1,7 @@
-package com.highstreets.user.adapters;
+package com.highstreets.user.ui.cart.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,8 @@ import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.ui.cart.model.Product;
+import com.highstreets.user.ui.cart.product_details.ProductDetailsActivity;
+import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
@@ -59,6 +62,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
 
         holder.btnRemove.setOnClickListener(view -> {
             removeCartItem.remove(product.getCartId());
+        });
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent toDetailsIntent = ProductDetailsActivity.start(context);
+            toDetailsIntent.putExtra(Constants.PRODUCT_ID, product.getProductId());
+            context.startActivity(toDetailsIntent);
         });
 
 //        holder.btnMinus.setOnClickListener(view -> {

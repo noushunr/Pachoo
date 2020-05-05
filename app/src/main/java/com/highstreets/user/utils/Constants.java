@@ -45,4 +45,5 @@ public class Constants {
     public static final String EDIT_ADDRESS_ID = "edit_address_id";
     public static final String ADDRESS_ID = "address_id";
     public static final String ORDER_ID = "order_id";
+    public static final String PRODUCT_ID = "product_id";
 }
