@@ -98,6 +98,9 @@ dependencies {
     //stripe payment gateway
     implementation 'com.stripe:stripe-android:14.3.0'
     implementation "com.stripe:stripe-java:14.3.0"
+    //worldpay checkout
+    implementation 'com.worldpay.access:access-checkout-android:1.2.0'
+    implementation project(path: ':worldpayLibrary')
 
 }
 apply plugin: 'com.google.gms.google-services'

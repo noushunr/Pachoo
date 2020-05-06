@@ -20,8 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         android:usesCleartextTraffic="true"
-        tools:ignore="LockedOrientationActivity">
-        <activity android:name=".ui.cart.product_details.ProductDetailsActivity"></activity>
+        tools:ignore="LockedOrientationActivity"
+        tools:replace="android:theme">
+        <activity android:name=".ui.payment.worldpay.WorldPayActivity"></activity>
+        <activity android:name=".ui.cart.product_details.ProductDetailsActivity" />
         <activity android:name=".ui.orders.order_details.OrderDetailsActivity" />
         <activity android:name=".ui.place_order.PlaceOrderActivity" />
         <activity android:name=".ui.orders.MyOrdersActivity" />

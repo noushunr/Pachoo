@@ -145,6 +145,13 @@
     <string name="total_charge_colon">Total Charge:</string>
     <string name="orderid_colon">OrderID:</string>
     <string name="details">Details</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="card_no_colon">Card No:</string>
+    <string name="cvv">CVV</string>
+    <string name="mm">MM</string>
+    <string name="yyyy">YYYY</string>
+    <string name="proceed">Proceed</string>
+    <string name="card_details">Card Details</string>
 
 
 </resources>

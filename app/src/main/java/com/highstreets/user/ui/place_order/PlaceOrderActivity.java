@@ -3,33 +3,36 @@ package com.highstreets.user.ui.place_order;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.airbnb.lottie.L;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
-import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
-import com.highstreets.user.ui.address.model.Address;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.main.HomeMainActivity;
+import com.highstreets.user.ui.payment.worldpay.WorldPayActivity;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
 import com.highstreets.user.ui.review_booking.adapter.ReviewBookingAdapter;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
+import com.worldpay.Card;
+import com.worldpay.WorldPay;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewInterface{
 
+    private static final String TAG = PlaceOrderActivity.class.getSimpleName();
+    private static int WORLD_PAY_ACTIVITY_CODE = 123;
     private String userId;
     private String addressId;
     private PlaceOrderPresenterInterface placeOrderPresenterInterface;
@@ -72,6 +75,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     private void clickHandles() {
         btnPlaceOrder.setOnClickListener(view -> {
             placeOrderPresenterInterface.placeOrder(userId, addressId, "card");
+//            startActivityForResult(WorldPayActivity.start(this), WORLD_PAY_ACTIVITY_CODE);
         });
     }
 
@@ -142,6 +146,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
                 Intent homeIntent = HomeMainActivity.start(this);
                 homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(homeIntent);
+
             }
         }
     }
@@ -150,5 +155,19 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     public void setCartData(CartData cartData) {
         rvOrderItems.setAdapter(new ReviewBookingAdapter(this, cartData.getProductList()));
         placeOrderPresenterInterface.getFinalBalance(userId, addressId);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == WORLD_PAY_ACTIVITY_CODE){
+            if (resultCode == RESULT_OK){
+                String token = data.getStringExtra(Constants.WORLD_PAY_CARD_TOKEN);
+                Log.e(TAG, "onActivityResultToken: "+ token);
+                Log.e(TAG, "onActivityResultCustomerId: "+ userId);
+                Log.e(TAG, "onActivityResultAddressId: "+ addressId);
+                Log.e(TAG, "onActivityResultAmount: "+ tvGrandTotal.getText().toString());
+            }
+        }
     }
 }

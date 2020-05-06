@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.payment.worldpay.WorldPayActivity">
+
+    <include
+        android:id="@+id/include4"
+        layout="@layout/layout_app_bar" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include4">
+
+        <EditText
+            android:id="@+id/etNameOnCard"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_text_stroke_black"
+            android:hint="@string/name_on_card"
+            android:inputType="text"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/etCardNo"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_text_stroke_black"
+            android:hint="@string/card_no_colon"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:inputType="number"
+            android:textSize="16sp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etNameOnCard" />
+
+        <EditText
+            android:id="@+id/etCVV"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_text_stroke_black"
+            android:hint="@string/cvv"
+            android:paddingStart="16dp"
+            android:inputType="number"
+            android:paddingEnd="16dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/etExpiryYear"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/etExpiryYear" />
+
+        <EditText
+            android:id="@+id/etExpiryMonth"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edit_text_stroke_black"
+            android:hint="@string/mm"
+            android:inputType="number"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etCardNo" />
+
+        <EditText
+            android:id="@+id/etExpiryYear"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:background="@drawable/edit_text_stroke_black"
+            android:hint="@string/yyyy"
+            android:inputType="number"
+            android:layout_marginStart="16dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="@+id/etExpiryMonth"
+            app:layout_constraintStart_toEndOf="@+id/etExpiryMonth"
+            app:layout_constraintTop_toTopOf="@+id/etExpiryMonth" />
+
+        <Button
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/button_bg_primary"
+            android:text="@string/_continue"
+            android:textColor="@color/white"
+            android:layout_marginTop="16dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
