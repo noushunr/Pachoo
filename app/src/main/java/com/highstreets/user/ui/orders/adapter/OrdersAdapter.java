@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
+import butterknife.BindInt;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -48,6 +50,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
         holder.tvName.setText(name);
         holder.tvTotal.setText(context.getString(R.string.pound_symbol) + order.getTotal());
         holder.tvOrderId.setText(order.getOrderId());
+        holder.tvStatus.setText(order.getOrderStatus());
         Glide.with(context)
                 .load(order.getQrCodeImage())
                 .into(holder.ivQRCodeImage);
@@ -57,7 +60,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
                     .show(((AppCompatActivity)context).getSupportFragmentManager(), null);
         });
 
-        holder.itemView.setOnClickListener(view -> {
+        holder.btnView.setOnClickListener(view -> {
             Intent orderDetailsIntent = OrderDetailsActivity.start(context);
             orderDetailsIntent.putExtra(Constants.ORDER_ID, order.getOrderId());
             context.startActivity(orderDetailsIntent);
@@ -78,6 +81,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
         TextView tvOrderId;
         @BindView(R.id.ivQRCodeImage)
         ImageView ivQRCodeImage;
+        @BindView(R.id.tvStatus)
+        TextView tvStatus;
+        @BindView(R.id.btnView)
+        Button btnView;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);

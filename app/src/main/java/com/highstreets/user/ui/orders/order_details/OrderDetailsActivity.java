@@ -52,8 +52,8 @@ public class OrderDetailsActivity extends BaseActivity implements OrderDetailsVi
     TextView tvTotal;
     @BindView(R.id.tvDate)
     TextView tvDate;
-
-
+    @BindView(R.id.tvAddress)
+    TextView tvAddress;
 
     public static Intent start(Context context) {
         return new Intent(context, OrderDetailsActivity.class);
@@ -127,6 +127,7 @@ public class OrderDetailsActivity extends BaseActivity implements OrderDetailsVi
         tvShippingCharge.setText(getString(R.string.pound_symbol) + orderDetails.getShippingCharge());
         tvTotal.setText(getString(R.string.pound_symbol) + orderDetails.getTotal());
         tvDate.setText(orderDetails.getDateAdded());
+        tvAddress.setText(orderDetails.getPaymentAddress2());
         Glide.with(this)
                 .load(orderDetails.getQrCodeImage())
                 .into(ivQRCode);

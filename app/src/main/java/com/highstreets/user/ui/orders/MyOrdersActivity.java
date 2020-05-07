@@ -40,7 +40,6 @@ public class MyOrdersActivity extends BaseActivity implements MyOrderViewInterfa
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvToolbarText.setText(R.string.orders);
         rvOrders.setLayoutManager(new LinearLayoutManager(this));
-        rvOrders.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         myOrdersPresenterInterface =  new MyOrdersPresenter(this);
         myOrdersPresenterInterface.getOrders(SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""));
     }

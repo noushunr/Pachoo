@@ -3,10 +3,12 @@ package com.highstreets.user.ui.cart;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,7 @@ import com.highstreets.user.ui.cart.adapter.CartAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.cart.check_postcode.CheckPostcodeDialogFragment;
 import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.ui.cart.model.Product;
@@ -45,6 +48,10 @@ public class CartActivity extends BaseActivity implements
     TextView tvGrandTotal;
     @BindView(R.id.btnPlaceOrder)
     Button btnPlaceOrder;
+    @BindView(R.id.constraintLayout)
+    ConstraintLayout constraintLayout;
+    @BindView(R.id.tvEmptyText)
+    TextView tvEmptyText;
 
     public static Intent start(Context context){
         return new Intent(context, CartActivity.class);
@@ -57,6 +64,7 @@ public class CartActivity extends BaseActivity implements
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         tvToolbarText.setText(getString(R.string.cart));
+        constraintLayout.setVisibility(View.GONE);
         rvCartList.setLayoutManager(new LinearLayoutManager(this));
         rvCartList.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
 
@@ -84,6 +92,8 @@ public class CartActivity extends BaseActivity implements
     @Override
     public void setCartData(CartData cartData) {
         if (cartData != null) {
+            constraintLayout.setVisibility(View.VISIBLE);
+            tvEmptyText.setVisibility(View.GONE);
             rvCartList.setAdapter(new CartAdapter(cartData.getProductList()));
             String subTotal = getString(R.string.pound_symbol) + cartData.getSubTotal();
             String totalOffer = getString(R.string.pound_symbol) + cartData.getTotalOffer();
@@ -94,7 +104,8 @@ public class CartActivity extends BaseActivity implements
 
             btnPlaceOrder.setOnClickListener(view -> {
 //                startActivityForResult(PaymentOptionsActivity.start(this), SELECT_PAYMENT_OPTION_CODE);
-                startActivity(AddressActivity.start(this));
+//                startActivity(AddressActivity.start(this));
+                CheckPostcodeDialogFragment.newInstance().show(getSupportFragmentManager(), null);
             });
         }
     }

@@ -152,6 +152,10 @@
     <string name="yyyy">YYYY</string>
     <string name="proceed">Proceed</string>
     <string name="card_details">Card Details</string>
+    <string name="your_cart_is_empty">Your cart is empty</string>
+    <string name="status_colon">Status:</string>
+    <string name="delivered">delivered</string>
+    <string name="enter_postcode_to_check_availability">Enter postcode to check availability</string>
 
 
 </resources>

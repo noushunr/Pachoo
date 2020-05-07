@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -75,7 +76,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         });
 
 
-        holder.btnEditAddress.setOnClickListener(view -> {
+        holder.ivEditAddress.setOnClickListener(view -> {
             Intent editAddressIntent = AddAddressActivity.start(context);
             editAddressIntent.putExtra(Constants.EDIT_ADDRESS_ID, address.getAddressId());
             context.startActivity(editAddressIntent);
@@ -103,8 +104,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         TextView tvNumber;
         @BindView(R.id.tvAddress)
         TextView tvAddress;
-        @BindView(R.id.btnEditAddress)
-        Button btnEditAddress;
+        @BindView(R.id.ivEditAddress)
+        ImageView ivEditAddress;
         @BindView(R.id.checkAddress)
         CheckBox checkAddress;
 

@@ -60,7 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
                 .load(ApiClient.VIEW_ALL_BASE_URL + product.getImage())
                 .into(holder.ivItemImage);
 
-        holder.btnRemove.setOnClickListener(view -> {
+        holder.ivRemove.setOnClickListener(view -> {
             removeCartItem.remove(product.getCartId());
         });
 
@@ -101,8 +101,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         TextView tvQuantity;
         @BindView(R.id.tvCount)
         TextView tvCount;
-        @BindView(R.id.btnRemove)
-        Button btnRemove;
+        @BindView(R.id.ivRemove)
+        ImageView ivRemove;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);

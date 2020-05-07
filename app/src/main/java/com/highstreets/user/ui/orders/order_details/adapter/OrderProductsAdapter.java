@@ -1,6 +1,7 @@
 package com.highstreets.user.ui.orders.order_details.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.ui.cart.product_details.ProductDetailsActivity;
 import com.highstreets.user.ui.orders.order_details.model.Product;
+import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
@@ -47,6 +50,12 @@ public class OrderProductsAdapter extends RecyclerView.Adapter<OrderProductsAdap
         Glide.with(context)
                 .load(ApiClient.VIEW_ALL_BASE_URL + product.getFeaturedImage())
                 .into(holder.ivImage);
+
+        holder.itemView.setOnClickListener(view -> {
+            Intent intent = ProductDetailsActivity.start(context);
+            intent.putExtra(Constants.PRODUCT_ID, product.getProductId());
+            context.startActivity(intent);
+        });
     }
 
     @Override
