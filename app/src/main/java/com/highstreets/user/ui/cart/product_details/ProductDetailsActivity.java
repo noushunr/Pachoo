@@ -30,8 +30,8 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
     TextView tvValidTill;
     @BindView(R.id.tvTotal)
     TextView tvTotal;
-    @BindView(R.id.tvValidFor)
-    TextView tvValidFor;
+    @BindView(R.id.tvMerchantName)
+    TextView tvMerchantName;
     @BindView(R.id.tvDescription)
     TextView tvDescription;
     @BindView(R.id.tvToolbarText)
@@ -103,7 +103,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
             tvTotal.setText(getString(R.string.pound_symbol) + productDetails.getOfferPrice());
             tvDescription.setText(productDetails.getDescription());
             tvValidTill.setText(productDetails.getOfferValidTo());
-            tvValidFor.setText(productDetails.getValidFor());
+            tvMerchantName.setText(productDetails.getValidFor());
         }
     }
 }

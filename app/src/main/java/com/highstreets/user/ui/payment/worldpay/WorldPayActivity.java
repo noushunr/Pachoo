@@ -73,19 +73,19 @@ public class WorldPayActivity extends BaseActivity {
     private void validateCard(){
         Card card = new Card();
 
-        CardValidationError validate = card.setHolderName(etNameOnCard.getText().toString())
-                .setCardNumber(etCardNo.getText().toString())
-                .setCvc(etCVV.getText().toString())
-                .setExpiryMonth(etExpiryMonth.getText().toString())
-                .setExpiryYear(etExpiryYear.getText().toString())
-                .validate();
-
-//        CardValidationError validate = card.setHolderName("Asgar Ahmed")
-//                .setCardNumber("4462030000000000")
-//                .setCvc("123")
-//                .setExpiryMonth("09")
-//                .setExpiryYear("2024")
+//        CardValidationError validate = card.setHolderName(etNameOnCard.getText().toString())
+//                .setCardNumber(etCardNo.getText().toString())
+//                .setCvc(etCVV.getText().toString())
+//                .setExpiryMonth(etExpiryMonth.getText().toString())
+//                .setExpiryYear(etExpiryYear.getText().toString())
 //                .validate();
+
+        CardValidationError validate = card.setHolderName("Asgar Ahmed")
+                .setCardNumber("4462030000000000")
+                .setCvc("123")
+                .setExpiryMonth("09")
+                .setExpiryYear("2024")
+                .validate();
 
         if (validate != null) {
             //we got errors

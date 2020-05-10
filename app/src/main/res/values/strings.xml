@@ -156,6 +156,8 @@
     <string name="status_colon">Status:</string>
     <string name="delivered">delivered</string>
     <string name="enter_postcode_to_check_availability">Enter postcode to check availability</string>
+    <string name="merchant_name">Merchant Name</string>
+    <string name="cart_clear_message">Your city changed items in the cart will be cleared, Do you want to continue?</string>
 
 
 </resources>

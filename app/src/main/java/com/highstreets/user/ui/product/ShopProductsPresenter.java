@@ -1,13 +1,17 @@
 package com.highstreets.user.ui.product;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
+import com.highstreets.user.ui.address.add_address.AddAddressActivity;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 import com.highstreets.user.utils.Constants;
 
@@ -115,20 +119,27 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
     @Override
     public void addToCart(String userId, ArrayList<Offer> offerArrayList){
         showProgressIndicator();
+        String city = SharedPrefs.getString(SharedPrefs.Keys.CITY, "");
         int noOfOffers = offerArrayList.size();
         for (Offer offer : offerArrayList){
             ApiClient.getApiInterface().addToCart(
                     userId,
                     offer.getId(),
-                    String.valueOf(offer.getCount())).enqueue(new Callback<AddToCartResponse>() {
+                    String.valueOf(offer.getCount()),
+                    city).enqueue(new Callback<AddToCartResponse>() {
                 @Override
                 public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
                     if (response.isSuccessful()){
-                        noOfferAddedToCart++;
-                        if (noOfferAddedToCart == noOfOffers){
-                            dismissProgressIndicator();
-                            noOfferAddedToCart = 0;
-                            shopProductsViewInterface.setAddedToCartSuccess(response.body());
+                        AddToCartResponse addToCartResponse = response.body();
+                        if (addToCartResponse.getCityStatus().equals(Constants.TRUE)) {
+                            noOfferAddedToCart++;
+                            if (noOfferAddedToCart == noOfOffers) {
+                                dismissProgressIndicator();
+                                noOfferAddedToCart = 0;
+                                shopProductsViewInterface.setAddedToCartSuccess(addToCartResponse);
+                            }
+                        } else {
+                            shopProductsViewInterface.cityChanged(addToCartResponse);
                         }
                     }
                 }
@@ -139,6 +150,24 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
                 }
             });
         }
+    }
+
+    @Override
+    public void clearCart(String userId) {
+        ApiClient.getApiInterface().clearCart(userId)
+        .enqueue(new Callback<AddToCartResponse>() {
+            @Override
+            public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
+                if (response.isSuccessful()){
+                    shopProductsViewInterface.cartCleared(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AddToCartResponse> call, Throwable t) {
+
+            }
+        });
     }
 
     @Override

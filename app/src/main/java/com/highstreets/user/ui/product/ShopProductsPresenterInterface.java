@@ -12,4 +12,6 @@ public interface ShopProductsPresenterInterface extends CommonPresenterInterface
     void getAllOfferDetails(String merchantId, String user_id, String latitude, String longitude);
 
     void addToCart(String userId, ArrayList<Offer> offerArrayList);
+
+    void clearCart(String userId);
 }

@@ -98,7 +98,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/address"
-                app:layout_constraintBottom_toBottomOf="@+id/textView12"
                 app:layout_constraintEnd_toStartOf="@+id/ivQRCode"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView12"

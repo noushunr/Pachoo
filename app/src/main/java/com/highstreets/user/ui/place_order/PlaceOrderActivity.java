@@ -20,6 +20,7 @@ import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.payment.worldpay.WorldPayActivity;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
+import com.highstreets.user.ui.place_order.model.payment.MakePaymentResponse;
 import com.highstreets.user.ui.review_booking.adapter.ReviewBookingAdapter;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
@@ -36,6 +37,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     private String userId;
     private String addressId;
     private PlaceOrderPresenterInterface placeOrderPresenterInterface;
+    private String grandTotal;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolbarText;
@@ -74,8 +76,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
 
     private void clickHandles() {
         btnPlaceOrder.setOnClickListener(view -> {
-            placeOrderPresenterInterface.placeOrder(userId, addressId, "card");
-//            startActivityForResult(WorldPayActivity.start(this), WORLD_PAY_ACTIVITY_CODE);
+            startActivityForResult(WorldPayActivity.start(this), WORLD_PAY_ACTIVITY_CODE);
         });
     }
 
@@ -123,6 +124,7 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     @Override
     public void setFinalBalance(FinalBalanceItem finalBalanceItem) {
         if (finalBalanceItem != null) {
+            this.grandTotal = finalBalanceItem.getGrandTotal();
             String subTotal = getString(R.string.pound_symbol) + finalBalanceItem.getSubtotal();
             String deliveryCharge = getString(R.string.pound_symbol) + finalBalanceItem.getDeliveryCharge();
             String serviceCharge = getString(R.string.pound_symbol) + finalBalanceItem.getServiceCharge();
@@ -158,15 +160,26 @@ public class PlaceOrderActivity extends BaseActivity implements PlaceOrderViewIn
     }
 
     @Override
+    public void paymentSuccess(MakePaymentResponse makePaymentResponse) {
+        placeOrderPresenterInterface.placeOrder(userId, addressId, "card");
+    }
+
+    @Override
+    public void paymentError(MakePaymentResponse makePaymentResponse) {
+        CommonUtils.showToast(this, "Some problem with payment please try again");
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == WORLD_PAY_ACTIVITY_CODE){
-            if (resultCode == RESULT_OK){
+        if (requestCode == WORLD_PAY_ACTIVITY_CODE) {
+            if (resultCode == RESULT_OK) {
                 String token = data.getStringExtra(Constants.WORLD_PAY_CARD_TOKEN);
                 Log.e(TAG, "onActivityResultToken: "+ token);
                 Log.e(TAG, "onActivityResultCustomerId: "+ userId);
                 Log.e(TAG, "onActivityResultAddressId: "+ addressId);
-                Log.e(TAG, "onActivityResultAmount: "+ tvGrandTotal.getText().toString());
+                Log.e(TAG, "onActivityResultAmount: "+ grandTotal);
+                placeOrderPresenterInterface.makePayment(userId, addressId, grandTotal, token);
             }
         }
     }

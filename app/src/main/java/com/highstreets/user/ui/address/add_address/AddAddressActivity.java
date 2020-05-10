@@ -76,10 +76,6 @@ public class AddAddressActivity extends BaseActivity implements
     TextView tvState;
     @BindView(R.id.etPostcode)
     EditText etPostcode;
-    @BindView(R.id.tvPostcodeResult)
-    TextView tvPostcodeResult;
-    @BindView(R.id.btnPostcodeCheck)
-    Button btnPostcodeCheck;
     @BindView(R.id.tvSelectPlace)
     TextView tvSelectPlace;
     @BindView(R.id.etAddressesLine)
@@ -114,7 +110,6 @@ public class AddAddressActivity extends BaseActivity implements
         tvDistrict.setOnClickListener(this);
         tvCity.setOnClickListener(this);
         btnAddAddress.setOnClickListener(this);
-        btnPostcodeCheck.setOnClickListener(this);
 
         btnAddAddress.setText(isEditAddress ? getString(R.string.save_address) : getString(R.string.add_address));
 
@@ -194,15 +189,6 @@ public class AddAddressActivity extends BaseActivity implements
                 startAutocompleteActivity();
                 break;
             }
-            case R.id.btnPostcodeCheck:{
-                if (TextUtils.isEmpty(etPostcode.getText())){
-                    etPostcode.setError("Enter Postcode");
-                    etPostcode.findFocus();
-                } else {
-                    addAddressPresenterInterface.checkPostcode(etPostcode.getText().toString());
-                }
-                break;
-            }
         }
     }
 
@@ -227,9 +213,6 @@ public class AddAddressActivity extends BaseActivity implements
             tvCity.findFocus();
         } else if (TextUtils.isEmpty(etPostcode.getText())) {
             etPostcode.setError("This field is required");
-            etPostcode.findFocus();
-        } else if (!validPostcode){
-            etPostcode.setError("Check postcode");
             etPostcode.findFocus();
         } else if (TextUtils.isEmpty(tvSelectPlace.getText()) || latLng == null) {
             tvSelectPlace.setError("This field is required");
@@ -347,20 +330,8 @@ public class AddAddressActivity extends BaseActivity implements
     public void addressAddedResult(AddressSavedResponse addressSavedResponse) {
         if (addressSavedResponse.getStatus().equals(Constants.SUCCESS)) {
             CommonUtils.showToast(this, addressSavedResponse.getMessage());
+            onBackPressed();
         }
     }
 
-    @Override
-    public void setPostcodeResult(PostResponse postResponse) {
-        tvPostcodeResult.setVisibility(View.VISIBLE);
-        if (postResponse.getStatus().equals(Constants.ERROR)){
-            tvPostcodeResult.setText(postResponse.getMessage());
-            tvPostcodeResult.setTextColor(getResources().getColor(R.color.red));
-            validPostcode = false;
-        } else {
-            tvPostcodeResult.setText(postResponse.getMessage());
-            tvPostcodeResult.setTextColor(getResources().getColor(R.color.green));
-            validPostcode = true;
-        }
-    }
 }

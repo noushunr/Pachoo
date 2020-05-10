@@ -124,12 +124,12 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="16dp"
-                                android:text="Valid for"
+                                android:text="@string/merchant_name"
                                 android:textColor="@color/text_color_black"
                                 android:textSize="12sp" />
 
                             <TextView
-                                android:id="@+id/tvValidFor"
+                                android:id="@+id/tvMerchantName"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:fontFamily="@font/nunito_regular"

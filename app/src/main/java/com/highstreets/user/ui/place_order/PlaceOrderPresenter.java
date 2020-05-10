@@ -2,12 +2,13 @@ package com.highstreets.user.ui.place_order;
 
 import android.util.Log;
 
+import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
-import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
+import com.highstreets.user.ui.place_order.model.payment.MakePaymentResponse;
 import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
@@ -100,6 +101,35 @@ public class PlaceOrderPresenter implements PlaceOrderPresenterInterface {
 
             @Override
             public void onFailure(Call<PostResponse> call, Throwable t) {
+                dismissProgressIndicator();
+            }
+        });
+    }
+
+    @Override
+    public void makePayment(String userId, String addressId, String amount, String token) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().makePayment(
+                userId,
+                addressId,
+                amount,
+                token
+        ).enqueue(new Callback<MakePaymentResponse>() {
+            @Override
+            public void onResponse(Call<MakePaymentResponse> call, Response<MakePaymentResponse> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()){
+                    MakePaymentResponse makePaymentResponse = response.body();
+                    if (makePaymentResponse.getPaymentStatus().equals("SUCCESS")){
+                        placeOrderViewInterface.paymentSuccess(makePaymentResponse);
+                    } else {
+                        placeOrderViewInterface.paymentError(makePaymentResponse);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MakePaymentResponse> call, Throwable t) {
                 dismissProgressIndicator();
             }
         });

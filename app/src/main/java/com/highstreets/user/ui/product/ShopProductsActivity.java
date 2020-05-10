@@ -1,6 +1,8 @@
 package com.highstreets.user.ui.product;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -308,6 +310,27 @@ public class ShopProductsActivity extends BaseActivity implements
         Intent toHomeIntent = HomeMainActivity.start(this);
         toHomeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(toHomeIntent);
+    }
+
+    @Override
+    public void cityChanged(AddToCartResponse addToCartResponse) {
+        new AlertDialog.Builder(this)
+                .setTitle("City Changed")
+                .setMessage(addToCartResponse.getMessage())
+                .setNegativeButton("no", (dialogInterface, i) -> {
+                    dialogInterface.dismiss();
+                })
+                .setPositiveButton("yes", (dialogInterface, i) -> {
+                    shopProductsPresenterInterface.clearCart(USER_ID);
+                })
+                .show();
+    }
+
+    @Override
+    public void cartCleared(AddToCartResponse body) {
+        if (body.getStatus().equals(Constants.SUCCESS)) {
+            CommonUtils.showToast(this, body.getMessage());
+        }
     }
 
     @Override

@@ -19,6 +19,7 @@ public class Offer implements Parcelable {
             return new Offer[size];
         }
     };
+
     @SerializedName("id")
     @Expose
     private String id;

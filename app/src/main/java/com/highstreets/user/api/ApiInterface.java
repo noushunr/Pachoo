@@ -14,6 +14,7 @@ import com.highstreets.user.ui.cart.product_details.model.ProductDetailsResponse
 import com.highstreets.user.ui.orders.model.OrdersResponse;
 import com.highstreets.user.ui.orders.order_details.model.OrderDetailsResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
+import com.highstreets.user.ui.place_order.model.payment.MakePaymentResponse;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 
 import java.util.Map;
@@ -257,7 +258,14 @@ public interface ApiInterface {
     @POST("api/users/Users/addToCart")
     Call<AddToCartResponse> addToCart(@Field("customer_id") String userId,
                                       @Field("product_id") String productId,
-                                      @Field("qty") String qty);
+                                      @Field("qty") String qty,
+                                      @Field("city") String city);
+
+
+    @FormUrlEncoded
+    @POST("api/users/Users/clearCart")
+    Call<AddToCartResponse> clearCart(@Field("customer_id") String userId);
+
 
     @FormUrlEncoded
     @POST("api/users/Users/getCartProducts")
@@ -347,6 +355,13 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("api/users/Users/getProduct")
     Call<ProductDetailsResponse> getProduct(@Field("product_id") String productId);
+
+    @FormUrlEncoded
+    @POST("api/users/Users/makePayment")
+    Call<MakePaymentResponse> makePayment(@Field("customer_id") String userId,
+                                          @Field("address_id") String addressId,
+                                          @Field("amount") String amount,
+                                          @Field("token") String token);
 }
 
 

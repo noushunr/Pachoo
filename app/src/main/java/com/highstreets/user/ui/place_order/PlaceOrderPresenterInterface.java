@@ -12,4 +12,9 @@ public interface PlaceOrderPresenterInterface extends CommonPresenterInterface {
     void placeOrder(String userId,
                     String addressId,
                     String paymentMethod);
+
+    void makePayment(String userId,
+                     String addressId,
+                     String amount,
+                     String token);
 }

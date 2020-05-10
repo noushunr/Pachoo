@@ -7,6 +7,9 @@ public class AddToCartResponse {
     @SerializedName("status")
     @Expose
     private String status;
+    @SerializedName("city_status")
+    @Expose
+    private String cityStatus;
     @SerializedName("message")
     @Expose
     private String message;
@@ -20,6 +23,14 @@ public class AddToCartResponse {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCityStatus() {
+        return cityStatus;
+    }
+
+    public void setCityStatus(String cityStatus) {
+        this.cityStatus = cityStatus;
     }
 
     public String getMessage() {

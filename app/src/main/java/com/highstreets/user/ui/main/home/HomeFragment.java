@@ -26,9 +26,9 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.BrandedShopAdapter;
 import com.highstreets.user.adapters.CategoryRecyclerAdapter;
-import com.highstreets.user.adapters.DealsRecyclerAdapter;
+import com.highstreets.user.ui.main.home.adapter.DealsRecyclerAdapter;
 import com.highstreets.user.adapters.MostVisitedShopAdapter;
-import com.highstreets.user.adapters.RecentlyBookedRecyclerAdapter;
+import com.highstreets.user.ui.main.home.adapter.RecentlyBookedRecyclerAdapter;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
@@ -236,9 +236,6 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void setCategoryList(final List<Category> categoryList) {
         mCategoryList = (ArrayList<Category>) categoryList;
-//        List<Category> listOf10Categories = mCategoryList.subList(0, 9);
-//        addRemoveItem = categoryList.get(categoryList.size() - 1);
-//        listOf10Categories.add(addRemoveItem);
         categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), categoryList, this);
         mCategoryRecycler.setAdapter(categoryRecyclerAdapter);
     }

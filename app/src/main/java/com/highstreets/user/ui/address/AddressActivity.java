@@ -55,8 +55,13 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
         rvAddresses.setLayoutManager(new LinearLayoutManager(this));
         rvAddresses.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         addressPresenterInterface = new AddressPresenter(this);
-        addressPresenterInterface.getAllAddress(userId);
         clickHandles();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        addressPresenterInterface.getAllAddress(userId);
     }
 
     private void clickHandles() {

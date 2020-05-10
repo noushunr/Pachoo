@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
@@ -37,6 +38,8 @@ public class CheckPostcodeDialogFragment extends BaseDialogFragment {
     Button btnCheck;
     @BindView(R.id.tvError)
     TextView tvError;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
     public static CheckPostcodeDialogFragment newInstance() {
         Bundle args = new Bundle();
@@ -61,9 +64,11 @@ public class CheckPostcodeDialogFragment extends BaseDialogFragment {
     }
 
     private void checkPostcode(String postcode) {
+        progressBar.setVisibility(View.VISIBLE);
         ApiClient.getApiInterface().checkPostcode(postcode).enqueue(new Callback<PostResponse>() {
             @Override
             public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                progressBar.setVisibility(View.INVISIBLE);
                 if (response.isSuccessful()){
                     handleResponse(response.body());
                 }
@@ -71,7 +76,7 @@ public class CheckPostcodeDialogFragment extends BaseDialogFragment {
 
             @Override
             public void onFailure(Call<PostResponse> call, Throwable t) {
-
+                progressBar.setVisibility(View.INVISIBLE);
             }
         });
     }

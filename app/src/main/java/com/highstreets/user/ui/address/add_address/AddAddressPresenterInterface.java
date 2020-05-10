@@ -34,6 +34,5 @@ public interface AddAddressPresenterInterface extends CommonPresenterInterface {
     void getAddress(String userId,
                     String addressId);
 
-    void checkPostcode(String postcode);
 
 }
