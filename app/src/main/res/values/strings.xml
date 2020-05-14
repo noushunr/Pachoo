@@ -118,7 +118,7 @@
     <string name="county">County</string>
     <string name="number">Number</string>
     <string name="address">Address</string>
-    <string name="addresses">Addresses</string>
+    <string name="delivery_address">Delivery Address</string>
     <string name="save_address">save address</string>
     <string name="my_orders">My Orders</string>
     <string name="my_favorites">My Favorites</string>
@@ -146,7 +146,7 @@
     <string name="orderid_colon">OrderID:</string>
     <string name="details">Details</string>
     <string name="name_on_card">Name on card</string>
-    <string name="card_no_colon">Card No:</string>
+    <string name="card_number">Card number</string>
     <string name="cvv">CVV</string>
     <string name="mm">MM</string>
     <string name="yyyy">YYYY</string>
@@ -157,7 +157,14 @@
     <string name="delivered">delivered</string>
     <string name="enter_postcode_to_check_availability">Enter postcode to check availability</string>
     <string name="merchant_name">Merchant Name</string>
-    <string name="cart_clear_message">Your city changed items in the cart will be cleared, Do you want to continue?</string>
+    <string name="cart_clear_message">Your cart is not empty it contains items from different location, Do you want to clear cart?</string>
+    <string name="enter_your_card_information">Enter your card information</string>
+    <string name="expiration_date">Expiration date</string>
+    <string name="enter_your_cvv_on_card">Enter your CVV on card</string>
+    <string name="let_s_hook_you_up_with_top_brands">let\'s hook you up with top brands</string>
+    <string name="popular_non_veg_restaurants_in_your_area">popular non veg restaurants in your area</string>
+    <string name="choose_area_or_city">Choose area or city</string>
+    <string name="deals_of_the_day">Deals of the day</string>
 
 
 </resources>

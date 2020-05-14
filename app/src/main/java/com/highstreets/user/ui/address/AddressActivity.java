@@ -49,7 +49,7 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
-        tvToolbarText.setText(R.string.addresses);
+        tvToolbarText.setText(R.string.delivery_address);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         userId = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         rvAddresses.setLayoutManager(new LinearLayoutManager(this));

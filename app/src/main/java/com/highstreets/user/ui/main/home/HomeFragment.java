@@ -58,6 +58,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class HomeFragment extends BaseFragment implements
         HomeViewInterface,
         CommonViewInterface,
@@ -67,30 +70,9 @@ public class HomeFragment extends BaseFragment implements
 
     private final static int LOCATION_REQUEST_CODE = 101;
     private View view;
-    private ViewPager mViewPager;
     private CustomPagerAdapter mPagerAdapter;
     private ActionBar toolbar;
     private HomePresenterInterface homeFragmentPresenter;
-    private TextView mLocation;
-    private ImageView mTopBanner, mMiddleBanner, mBottomBanner;
-    private ProgressDialogFragment progressDialogFragment;
-    private TextView view_more;
-    private TextView view_more3;
-    private TextView view_more4;
-    private TextView tvNoData;
-    private RecyclerView mCategoryRecycler, mDealsRecycler, mRecentlyBookedRecycler, mBrandedShopRecycler, mMostVisitedShopRecyclerView;
-    private RecyclerView.LayoutManager layoutManager;
-    private CategoryRecyclerAdapter categoryRecyclerAdapter;
-    private DealsRecyclerAdapter dealsRecyclerAdapter;
-    private RecentlyBookedRecyclerAdapter recentlyBookedRecyclerAdapter;
-    private BrandedShopAdapter brandedShopAdapter;
-    private MostVisitedShopAdapter mostVisitedShopAdapter;
-    private ArrayList<Category> mCategoryList = new ArrayList<>();
-    private Category addRemoveItem;
-    private Context context;
-    private RelativeLayout rlDealOfTheDay, rlBrandedShops, rlOfferOfTheDay, rlMostlyViewShops;
-    private String SELECTED_CITY, TOP_BANNER, MIDDLE_BANNER, BOTTOM_BANNER;
-    private String CITY_ID, LATITUDE, LONGITUDE;
     private List<Slider> mSliderList = new ArrayList<>();
     private List<Deal> mDealsModelList = new ArrayList<>();
     private List<TopBanner> mTopBannerList = new ArrayList<>();
@@ -99,12 +81,48 @@ public class HomeFragment extends BaseFragment implements
     private List<RecentlyBookedShop> mRecentlyBookedShopList = new ArrayList<>();
     private List<BottomBanner> mBottomBannersList = new ArrayList<>();
     private List<MostViewedShop> mMostViewedShopList = new ArrayList<>();
+    private ArrayList<Category> mCategoryList = new ArrayList<>();
+    private Category addRemoveItem;
+    private Context context;
+    private ProgressDialogFragment progressDialogFragment;
+    private String SELECTED_CITY;
     private OnFragmentInteractionListener mListener;
     private CommonViewInterface mCommonListener;
     private boolean isCitySelected;
-    private LinearLayout ll_most_viewed, ll_recent, ll_branded, ll_deals;
-
     private boolean mIsStateAlreadySaved = false;
+
+    @BindView(R.id.tvLocation)
+    TextView tvLocation;
+    @BindView(R.id.viewpager)
+    ViewPager viewpager;
+    @BindView(R.id.rvCategories)
+    RecyclerView rvCategories;
+    @BindView(R.id.rvDealsGrid)
+    RecyclerView rvDealsGrid;
+    @BindView(R.id.rvBrandedShops)
+    RecyclerView rvBrandedShops;
+    @BindView(R.id.rvRecentlyBooked)
+    RecyclerView rvRecentlyBooked;
+    @BindView(R.id.rvMostVisited)
+    RecyclerView rvMostVisited;
+    @BindView(R.id.ivTopBanner)
+    ImageView ivTopBanner;
+    @BindView(R.id.ivMiddleBanner)
+    ImageView ivMiddleBanner;
+    @BindView(R.id.ivLastBanner)
+    ImageView ivLastBanner;
+    private TextView view_more;
+    private TextView view_more3;
+    private TextView view_more4;
+    private TextView tvNoData;
+    private RelativeLayout rlDealOfTheDay;
+    private RelativeLayout rlBrandedShops;
+    private RelativeLayout rlOfferOfTheDay;
+    private RelativeLayout rlMostlyViewShops;
+    private LinearLayout ll_most_viewed;
+    private LinearLayout ll_recent;
+    private LinearLayout ll_branded;
+    private LinearLayout ll_deals;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -131,24 +149,24 @@ public class HomeFragment extends BaseFragment implements
         mListener.setTitle(getString(R.string.high_streets));
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         view = inflater.inflate(R.layout.fragment_home, container, false);
+        ButterKnife.bind(this, view);
         initView();
 
         SELECTED_CITY = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
         if (TextUtils.isEmpty(SELECTED_CITY)) {
             isCitySelected = false;
             getCategories("-1");
-            mLocation.setText("Choose area or city");
+            tvLocation.setText("Choose area or city");
         } else {
             isCitySelected = true;
             getCategories(SELECTED_CITY);
-            mLocation.setText(SELECTED_CITY);
+            tvLocation.setText(SELECTED_CITY);
         }
         return view;
     }
 
 
     private void initView() {
-        mViewPager = view.findViewById(R.id.viewpager);
         view_more = view.findViewById(R.id.view_more);
         view_more3 = view.findViewById(R.id.view_more3);
         view_more4 = view.findViewById(R.id.view_more4);
@@ -157,58 +175,46 @@ public class HomeFragment extends BaseFragment implements
         ll_most_viewed = view.findViewById(R.id.ll_most_viewed);
         ll_branded = view.findViewById(R.id.ll_branded);
         ll_recent = view.findViewById(R.id.ll_recent);
-        mTopBanner = view.findViewById(R.id.top_banner);
-        mMiddleBanner = view.findViewById(R.id.middle_banner);
-        mBottomBanner = view.findViewById(R.id.last_banner);
-        mCategoryRecycler = view.findViewById(R.id.category_grid);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mCategoryRecycler.setLayoutManager(layoutManager);
-        mCategoryRecycler.setHasFixedSize(false);
-        mCategoryRecycler.setNestedScrollingEnabled(false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        rvCategories.setLayoutManager(layoutManager);
+        rvCategories.setHasFixedSize(false);
+        rvCategories.setNestedScrollingEnabled(false);
         rlDealOfTheDay = view.findViewById(R.id.rlDealsOfTheDay);
-        mDealsRecycler = view.findViewById(R.id.deals_grid);
         layoutManager = new GridLayoutManager(getContext(), 2);
-        mDealsRecycler.setLayoutManager(layoutManager);
-        mDealsRecycler.setHasFixedSize(false);
-        mDealsRecycler.setNestedScrollingEnabled(false);
+        rvDealsGrid.setLayoutManager(layoutManager);
+        rvDealsGrid.setHasFixedSize(false);
+        rvDealsGrid.setNestedScrollingEnabled(false);
         rlOfferOfTheDay = view.findViewById(R.id.rlOffersForYou);
-        mRecentlyBookedRecycler = view.findViewById(R.id.recently_booked_recycler);
         layoutManager = new GridLayoutManager(getContext(), 2);
-        mRecentlyBookedRecycler.setLayoutManager(layoutManager);
-        mRecentlyBookedRecycler.setHasFixedSize(false);
-        mRecentlyBookedRecycler.setNestedScrollingEnabled(false);
+        rvRecentlyBooked.setLayoutManager(layoutManager);
+        rvRecentlyBooked.setHasFixedSize(false);
+        rvRecentlyBooked.setNestedScrollingEnabled(false);
         rlBrandedShops = view.findViewById(R.id.rlBrandedShops);
-        mBrandedShopRecycler = view.findViewById(R.id.branded_shops);
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mBrandedShopRecycler.setLayoutManager(layoutManager);
-        mBrandedShopRecycler.setHasFixedSize(false);
-        mBrandedShopRecycler.setNestedScrollingEnabled(false);
+        rvBrandedShops.setLayoutManager(layoutManager);
+        rvBrandedShops.setHasFixedSize(false);
+        rvBrandedShops.setNestedScrollingEnabled(false);
         rlMostlyViewShops = view.findViewById(R.id.rlMostlyViewedShops);
-        mMostVisitedShopRecyclerView = view.findViewById(R.id.most_visited_recycler);
         layoutManager = new GridLayoutManager(getContext(), 2);
-        mMostVisitedShopRecyclerView.setLayoutManager(layoutManager);
-        mMostVisitedShopRecyclerView.setHasFixedSize(false);
-        mMostVisitedShopRecyclerView.setNestedScrollingEnabled(false);
-        mLocation = view.findViewById(R.id.location);
-        mLocation.setText(SELECTED_CITY);
+        rvMostVisited.setLayoutManager(layoutManager);
+        rvMostVisited.setHasFixedSize(false);
+        rvMostVisited.setNestedScrollingEnabled(false);
+        tvLocation.setText(SELECTED_CITY);
 
         view_more.setOnClickListener(this);
         view_more3.setOnClickListener(this);
         view_more4.setOnClickListener(this);
 
-        mLocation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), SelectLocationActivity.class);
-                startActivityForResult(intent, LOCATION_REQUEST_CODE);
-            }
+        tvLocation.setOnClickListener(v -> {
+            Intent intent = new Intent(getContext(), SelectLocationActivity.class);
+            startActivityForResult(intent, LOCATION_REQUEST_CODE);
         });
 
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new MyTimer(), 2000, 4000);
     }
 
-    public void getCategories(String city) {
+    private void getCategories(String city) {
         homeFragmentPresenter.getHomeDetails(city);
     }
 
@@ -219,14 +225,14 @@ public class HomeFragment extends BaseFragment implements
         if (resultCode == Activity.RESULT_OK) {
             if (requestCode == LOCATION_REQUEST_CODE) {
                 SELECTED_CITY = data.getStringExtra("city");
-                LATITUDE = data.getStringExtra("lat");
-                LONGITUDE = data.getStringExtra("lon");
-                CITY_ID = data.getStringExtra("city_id");
+                String LATITUDE = data.getStringExtra("lat");
+                String LONGITUDE = data.getStringExtra("lon");
+                String CITY_ID = data.getStringExtra("city_id");
                 SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_NAME, SELECTED_CITY);
                 SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_LATITUDE, LATITUDE);
                 SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_LONGITUDE, LONGITUDE);
                 SharedPrefs.setString(SharedPrefs.Keys.GET_CITY_ID, CITY_ID);
-                mLocation.setText(SELECTED_CITY);
+                tvLocation.setText(SELECTED_CITY);
                 isCitySelected = true;
                 getCategories(SELECTED_CITY);
             }
@@ -236,8 +242,8 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void setCategoryList(final List<Category> categoryList) {
         mCategoryList = (ArrayList<Category>) categoryList;
-        categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), categoryList, this);
-        mCategoryRecycler.setAdapter(categoryRecyclerAdapter);
+        CategoryRecyclerAdapter categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), categoryList, this);
+        rvCategories.setAdapter(categoryRecyclerAdapter);
     }
 
     @Override
@@ -246,7 +252,7 @@ public class HomeFragment extends BaseFragment implements
         try {
             if (sliderList.size() > 0) {
                 mPagerAdapter = new CustomPagerAdapter(getActivity(), sliderList);
-                mViewPager.setAdapter(mPagerAdapter);
+                viewpager.setAdapter(mPagerAdapter);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -267,8 +273,8 @@ public class HomeFragment extends BaseFragment implements
                 } else {
                     dealList = dealsModelList;
                 }
-                dealsRecyclerAdapter = new DealsRecyclerAdapter(getActivity(), dealList);
-                mDealsRecycler.setAdapter(dealsRecyclerAdapter);
+                DealsRecyclerAdapter dealsRecyclerAdapter = new DealsRecyclerAdapter(getActivity(), dealList);
+                rvDealsGrid.setAdapter(dealsRecyclerAdapter);
                 int count = dealsModelList.get(0).getTotalCount();
                 if (count <= 4) {
                     view_more.setVisibility(View.GONE);
@@ -287,12 +293,12 @@ public class HomeFragment extends BaseFragment implements
         mTopBannerList = topBannerList;
         try {
             if (topBannerList.size() > 0) {
-                TOP_BANNER = topBannerList.get(0).getImage();
+                String TOP_BANNER = topBannerList.get(0).getImage();
                 if (getActivity() != null) {
                     Glide.with(getActivity())
                             .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
                             .load(ApiClient.TOP_BANNER_BASE_URL + TOP_BANNER)
-                            .into(mTopBanner);
+                            .into(ivTopBanner);
                 }
             }
         } catch (Exception e) {
@@ -306,8 +312,8 @@ public class HomeFragment extends BaseFragment implements
         mBrandedShopList = brandedShopList;
         try {
             if (brandedShopList.size() > 0) {
-                brandedShopAdapter = new BrandedShopAdapter(getActivity(), brandedShopList);
-                mBrandedShopRecycler.setAdapter(brandedShopAdapter);
+                BrandedShopAdapter brandedShopAdapter = new BrandedShopAdapter(getActivity(), brandedShopList);
+                rvBrandedShops.setAdapter(brandedShopAdapter);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -320,11 +326,12 @@ public class HomeFragment extends BaseFragment implements
         mMiddleBannerList = middleBannerList;
         try {
             if (middleBannerList.size() > 0) {
-                MIDDLE_BANNER = middleBannerList.get(0).getImage();
+                String MIDDLE_BANNER = middleBannerList.get(0).getImage();
                 if (getActivity() != null) {
                     Glide.with(getActivity())
                             .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                            .load(ApiClient.MIDDLE_BANNER_BASE_URL + MIDDLE_BANNER).into(mMiddleBanner);
+                            .load(ApiClient.MIDDLE_BANNER_BASE_URL + MIDDLE_BANNER)
+                            .into(ivMiddleBanner);
                 }
             }
         } catch (Exception e) {
@@ -345,8 +352,8 @@ public class HomeFragment extends BaseFragment implements
                 }
                 String viewMoreStr = String.format("View All(%d)", recentlyBookedShopList.get(0).getTotalCount());
                 view_more3.setText(viewMoreStr);
-                recentlyBookedRecyclerAdapter = new RecentlyBookedRecyclerAdapter(getActivity(), recentlyBookedShops);
-                mRecentlyBookedRecycler.setAdapter(recentlyBookedRecyclerAdapter);
+                RecentlyBookedRecyclerAdapter recentlyBookedRecyclerAdapter = new RecentlyBookedRecyclerAdapter(getActivity(), recentlyBookedShops);
+                rvRecentlyBooked.setAdapter(recentlyBookedRecyclerAdapter);
                 int count = recentlyBookedShopList.get(0).getTotalCount();
                 if (count <= 4) {
                     view_more3.setVisibility(View.GONE);
@@ -365,12 +372,12 @@ public class HomeFragment extends BaseFragment implements
         mBottomBannersList = bottomBannersList;
         try {
             if (bottomBannersList.size() > 0) {
-                BOTTOM_BANNER = bottomBannersList.get(0).getImage();
+                String BOTTOM_BANNER = bottomBannersList.get(0).getImage();
                 if (getActivity() != null) {
                     Glide.with(getActivity())
                             .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
                             .load(ApiClient.MIDDLE_BANNER_BASE_URL + BOTTOM_BANNER)
-                            .into(mBottomBanner);
+                            .into(ivLastBanner);
                 }
             }
         } catch (Exception e) {
@@ -393,8 +400,8 @@ public class HomeFragment extends BaseFragment implements
                 } else {
                     mostViewedShops = mostViewedShopList;
                 }
-                mostVisitedShopAdapter = new MostVisitedShopAdapter(getActivity(), mostViewedShops);
-                mMostVisitedShopRecyclerView.setAdapter(mostVisitedShopAdapter);
+                MostVisitedShopAdapter mostVisitedShopAdapter = new MostVisitedShopAdapter(getActivity(), mostViewedShops);
+                rvMostVisited.setAdapter(mostVisitedShopAdapter);
                 int count = mostViewedShopList.get(0).getTotalCount();
                 if (count <= 4) {
                     view_more4.setVisibility(View.GONE);
@@ -407,26 +414,24 @@ public class HomeFragment extends BaseFragment implements
         }
         if (!isCitySelected) {
             tvNoData.setVisibility(View.GONE);
-            mViewPager.setVisibility(View.VISIBLE);
+            viewpager.setVisibility(View.VISIBLE);
             rlDealOfTheDay.setVisibility(View.VISIBLE);
-            mTopBanner.setVisibility(View.VISIBLE);
+            ivTopBanner.setVisibility(View.VISIBLE);
             rlBrandedShops.setVisibility(View.VISIBLE);
-            mMiddleBanner.setVisibility(View.VISIBLE);
+            ivMiddleBanner.setVisibility(View.VISIBLE);
             rlOfferOfTheDay.setVisibility(View.VISIBLE);
-            mBottomBanner.setVisibility(View.VISIBLE);
+            ivLastBanner.setVisibility(View.VISIBLE);
             rlMostlyViewShops.setVisibility(View.VISIBLE);
         } else if (!isDataExists()) {
-
             tvNoData.setVisibility(View.VISIBLE);
-            mViewPager.setVisibility(View.GONE);
+            viewpager.setVisibility(View.GONE);
             rlDealOfTheDay.setVisibility(View.GONE);
-            mTopBanner.setVisibility(View.GONE);
+            ivTopBanner.setVisibility(View.GONE);
             rlBrandedShops.setVisibility(View.GONE);
-            mMiddleBanner.setVisibility(View.GONE);
+            ivMiddleBanner.setVisibility(View.GONE);
             rlOfferOfTheDay.setVisibility(View.GONE);
-            mBottomBanner.setVisibility(View.GONE);
+            ivLastBanner.setVisibility(View.GONE);
             rlMostlyViewShops.setVisibility(View.GONE);
-
         } else {
             valdate();
         }
@@ -459,13 +464,6 @@ public class HomeFragment extends BaseFragment implements
         if (mCommonListener!=null){
             mCommonListener.showProgressIndicator();
         }
-
-      /*  if (!mIsStateAlreadySaved) {
-            if (getActivity() != null) {
-                progressDialogFragment = ProgressDialogFragment.newInstance();
-                progressDialogFragment.show(getActivity().getSupportFragmentManager(), "progress_dialog");
-            }
-        }*/
     }
 
     @Override
@@ -512,10 +510,10 @@ public class HomeFragment extends BaseFragment implements
         SELECTED_CITY = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "-1");
         if (TextUtils.isEmpty(SELECTED_CITY)) {
             getCategories("-1");
-            mLocation.setText("Choose area or city");
+            tvLocation.setText("Choose area or city");
         } else {
             getCategories(SELECTED_CITY);
-            mLocation.setText(SELECTED_CITY);
+            tvLocation.setText(SELECTED_CITY);
         }
     }
 
@@ -532,25 +530,25 @@ public class HomeFragment extends BaseFragment implements
             ll_deals.setVisibility(View.VISIBLE);
             rlDealOfTheDay.setVisibility(View.VISIBLE);
             if (mSliderList.size() > 0)
-                mViewPager.setVisibility(View.VISIBLE);
+                viewpager.setVisibility(View.VISIBLE);
             else
-                mViewPager.setVisibility(View.GONE);
+                viewpager.setVisibility(View.GONE);
         } else {
             ll_deals.setVisibility(View.GONE);
             rlDealOfTheDay.setVisibility(View.GONE);
-            mViewPager.setVisibility(View.GONE);
+            viewpager.setVisibility(View.GONE);
         }
 
         if (mBrandedShopList.size() > 0) {
             ll_branded.setVisibility(View.VISIBLE);
             rlBrandedShops.setVisibility(View.VISIBLE);
             if (mTopBannerList.size() > 0)
-                mTopBanner.setVisibility(View.VISIBLE);
+                ivTopBanner.setVisibility(View.VISIBLE);
             else
-                mTopBanner.setVisibility(View.GONE);
+                ivTopBanner.setVisibility(View.GONE);
         } else {
             ll_branded.setVisibility(View.GONE);
-            mTopBanner.setVisibility(View.GONE);
+            ivTopBanner.setVisibility(View.GONE);
             rlBrandedShops.setVisibility(View.GONE);
         }
 
@@ -558,25 +556,25 @@ public class HomeFragment extends BaseFragment implements
             ll_recent.setVisibility(View.VISIBLE);
             rlOfferOfTheDay.setVisibility(View.VISIBLE);
             if (mMiddleBannerList.size() > 0)
-                mMiddleBanner.setVisibility(View.VISIBLE);
+                ivMiddleBanner.setVisibility(View.VISIBLE);
             else
-                mMiddleBanner.setVisibility(View.GONE);
+                ivMiddleBanner.setVisibility(View.GONE);
         } else {
             ll_recent.setVisibility(View.GONE);
             rlOfferOfTheDay.setVisibility(View.GONE);
-            mMiddleBanner.setVisibility(View.GONE);
+            ivMiddleBanner.setVisibility(View.GONE);
         }
 
         if (mMostViewedShopList.size() > 0) {
             ll_most_viewed.setVisibility(View.VISIBLE);
             rlMostlyViewShops.setVisibility(View.VISIBLE);
             if (mBottomBannersList.size() > 0)
-                mBottomBanner.setVisibility(View.VISIBLE);
+                ivLastBanner.setVisibility(View.VISIBLE);
             else
-                mBottomBanner.setVisibility(View.GONE);
+                ivLastBanner.setVisibility(View.GONE);
         } else {
             ll_most_viewed.setVisibility(View.GONE);
-            mBottomBanner.setVisibility(View.GONE);
+            ivLastBanner.setVisibility(View.GONE);
             rlMostlyViewShops.setVisibility(View.GONE);
         }
     }
@@ -631,12 +629,12 @@ public class HomeFragment extends BaseFragment implements
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if (mViewPager.getAdapter() != null) {
-                            int last = mViewPager.getAdapter().getCount();
-                            int current = mViewPager.getCurrentItem() + 1;
+                        if (viewpager.getAdapter() != null) {
+                            int last = viewpager.getAdapter().getCount();
+                            int current = viewpager.getCurrentItem() + 1;
                             if (current < last) {
-                                mViewPager.setCurrentItem(current);
-                            } else mViewPager.setCurrentItem(0);
+                                viewpager.setCurrentItem(current);
+                            } else viewpager.setCurrentItem(0);
                         }
                     }
                 });

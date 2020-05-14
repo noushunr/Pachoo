@@ -139,6 +139,7 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
                                 shopProductsViewInterface.setAddedToCartSuccess(addToCartResponse);
                             }
                         } else {
+                            dismissProgressIndicator();
                             shopProductsViewInterface.cityChanged(addToCartResponse);
                         }
                     }

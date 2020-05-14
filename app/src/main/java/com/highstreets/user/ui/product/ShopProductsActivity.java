@@ -316,7 +316,7 @@ public class ShopProductsActivity extends BaseActivity implements
     public void cityChanged(AddToCartResponse addToCartResponse) {
         new AlertDialog.Builder(this)
                 .setTitle("City Changed")
-                .setMessage(addToCartResponse.getMessage())
+                .setMessage(getString(R.string.cart_clear_message))
                 .setNegativeButton("no", (dialogInterface, i) -> {
                     dialogInterface.dismiss();
                 })

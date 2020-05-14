@@ -3,6 +3,7 @@ package com.highstreets.user.adapters;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.BookedOffers;
 import com.highstreets.user.ui.main.bookings.ViewDealActivity;
+import com.highstreets.user.ui.orders.adapter.ShowQRCodeDialogFragment;
 import com.highstreets.user.ui.write_review.WriteReviewActivity;
 import com.highstreets.user.utils.Constants;
 
@@ -75,10 +77,6 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .load(imgUrl)
                 .into(offersViewHolder.imgCoupon);
 
-        Glide.with(mContext)
-                .load(ApiClient.VIEW_ALL_BASE_URL + bookedOffers.getImage())
-                .into(offersViewHolder.imBookedThumbnail);
-
         try {
             if (bookedOffers.getDescription() != null) {
                 offersViewHolder.tvBookedDesc.setText(bookedOffers.getDescription());
@@ -106,14 +104,6 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         } else {
             offersViewHolder.tvBookedStatus.setText(Constants.OFFER_BOOKED);
             offersViewHolder.btnWriteOfferReview.setVisibility(View.GONE);
-        }
-
-        if (bookedOffers.getBookedStatus() != null) {
-            if (bookedOffers.getBookedStatus().equals("1")) {
-                offersViewHolder.book_now.setText(Constants.BOOKED);
-            } else {
-                offersViewHolder.book_now.setText(Constants.BOOK_NOW);
-            }
         }
 
 
@@ -169,6 +159,11 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
             }
         });
+
+        offersViewHolder.ivQRCode.setOnClickListener(view -> {
+            ShowQRCodeDialogFragment.newInstance("").show(((AppCompatActivity)mContext).getSupportFragmentManager(), null);
+        });
+
     }
 
 
@@ -181,16 +176,14 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private class OffersViewHolder extends RecyclerView.ViewHolder {
 
         private TextView tvBookedTitle, tvBookedDesc, tvValidTill, tvBookedCount, tvBookedStatus, tvOfferPrice, tvMrpPrice;
-        private ImageView imBookedThumbnail;
         private TextView txt_deal_price;
         private Button btnViewDeals, btnWriteOfferReview;
-        private Button book_now;
         private ImageView imgCoupon;
+        private ImageView ivQRCode;
 
         public OffersViewHolder(View v2) {
             super(v2);
             txt_deal_price = v2.findViewById(R.id.txt_deal_price);
-            imBookedThumbnail = v2.findViewById(R.id.booked_thumbnail);
             tvBookedTitle = v2.findViewById(R.id.booked_offer_name);
             tvBookedDesc = v2.findViewById(R.id.booked_desc);
             tvValidTill = v2.findViewById(R.id.txt_validity_value);
@@ -201,7 +194,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             btnViewDeals = v2.findViewById(R.id.view_deals);
             btnWriteOfferReview = v2.findViewById(R.id.write_review);
             imgCoupon = v2.findViewById(R.id.imgCoupon);
-            book_now = v2.findViewById(R.id.book_now);
+            ivQRCode = v2.findViewById(R.id.ivQRCode);
         }
     }
 }

@@ -10,100 +10,126 @@
         android:id="@+id/include4"
         layout="@layout/layout_app_bar" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:padding="16dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnContinue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include4">
 
-        <EditText
-            android:id="@+id/etNameOnCard"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/edit_text_stroke_black"
-            android:hint="@string/name_on_card"
-            android:inputType="text"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="0dp"
+            android:padding="16dp">
 
-        <EditText
-            android:id="@+id/etCardNo"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:background="@drawable/edit_text_stroke_black"
-            android:hint="@string/card_no_colon"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:inputType="number"
-            android:textSize="16sp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etNameOnCard" />
+            <TextView
+                android:id="@+id/textView14"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/enter_your_card_information"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/etCVV"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:background="@drawable/edit_text_stroke_black"
-            android:hint="@string/cvv"
-            android:paddingStart="16dp"
-            android:inputType="number"
-            android:paddingEnd="16dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/etExpiryYear"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/etExpiryYear" />
+            <EditText
+                android:id="@+id/etNameOnCard"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/name_on_card"
+                android:inputType="text"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView14" />
 
-        <EditText
-            android:id="@+id/etExpiryMonth"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/edit_text_stroke_black"
-            android:hint="@string/mm"
-            android:inputType="number"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/etCardNo" />
+            <EditText
+                android:id="@+id/etCardNo"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:hint="@string/card_number"
+                android:inputType="number"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etNameOnCard" />
 
-        <EditText
-            android:id="@+id/etExpiryYear"
-            android:layout_width="wrap_content"
-            android:layout_height="48dp"
-            android:background="@drawable/edit_text_stroke_black"
-            android:hint="@string/yyyy"
-            android:inputType="number"
-            android:layout_marginStart="16dp"
-            android:paddingStart="16dp"
-            android:paddingEnd="16dp"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@+id/etExpiryMonth"
-            app:layout_constraintStart_toEndOf="@+id/etExpiryMonth"
-            app:layout_constraintTop_toTopOf="@+id/etExpiryMonth" />
+            <TextView
+                android:id="@+id/textView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/expiration_date"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etCardNo" />
 
-        <Button
-            android:id="@+id/btnContinue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_bg_primary"
-            android:text="@string/_continue"
-            android:textColor="@color/white"
-            android:layout_marginTop="16dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            <EditText
+                android:id="@+id/etExpiryMonth"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:hint="@string/mm"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView15" />
 
+            <EditText
+                android:id="@+id/etExpiryYear"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:hint="@string/yyyy"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="@+id/etExpiryMonth"
+                app:layout_constraintStart_toEndOf="@+id/etExpiryMonth"
+                app:layout_constraintTop_toTopOf="@+id/etExpiryMonth" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/enter_your_cvv_on_card"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etExpiryMonth" />
+
+            <EditText
+                android:id="@+id/etCVV"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:hint="@string/cvv"
+                android:inputType="number"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button
+        android:id="@+id/btnContinue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:background="@drawable/button_bg_primary"
+        android:text="@string/pay_now"
+        android:textColor="@color/white"
+        android:layout_marginTop="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

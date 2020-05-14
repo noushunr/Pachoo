@@ -103,7 +103,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
             tvTotal.setText(getString(R.string.pound_symbol) + productDetails.getOfferPrice());
             tvDescription.setText(productDetails.getDescription());
             tvValidTill.setText(productDetails.getOfferValidTo());
-            tvMerchantName.setText(productDetails.getValidFor());
+            tvMerchantName.setText(productDetails.getName());
         }
     }
 }

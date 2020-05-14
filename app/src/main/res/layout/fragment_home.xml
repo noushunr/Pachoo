@@ -25,48 +25,28 @@
                 android:paddingEnd="8dp">
 
                 <TextView
-                    android:id="@+id/txt_location"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginVertical="20dp"
-                    android:drawableLeft="@drawable/ic_location_dark"
-                    android:drawablePadding="8dp"
-                    android:text="current location"
-                    android:visibility="gone" />
-
-
-                <TextView
-                    android:id="@+id/location"
+                    android:id="@+id/tvLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:drawableRight="@drawable/ic_arrow_drop_down_black_24dp"
+                    android:drawableEnd="@drawable/ic_arrow_drop_down_black_24dp"
                     android:fontFamily="@font/nunito_regular"
-                    android:text="Choose area or city"
+                    android:text="@string/choose_area_or_city"
                     android:textColor="@color/text_color_black"
                     android:textSize="14sp"
                     android:textStyle="bold" />
             </RelativeLayout>
 
-
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/category_grid"
+                android:id="@+id/rvCategories"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_marginBottom="4dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/grey" />
+                android:layout_height="wrap_content"/>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp" />
 
@@ -75,8 +55,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp">
 
                 <LinearLayout
                     android:id="@+id/ll_deals"
@@ -89,7 +69,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Deals of the day"
+                        android:text="@string/deals_of_the_day"
                         android:textAllCaps="true"
                         android:textColor="@android:color/black"
                         android:textSize="12sp"
@@ -107,10 +87,9 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
-
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/deals_grid"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/rvDealsGrid"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_deals">
 
@@ -118,7 +97,7 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/top_banner"
+                android:id="@+id/ivTopBanner"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
@@ -143,7 +122,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="let's hook you up with good offers"
+                        android:text="@string/let_s_hook_you_up_with_top_brands"
                         android:textAllCaps="true"
                         android:textColor="@android:color/black"
                         android:textSize="14sp" />
@@ -154,14 +133,14 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_regular"
                         android:gravity="center"
-                        android:text="popular non veg restaurants in your area"
+                        android:text="@string/popular_non_veg_restaurants_in_your_area"
                         android:textAllCaps="true"
                         android:textSize="10sp" />
 
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/branded_shops"
+                    android:id="@+id/rvBrandedShops"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_branded">
@@ -170,7 +149,7 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/middle_banner"
+                android:id="@+id/ivMiddleBanner"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
@@ -217,7 +196,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recently_booked_recycler"
+                    android:id="@+id/rvRecentlyBooked"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_recent">
@@ -226,7 +205,7 @@
             </RelativeLayout>
 
             <ImageView
-                android:id="@+id/last_banner"
+                android:id="@+id/ivLastBanner"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="16dp"
@@ -272,7 +251,7 @@
                 </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/most_visited_recycler"
+                    android:id="@+id/rvMostVisited"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_most_viewed"
