@@ -77,6 +77,9 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .load(imgUrl)
                 .into(offersViewHolder.imgCoupon);
 
+//        Glide.with(mContext)
+//                .load()
+
         try {
             if (bookedOffers.getDescription() != null) {
                 offersViewHolder.tvBookedDesc.setText(bookedOffers.getDescription());
@@ -134,30 +137,26 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             }
         }
 
-        offersViewHolder.btnViewDeals.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent toViewDeail = ViewDealActivity.getActivityIntent(mContext);
-                if (bookedOffers.getType().equals("0")) {
-                    toViewDeail.putExtra("image", ApiClient.VIEW_ALL_COUPONS_BASE_URL + bookedOffers.getImage());
-                    toViewDeail.putExtra("name", bookedOffers.getTitle());
-                    toViewDeail.putExtra("desc", bookedOffers.getDescription());
-                    toViewDeail.putExtra("validity_till", bookedOffers.getValidTill());
-                    toViewDeail.putExtra("total", bookedOffers.getOfferPrice());
-                    toViewDeail.putExtra("merchant", bookedOffers.getMerchantName());
-                    toViewDeail.putExtra("offerPercentage", bookedOffers.getOfferPercentage()+ " % OFF");
-                } else {
-                    toViewDeail.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + bookedOffers.getImage());
-                    toViewDeail.putExtra("name", bookedOffers.getTitle());
-                    toViewDeail.putExtra("desc", bookedOffers.getDescription());
-                    toViewDeail.putExtra("validity_till", bookedOffers.getValidTill());
-                    toViewDeail.putExtra("total", bookedOffers.getOfferPrice());
-                    toViewDeail.putExtra("merchant", bookedOffers.getMerchantName());
-                    toViewDeail.putExtra("offerPercentage",bookedOffers.getOfferPercentage()+ " % OFF");
-                }
-                mContext.startActivity(toViewDeail);
-
+        offersViewHolder.btnViewDeals.setOnClickListener(v -> {
+            Intent toViewDeail = ViewDealActivity.getActivityIntent(mContext);
+            if (bookedOffers.getType().equals("0")) {
+                toViewDeail.putExtra("image", ApiClient.VIEW_ALL_COUPONS_BASE_URL + bookedOffers.getImage());
+                toViewDeail.putExtra("name", bookedOffers.getTitle());
+                toViewDeail.putExtra("desc", bookedOffers.getDescription());
+                toViewDeail.putExtra("validity_till", bookedOffers.getValidTill());
+                toViewDeail.putExtra("total", bookedOffers.getOfferPrice());
+                toViewDeail.putExtra("merchant", bookedOffers.getMerchantName());
+                toViewDeail.putExtra("offerPercentage", bookedOffers.getOfferPercentage()+ " % OFF");
+            } else {
+                toViewDeail.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + bookedOffers.getImage());
+                toViewDeail.putExtra("name", bookedOffers.getTitle());
+                toViewDeail.putExtra("desc", bookedOffers.getDescription());
+                toViewDeail.putExtra("validity_till", bookedOffers.getValidTill());
+                toViewDeail.putExtra("total", bookedOffers.getOfferPrice());
+                toViewDeail.putExtra("merchant", bookedOffers.getMerchantName());
+                toViewDeail.putExtra("offerPercentage",bookedOffers.getOfferPercentage()+ " % OFF");
             }
+            mContext.startActivity(toViewDeail);
         });
 
         offersViewHolder.ivQRCode.setOnClickListener(view -> {

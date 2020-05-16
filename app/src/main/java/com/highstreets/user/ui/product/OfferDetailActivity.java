@@ -56,7 +56,7 @@ public class OfferDetailActivity extends BaseActivity {
             tvOfferPercentage.setText(getIntent().getStringExtra("offer_percentage"));
         }
         if (getIntent().getStringExtra("mrp") != null) {
-            String mrpStr = "₹" + getIntent().getStringExtra("mrp");
+            String mrpStr = getString(R.string.pound_symbol) + getIntent().getStringExtra("mrp");
             tvTotal.setText(mrpStr);
         }
         if (getIntent().getStringExtra("valid_till") != null) {

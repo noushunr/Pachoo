@@ -40,23 +40,23 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCategories"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content" />
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp" />
+                android:layout_marginEnd="12dp" />
 
             <RelativeLayout
                 android:id="@+id/rlDealsOfTheDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="12dp">
 
                 <LinearLayout
                     android:id="@+id/ll_deals"
@@ -100,9 +100,9 @@
                 android:id="@+id/ivTopBanner"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="4dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop" />
 
             <RelativeLayout
@@ -143,6 +143,8 @@
                     android:id="@+id/rvBrandedShops"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginEnd="12dp"
                     android:layout_below="@+id/ll_branded">
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -152,9 +154,9 @@
                 android:id="@+id/ivMiddleBanner"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop" />
 
             <RelativeLayout
@@ -208,9 +210,9 @@
                 android:id="@+id/ivLastBanner"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="12dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop" />
 
             <RelativeLayout
