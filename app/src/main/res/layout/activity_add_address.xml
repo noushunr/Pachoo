@@ -96,17 +96,43 @@
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <EditText
-                    android:id="@+id/etPostcode"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/postcode"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp" />
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="16dp">
+
+                    <EditText
+                        android:id="@+id/etPostcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:textSize="16sp"
+                        android:layout_weight="1"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/edit_text_stroke_black"
+                        android:hint="@string/postcode"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp" />
+
+                    <Button
+                        android:id="@+id/btnCheckPostcode"
+                        android:layout_width="match_parent"
+                        android:layout_height="32dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/button_bg_primary"
+                        android:text="@string/check"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvPostcodeResult"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/postcode_check_result"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/tvSelectPlace"

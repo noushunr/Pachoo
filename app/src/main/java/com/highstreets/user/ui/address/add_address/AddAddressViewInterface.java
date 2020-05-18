@@ -11,4 +11,5 @@ public interface AddAddressViewInterface extends CommonViewInterface {
 
     void addressAddedResult(AddressSavedResponse addressSavedResponse);
 
+    void checkPostcodeResponse(PostResponse body);
 }

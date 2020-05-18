@@ -58,7 +58,7 @@ public class AddAddressActivity extends BaseActivity implements
     private boolean isEditAddress;
     private String userId;
     private String addressId;
-    private boolean validPostcode;
+    private boolean validPostcode = false;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolbarText;
@@ -76,12 +76,16 @@ public class AddAddressActivity extends BaseActivity implements
     TextView tvState;
     @BindView(R.id.etPostcode)
     EditText etPostcode;
+    @BindView(R.id.tvPostcodeResult)
+    TextView tvPostcodeResult;
     @BindView(R.id.tvSelectPlace)
     TextView tvSelectPlace;
     @BindView(R.id.etAddressesLine)
     EditText etAddressesLine;
     @BindView(R.id.btnAddAddress)
     Button btnAddAddress;
+    @BindView(R.id.btnCheckPostcode)
+    Button btnCheckPostcode;
 
 
     public static Intent start(Context context) {
@@ -113,10 +117,18 @@ public class AddAddressActivity extends BaseActivity implements
 
         btnAddAddress.setText(isEditAddress ? getString(R.string.save_address) : getString(R.string.add_address));
 
-
         if (!Places.isInitialized()) {
             Places.initialize(getApplicationContext(), getString(R.string.google_android_key));
         }
+
+        btnCheckPostcode.setOnClickListener(view -> {
+            if (!TextUtils.isEmpty(etPostcode.getText())) {
+                addAddressPresenterInterface.checkPostcode(etPostcode.getText().toString());
+            } else {
+                etPostcode.setError("Enter postcode");
+                etPostcode.findFocus();
+            }
+        });
 
     }
 
@@ -213,6 +225,9 @@ public class AddAddressActivity extends BaseActivity implements
             tvCity.findFocus();
         } else if (TextUtils.isEmpty(etPostcode.getText())) {
             etPostcode.setError("This field is required");
+            etPostcode.findFocus();
+        } else if (!validPostcode) {
+            etPostcode.setError("Check postcode");
             etPostcode.findFocus();
         } else if (TextUtils.isEmpty(tvSelectPlace.getText()) || latLng == null) {
             tvSelectPlace.setError("This field is required");
@@ -332,6 +347,20 @@ public class AddAddressActivity extends BaseActivity implements
             CommonUtils.showToast(this, addressSavedResponse.getMessage());
             onBackPressed();
         }
+    }
+
+    @Override
+    public void checkPostcodeResponse(PostResponse body) {
+        if (body.getStatus().equals(Constants.SUCCESS)){
+            validPostcode = true;
+            tvPostcodeResult.setTextColor(getResources().getColor(R.color.green));
+            tvPostcodeResult.setText(body.getMessage());
+        } else {
+            validPostcode = false;
+            tvPostcodeResult.setTextColor(getResources().getColor(R.color.red));
+            tvPostcodeResult.setText(body.getMessage());
+        }
+        tvPostcodeResult.setVisibility(View.VISIBLE);
     }
 
 }

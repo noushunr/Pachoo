@@ -134,4 +134,23 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
             }
         });
     }
+
+    @Override
+    public void checkPostcode(String postcode) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().checkPostcode(postcode).enqueue(new Callback<PostResponse>() {
+            @Override
+            public void onResponse(Call<PostResponse> call, Response<PostResponse> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()){
+                    addAddressViewInterface.checkPostcodeResponse(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostResponse> call, Throwable t) {
+                dismissProgressIndicator();
+            }
+        });
+    }
 }
