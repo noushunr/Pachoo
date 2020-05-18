@@ -202,7 +202,6 @@ public class SharedPrefs {
         public static final String NOTIFICATION_COUNT = "notification_count";
         public static final String USER_SOCIAL_TYPE = "user_social_type";
         public static final String USER_PROFILE_ID = "user_profile_id";
-        public static final String CITY = "city";
         public static final String CHECKED_ITEM_ID = "checked_item_id";
         public static final String CART_COUNT = "cart_count";
     }

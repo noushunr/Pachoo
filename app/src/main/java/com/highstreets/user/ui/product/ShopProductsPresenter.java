@@ -1,7 +1,5 @@
 package com.highstreets.user.ui.product;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonIOException;
@@ -11,7 +9,6 @@ import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
-import com.highstreets.user.ui.address.add_address.AddAddressActivity;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 import com.highstreets.user.utils.Constants;
 
@@ -119,7 +116,7 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
     @Override
     public void addToCart(String userId, ArrayList<Offer> offerArrayList){
         showProgressIndicator();
-        String city = SharedPrefs.getString(SharedPrefs.Keys.CITY, "");
+        String city = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
         int noOfOffers = offerArrayList.size();
         for (Offer offer : offerArrayList){
             ApiClient.getApiInterface().addToCart(
