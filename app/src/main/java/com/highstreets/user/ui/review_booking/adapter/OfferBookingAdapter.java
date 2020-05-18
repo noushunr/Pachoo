@@ -14,7 +14,6 @@ import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Offer;
-import com.highstreets.user.ui.cart.model.Product;
 
 import java.util.ArrayList;
 
@@ -48,7 +47,7 @@ public class OfferBookingAdapter extends RecyclerView.Adapter<OfferBookingAdapte
         holder.tvDealDesc.setText(offer.getDescription());
         holder.tvPrice.setText(TOTAL);
         Glide.with(context)
-                .load(ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage())
+                .load(ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage())
                 .into(holder.imThumbnail);
     }
 

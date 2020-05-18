@@ -204,7 +204,7 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
         txt_email.setText(ProfileData.getEmailId());
         Glide.with(this)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
-                .load(ApiClient.PROFILE_BASE_URL + ProfileData.getImage())
+                .load(ApiClient.USERS_IMAGE_URL + ProfileData.getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
                 .into(profile_pic);
         SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, ProfileData.getFirstname());

@@ -10,4 +10,5 @@ public interface CartViewInterface extends CommonViewInterface {
 
     void deleteResponse(DeleteCartItemResponse deleteCartItemResponse);
 
+    void setCartFailed();
 }

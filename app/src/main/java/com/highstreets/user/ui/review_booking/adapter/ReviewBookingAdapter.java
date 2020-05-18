@@ -47,7 +47,7 @@ public class ReviewBookingAdapter extends RecyclerView.Adapter<ReviewBookingAdap
         myViewHolder.tvDealDesc.setText(product.getDescription());
         myViewHolder.tvPrice.setText(TOTAL);
         Glide.with(mContext)
-                .load(ApiClient.VIEW_ALL_BASE_URL + product.getImage())
+                .load(ApiClient.OFFERS_IMAGE_URL + product.getImage())
                 .into(myViewHolder.imThumbnail);
     }
 

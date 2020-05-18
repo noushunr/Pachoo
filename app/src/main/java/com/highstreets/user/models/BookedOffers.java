@@ -37,6 +37,12 @@ public class BookedOffers {
     @SerializedName("qty")
     @Expose
     private String qty;
+    @SerializedName("qr_code")
+    @Expose
+    private String qrCode;
+    @SerializedName("qr_code_image")
+    @Expose
+    private String qrCodeImage;
     @SerializedName("mrp_price")
     @Expose
     private String mrpPrice;
@@ -148,6 +154,22 @@ public class BookedOffers {
 
     public void setQty(String qty) {
         this.qty = qty;
+    }
+
+    public String getQrCode() {
+        return qrCode;
+    }
+
+    public void setQrCode(String qrCode) {
+        this.qrCode = qrCode;
+    }
+
+    public String getQrCodeImage() {
+        return qrCodeImage;
+    }
+
+    public void setQrCodeImage(String qrCodeImage) {
+        this.qrCodeImage = qrCodeImage;
     }
 
     public String getMrpPrice() {

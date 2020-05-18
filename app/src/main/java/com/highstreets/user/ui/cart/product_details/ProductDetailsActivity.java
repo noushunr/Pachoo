@@ -96,7 +96,7 @@ public class ProductDetailsActivity extends BaseActivity implements ProductDetai
     public void setProductDetails(ProductDetails productDetails) {
         if (productDetails != null){
             Glide.with(this)
-                    .load(ApiClient.VIEW_ALL_BASE_URL + productDetails.getFeaturedImage())
+                    .load(ApiClient.OFFERS_IMAGE_URL + productDetails.getFeaturedImage())
                     .into(ivImage);
             tvName.setText(productDetails.getName());
             tvOfferPercentage.setText(productDetails.getOfferPercentage());

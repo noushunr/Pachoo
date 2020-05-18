@@ -14,16 +14,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.ui.cart.adapter.CartAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.cart.adapter.CartAdapter;
 import com.highstreets.user.ui.cart.check_postcode.CheckPostcodeDialogFragment;
 import com.highstreets.user.ui.cart.model.CartData;
 import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.ui.cart.model.Product;
 import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
 import com.highstreets.user.utils.Constants;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -107,6 +109,9 @@ public class CartActivity extends BaseActivity implements
 //                startActivity(AddressActivity.start(this));
                 CheckPostcodeDialogFragment.newInstance().show(getSupportFragmentManager(), null);
             });
+        } else {
+            constraintLayout.setVisibility(View.GONE);
+            tvEmptyText.setVisibility(View.VISIBLE);
         }
     }
 
@@ -114,6 +119,13 @@ public class CartActivity extends BaseActivity implements
     public void deleteResponse(DeleteCartItemResponse deleteCartItemResponse) {
         SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, String.valueOf(deleteCartItemResponse.getCartCount()));
         cartPresenterInterface.getCartProducts(SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""));
+    }
+
+    @Override
+    public void setCartFailed() {
+        rvCartList.setAdapter(new CartAdapter(new ArrayList<>()));
+        constraintLayout.setVisibility(View.GONE);
+        tvEmptyText.setVisibility(View.VISIBLE);
     }
 
     @Override

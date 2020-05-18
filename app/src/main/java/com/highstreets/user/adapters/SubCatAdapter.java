@@ -46,7 +46,7 @@ public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.MyViewHold
         myViewHolder.SubCategoryName.setText(subCategory.getSubCategory());
 
         Glide.with(mContext)
-                .load(ApiClient.SUB_CAT_BASE_URL + subCategory.getSubcategoryImage())
+                .load(ApiClient.SUB_CATEGORIES_IMAGE_URL + subCategory.getSubcategoryImage())
                 .into(myViewHolder.SubCategoryThumbnail);
 
         if (subCategory.isSelected())

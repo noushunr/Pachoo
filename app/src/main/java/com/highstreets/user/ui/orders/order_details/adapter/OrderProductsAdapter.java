@@ -48,7 +48,7 @@ public class OrderProductsAdapter extends RecyclerView.Adapter<OrderProductsAdap
         holder.tvQuantity.setText(String.valueOf(quantity));
         holder.tvPrice.setText(context.getString(R.string.pound_symbol) + product.getTotal());
         Glide.with(context)
-                .load(ApiClient.VIEW_ALL_BASE_URL + product.getFeaturedImage())
+                .load(ApiClient.OFFERS_IMAGE_URL + product.getFeaturedImage())
                 .into(holder.ivImage);
 
         holder.itemView.setOnClickListener(view -> {

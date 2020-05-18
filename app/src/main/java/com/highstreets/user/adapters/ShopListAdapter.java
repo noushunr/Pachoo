@@ -54,7 +54,7 @@ public class ShopListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             case TYPE_BANNER: {
                 Glide.with(mContext)
                         .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                        .load(ApiClient.SHOP_LIST_BANNER_BASE_URL + shopBanner.getImage())
+                        .load(ApiClient.BANNERS_IMAGE_URL + shopBanner.getImage())
                         .into(((BannerViewHolder) viewHolder).ivBanner);
                 break;
             }

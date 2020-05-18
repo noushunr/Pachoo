@@ -47,7 +47,7 @@ public class BrandedShopAdapter extends RecyclerView.Adapter<BrandedShopAdapter.
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions()
                         .placeholder(R.drawable.place_holder_square_large))
-                .load(ApiClient.BRANDED_SHOP_BASE_URL + brandedShop.getFeaturedImage())
+                .load(ApiClient.MERCHANTS_IMAGE_URL + brandedShop.getFeaturedImage())
                 .into(myViewHolder.BrandShopOffers);
 
         myViewHolder.BrandShopOffers.setOnClickListener(new View.OnClickListener() {

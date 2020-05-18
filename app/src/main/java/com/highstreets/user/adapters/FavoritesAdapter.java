@@ -58,7 +58,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.MyVi
                 myViewHolder.tvOfferPercentage.setText("0" + "%");
             }
         }
-        Glide.with(mContext).load(ApiClient.GET_FAVOURITE_SHOP_BASE_URL + items.getImage())
+        Glide.with(mContext).load(ApiClient.MERCHANTS_IMAGE_URL + items.getImage())
                 .into(myViewHolder.imFavouriteThumbnail);
 
         myViewHolder.imDeleteFav.setOnClickListener(new View.OnClickListener() {

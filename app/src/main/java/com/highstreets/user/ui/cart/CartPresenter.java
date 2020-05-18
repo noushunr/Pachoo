@@ -47,9 +47,10 @@ public class CartPresenter implements CartPresenterInterface {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
                     CartResponse cartResponse = response.body();
-                    if (!cartResponse.getStatus().equals(Constants.ERROR)) {
+                    if (cartResponse.getStatus().equals(Constants.SUCCESS)) {
                         cartViewInterface.setCartData(cartResponse.getCartData());
                     } else {
+                        cartViewInterface.setCartFailed();
                         SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, "");
                     }
                 }

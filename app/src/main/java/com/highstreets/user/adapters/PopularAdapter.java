@@ -54,7 +54,7 @@ public class PopularAdapter extends RecyclerView.Adapter<PopularAdapter.MyViewHo
 
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                .load(ApiClient.SHOP_MOST_POPULAR_BASE_URL + mostPopular.getFeaturedImage()).into(myViewHolder.imPopularThumbnail);
+                .load(ApiClient.OFFERS_IMAGE_URL + mostPopular.getFeaturedImage()).into(myViewHolder.imPopularThumbnail);
 
         myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

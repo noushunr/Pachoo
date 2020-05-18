@@ -295,7 +295,7 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
         mEmailID.setText(ProfileData.getEmailId());
         Glide.with(this)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
-                .load(ApiClient.PROFILE_BASE_URL + ProfileData.getImage())
+                .load(ApiClient.USERS_IMAGE_URL + ProfileData.getImage())
                 .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
                 .into(ProfilePic);
         SharedPrefs.setString(SharedPrefs.Keys.USER_IMAGE, ProfileData.getImage());

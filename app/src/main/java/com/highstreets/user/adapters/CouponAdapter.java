@@ -45,7 +45,7 @@ public class CouponAdapter extends RecyclerView.Adapter<CouponAdapter.MyViewHold
         Coupon coupon = couponList.get(i);
 
         myViewHolder.txt_validity_value.setText(coupon.getValidTill());
-        String imgUrl = ApiClient.IMAGE_URL_COUPONS + coupon.getImage();
+        String imgUrl = ApiClient.COUPONS_IMAGE_URL + coupon.getImage();
         if (coupon.getOfferPrice().equals("")) {
             myViewHolder.txt_deal_price_value.setVisibility(View.GONE);
             myViewHolder.txt_deal_price.setVisibility(View.GONE);

@@ -267,7 +267,7 @@ public class ShopProductsActivity extends BaseActivity implements
         if (offerDetail.getImages().size() >= 1) {
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(0).getImages())
+                    .load(ApiClient.MERCHANTS_IMAGE_URL + offerDetail.getImages().get(0).getImages())
                     .into(image_one);
         }
 
@@ -275,7 +275,7 @@ public class ShopProductsActivity extends BaseActivity implements
             cvImageSecond.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(1).getImages())
+                    .load(ApiClient.MERCHANTS_IMAGE_URL + offerDetail.getImages().get(1).getImages())
                     .into(image_second);
         } else {
             cvImageSecond.setVisibility(View.INVISIBLE);
@@ -284,7 +284,7 @@ public class ShopProductsActivity extends BaseActivity implements
             rlThirdImage.setVisibility(View.VISIBLE);
             Glide.with(this)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(ApiClient.SHOP_DETAILS_BASE_URL + offerDetail.getImages().get(2).getImages())
+                    .load(ApiClient.MERCHANTS_IMAGE_URL + offerDetail.getImages().get(2).getImages())
                     .into(image_third);
         } else {
             rlThirdImage.setVisibility(View.INVISIBLE);

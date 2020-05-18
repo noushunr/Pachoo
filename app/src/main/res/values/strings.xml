@@ -162,9 +162,11 @@
     <string name="expiration_date">Expiration date</string>
     <string name="enter_your_cvv_on_card">Enter your CVV on card</string>
     <string name="let_s_hook_you_up_with_top_brands">let\'s hook you up with top brands</string>
-    <string name="popular_non_veg_restaurants_in_your_area">popular non veg restaurants in your area</string>
+    <string name="popular_shops_in_your_area">popular shops in your area</string>
     <string name="choose_area_or_city">Choose area or city</string>
     <string name="deals_of_the_day">Deals of the day</string>
+    <string name="offers_for_you">offers for you</string>
+    <string name="mostly_viewed">mostly viewed</string>
 
 
 </resources>

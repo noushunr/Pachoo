@@ -57,7 +57,7 @@ public class MerchantsAdapter extends RecyclerView.Adapter<MerchantsAdapter.MyVi
 
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                .load(ApiClient.SHOP_MOST_POPULAR_BASE_URL + items.getFeaturedImage()).into(myViewHolder.imPopularThumbnail);
+                .load(ApiClient.OFFERS_IMAGE_URL + items.getFeaturedImage()).into(myViewHolder.imPopularThumbnail);
 
         myViewHolder.tvViewDeals.setOnClickListener(new View.OnClickListener() {
             @Override

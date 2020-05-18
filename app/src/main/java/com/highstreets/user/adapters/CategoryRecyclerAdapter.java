@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Category;
@@ -48,7 +47,7 @@ public class CategoryRecyclerAdapter extends RecyclerView.Adapter<CategoryRecycl
 
         myViewHolder.mBrandName.setText(category.getCategoryName());
         Glide.with(mContext)
-                .load(ApiClient.CATEGORY_BASE_URL + category.getImage())
+                .load(ApiClient.CATEGORIES_IMAGE_URL + category.getImage())
                 .into(myViewHolder.mThumbnail);
 
         myViewHolder.mThumbnail.setOnClickListener(new View.OnClickListener() {

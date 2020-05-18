@@ -24,11 +24,11 @@ import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
-public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<BookedOffers> bookedModels;
 
-    public BookedAdapter(Context mContext, List<BookedOffers> bookedModels) {
+    public BookingsAdapter(Context mContext, List<BookedOffers> bookedModels) {
         this.mContext = mContext;
         this.bookedModels = bookedModels;
     }
@@ -42,13 +42,14 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         View v = null;
         switch (viewType) {
-            case 0:
+            case 0: {
                 v = inflater.inflate(R.layout.recycle_booked_coupon_item, viewGroup, false);
                 break;
-
-            case 1:
+            }
+            case 1: {
                 v = inflater.inflate(R.layout.recycle_booked_card, viewGroup, false);
                 break;
+            }
         }
 
         viewHolder = new OffersViewHolder(v);
@@ -67,7 +68,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         final BookedOffers bookedOffers = bookedModels.get(i);
         OffersViewHolder offersViewHolder = (OffersViewHolder) viewHolder;
 
-        String imgUrl = ApiClient.IMAGE_URL_COUPONS + bookedOffers.getImage();
+        String imgUrl = ApiClient.COUPONS_IMAGE_URL + bookedOffers.getImage();
         offersViewHolder.tvValidTill.setText(bookedOffers.getValidTill());
         offersViewHolder.tvBookedTitle.setText(bookedOffers.getTitle());
         offersViewHolder.tvBookedCount.setText(bookedOffers.getUsed() + " Used");
@@ -77,8 +78,9 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .load(imgUrl)
                 .into(offersViewHolder.imgCoupon);
 
-//        Glide.with(mContext)
-//                .load()
+        Glide.with(mContext)
+                .load(bookedOffers.getQrCodeImage())
+                .into(offersViewHolder.ivQRCode);
 
         try {
             if (bookedOffers.getDescription() != null) {
@@ -140,7 +142,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         offersViewHolder.btnViewDeals.setOnClickListener(v -> {
             Intent toViewDeail = ViewDealActivity.getActivityIntent(mContext);
             if (bookedOffers.getType().equals("0")) {
-                toViewDeail.putExtra("image", ApiClient.VIEW_ALL_COUPONS_BASE_URL + bookedOffers.getImage());
+                toViewDeail.putExtra("image", ApiClient.COUPONS_IMAGE_URL + bookedOffers.getImage());
                 toViewDeail.putExtra("name", bookedOffers.getTitle());
                 toViewDeail.putExtra("desc", bookedOffers.getDescription());
                 toViewDeail.putExtra("validity_till", bookedOffers.getValidTill());
@@ -148,7 +150,7 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 toViewDeail.putExtra("merchant", bookedOffers.getMerchantName());
                 toViewDeail.putExtra("offerPercentage", bookedOffers.getOfferPercentage()+ " % OFF");
             } else {
-                toViewDeail.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + bookedOffers.getImage());
+                toViewDeail.putExtra("image", ApiClient.OFFERS_IMAGE_URL + bookedOffers.getImage());
                 toViewDeail.putExtra("name", bookedOffers.getTitle());
                 toViewDeail.putExtra("desc", bookedOffers.getDescription());
                 toViewDeail.putExtra("validity_till", bookedOffers.getValidTill());
@@ -160,7 +162,8 @@ public class BookedAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
 
         offersViewHolder.ivQRCode.setOnClickListener(view -> {
-            ShowQRCodeDialogFragment.newInstance("").show(((AppCompatActivity)mContext).getSupportFragmentManager(), null);
+            ShowQRCodeDialogFragment.newInstance(bookedOffers.getQrCodeImage())
+                    .show(((AppCompatActivity)mContext).getSupportFragmentManager(), null);
         });
 
     }

@@ -1,6 +1,7 @@
 package com.highstreets.user.ui.cart.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -57,11 +59,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         holder.tvPrice.setText(totalPrice);
         holder.tvQuantity.setText(product.getQty());
         Glide.with(context)
-                .load(ApiClient.VIEW_ALL_BASE_URL + product.getImage())
+                .load(ApiClient.OFFERS_IMAGE_URL + product.getImage())
                 .into(holder.ivItemImage);
 
         holder.ivRemove.setOnClickListener(view -> {
-            removeCartItem.remove(product.getCartId());
+            new AlertDialog.Builder(context)
+                    .setTitle("Remove?")
+                    .setMessage("Are you sure to remove this item")
+                    .setPositiveButton("yes", (dialogInterface, i) -> {
+                        removeCartItem.remove(product.getCartId());
+                    })
+                    .setNegativeButton("no", (dialogInterface, i) -> {
+                        dialogInterface.dismiss();
+                    })
+                    .show();
         });
 
         holder.itemView.setOnClickListener(view -> {

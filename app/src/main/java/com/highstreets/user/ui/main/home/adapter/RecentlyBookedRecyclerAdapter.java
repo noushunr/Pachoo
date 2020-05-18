@@ -54,7 +54,7 @@ public class RecentlyBookedRecyclerAdapter extends RecyclerView.Adapter<Recently
 
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                .load(ApiClient.RECENTLY_BOOKED + recentlyBookedShop.getImage()).into(myViewHolder.ImageThumbnail);
+                .load(ApiClient.MERCHANTS_IMAGE_URL + recentlyBookedShop.getImage()).into(myViewHolder.ImageThumbnail);
 
         myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.highstreets.user.R;
-import com.highstreets.user.adapters.BookedAdapter;
+import com.highstreets.user.adapters.BookingsAdapter;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
@@ -26,7 +26,7 @@ import java.util.List;
 public class BookingsFragment extends BaseFragment implements BookingsViewInterface {
     private View view;
     private RecyclerView mBookedRecyclerView;
-    private BookedAdapter mBookedAdapter;
+    private BookingsAdapter mBookingsAdapter;
     private RecyclerView.LayoutManager layoutManager;
     private ProgressDialogFragment progressDialogFragment;
     private ActionBar toolbar;
@@ -85,8 +85,8 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
 
     @Override
     public void onLoadingBookedOffersSuccess(final List<BookedOffers> booked_modelList) {
-        mBookedAdapter = new BookedAdapter(getContext(), booked_modelList);
-        mBookedRecyclerView.setAdapter(mBookedAdapter);
+        mBookingsAdapter = new BookingsAdapter(getContext(), booked_modelList);
+        mBookedRecyclerView.setAdapter(mBookingsAdapter);
         if (booked_modelList.size() <= 0) {
             tvNoData.setVisibility(View.VISIBLE);
         } else {

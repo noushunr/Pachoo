@@ -46,17 +46,17 @@
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="140dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp" />
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp" />
 
             <RelativeLayout
                 android:id="@+id/rlDealsOfTheDay"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="12dp">
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="8dp">
 
                 <LinearLayout
                     android:id="@+id/ll_deals"
@@ -69,6 +69,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:fontFamily="@font/nunito_extra_bold"
                         android:text="@string/deals_of_the_day"
                         android:textAllCaps="true"
                         android:textColor="@android:color/black"
@@ -91,6 +92,7 @@
                     android:id="@+id/rvDealsGrid"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@+id/ll_deals">
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -101,7 +103,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop" />
 
@@ -109,7 +111,7 @@
                 android:id="@+id/rlBrandedShops"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp">
+                android:layout_marginTop="24dp">
 
                 <LinearLayout
                     android:id="@+id/ll_branded"
@@ -133,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/nunito_regular"
                         android:gravity="center"
-                        android:text="@string/popular_non_veg_restaurants_in_your_area"
+                        android:text="@string/popular_shops_in_your_area"
                         android:textAllCaps="true"
                         android:textSize="10sp" />
 
@@ -143,8 +145,9 @@
                     android:id="@+id/rvBrandedShops"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_marginEnd="12dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
                     android:layout_below="@+id/ll_branded">
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -155,7 +158,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop" />
 
@@ -163,9 +166,9 @@
                 android:id="@+id/rlOffersForYou"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
+                android:layout_marginTop="24dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
                 <LinearLayout
                     android:id="@+id/ll_recent"
@@ -178,7 +181,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="offers for you"
+                        android:fontFamily="@font/nunito_extra_bold"
+                        android:text="@string/offers_for_you"
                         android:textAllCaps="true"
                         android:textColor="@android:color/black"
                         android:textSize="12sp"
@@ -201,6 +205,7 @@
                     android:id="@+id/rvRecentlyBooked"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@+id/ll_recent">
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -211,7 +216,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
                 android:layout_marginStart="12dp"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="24dp"
                 android:layout_marginEnd="12dp"
                 android:scaleType="centerCrop" />
 
@@ -219,9 +224,9 @@
                 android:id="@+id/rlMostlyViewedShops"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp">
+                android:layout_marginTop="24dp"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp">
 
                 <LinearLayout
                     android:id="@+id/ll_most_viewed"
@@ -234,7 +239,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="mostly viewed"
+                        android:text="@string/mostly_viewed"
+                        android:fontFamily="@font/nunito_extra_bold"
                         android:textAllCaps="true"
                         android:textColor="@android:color/black"
                         android:textSize="12sp"
@@ -256,6 +262,7 @@
                     android:id="@+id/rvMostVisited"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
                     android:layout_below="@+id/ll_most_viewed"
                     android:layout_marginBottom="56dp">
 

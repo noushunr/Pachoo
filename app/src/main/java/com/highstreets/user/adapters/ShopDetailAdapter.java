@@ -51,7 +51,7 @@ public class ShopDetailAdapter extends RecyclerView.Adapter<ShopDetailAdapter.Vi
         viewHold.ratingBar.setRating(!TextUtils.isEmpty(shop.getRatings()) ? Float.parseFloat(shop.getRatings()) : 0);
 
         Glide.with(context)
-                .load(ApiClient.SHOP_LIST_SHOPS_BASE_URL + shop.getImage())
+                .load(ApiClient.MERCHANTS_IMAGE_URL + shop.getImage())
                 .into(viewHold.ivShop);
 
         viewHold.itemView.setOnClickListener(new View.OnClickListener() {

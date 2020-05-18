@@ -48,7 +48,7 @@ public class MostVisitedShopAdapter extends RecyclerView.Adapter<MostVisitedShop
 
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                .load(ApiClient.DEALS_BASE_URL + mostVisitedShops.getImage()).into(myViewHolder.DealsThumbnails);
+                .load(ApiClient.MERCHANTS_IMAGE_URL + mostVisitedShops.getImage()).into(myViewHolder.DealsThumbnails);
 
         myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

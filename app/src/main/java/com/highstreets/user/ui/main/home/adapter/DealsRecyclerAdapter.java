@@ -62,7 +62,7 @@ public class DealsRecyclerAdapter extends RecyclerView.Adapter<DealsRecyclerAdap
 
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                .load(ApiClient.DEALS_BASE_URL + deal.getImage())
+                .load(ApiClient.MERCHANTS_IMAGE_URL + deal.getImage())
                 .into(myViewHolder.DealsThumbnails);
         myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override

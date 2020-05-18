@@ -78,11 +78,11 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
         }
         Glide.with(mContext)
                 .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                .load(ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage()).into(myViewHolder.imDealThumbnail);
+                .load(ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage()).into(myViewHolder.imDealThumbnail);
 
         myViewHolder.mDetails.setOnClickListener(v -> {
             Intent toDetailsIntent = new Intent(mContext, OfferDetailActivity.class);
-            toDetailsIntent.putExtra("image", ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage());
+            toDetailsIntent.putExtra("image", ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage());
             toDetailsIntent.putExtra("name", offer.getName());
             toDetailsIntent.putExtra("desc", offer.getDescription());
             toDetailsIntent.putExtra("validity_for", offer.getValidFor() + " Person");
@@ -97,7 +97,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             @Override
             public void onClick(View v) {
 
-                Uri IMAGE_URL = Uri.parse(ApiClient.VIEW_ALL_BASE_URL + offer.getFeaturedImage());
+                Uri IMAGE_URL = Uri.parse(ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage());
                 final String shareLink = offer.getShare_url();
 
                 Picasso.get().load(IMAGE_URL).into(new Target() {
