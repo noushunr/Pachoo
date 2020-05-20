@@ -72,8 +72,6 @@ public class CartActivity extends BaseActivity implements
 
         cartPresenterInterface = new CartPresenter(this);
         cartPresenterInterface.getCartProducts(SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""));
-
-
     }
 
     @Override

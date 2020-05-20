@@ -68,7 +68,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         final BookedOffers bookedOffers = bookedModels.get(i);
         OffersViewHolder offersViewHolder = (OffersViewHolder) viewHolder;
 
-        String imgUrl = ApiClient.COUPONS_IMAGE_URL + bookedOffers.getImage();
+        String imgUrl = ApiClient.OFFERS_IMAGE_URL + bookedOffers.getImage();
         offersViewHolder.tvValidTill.setText(bookedOffers.getValidTill());
         offersViewHolder.tvBookedTitle.setText(bookedOffers.getTitle());
         offersViewHolder.tvBookedCount.setText(bookedOffers.getUsed() + " Used");

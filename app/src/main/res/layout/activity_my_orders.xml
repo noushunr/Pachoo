@@ -20,4 +20,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include" />
 
+    <TextView
+        android:id="@+id/tvNoOrders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/you_have_no_orders"
+        app:layout_constraintBottom_toBottomOf="@+id/rvOrders"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

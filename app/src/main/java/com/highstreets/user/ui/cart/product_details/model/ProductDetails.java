@@ -76,6 +76,9 @@ public class ProductDetails {
     @SerializedName("ip")
     @Expose
     private String ip;
+    @SerializedName("merchant_name")
+    @Expose
+    private String merchantName;
 
     public String getId() {
         return id;
@@ -267,5 +270,13 @@ public class ProductDetails {
 
     public void setIp(String ip) {
         this.ip = ip;
+    }
+
+    public String getMerchantName() {
+        return merchantName;
+    }
+
+    public void setMerchantName(String merchantName) {
+        this.merchantName = merchantName;
     }
 }

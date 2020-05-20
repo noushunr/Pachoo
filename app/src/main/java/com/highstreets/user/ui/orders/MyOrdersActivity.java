@@ -3,6 +3,7 @@ package com.highstreets.user.ui.orders;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -28,6 +29,8 @@ public class MyOrdersActivity extends BaseActivity implements MyOrderViewInterfa
     TextView tvToolbarText;
     @BindView(R.id.rvOrders)
     RecyclerView rvOrders;
+    @BindView(R.id.tvNoOrders)
+    TextView tvNoOrders;
 
     public static Intent start(Context context){
         return new Intent(context, MyOrdersActivity.class);
@@ -87,7 +90,10 @@ public class MyOrdersActivity extends BaseActivity implements MyOrderViewInterfa
     @Override
     public void setOrderList(List<Order> orderList) {
         if (orderList != null){
+            tvNoOrders.setVisibility(View.GONE);
             rvOrders.setAdapter(new OrdersAdapter(orderList));
+        } else {
+            tvNoOrders.setVisibility(View.VISIBLE);
         }
     }
 }
