@@ -16,8 +16,8 @@ android {
         applicationId "com.highstreets.user"
         minSdkVersion 21
         targetSdkVersion 28
-        versionCode 4
-        versionName "1.0.3"
+        versionCode 5
+        versionName "1.0.4"
         multiDexEnabled true
         resValue "string", "places_api_key", (project.findProperty("PLACES_API_KEY") ?: "")
 

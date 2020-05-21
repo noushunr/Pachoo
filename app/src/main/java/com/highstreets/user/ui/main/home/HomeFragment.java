@@ -449,9 +449,7 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void dismissProgressIndicator() {
-        if (mCommonListener!=null) {
-            mCommonListener.dismissProgressIndicator();
-        }
+       dismissProgress();
     }
 
     @Override
@@ -461,9 +459,7 @@ public class HomeFragment extends BaseFragment implements
 
     @Override
     public void showProgressIndicator() {
-        if (mCommonListener!=null){
-            mCommonListener.showProgressIndicator();
-        }
+        showProgress();
     }
 
     @Override

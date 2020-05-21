@@ -33,7 +33,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        progressDialogFragment = new ProgressDialogFragment();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
@@ -61,9 +60,9 @@ public abstract class BaseActivity extends AppCompatActivity {
 
 
     public void showProgress() {
-        if (progressDialogFragment != null) {
-            progressDialogFragment.show(getSupportFragmentManager(), null);
-        }
+        progressDialogFragment = new ProgressDialogFragment();
+        progressDialogFragment.show(getSupportFragmentManager(), null);
+
     }
 
     public void dismissProgress() {

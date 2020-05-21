@@ -28,10 +28,14 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
 import com.google.android.play.core.appupdate.AppUpdateManager;
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+import com.google.android.play.core.install.InstallState;
+import com.google.android.play.core.install.InstallStateUpdatedListener;
 import com.google.android.play.core.install.model.AppUpdateType;
+import com.google.android.play.core.install.model.InstallStatus;
 import com.google.android.play.core.install.model.UpdateAvailability;
 import com.google.android.play.core.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -84,6 +88,7 @@ public class HomeMainActivity extends BaseActivity
     private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
     private HomeMainPresenterInterface homeMainPresenterInterface;
     private static final int MY_UPDATE_REQUEST_CODE = 112;
+    AppUpdateManager appUpdateManager;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolBarText;
@@ -153,6 +158,7 @@ public class HomeMainActivity extends BaseActivity
         initiateFragments();
         loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
         bottomNavigation.setSelectedItemId(R.id.navigation_home);
+        appUpdateManager = AppUpdateManagerFactory.create(HomeMainActivity.this);
     }
 
     private void getFirebaseToken() {
@@ -520,23 +526,50 @@ public class HomeMainActivity extends BaseActivity
     }
 
     private void checkNewBuildAvailable() {
-        AppUpdateManager appUpdateManager = AppUpdateManagerFactory.create(this);
         Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
         appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
             if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE)) {
+                    && appUpdateInfo.updatePriority() >= 0
+                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
                 try {
                     appUpdateManager.startUpdateFlowForResult(
                             appUpdateInfo,
-                            AppUpdateType.IMMEDIATE,
+                            AppUpdateType.FLEXIBLE,
                             this,
                             MY_UPDATE_REQUEST_CODE);
                 } catch (IntentSender.SendIntentException e) {
                     e.printStackTrace();
                 }
             }
+            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+                popupSnackbarForCompleteUpdate();
+                appUpdateManager.unregisterListener(listener);
+            }
         });
+        appUpdateManager.registerListener(listener);
     }
+
+    private void popupSnackbarForCompleteUpdate() {
+        Snackbar snackbar =
+                Snackbar.make(
+                        findViewById(R.id.drawerLayout),
+                        "An update has just been downloaded.",
+                        Snackbar.LENGTH_INDEFINITE);
+        snackbar.setAction("RESTART", view -> appUpdateManager.completeUpdate());
+        snackbar.setActionTextColor(
+                getResources().getColor(R.color.colorPrimary));
+        snackbar.show();
+    }
+
+    InstallStateUpdatedListener listener = state -> {
+        // (Optional) Provide a download progress bar.
+        if (state.installStatus() == InstallStatus.DOWNLOADING) {
+            long bytesDownloaded = state.bytesDownloaded();
+            long totalBytesToDownload = state.totalBytesToDownload();
+            // Implement progress bar.
+        }
+        // Log state or install the update.
+    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
