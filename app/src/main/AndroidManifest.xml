@@ -187,7 +187,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="dealnest.co.uk/index.php"
+                    android:host="highstreets.uk"
                     android:pathPrefix="/share_offer"
                     android:scheme="http" />
             </intent-filter>
@@ -200,7 +200,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <data
-                    android:host="dealnest.co.uk/index.php"
+                    android:host="highstreets.uk"
                     android:pathPrefix="/share_merchant"
                     android:scheme="http" />
             </intent-filter>

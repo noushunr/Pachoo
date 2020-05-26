@@ -57,7 +57,7 @@ public class WorldPayActivity extends BaseActivity {
         ButterKnife.bind(this);
         tvToolbarText.setText(R.string.card_details);
         worldpay = WorldPay.getInstance();
-        worldpay.setClientKey("T_C_34cf103b-ffb0-415d-a3fb-b7a57c743d09");
+        worldpay.setClientKey("T_C_43866df0-07c4-4c76-b4b7-d3192061044a");
         // decide whether you want to charge this card multiple times or only once
         worldpay.setReusable(true);
         // set validation type advanced or basic

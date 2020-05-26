@@ -23,4 +23,9 @@
         android:id="@+id/navigation_booked"
         android:icon="@drawable/ic_bookings"
         android:title="@string/title_booked" />
+
+<!--    <item-->
+<!--        android:id="@+id/navigation_feeds"-->
+<!--        android:icon="@drawable/ic_feeds"-->
+<!--        android:title="@string/feeds"/>-->
 </menu>

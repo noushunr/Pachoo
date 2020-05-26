@@ -69,8 +69,9 @@ public class SelectLocationActivity extends BaseActivity implements PopularCitie
     private PopularCitiesAdapter popularCitiesAdapter;
     private TextView tvToolbarTitle;
     private SelectLocationPresenter selectLocationPresenter;
-    private double lat, lng;
-    private String SELECTED_CITY, CITY_LATITUDE, CITY_LONGITUDE, district;
+    private String CITY_LATITUDE;
+    private String CITY_LONGITUDE;
+    private String district;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -270,7 +271,7 @@ public class SelectLocationActivity extends BaseActivity implements PopularCitie
             double latitude = location.getLatitude();
             double longitude = location.getLongitude();
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            SELECTED_CITY = addresses.get(0).getSubAdminArea();
+            String SELECTED_CITY = addresses.get(0).getSubAdminArea();
             CITY_LATITUDE = String.valueOf(latitude);
             CITY_LONGITUDE = String.valueOf(longitude);
             mLocationManager.removeUpdates(this);
@@ -307,15 +308,17 @@ public class SelectLocationActivity extends BaseActivity implements PopularCitie
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Place place = Autocomplete.getPlaceFromIntent(data);
-                lat = place.getLatLng().latitude;
-                lng = place.getLatLng().longitude;
+                double lat = place.getLatLng().latitude;
+                double lng = place.getLatLng().longitude;
                 CITY_LATITUDE = String.valueOf(lat);
                 CITY_LONGITUDE = String.valueOf(lng);
                 try {
                     List<Address> addresses = geocoder.getFromLocation(lat, lng, 1);
+                    Log.e(TAG, "onActivityResult: "+ addresses.get(0).toString());
                     if (addresses.get(0).getSubAdminArea() != null) {
                         district = addresses.get(0).getSubAdminArea();
                     } else {
@@ -325,7 +328,7 @@ public class SelectLocationActivity extends BaseActivity implements PopularCitie
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                callBackResult(place.getId(), district, String.valueOf(place.getLatLng().latitude), String.valueOf(place.getLatLng().longitude));
+                callBackResult(place.getId(), place.getName(), String.valueOf(place.getLatLng().latitude), String.valueOf(place.getLatLng().longitude));
             } else if (resultCode == AutocompleteActivity.RESULT_ERROR) {
                 Status status = Autocomplete.getStatusFromIntent(data);
                 Log.e(TAG, status.getStatusMessage());

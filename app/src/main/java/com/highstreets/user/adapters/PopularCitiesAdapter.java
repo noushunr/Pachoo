@@ -84,12 +84,7 @@ public class PopularCitiesAdapter extends RecyclerView.Adapter<PopularCitiesAdap
 
         myViewHolder.mCitiesName.setText(item.getCityName());
 
-        myViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onItemClick(city_id, city_name, lat, lon);
-            }
-        });
+        myViewHolder.itemView.setOnClickListener(v -> listener.onItemClick(city_id, city_name, lat, lon));
     }
 
     @Override
