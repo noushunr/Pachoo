@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <resources>
     <string name="app_name">HighStreets</string>
-    <string name="google_android_key">AIzaSyDEtV-VWFHdQgo0vySHT8OFHD38LThQU7w</string>
+    <string name="google_android_key">AIzaSyA8cuJo_CoNYuttlR9g33WWCRlSMvRf_l4</string>
 
     <string name="title_activity_navigation">NavigationActivity</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>

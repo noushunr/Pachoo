@@ -154,7 +154,7 @@
                     android:inputType="textEmailAddress"
                     android:textColorHint="@color/black"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -177,7 +177,7 @@
                     android:inputType="textPassword"
                     android:textColorHint="@color/black"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="12sp" />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -252,9 +252,5 @@
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp" />
         </LinearLayout>
-
-
     </ScrollView>
-
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
