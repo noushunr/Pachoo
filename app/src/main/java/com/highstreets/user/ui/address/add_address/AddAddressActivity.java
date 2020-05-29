@@ -248,9 +248,9 @@ public class AddAddressActivity extends BaseActivity implements
                     etFirstName.getText().toString(),
                     etLastName.getText().toString(),
                     etMobile.getText().toString(),
-                    tvDistrict.getText().toString(),
-                    tvCity.getText().toString(),
-                    tvState.getText().toString(),
+                    district.getId(),
+                    city.getId(),
+                    state.getId(),
                     etPostcode.getText().toString(),
                     tvSelectPlace.getText().toString(),
                     etAddressesLine.getText().toString(),
@@ -262,9 +262,9 @@ public class AddAddressActivity extends BaseActivity implements
                     etFirstName.getText().toString(),
                     etLastName.getText().toString(),
                     etMobile.getText().toString(),
-                    tvDistrict.getText().toString(),
-                    tvCity.getText().toString(),
-                    tvState.getText().toString(),
+                    district.getId(),
+                    city.getId(),
+                    state.getId(),
                     etPostcode.getText().toString(),
                     tvSelectPlace.getText().toString(),
                     etAddressesLine.getText().toString(),
@@ -328,13 +328,22 @@ public class AddAddressActivity extends BaseActivity implements
             etFirstName.setText(address.getFirstname());
             etLastName.setText(address.getLastname());
             etMobile.setText(address.getMobile());
-            tvState.setText(getString(R.string.select_state));
-            tvDistrict.setText(getString(R.string.select_county));
+
+            tvState.setText(address.getState());
+            state = new State();
+            state.setName(address.getState());
+            state.setId(address.getStateId());
+
+            tvDistrict.setText(address.getDistrict());
             district = new District();
-            district.setId(address.getDistrict());
-            tvCity.setText(getString(R.string.select_city));
+            district.setId(address.getDistrictId());
+            district.setName(address.getDistrict());
+
+            tvCity.setText(address.getCity());
             city = new City();
-            city.setId(address.getCity());
+            city.setId(address.getCityId());
+            city.setCity(address.getCity());
+
             etPostcode.setText(address.getPostcode());
             tvSelectPlace.setText(getString(R.string.select_place));
             etAddressesLine.setText(address.getAddress2());

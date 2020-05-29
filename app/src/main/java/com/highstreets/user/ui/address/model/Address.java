@@ -21,12 +21,24 @@ public class Address {
     @SerializedName("mobile")
     @Expose
     private String mobile;
+    @SerializedName("state")
+    @Expose
+    private String state;
+    @SerializedName("state_id")
+    @Expose
+    private String stateId;
     @SerializedName("district")
     @Expose
     private String district;
+    @SerializedName("district_id")
+    @Expose
+    private String districtId;
     @SerializedName("city")
     @Expose
     private String city;
+    @SerializedName("city_id")
+    @Expose
+    private String cityId;
     @SerializedName("postcode")
     @Expose
     private String postcode;
@@ -124,5 +136,37 @@ public class Address {
 
     public void setSelected(boolean selected) {
         isSelected = selected;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
+    }
+
+    public String getStateId() {
+        return stateId;
+    }
+
+    public void setStateId(String stateId) {
+        this.stateId = stateId;
+    }
+
+    public String getDistrictId() {
+        return districtId;
+    }
+
+    public void setDistrictId(String districtId) {
+        this.districtId = districtId;
+    }
+
+    public String getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(String cityId) {
+        this.cityId = cityId;
     }
 }

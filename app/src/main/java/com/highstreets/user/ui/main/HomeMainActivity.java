@@ -43,6 +43,7 @@ import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.ui.ReferAFriendActivity;
+import com.highstreets.user.ui.address.AddressActivity;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.cart.CartActivity;
@@ -101,6 +102,8 @@ public class HomeMainActivity extends BaseActivity
     LinearLayout llMyBooking;
     @BindView(R.id.llMyOrders)
     LinearLayout llMyOrders;
+    @BindView(R.id.llMyAddress)
+    LinearLayout llMyAddress;
     @BindView(R.id.llMyFavorites)
     LinearLayout llMyFavorites;
     @BindView(R.id.llReferAFriend)
@@ -222,6 +225,7 @@ public class HomeMainActivity extends BaseActivity
         llMyBooking.setOnClickListener(this);
         llMyFavorites.setOnClickListener(this);
         llMyOrders.setOnClickListener(this);
+        llMyAddress.setOnClickListener(this);
         llReferAFriend.setOnClickListener(this);
         llNotification.setOnClickListener(this);
         llRateApp.setOnClickListener(this);
@@ -480,6 +484,10 @@ public class HomeMainActivity extends BaseActivity
             }
             case R.id.llLogout: {
                 new LogoutDialogFragment().show(getSupportFragmentManager(), "logout_fragment");
+                break;
+            }
+            case R.id.llMyAddress:{
+                startActivity(AddressActivity.start(this));
                 break;
             }
         }

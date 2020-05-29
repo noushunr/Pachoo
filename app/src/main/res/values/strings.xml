@@ -170,6 +170,7 @@
     <string name="postcode_check_result">postcode check result</string>
     <string name="you_have_no_orders">You have no orders</string>
     <string name="feeds">Feeds</string>
+    <string name="my_address">My Address</string>
 
 
 </resources>
