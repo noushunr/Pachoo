@@ -8,7 +8,7 @@ public class Order {
 
     @SerializedName("order_id")
     @Expose
-    private String orderId;
+    private Integer orderId;
     @SerializedName("customer_id")
     @Expose
     private String customerId;
@@ -115,11 +115,11 @@ public class Order {
     @Expose
     private String qrCodeImage;
 
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(String orderId) {
+    public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
 
@@ -401,5 +401,87 @@ public class Order {
 
     public void setQrCodeImage(String qrCodeImage) {
         this.qrCodeImage = qrCodeImage;
+    }
+
+    @SerializedName("user_id")
+    @Expose
+    private String userId;
+    @SerializedName("delivery_address_id")
+    @Expose
+    private String deliveryAddressId;
+    @SerializedName("amount")
+    @Expose
+    private String amount;
+    @SerializedName("payment_mode")
+    @Expose
+    private String paymentMode;
+    @SerializedName("payment_status")
+    @Expose
+    private String paymentStatus;
+
+    @SerializedName("created_date")
+    @Expose
+    private String createdDate;
+    @SerializedName("updated_at")
+    @Expose
+    private String updatedAt;
+
+
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getDeliveryAddressId() {
+        return deliveryAddressId;
+    }
+
+    public void setDeliveryAddressId(String deliveryAddressId) {
+        this.deliveryAddressId = deliveryAddressId;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getPaymentMode() {
+        return paymentMode;
+    }
+
+    public void setPaymentMode(String paymentMode) {
+        this.paymentMode = paymentMode;
+    }
+
+    public String getPaymentStatus() {
+        return paymentStatus;
+    }
+
+    public void setPaymentStatus(String paymentStatus) {
+        this.paymentStatus = paymentStatus;
+    }
+
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(String createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(String updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }

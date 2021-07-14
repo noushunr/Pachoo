@@ -4,18 +4,12 @@ import com.highstreets.user.common.CommonPresenterInterface;
 
 public interface AddAddressPresenterInterface extends CommonPresenterInterface {
 
-    void addAddress(String userId,
+    void addAddress(
                     String firstName,
-                    String lastName,
                     String mobile,
-                    String district,
-                    String city,
-                    String state,
                     String postcode,
                     String address_1,
-                    String address_2,
-                    String latitude,
-                    String longitude);
+                    String address_2);
 
     void editAddress(String userId,
                      String addressId,

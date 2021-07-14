@@ -1,6 +1,8 @@
 package com.highstreets.user.ui.address.add_address;
 
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.Result;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
@@ -8,6 +10,8 @@ import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.TOKEN;
 
 public class AddAddressPresenter implements AddAddressPresenterInterface {
 
@@ -28,35 +32,23 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
     }
 
     @Override
-    public void addAddress(String userId,
+    public void addAddress(
                            String firstName,
-                           String lastName,
                            String mobile,
-                           String district,
-                           String city,
-                           String state,
                            String postcode,
                            String address_1,
-                           String address_2,
-                           String latitude,
-                           String longitude) {
+                           String address_2) {
 
         showProgressIndicator();
         ApiClient.getApiInterface().addAddress(
-                userId,
+                "Bearer "+ SharedPrefs.getString(TOKEN,""),
                 firstName,
-                lastName,
                 mobile,
-                district,
-                city,
-                state,
                 postcode,
                 address_1,
-                address_2,
-                latitude,
-                longitude).enqueue(new Callback<AddressSavedResponse>() {
+                address_2).enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<AddressSavedResponse> call, Response<AddressSavedResponse> response) {
+            public void onResponse(Call<Result> call, Response<Result> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
                     addAddressViewInterface.addressAddedResult(response.body());
@@ -64,7 +56,7 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<AddressSavedResponse> call, Throwable t) {
+            public void onFailure(Call<Result> call, Throwable t) {
                 dismissProgressIndicator();
             }
         });
@@ -105,7 +97,7 @@ public class AddAddressPresenter implements AddAddressPresenterInterface {
             public void onResponse(Call<AddressSavedResponse> call, Response<AddressSavedResponse> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
-                    addAddressViewInterface.addressAddedResult(response.body());
+//                    addAddressViewInterface.addressAddedResult(response.body());
                 }
             }
 

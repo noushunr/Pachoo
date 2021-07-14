@@ -4,9 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -15,6 +18,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,13 +29,20 @@ import com.highstreets.user.adapters.ProductListAdapter;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
+import com.highstreets.user.models.CartResponse;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
+import com.highstreets.user.models.ProductResult;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.base.BaseActivity;
+import com.highstreets.user.ui.cart.CartActivity;
+import com.highstreets.user.ui.custom.CountDrawable;
 import com.highstreets.user.ui.main.HomeMainActivity;
+import com.highstreets.user.ui.main.home.HomeFragment;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 import com.highstreets.user.ui.review_booking.ReviewBookingActivity;
+import com.highstreets.user.ui.search.SearchActivity;
 import com.highstreets.user.ui.shop_details.ShopImagesDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
@@ -39,13 +50,16 @@ import com.highstreets.user.utils.Constants;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.highstreets.user.utils.Constants.SUBCATEGORY_ID;
+
 public class ShopProductsActivity extends BaseActivity implements
         View.OnClickListener,
         ShopProductsViewInterface,
         OfferDetailAdapterCallback {
 
     private RecyclerView rvOfferDetails;
-    private RecyclerView.LayoutManager layoutManager;
+    private TextView tvNoData;
+    private LinearLayoutManager layoutManager;
     private ImageView image_one;
     private ImageView image_second;
     private CardView cvImageSecond;
@@ -67,7 +81,7 @@ public class ShopProductsActivity extends BaseActivity implements
     private LinearLayout llShowImages, llSecondImage, llviewMore;
     private RelativeLayout rlThirdImage;
     private ShopImagesDialogFragment shopImagesDialogFragment;
-    private ArrayList<Offer> offersAddedToBuy;
+    private ArrayList<Success> offersAddedToBuy;
     private String USER_ID, LATITUDE, LONGITUDE;
     private double mTotalPrice = 0;
     private String TOTAL;
@@ -76,6 +90,8 @@ public class ShopProductsActivity extends BaseActivity implements
     private ShopProductsPresenterInterface shopProductsPresenterInterface;
     private ProductListAdapter viewSingleDealAdapter;
     private Menu menu;
+    private Menu defaultMenu;
+    private String categoryId;
 
     public static Intent getActivityIntent(Context context) {
         return new Intent(context, ShopProductsActivity.class);
@@ -85,6 +101,7 @@ public class ShopProductsActivity extends BaseActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        categoryId = getIntent().getStringExtra(SUBCATEGORY_ID);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         initView();
 
@@ -92,39 +109,55 @@ public class ShopProductsActivity extends BaseActivity implements
         USER_ID = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         LATITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE, "");
         LONGITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LONGITUDE, "");
-
-        String type = getIntent().getStringExtra(Constants.OFFER_DETAIL_TYPE);
-        if (type != null) {
-            String merchantId = getIntent().getStringExtra(Constants.MERCHANT_ID);
-
-            if (type.equals(Constants.OFFER_TYPE_SINGLE)) {
-                String offerId = getIntent().getStringExtra(Constants.OFFER_ID);
-                if (!LATITUDE.equals("") && !LONGITUDE.equals("")) {
-                    shopProductsPresenterInterface.getOfferDetails(merchantId, offerId, USER_ID, LATITUDE, LONGITUDE);
-                } else {
-                    shopProductsPresenterInterface.getOfferDetails(merchantId, offerId, USER_ID, "-1", "-1");
-                }
-            } else {
-                if (!LATITUDE.equals("") && !LONGITUDE.equals("")) {
-                    shopProductsPresenterInterface.getAllOfferDetails(merchantId, USER_ID, LATITUDE, LONGITUDE);
-                } else {
-                    shopProductsPresenterInterface.getAllOfferDetails(merchantId, USER_ID, "-1", "-1");
-                }
-            }
-        } else {
-            Intent appLinkIntent = getIntent();
-            Uri appLinkData = appLinkIntent.getData();
-            String LINK = appLinkData.toString();
-            String[] parts = LINK.split("=");
-            String merchantID = parts[1];
-            String[] merchant = merchantID.split("&");
-            String merchantId = merchant[0];
-            String offerId = parts[2];
-
-            shopProductsPresenterInterface.getOfferDetails(merchantId, offerId, "-1", "-1", "-1");
-        }
+        shopProductsPresenterInterface.getAllProducts(SharedPrefs.getString(SharedPrefs.Keys.MERCHANT_ID, ""),categoryId);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.home_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.navigation_searching);
+        if (getSupportFragmentManager().findFragmentById(R.id.flContainer) instanceof HomeFragment)
+            menuItem.setVisible(true);
+        else
+            menuItem.setVisible(false);
+        defaultMenu = menu;
+        if (SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0)>0){
+            setCount(this, SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0), defaultMenu);
+        }
+        return true;
+    }
+    public void setCount(Context context, int count, Menu menu) {
+        MenuItem menuItem = menu.findItem(R.id.navigation_cart);
+        LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
+
+        CountDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.ic_group_count);
+        if (reuse != null && reuse instanceof CountDrawable) {
+            badge = (CountDrawable) reuse;
+        } else {
+            badge = new CountDrawable(context);
+        }
+
+        badge.setCount(String.valueOf(count));
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.ic_group_count, badge);
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.navigation_searching: {
+                startActivity(new Intent(ShopProductsActivity.this, SearchActivity.class));
+                break;
+            }
+            case R.id.navigation_cart: {
+                startActivity(CartActivity.start(this));
+                break;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
     @Override
     protected boolean setToolbar() {
         return true;
@@ -168,7 +201,9 @@ public class ShopProductsActivity extends BaseActivity implements
         btnBookOffer = findViewById(R.id.btnBookOffer);
 
         rvOfferDetails = findViewById(R.id.rvOfferDetails);
-        layoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        tvNoData = findViewById(R.id.txt_no_data);
+        layoutManager = new LinearLayoutManager(this);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         rvOfferDetails.setLayoutManager(layoutManager);
         rvOfferDetails.setHasFixedSize(false);
 
@@ -184,9 +219,9 @@ public class ShopProductsActivity extends BaseActivity implements
                 if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
                     toLogin();
                 } else {
-                    shopProductsPresenterInterface.addToCart(
-                            SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""),
-                            offersAddedToBuy);
+//                    shopProductsPresenterInterface.addToCart(
+//                            SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""),
+//                            offersAddedToBuy);
                 }
                 break;
             }
@@ -196,7 +231,7 @@ public class ShopProductsActivity extends BaseActivity implements
                 } else {
                     Intent reviewBookingIntent = ReviewBookingActivity.start(this);
                     reviewBookingIntent.putExtra(Constants.SHOP_NAME, mShopName);
-                    reviewBookingIntent.putParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY, offersAddedToBuy);
+//                    reviewBookingIntent.putParcelableArrayListExtra(Constants.OFFERS_ADDED_TO_BUY, offersAddedToBuy);
                     startActivity(reviewBookingIntent);
                 }
                 break;
@@ -229,11 +264,15 @@ public class ShopProductsActivity extends BaseActivity implements
     @Override
     public void onResponseFailed(String message) {
         CommonUtils.showToast(this, message);
+        tvNoData.setVisibility(View.VISIBLE);
+        rvOfferDetails.setVisibility(View.GONE);
     }
 
     @Override
     public void onServerError(String message) {
         CommonUtils.showToast(this, message);
+        tvNoData.setVisibility(View.VISIBLE);
+        rvOfferDetails.setVisibility(View.GONE);
     }
 
     @Override
@@ -252,64 +291,25 @@ public class ShopProductsActivity extends BaseActivity implements
     }
 
     @Override
-    public void setOfferDetail(OfferDetail offerDetail) {
-        String km = offerDetail.getKms() + " miles";
-        mShopName = offerDetail.getBusinessName();
-        SHOP_CALL = offerDetail.getMobile();
-        tvToolbarText.setText(offerDetail.getBusinessName());
-        txt_shop_name.setText(offerDetail.getBusinessName());
-        String location = offerDetail.getCityName() + "," + offerDetail.getDistrictName();
-        txt_location.setText(location);
-        txt_rating.setText(offerDetail.getRatings());
-        txt_distance.setText(km);
-        String favCount = offerDetail.getFavCount() + " Fav";
-        txt_fav_count.setText(favCount);
-        if (offerDetail.getImages().size() >= 1) {
-            Glide.with(this)
-                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(ApiClient.MERCHANTS_IMAGE_URL + offerDetail.getImages().get(0).getImages())
-                    .into(image_one);
+    public void setProductList(List<Success> productList) {
+
+        if (productList!=null && productList.size()>0){
+            tvNoData.setVisibility(View.GONE);
+            rvOfferDetails.setVisibility(View.VISIBLE);
+            viewSingleDealAdapter = new ProductListAdapter(this, productList);
+            rvOfferDetails.setAdapter(viewSingleDealAdapter);
+//            shopImagesDialogFragment = ShopImagesDialogFragment.newInstance(offerDetail.getImages());
+        }else {
+            tvNoData.setVisibility(View.VISIBLE);
+            rvOfferDetails.setVisibility(View.GONE);
         }
 
-        if (offerDetail.getImages().size() > 1) {
-            cvImageSecond.setVisibility(View.VISIBLE);
-            Glide.with(this)
-                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(ApiClient.MERCHANTS_IMAGE_URL + offerDetail.getImages().get(1).getImages())
-                    .into(image_second);
-        } else {
-            cvImageSecond.setVisibility(View.INVISIBLE);
-        }
-        if (offerDetail.getImages().size() > 2) {
-            rlThirdImage.setVisibility(View.VISIBLE);
-            Glide.with(this)
-                    .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_square_large))
-                    .load(ApiClient.MERCHANTS_IMAGE_URL + offerDetail.getImages().get(2).getImages())
-                    .into(image_third);
-        } else {
-            rlThirdImage.setVisibility(View.INVISIBLE);
-        }
-
-        if (offerDetail.getImages().size() > 3) {
-            int count = offerDetail.getImages().size() - 3;
-            String countStr = "+" + count + " Photos";
-            tvPhotoCount.setText(countStr);
-        } else {
-            llviewMore.setVisibility(View.GONE);
-        }
-
-        viewSingleDealAdapter = new ProductListAdapter(this, offerDetail.getOffers(), offerDetail.getTiming());
-        rvOfferDetails.setAdapter(viewSingleDealAdapter);
-        shopImagesDialogFragment = ShopImagesDialogFragment.newInstance(offerDetail.getImages());
     }
 
     @Override
-    public void setAddedToCartSuccess(AddToCartResponse addToCartResponse) {
-        SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, String.valueOf(addToCartResponse.getCartCount()));
-        CommonUtils.showToast(this, addToCartResponse.getMessage());
-        Intent toHomeIntent = HomeMainActivity.start(this);
-        toHomeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(toHomeIntent);
+    public void setAddedToCartSuccess(ProductResult addToCartResponse) {
+        CommonUtils.showToast(this, "Item Added to cart");
+
     }
 
     @Override
@@ -334,38 +334,35 @@ public class ShopProductsActivity extends BaseActivity implements
     }
 
     @Override
-    public void onClick(List<Offer> offerList) {
-        int itemsWithCount = 0;
-        offersAddedToBuy = new ArrayList<>();
-        for (Offer offer : offerList) {
-            if (offer.getCount() > 0) {
-                itemsWithCount++;
-                offersAddedToBuy.add(offer);
-            }
-        }
-        for (Offer offer : offersAddedToBuy) {
-
-            double noOf = offer.getCount();
-            int validFor = Integer.parseInt(offer.getValidFor());
-            if (noOf <= validFor) {
-                double price = Double.parseDouble(offer.getOfferPrice());
-                double totalPrice = noOf * price;
-                mTotalPrice = mTotalPrice + totalPrice;
-                TOTAL = String.format("%.2f", mTotalPrice);
-            }
+    public void onClick(Success offerList) {
 
 
-        }
-        if (itemsWithCount > 0) {
-            cardBooking.setVisibility(View.VISIBLE);
-        } else {
-            cardBooking.setVisibility(View.GONE);
-        }
-        String totalStr = getString(R.string.pound_symbol) + TOTAL;
-        mCost.setText(totalStr);
-        String noStr = itemsWithCount + " Items in cart";
-        number_of_item.setText(noStr);
-        mTotalPrice = 0;
+        invalidateOptionsMenu();
+        shopProductsPresenterInterface.addToCart(String.valueOf(offerList.getShopProductid()),String.valueOf(offerList.getProductId()),String.valueOf(offerList.getCount()));
+//        offersAddedToBuy = new ArrayList<>();
+//        for (Success success : offerList) {
+//            if (success.getCount() > 0) {
+//                itemsWithCount++;
+//                offersAddedToBuy.add(success);
+//            }
+//        }
+//        for (Success success : offersAddedToBuy) {
+//            double noOf = success.getCount();
+//            double price = Double.parseDouble("50.0");
+//            double totalPrice = noOf * price;
+//            mTotalPrice = mTotalPrice + totalPrice;
+//            TOTAL = String.format("%.2f", mTotalPrice);
+//        }
+//        if (itemsWithCount > 0) {
+//            cardBooking.setVisibility(View.VISIBLE);
+//        } else {
+//            cardBooking.setVisibility(View.GONE);
+//        }
+//        String totalStr = getString(R.string.pound_symbol) + TOTAL;
+//        mCost.setText(totalStr);
+//        String noStr = itemsWithCount + " Items in cart";
+//        number_of_item.setText(noStr);
+//        mTotalPrice = 0;
     }
 
 }

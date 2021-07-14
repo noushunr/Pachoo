@@ -4,7 +4,7 @@ import com.highstreets.user.common.CommonPresenterInterface;
 
 public interface SubCategoryPresenterInterface extends CommonPresenterInterface {
 
-    void getSubCategories(String category_id);
+    void getSubCategories(String category_id, String shopId);
 
     void getShopLists(String city, String category_id, String sub_category_id, String latitude, String longitude);
 

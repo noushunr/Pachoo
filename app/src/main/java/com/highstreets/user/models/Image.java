@@ -52,6 +52,9 @@ public class Image implements Parcelable, Serializable {
         status = in.readString();
         ip = in.readString();
     }
+    public Image(){
+
+    }
 
     public String getId() {
         return id;

@@ -12,6 +12,8 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.text.Html;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -123,16 +125,34 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
             }
         } else {
             Intent appLinkIntent = getIntent();
-            Uri appLinkData = appLinkIntent.getData();
-            String LINK = appLinkData.toString();
-            String[] parts = LINK.split("=");
-            mMerchantId = parts[1];
+            if (appLinkIntent!=null){
+                Uri appLinkData = appLinkIntent.getData();
+                if (appLinkData!=null){
+                    String LINK = appLinkData.toString();
+                    String[] parts = LINK.split("=");
+                    mMerchantId = parts[1];
 
-            if (!LONGITUDE.equals("") && !LATITUDE.equals("") && !CITY_NAME.equals("")) {
-                shopFragmentPresenter.getShopDetails(mMerchantId, USER_ID, LONGITUDE, LATITUDE, CITY_NAME);
-            } else {
-                shopFragmentPresenter.getShopDetails(mMerchantId, USER_ID, "-1", "-1", "-1");
+                    if (!LONGITUDE.equals("") && !LATITUDE.equals("") && !CITY_NAME.equals("")) {
+                        shopFragmentPresenter.getShopDetails(mMerchantId, USER_ID, LONGITUDE, LATITUDE, CITY_NAME);
+                    } else {
+                        shopFragmentPresenter.getShopDetails(mMerchantId, USER_ID, "-1", "-1", "-1");
+                    }
+                }else {
+                    if (!LONGITUDE.equals("") && !LATITUDE.equals("") && !CITY_NAME.equals("")) {
+                        shopFragmentPresenter.getShopDetails("0", USER_ID, LONGITUDE, LATITUDE, CITY_NAME);
+                    } else {
+                        shopFragmentPresenter.getShopDetails("0", USER_ID, "-1", "-1", "-1");
+                    }
+                }
+
+            }else {
+                if (!LONGITUDE.equals("") && !LATITUDE.equals("") && !CITY_NAME.equals("")) {
+                    shopFragmentPresenter.getShopDetails("0", USER_ID, LONGITUDE, LATITUDE, CITY_NAME);
+                } else {
+                    shopFragmentPresenter.getShopDetails("0", USER_ID, "-1", "-1", "-1");
+                }
             }
+
         }
 
     }
@@ -262,22 +282,22 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
 
         SHOP_LAT = Double.parseDouble(shopDetail.getLatitude());
         SHOP_LONG = Double.parseDouble(shopDetail.getLongitude());
-        tvToolbarText.setText(shopDetail.getBusinessName());
-        tvShopName.setText(shopDetail.getBusinessName());
+        tvToolbarText.setText(String.valueOf(Html.fromHtml(shopDetail.getBusinessName())));
+        tvShopName.setText(String.valueOf(Html.fromHtml(shopDetail.getBusinessName())));
         String location = shopDetail.getCityName() + "," + shopDetail.getDistrictName();
-        tvLocation.setText(location);
-        tvCategory.setText(shopDetail.getCategory());
-        tvRating.setText(shopDetail.getRatings());
-        tvDistance.setText(miles);
+        tvLocation.setText(String.valueOf(Html.fromHtml(location)));
+        tvCategory.setText(String.valueOf(Html.fromHtml(shopDetail.getCategory())));
+        tvRating.setText(String.valueOf(Html.fromHtml(shopDetail.getRatings())));
+        tvDistance.setText(String.valueOf(Html.fromHtml(miles)));
         String favCount = shopDetail.getFavCount() + " Fav";
-        tvFavCount.setText(favCount);
+        tvFavCount.setText(String.valueOf(Html.fromHtml(favCount)));
         SHOP_CALL = shopDetail.getMobile();
-        tvOfferPercentage.setText(offer_percentage);
+        tvOfferPercentage.setText(String.valueOf(Html.fromHtml(offer_percentage)));
         if (shopDetail.getOfferPercentage() == null) {
             tvOfferPercentage.setText("Upto 0" + "%");
         }
         String dealCount = "+" + shopDetail.getDealsCount() + " more offers";
-        tvDealsCount.setText(dealCount);
+        tvDealsCount.setText(String.valueOf(Html.fromHtml(dealCount)));
         tvTime.setText(shopDetail.getTiming());
         String Address = shopDetail.getCityName() + "," + shopDetail.getDistrictName() + "," + shopDetail.getStateName();
         txt_address_value.setText(Address);
@@ -450,7 +470,7 @@ public class ShopActivity extends BaseActivity implements ShopViewInterface, Vie
         Intent toLoginIntent = LoginActivity.start(this);
         toLoginIntent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
         startActivity(toLoginIntent);
-        finishAffinity();
+//        finishAffinity();
     }
 
 

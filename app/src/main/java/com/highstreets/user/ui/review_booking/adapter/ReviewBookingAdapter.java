@@ -1,6 +1,7 @@
 package com.highstreets.user.ui.review_booking.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.ui.cart.model.Product;
 
 import java.util.List;
@@ -20,9 +22,9 @@ import java.util.List;
 public class ReviewBookingAdapter extends RecyclerView.Adapter<ReviewBookingAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Product> productList;
+    private List<Success> productList;
 
-    public ReviewBookingAdapter(Context mContext, List<Product> productList) {
+    public ReviewBookingAdapter(Context mContext, List<Success> productList) {
         this.mContext = mContext;
         this.productList = productList;
     }
@@ -36,18 +38,18 @@ public class ReviewBookingAdapter extends RecyclerView.Adapter<ReviewBookingAdap
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        Product product = productList.get(i);
+        Success product = productList.get(i);
 
 //        int COUNT = product.getCount();
 //        double price = Double.parseDouble(product.getOfferPrice());
 //        double Total_Rate = COUNT * price;
 
-        String TOTAL = mContext.getString(R.string.pound_symbol) + String.format("%.2f", product.getTotalPrice());
-        myViewHolder.tvDealName.setText(product.getTitle());
+        String TOTAL = product.getQuantity() + " * "+mContext.getString(R.string.pound_symbol) + product.getSellingPrice();
+        myViewHolder.tvDealName.setText(String.valueOf(Html.fromHtml(product.getProductName())));
         myViewHolder.tvDealDesc.setText(product.getDescription());
         myViewHolder.tvPrice.setText(TOTAL);
         Glide.with(mContext)
-                .load(ApiClient.OFFERS_IMAGE_URL + product.getImage())
+                .load( product.getImage())
                 .into(myViewHolder.imThumbnail);
     }
 

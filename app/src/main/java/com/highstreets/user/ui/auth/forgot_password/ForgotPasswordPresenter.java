@@ -5,6 +5,7 @@ import android.util.Log;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.models.ProductResult;
 import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
@@ -22,19 +23,21 @@ public class ForgotPasswordPresenter implements ForgotPasswordPresenterInterface
     @Override
     public void forgotPassword(String email) {
         showProgressIndicator();
-        ApiClient.getApiInterface().forgotpassword(email).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().forgotpassword(email).enqueue(new Callback<ProductResult>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
                 if (response.isSuccessful()) {
                     Log.d("Response :", response.toString());
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            String message = jsonObject.get("message").getAsString();
-                            String id = jsonObject.get("register_id").getAsString();
+                        ProductResult jsonObject = response.body();
+                        if (jsonObject.getSuccess()==1) {
+                            String message = jsonObject.getMessage();
+                            String id= "";
+                            if (jsonObject.getData()!=null)
+                                 id = jsonObject.getData().getSessionId();
                             forgotPasswordViewInterface.onResetLinkSent(id, message);
                         } else {
-                            forgotPasswordViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
+                            forgotPasswordViewInterface.failedToSignIn(jsonObject.getMessage());
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
@@ -47,7 +50,7 @@ public class ForgotPasswordPresenter implements ForgotPasswordPresenterInterface
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ProductResult> call, Throwable t) {
                 dismissProgressIndicator();
                 forgotPasswordViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }

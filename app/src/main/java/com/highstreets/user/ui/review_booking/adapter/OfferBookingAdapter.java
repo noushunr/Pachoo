@@ -1,6 +1,7 @@
 package com.highstreets.user.ui.review_booking.adapter;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,7 @@ public class OfferBookingAdapter extends RecyclerView.Adapter<OfferBookingAdapte
         double Total_Rate = COUNT * price;
 
         String TOTAL = context.getString(R.string.pound_symbol) + String.format("%.2f", Total_Rate);
-        holder.tvDealName.setText(offer.getName());
+        holder.tvDealName.setText(String.valueOf(Html.fromHtml(offer.getName())));
         holder.tvDealDesc.setText(offer.getDescription());
         holder.tvPrice.setText(TOTAL);
         Glide.with(context)

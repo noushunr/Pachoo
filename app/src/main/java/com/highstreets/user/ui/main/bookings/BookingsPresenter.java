@@ -1,6 +1,7 @@
 package com.highstreets.user.ui.main.bookings;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -9,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.BookedOffers;
+import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
 
@@ -58,6 +60,30 @@ public class BookingsPresenter implements BookingsPresenterInterface {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                dismissProgressIndicator();
+                if (CommonUtils.isNetworkAvailable(context)) {
+                    bookingsViewInterface.onResponseFailed(Constants.ERROR);
+                } else {
+                    bookingsViewInterface.noInternet();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void deleteBookings(String userId, String bookingId) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().deleteBooking(userId, bookingId).enqueue(new Callback<DeleteCartItemResponse>() {
+            @Override
+            public void onResponse(Call<DeleteCartItemResponse> call, Response<DeleteCartItemResponse> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()){
+                    bookingsViewInterface.deleteResponse(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DeleteCartItemResponse> call, Throwable t) {
                 dismissProgressIndicator();
                 if (CommonUtils.isNetworkAvailable(context)) {
                     bookingsViewInterface.onResponseFailed(Constants.ERROR);

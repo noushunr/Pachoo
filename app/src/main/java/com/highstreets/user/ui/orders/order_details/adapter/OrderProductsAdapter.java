@@ -2,6 +2,7 @@ package com.highstreets.user.ui.orders.order_details.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,18 +44,26 @@ public class OrderProductsAdapter extends RecyclerView.Adapter<OrderProductsAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
         Product product = productList.get(position);
-        holder.tvProductName.setText(product.getName());
-        int quantity = (int) Double.parseDouble(product.getQuantity());
-        holder.tvQuantity.setText(String.valueOf(quantity));
-        holder.tvPrice.setText(context.getString(R.string.pound_symbol) + product.getTotal());
+        holder.tvProductName.setText(String.valueOf(Html.fromHtml(product.getProductName())));
+        if (product.getBoxQuantity()!=null && product.getUnit()!=null){
+            holder.tvQuantity.setVisibility(View.VISIBLE);
+            holder.tvQuantityText.setVisibility(View.VISIBLE);
+            int quantity = (int) Double.parseDouble(product.getBoxQuantity());
+            holder.tvQuantity.setText(String.valueOf(quantity)+" "+product.getUnit());
+        }else {
+            holder.tvQuantity.setVisibility(View.GONE);
+            holder.tvQuantityText.setVisibility(View.GONE);
+        }
+
+        holder.tvPrice.setText(context.getString(R.string.pound_symbol) + product.getOfferPrice());
         Glide.with(context)
-                .load(ApiClient.OFFERS_IMAGE_URL + product.getFeaturedImage())
+                .load(product.getImage())
                 .into(holder.ivImage);
 
         holder.itemView.setOnClickListener(view -> {
-            Intent intent = ProductDetailsActivity.start(context);
-            intent.putExtra(Constants.PRODUCT_ID, product.getProductId());
-            context.startActivity(intent);
+//            Intent intent = ProductDetailsActivity.start(context);
+//            intent.putExtra(Constants.PRODUCT_ID, product.getProductId());
+//            context.startActivity(intent);
         });
     }
 
@@ -72,6 +81,8 @@ public class OrderProductsAdapter extends RecyclerView.Adapter<OrderProductsAdap
         TextView tvQuantity;
         @BindView(R.id.tvPrice)
         TextView tvPrice;
+        @BindView(R.id.tvQuantityText)
+        TextView tvQuantityText;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);

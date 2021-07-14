@@ -7,19 +7,22 @@ import com.highstreets.user.models.Category;
 import com.highstreets.user.models.Deal;
 import com.highstreets.user.models.MiddleBanner;
 import com.highstreets.user.models.MostViewedShop;
+import com.highstreets.user.models.ProductResult;
 import com.highstreets.user.models.RecentlyBookedShop;
 import com.highstreets.user.models.Slider;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.models.TopBanner;
+import com.highstreets.user.ui.main.categories.sub_categories.Data;
 
 import java.util.List;
 
 public interface HomeViewInterface extends CommonViewInterface {
 
-    void setCategoryList(List<Category> categoryList);
+    void setCategoryList(Data categoryList);
 
     void setSliderList(List<Slider> sliderList);
 
-    void setDealList(List<Deal> dealList);
+    void setShopList(List<Success> shopList);
 
     void setTopBannerList(List<TopBanner> topBannerList);
 

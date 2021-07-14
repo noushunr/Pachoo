@@ -4,6 +4,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.Login;
+import com.highstreets.user.models.ProductResult;
 import com.highstreets.user.utils.Constants;
 
 import retrofit2.Call;
@@ -19,33 +21,58 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
     }
 
     @Override
-    public void userLogin(String email, String password) {
+    public void userLogin(String email, String password,String token) {
         showProgressIndicator();
-        ApiClient.getApiInterface().login(email, password).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().login(email, password,token).enqueue(new Callback<ProductResult>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
-                    JsonObject jsonObject = response.body();
-                    if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                        SharedPrefs.setString(SharedPrefs.Keys.USER_ID, jsonObject.get("user_id").getAsString());
-                        SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, jsonObject.get("firstname").getAsString());
-                        SharedPrefs.setString(SharedPrefs.Keys.USER_LAST_NAME, jsonObject.get("lastname").getAsString());
-                        SharedPrefs.setString(SharedPrefs.Keys.USER_EMAIL, jsonObject.get("email_id").getAsString());
-                        SharedPrefs.setString(SharedPrefs.Keys.USER_MOBILE, jsonObject.get("mobile").getAsString());
-                        SharedPrefs.setString(SharedPrefs.Keys.USER_GENDER, jsonObject.get("gender").getAsString());
-                        loginRegisterViewInterface.onSighInSuccess("Login Success");
+                    ProductResult jsonObject = response.body();
+                    if (jsonObject.getData()!=null) {
+                        SharedPrefs.setString(SharedPrefs.Keys.TOKEN, jsonObject.getData().getToken());
+
+                        loginRegisterViewInterface.onSighInSuccess(jsonObject.getMessage());
                     } else {
-                        loginRegisterViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
+                        loginRegisterViewInterface.failedToSignIn(jsonObject.getMessage());
                     }
 
                 } else {
-                    loginRegisterViewInterface.onResponseFailed("Failed");
+                    loginRegisterViewInterface.onResponseFailed("Login Failed");
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ProductResult> call, Throwable t) {
+                dismissProgressIndicator();
+                loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
+            }
+        });
+    }
+
+    @Override
+    public void otpVerification(String contactNo,String otp, String sessionId) {
+        showProgressIndicator();
+        ApiClient.getApiInterface().otpVerification(contactNo,otp, sessionId).enqueue(new Callback<ProductResult>() {
+            @Override
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
+                dismissProgressIndicator();
+                if (response.isSuccessful()) {
+                    ProductResult jsonObject = response.body();
+                    if (jsonObject.getSuccess()==1) {
+//                        SharedPrefs.setString(SharedPrefs.Keys.TOKEN, jsonObject.getData().getToken());
+                        loginRegisterViewInterface.onOtpVerified(jsonObject.getMessage());
+                    } else {
+                        loginRegisterViewInterface.failedToSignIn(jsonObject.getMessage());
+                    }
+
+                } else {
+                    loginRegisterViewInterface.onResponseFailed("Error");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ProductResult> call, Throwable t) {
                 dismissProgressIndicator();
                 loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }
@@ -55,32 +82,33 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
 
     @Override
     public void userRegister(String firstName,
-                             String lastName,
                              String emailId,
                              String password,
                              String confirmPassword,
+                             String gender,
                              String mobile,
-                             String gender) {
+                             String token) {
         showProgressIndicator();
         ApiClient.getApiInterface().register(
                 firstName,
-                lastName,
                 emailId,
                 password,
                 confirmPassword,
+                gender,
                 mobile,
-                gender).enqueue(new Callback<JsonObject>() {
+                token).enqueue(new Callback<ProductResult>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            SharedPrefs.setString(SharedPrefs.Keys.USER_ID, jsonObject.get("register_id").getAsString());
-                            loginRegisterViewInterface.onSighInSuccess("Login Successfully");
+                        ProductResult jsonObject = response.body();
+                        if (jsonObject.getData()!=null) {
+                            SharedPrefs.setString(SharedPrefs.Keys.TOKEN, jsonObject.getData().getToken());
+                            SharedPrefs.setString(SharedPrefs.Keys.SESSION_ID, jsonObject.getData().getSessionId());
+                            loginRegisterViewInterface.onSighInSuccess(jsonObject.getMessage());
                         } else {
-                            loginRegisterViewInterface.failedToSignIn(jsonObject.get(Constants.MESSAGE).getAsString());
+                            loginRegisterViewInterface.failedToSignIn(jsonObject.getMessage());
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
@@ -92,7 +120,7 @@ public class LoginRegisterPresenter implements LoginRegisterPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ProductResult> call, Throwable t) {
                 dismissProgressIndicator();
                 loginRegisterViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }

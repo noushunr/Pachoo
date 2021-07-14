@@ -51,7 +51,9 @@ public class MakePaymentResponse {
     @SerializedName("resultCodes")
     @Expose
     private ResultCodes resultCodes;
-
+    @SerializedName("status")
+    @Expose
+    private String status;
     public String getOrderCode() {
         return orderCode;
     }
@@ -172,4 +174,11 @@ public class MakePaymentResponse {
         this.resultCodes = resultCodes;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
 }

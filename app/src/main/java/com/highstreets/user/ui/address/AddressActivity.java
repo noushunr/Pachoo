@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.ui.address.adapter.AddressAdapter;
 import com.highstreets.user.ui.address.add_address.AddAddressActivity;
 import com.highstreets.user.ui.address.model.Address;
@@ -29,8 +30,8 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
 
     private AddressPresenterInterface addressPresenterInterface;
     private String userId;
-    private List<Address> addressList;
-    private Address selectedAddress;
+    private List<Success> addressList;
+    private Success selectedAddress;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolbarText;
@@ -69,7 +70,7 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
         btnContinue.setOnClickListener(view -> {
             if (checkSelection()){
                 Intent placeOrderIntent = PlaceOrderActivity.start(this);
-                placeOrderIntent.putExtra(Constants.ADDRESS_ID, selectedAddress.getAddressId());
+                placeOrderIntent.putExtra(Constants.ADDRESS_ID, selectedAddress.getDeliveryAddressId());
                 startActivity(placeOrderIntent);
             } else {
                 CommonUtils.showToast(this, getString(R.string.select_an_address));
@@ -79,7 +80,7 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
 
     private boolean checkSelection() {
         boolean isSelected = false;
-        for (Address address : addressList){
+        for (Success address : addressList){
             if (address.isSelected()) {
                 this.selectedAddress = address;
                 isSelected = true;
@@ -129,7 +130,7 @@ public class AddressActivity extends BaseActivity implements AddressViewInterfac
     }
 
     @Override
-    public void setAllAddress(List<Address> addressList) {
+    public void setAllAddress(List<Success> addressList) {
         this.addressList = addressList;
         if (addressList != null && addressList.size() > 0){
             rvAddresses.setAdapter(new AddressAdapter(addressList));

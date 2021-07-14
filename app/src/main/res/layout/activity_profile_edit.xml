@@ -26,6 +26,7 @@
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:layout_gravity="center"
+                android:src="@drawable/user_profile"
                 android:scaleType="centerCrop" />
 
             <ImageView
@@ -125,6 +126,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/edit_text_horizontal_margin"
+                        android:visibility="gone"
                         android:textColorHint="@color/txtcolor">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -191,6 +193,7 @@
                         android:layout_marginRight="15dp"
                         android:background="@drawable/update"
                         android:text="Change Password"
+                        android:visibility="gone"
                         android:textAllCaps="true"
                         android:textColor="@color/text_color_black"
                         android:textSize="12sp"

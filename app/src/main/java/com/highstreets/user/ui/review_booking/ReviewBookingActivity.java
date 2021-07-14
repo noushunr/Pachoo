@@ -122,9 +122,9 @@ public class ReviewBookingActivity extends BaseActivity implements
     @Override
     public void setCartData(CartData cartData) {
         productList = cartData.getProductList();
-        rvReviewBooking.setAdapter(new ReviewBookingAdapter(this, productList));
-        String grandTotal = getString(R.string.pound_symbol) +cartData.getGrandTotal();
-        tvTotalRate.setText(grandTotal);
+//        rvReviewBooking.setAdapter(new ReviewBookingAdapter(this, productList));
+//        String grandTotal = getString(R.string.pound_symbol) +cartData.getGrandTotal();
+//        tvTotalRate.setText(grandTotal);
     }
 
     @Override

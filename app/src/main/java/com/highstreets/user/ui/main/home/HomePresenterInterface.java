@@ -4,5 +4,5 @@ import com.highstreets.user.common.CommonPresenterInterface;
 
 public interface HomePresenterInterface extends CommonPresenterInterface {
 
-    void getHomeDetails(String cities);
+    void getHomeDetails(String latitude,String longitude);
 }

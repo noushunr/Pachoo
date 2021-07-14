@@ -28,6 +28,7 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.ProductResult;
 import com.highstreets.user.models.ProfileData;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.change_password.ChangePasswordActivity;
@@ -120,7 +121,7 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
         SharedPrefs.initializePreferenceManager(getApplicationContext());
         REGISTER_ID_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         FIRST_NAME_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_FIRST_NAME, "");
-        LAST_NAME_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_LAST_NAME, "");
+
         EMAIL_ID_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_EMAIL, "");
         MOBILE_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_MOBILE, "");
         IMAGE_HOLDER = SharedPrefs.getString(SharedPrefs.Keys.USER_IMAGE, "");
@@ -190,7 +191,7 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.profile_pic:
-                SelectImage();
+//                SelectImage();
                 break;
             case R.id.button_edit:
                 mLayout.setVisibility(View.VISIBLE);
@@ -263,17 +264,19 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
         if (TextUtils.isEmpty(edit_first_name.getText())) {
             edit_first_name.setError("First Name Is Not Entered");
             edit_first_name.requestFocus();
-        } else if (TextUtils.isEmpty(edit_last_name.getText())) {
-            edit_last_name.setError("Last Name Is Not Entered");
-            edit_last_name.requestFocus();
-        } else if (TextUtils.isEmpty(edit_email.getText())) {
+        }
+//        else if (TextUtils.isEmpty(edit_last_name.getText())) {
+//            edit_last_name.setError("Last Name Is Not Entered");
+//            edit_last_name.requestFocus();
+//        }
+        else if (TextUtils.isEmpty(edit_email.getText())) {
             edit_email.setError("Email ID Is Not Entered");
             edit_email.requestFocus();
         } else if (TextUtils.isEmpty(edit_number.getText())) {
             edit_number.setError("Mobile Number Is Not Entered");
             edit_number.requestFocus();
         } else {
-            profilePresenter.updateProfile(REGISTER_ID_HOLDER, FIRST_NAME_HOLDER, LAST_NAME_HOLDER, EMAIL_ID_HOLDER, MOBILE_HOLDER, image);
+            profilePresenter.updateProfile("", edit_first_name.getText().toString(), LAST_NAME_HOLDER, edit_email.getText().toString(), edit_number.getText().toString(), image);
         }
     }
 
@@ -289,21 +292,31 @@ public class ProfileEditActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
-    public void onLoadingProfileSuccess(ProfileData ProfileData) {
-        mUsername.setText(ProfileData.getFirstname() + " " + ProfileData.getLastname());
-        mMobile.setText(ProfileData.getMobile());
-        mEmailID.setText(ProfileData.getEmailId());
-        Glide.with(this)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
-                .load(ApiClient.USERS_IMAGE_URL + ProfileData.getImage())
-                .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
-                .into(ProfilePic);
-        SharedPrefs.setString(SharedPrefs.Keys.USER_IMAGE, ProfileData.getImage());
-        edit_first_name.setText(ProfileData.getFirstname());
-        edit_last_name.setText(ProfileData.getLastname());
-        edit_email.setText(ProfileData.getEmailId());
-        edit_number.setText(ProfileData.getMobile());
-
+    public void onLoadingProfileSuccess(ProductResult ProfileData) {
+//        mUsername.setText(ProfileData.getFirstname() + " " + ProfileData.getLastname());
+//        mMobile.setText(ProfileData.getMobile());
+//        mEmailID.setText(ProfileData.getEmailId());
+//        Glide.with(this)
+//                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
+//                .load(ApiClient.USERS_IMAGE_URL + ProfileData.getImage())
+//                .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
+//                .into(ProfilePic);
+//        SharedPrefs.setString(SharedPrefs.Keys.USER_IMAGE, ProfileData.getImage());
+//        edit_first_name.setText(ProfileData.getFirstname());
+//        edit_last_name.setText(ProfileData.getLastname());
+//        edit_email.setText(ProfileData.getEmailId());
+//        edit_number.setText(ProfileData.getMobile());
+        if (ProfileData!=null && ProfileData.getData()!=null){
+            mUsername.setText(ProfileData.getData().getName());
+            mMobile.setText(ProfileData.getData().getContactNo());
+            mEmailID.setText(ProfileData.getData().getEmail());
+            edit_first_name.setText(ProfileData.getData().getName());
+            edit_number.setText(ProfileData.getData().getContactNo());
+            edit_email.setText(ProfileData.getData().getEmail());
+            LAST_NAME_HOLDER = ProfileData.getData().getGender();
+            SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, ProfileData.getData().getName());
+            SharedPrefs.setString(SharedPrefs.Keys.USER_LAST_NAME, "");
+        }
     }
 
     @Override

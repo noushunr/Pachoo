@@ -3,9 +3,10 @@ package com.highstreets.user.models.shop;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ShopBanner {
+public class ShopBanner implements Serializable {
 
     @SerializedName("id")
     @Expose
@@ -31,6 +32,17 @@ public class ShopBanner {
     @SerializedName("data")
     @Expose
     private List<Shop> data = null;
+    @SerializedName("merchant_id")
+    @Expose
+    private String merchantId;
+
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
 
     public String getId() {
         return id;

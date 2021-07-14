@@ -1,6 +1,11 @@
 package com.highstreets.user.api;
 
 import com.google.gson.JsonObject;
+import com.highstreets.user.models.Login;
+import com.highstreets.user.models.ProductDetails;
+import com.highstreets.user.models.ProductResult;
+import com.highstreets.user.models.Result;
+import com.highstreets.user.models.ShopsList;
 import com.highstreets.user.ui.address.add_address.model.AddressResponse;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
@@ -11,6 +16,8 @@ import com.highstreets.user.ui.address.model.AllAddressResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.ui.cart.product_details.model.ProductDetailsResponse;
+import com.highstreets.user.ui.main.categories.sub_categories.Shop;
+import com.highstreets.user.ui.main.categories.sub_categories.ShopList;
 import com.highstreets.user.ui.orders.model.OrdersResponse;
 import com.highstreets.user.ui.orders.order_details.model.OrderDetailsResponse;
 import com.highstreets.user.ui.place_order.model.FinalBalanceItem;
@@ -25,6 +32,7 @@ import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
@@ -33,20 +41,25 @@ import retrofit2.http.PartMap;
 public interface ApiInterface {
 
     @FormUrlEncoded
-    @POST("api/users/Users/loginByEmail/")
-    Call<JsonObject> login(@Field("email_id") String email,
-                           @Field("password") String password);
+    @POST("api/login")
+    Call<ProductResult> login(@Field("contact_no") String email,
+                              @Field("password") String password,
+                              @Field("device_token") String token);
 
     @FormUrlEncoded
-    @POST("api/users/Users/signUp/")
-    Call<JsonObject> register(@Field("firstname") String firstname,
-                              @Field("lastname") String lastname,
-                              @Field("email_id") String email,
-                              @Field("password") String password,
-                              @Field("password") String confirm_password,
-                              @Field("mobile") String mobile,
-                              @Field("gender") String gender);
-
+    @POST("api/register")
+    Call<ProductResult> register(@Field("name") String firstname,
+                                 @Field("email") String email,
+                                 @Field("password") String password,
+                                 @Field("c_password") String confirm_password,
+                                 @Field("gender") String gender,
+                                 @Field("contact_no") String mobile,
+                                 @Field("device_token") String token);
+    @FormUrlEncoded
+    @POST("api/otp_verification")
+    Call<ProductResult> otpVerification( @Field("contact_no") String mobile,
+                                        @Field("otp") String otp,
+                                        @Field("session_id") String sessionId);
     @FormUrlEncoded
     @POST("api/users/Users/loginwithsocialmedia/")
     Call<JsonObject> registerSocialMedia(@Field("type") String type,
@@ -56,9 +69,16 @@ public interface ApiInterface {
                                          @Field("pic") String profileImage);
 
     @FormUrlEncoded
-    @POST("api/users/Users/forgotPassword")
-    Call<JsonObject> forgotpassword(@Field("email_id") String email);
+    @POST("api/forgot_password")
+    Call<ProductResult> forgotpassword(@Field("contact_no") String email);
 
+    @FormUrlEncoded
+    @POST("api/reset_password")
+    Call<ProductResult> resetPassword(@Field("otp") String otp,
+                                   @Field("session_id") String sessionId,
+                                   @Field("contact_no") String contactNo,
+                                   @Field("new_password") String newPassword,
+                                   @Field("c_password") String confirmPassword);
     @FormUrlEncoded
     @POST("api/users/Users/verifyPasswordResetKey/")
     Call<JsonObject> verify_password(@Field("password_reset_key") String reset_key,
@@ -69,14 +89,17 @@ public interface ApiInterface {
     Call<JsonObject> reset_password(@Field("register_id") String register_id,
                                     @Field("password") String password);
 
-    @FormUrlEncoded
-    @POST("api/users/Users/getProfileDetails/")
-    Call<JsonObject> get_profile_details(@Field("register_id") String register_id);
 
-    @Multipart
-    @POST("api/users/Users/updateProfileDetails")
-    Call<JsonObject> update_profile(@PartMap Map<String, RequestBody> params,
-                                    @Part MultipartBody.Part images);
+    @POST("api/viewProfile")
+    Call<ProductResult> get_profile_details(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("api/editUserProfile")
+    Call<JsonObject> update_profile(@Header("Authorization") String token,
+                                    @Field("name") String firstname,
+                                    @Field("email") String email,
+                                    @Field("gender") String gender,
+                                    @Field("contact_no") String mobile);
 
     @FormUrlEncoded
     @POST("api/users/Users/changePassword/")
@@ -87,16 +110,56 @@ public interface ApiInterface {
     Call<JsonObject> get_notification();
 
     @FormUrlEncoded
-    @POST("api/users/Users/getHomePageDetails")
-    Call<JsonObject> get_home_details(@Field("city") String city_name);
+    @POST("api/categoriesList")
+    Call<Result> getCategoryList(@Field("shop_id") String shopId);
 
+    @FormUrlEncoded
+    @POST("api/shopList")
+    Call<Result> getShopList(@Field("latitude") String latitude,
+                             @Field("longitude") String longitude);
+
+    @POST("api/homeData")
+    Call<ProductResult> getHomeData(@Header("Authorization") String token);
 
     @GET("api/users/Users/getCities/")
     Call<JsonObject> get_cities();
 
     @FormUrlEncoded
-    @POST("api/users/Users/getSubcategoriesList/")
-    Call<JsonObject> get_sub_categories(@Field("category_id") String category_id);
+    @POST("api/categoriesList")
+    Call<Result> get_sub_categories(@Field("category_id") String category_id,
+                                    @Field("shop_id") String shopId);
+
+    @FormUrlEncoded
+    @POST("api/productListByShop")
+    Call<ProductResult> getProducts(@Header("Authorization") String token,
+                                    @Field("category_id") String category_id,
+                                    @Field("shop_id") String shopId);
+
+    @POST("api/todaySpecial")
+    Call<ProductResult> todaySpecial(@Header("Authorization") String token);
+
+    @POST("api/ourSpecial")
+    Call<ProductResult> ourSpecial(@Header("Authorization") String token);
+
+    @FormUrlEncoded
+    @POST("api/add_to_cart")
+    Call<ProductResult> addToCart(@Header("Authorization") String token,
+                                  @Field("quantity") String quantity,
+                                  @Field("shop_product_id") String shopId);
+
+    @FormUrlEncoded
+    @POST("api/add_wishes_to_cart")
+    Call<JsonObject> addWish(@Header("Authorization") String token,
+                                  @Field("wishes") String wish,
+                                  @Field("cart_id") String cartId);
+
+    @FormUrlEncoded
+    @POST("api/shopProductShow")
+    Call<ProductDetails> getProductDetails(@Header("Authorization") String token,
+                                           @Field("shop_product_id") String shopId);
+
+    @POST("api/cartShow")
+    Call<ProductResult> getCartItems(@Header("Authorization") String token);
 
     @FormUrlEncoded
     @POST("api/users/Users/getCoupons")
@@ -123,11 +186,11 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/getListShops")
-    Call<JsonObject> get_shop_list(@Field("city") String city,
-                                   @Field("category_id") String category_id,
-                                   @Field("sub_category_id") String sub_category_id,
-                                   @Field("latitude") String latitude,
-                                   @Field("longitude") String longitude);
+    Call<ShopList> get_shop_list(@Field("city") String city,
+                                 @Field("category_id") String category_id,
+                                 @Field("sub_category_id") String sub_category_id,
+                                 @Field("latitude") String latitude,
+                                 @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("api/users/Users/getShopsDetails")
@@ -166,7 +229,8 @@ public interface ApiInterface {
     Call<JsonObject> getAllOfferDetails(@Field("merchant_id") String merchant_id,
                                         @Field("user_id") String user_id,
                                         @Field("latitude") String latitude,
-                                        @Field("longitude") String longitude);
+                                        @Field("longitude") String longitude,
+                                        @Field("sub_category") String subCategoryId);
 
     @FormUrlEncoded
     @POST("api/users/Users/getViewOfferDetails/")
@@ -212,29 +276,29 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("api/users/Users/sortingData")
-    Call<JsonObject> get_sorted_list(@Field("option") String option,
-                                     @Field("city") String city,
-                                     @Field("category_id") String category_id,
-                                     @Field("sub_category_id") String sub_category_id,
-                                     @Field("latitude") String latitude,
-                                     @Field("longitude") String longitude);
+    Call<ShopList> get_sorted_list(@Field("option") String option,
+                                   @Field("city") String city,
+                                   @Field("category_id") String category_id,
+                                   @Field("sub_category_id") String sub_category_id,
+                                   @Field("latitude") String latitude,
+                                   @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("api/users/Users/filterlist")
-    Call<JsonObject> get_filter_list(@Field("category_id") String category_id,
-                                     @Field("sub_category_id") String sub_category_id,
-                                     @Field("latitude") String latitude,
-                                     @Field("longitude") String longitude);
+    Call<ShopList> get_filter_list(@Field("category_id") String category_id,
+                                   @Field("sub_category_id") String sub_category_id,
+                                   @Field("latitude") String latitude,
+                                   @Field("longitude") String longitude);
 
     @FormUrlEncoded
     @POST("api/users/Users/getFilteringResult")
-    Call<JsonObject> get_filter_result(@Field("category_id") String category_id,
-                                       @Field("sub_category_id") String sub_category_id,
-                                       @Field("latitude") String latitude,
-                                       @Field("longitude") String longitude,
-                                       @Field("brand") String brand,
-                                       @Field("price") String price,
-                                       @Field("city") String city);
+    Call<ShopList> get_filter_result(@Field("category_id") String category_id,
+                                     @Field("sub_category_id") String sub_category_id,
+                                     @Field("latitude") String latitude,
+                                     @Field("longitude") String longitude,
+                                     @Field("brand") String brand,
+                                     @Field("price") String price,
+                                     @Field("city") String city);
 
     @FormUrlEncoded
     @POST("api/users/Users/searchListss")
@@ -254,12 +318,12 @@ public interface ApiInterface {
     @POST("api/users/Users/getNotificationDetails")
     Call<JsonObject> getNotificationDetails(@Field("notification_id") String notification_id);
 
-    @FormUrlEncoded
-    @POST("api/users/Users/addToCart")
-    Call<AddToCartResponse> addToCart(@Field("customer_id") String userId,
-                                      @Field("product_id") String productId,
-                                      @Field("qty") String qty,
-                                      @Field("city") String city);
+//    @FormUrlEncoded
+//    @POST("api/users/Users/addToCart")
+//    Call<AddToCartResponse> addToCart(@Field("customer_id") String userId,
+//                                      @Field("product_id") String productId,
+//                                      @Field("qty") String qty,
+//                                      @Field("city") String city);
 
 
     @FormUrlEncoded
@@ -277,39 +341,37 @@ public interface ApiInterface {
                                             @Field("cart_id") String cartId);
 
     @FormUrlEncoded
-    @POST("api/users/Users/saveAddress")
-    Call<AddressSavedResponse> addAddress(@Field("customer_id")String userId,
-                                          @Field("firstname") String firstName,
-                                          @Field("lastname") String lastName,
-                                          @Field("mobile") String mobile,
-                                          @Field("district") String district,
-                                          @Field("city") String city,
-                                          @Field("state") String state,
-                                          @Field("postcode") String postcode,
-                                          @Field("address_1") String address_1,
-                                          @Field("address_2") String address_2,
-                                          @Field("lattitude") String latitude,
-                                          @Field("longitude") String longitude);
+    @POST("api/users/Users/deleteBooking")
+    Call<DeleteCartItemResponse> deleteBooking(@Field("user_id") String userId,
+                                               @Field("booking_id") String bokingId);
+
+    @FormUrlEncoded
+    @POST("api/deliveryAddressStore")
+    Call<Result> addAddress(@Header("Authorization") String token,
+                            @Field("name") String firstName,
+                            @Field("phone") String mobile,
+                            @Field("zip") String postcode,
+                            @Field("landmark") String address_1,
+                            @Field("address") String address_2);
 
     @FormUrlEncoded
     @POST("api/users/Users/saveAddress")
     Call<AddressSavedResponse> editAddress(@Field("customer_id") String userId,
-                                 @Field("address_id") String addressId,
-                                 @Field("firstname") String firstName,
-                                 @Field("lastname") String lastName,
-                                 @Field("mobile") String mobile,
-                                 @Field("district") String district,
-                                 @Field("city") String city,
-                                 @Field("state") String state,
-                                 @Field("postcode") String postcode,
-                                 @Field("address_1") String address_1,
-                                 @Field("address_2") String address_2,
-                                 @Field("lattitude") String latitude,
-                                 @Field("longitude") String longitude);
+                                           @Field("address_id") String addressId,
+                                           @Field("firstname") String firstName,
+                                           @Field("lastname") String lastName,
+                                           @Field("mobile") String mobile,
+                                           @Field("district") String district,
+                                           @Field("city") String city,
+                                           @Field("state") String state,
+                                           @Field("postcode") String postcode,
+                                           @Field("address_1") String address_1,
+                                           @Field("address_2") String address_2,
+                                           @Field("lattitude") String latitude,
+                                           @Field("longitude") String longitude);
 
-    @FormUrlEncoded
-    @POST("api/users/Users/getAddress")
-    Call<AllAddressResponse> getAllAddresses(@Field("customer_id") String userId);
+    @POST("api/deliveryAddressList")
+    Call<Result> getAllAddresses(@Header("Authorization") String token);
 
     @FormUrlEncoded
     @POST("api/users/Users/getAddress")
@@ -329,18 +391,23 @@ public interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST("api/users/Users/placeOrder")
-    Call<PostResponse> placeOrder(@Field("customer_id") String userId,
-                                @Field("address_id") String addressId,
-                                @Field("payment_method") String paymentMethod);
+    @POST("api/placeOrder")
+    Call<ProductResult> placeOrder(@Header("Authorization") String token,
+                                   @Field("delivery_address_id") String addressId,
+                                   @Field("payment_mode") String paymentMethod);
 
     @FormUrlEncoded
-    @POST("api/users/Users/getOrders")
-    Call<OrdersResponse> getOrders(@Field("customer_id") String userId);
+    @POST("api/paymentApiResponse")
+    Call<ProductResult> paymentApiResponse(@Header("Authorization") String token,
+                                   @Field("razorpay_order_id") String order_id,
+                                   @Field("status") String status);
+
+    @POST("api/ordersList")
+    Call<OrdersResponse> getOrders(@Header("Authorization") String token);
 
     @FormUrlEncoded
-    @POST("api/users/Users/getOrder")
-    Call<OrderDetailsResponse> getOrder(@Field("customer_id") String userId,
+    @POST("api/ordersDetails")
+    Call<OrderDetailsResponse> getOrder(@Header("Authorization") String token,
                                         @Field("order_id") String orderId);
 
     @FormUrlEncoded
@@ -357,11 +424,9 @@ public interface ApiInterface {
     Call<ProductDetailsResponse> getProduct(@Field("product_id") String productId);
 
     @FormUrlEncoded
-    @POST("api/users/Users/makePayment")
-    Call<MakePaymentResponse> makePayment(@Field("customer_id") String userId,
-                                          @Field("address_id") String addressId,
-                                          @Field("amount") String amount,
-                                          @Field("token") String token);
+    @POST("api/placeOrder")
+    Call<com.highstreets.user.models.CartResponse> makePayment(@Header("Authorization") String token,
+                                                               @Field("delivery_address_id") String addressId);
 }
 
 

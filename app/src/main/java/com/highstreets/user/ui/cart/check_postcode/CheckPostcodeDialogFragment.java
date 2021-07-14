@@ -21,6 +21,8 @@ import com.highstreets.user.ui.base.BaseDialogFragment;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
 
+import java.util.regex.Pattern;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
@@ -40,7 +42,9 @@ public class CheckPostcodeDialogFragment extends BaseDialogFragment {
     TextView tvError;
     @BindView(R.id.progressBar)
     ProgressBar progressBar;
+    String regex = "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$";
 
+    Pattern pattern ;
     public static CheckPostcodeDialogFragment newInstance() {
         Bundle args = new Bundle();
         CheckPostcodeDialogFragment fragment = new CheckPostcodeDialogFragment();
@@ -52,11 +56,15 @@ public class CheckPostcodeDialogFragment extends BaseDialogFragment {
     public View setView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_check_postcode_dialog, container, false);
         ButterKnife.bind(this, view);
-
+        pattern = Pattern.compile(regex);
         btnCheck.setOnClickListener(view1 -> {
             if (TextUtils.isEmpty(etPostcode.getText())){
                 CommonUtils.showToast(context, "Enter Postcode");
-            } else {
+            }else if (!pattern.matcher(etPostcode.getText().toString()).matches()) {
+                etPostcode.setError(getString(R.string.invalid_pincode));
+                etPostcode.requestFocus();
+            }
+            else {
                 checkPostcode(etPostcode.getText().toString());
             }
         });

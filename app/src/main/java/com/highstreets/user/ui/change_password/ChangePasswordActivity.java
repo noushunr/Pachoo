@@ -13,9 +13,12 @@ import android.widget.LinearLayout;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.OnFragmentInteractionListener;
+import com.highstreets.user.ui.SplashActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.main.HomeMainActivity;
+import com.highstreets.user.ui.main.MoreCategoriesActivity;
 import com.highstreets.user.utils.CommonUtils;
+import com.highstreets.user.utils.Constants;
 
 public class ChangePasswordActivity extends BaseActivity implements OnFragmentInteractionListener, View.OnClickListener, ChangePasswordViewInterface {
 
@@ -98,6 +101,10 @@ public class ChangePasswordActivity extends BaseActivity implements OnFragmentIn
     public void onPasswordChangeSuccess(String message) {
 
         CommonUtils.showToast(this, message);
+//        Intent toAllCategories = MoreCategoriesActivity.start(ChangePasswordActivity.this);
+//        SharedPrefs.setString(SharedPrefs.Keys.MERCHANT_ID, "16");
+//        toAllCategories.putExtra(Constants.MERCHANT_ID, "16");
+//        startActivity(toAllCategories);
         Intent intent = new Intent(getApplicationContext(), HomeMainActivity.class);
         startActivity(intent);
     }

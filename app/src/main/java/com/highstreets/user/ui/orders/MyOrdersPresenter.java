@@ -1,11 +1,14 @@
 package com.highstreets.user.ui.orders;
 
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.orders.model.OrdersResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.TOKEN;
 
 public class MyOrdersPresenter implements MyOrdersPresenterInterface {
 
@@ -28,7 +31,7 @@ public class MyOrdersPresenter implements MyOrdersPresenterInterface {
     @Override
     public void getOrders(String userId) {
         showProgressIndicator();
-        ApiClient.getApiInterface().getOrders(userId).enqueue(new Callback<OrdersResponse>() {
+        ApiClient.getApiInterface().getOrders("Bearer "+ SharedPrefs.getString(TOKEN,"")).enqueue(new Callback<OrdersResponse>() {
             @Override
             public void onResponse(Call<OrdersResponse> call, Response<OrdersResponse> response) {
                 dismissProgressIndicator();

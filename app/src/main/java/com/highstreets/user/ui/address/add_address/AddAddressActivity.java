@@ -19,6 +19,8 @@ import com.google.android.libraries.places.widget.Autocomplete;
 import com.google.android.libraries.places.widget.model.AutocompleteActivityMode;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.CartResponse;
+import com.highstreets.user.models.Result;
 import com.highstreets.user.ui.address.add_address.model.AddressSavedResponse;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.address.add_address.select_city.CityDialogFragment;
@@ -37,6 +39,7 @@ import com.highstreets.user.utils.Constants;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +82,7 @@ public class AddAddressActivity extends BaseActivity implements
     @BindView(R.id.tvPostcodeResult)
     TextView tvPostcodeResult;
     @BindView(R.id.tvSelectPlace)
-    TextView tvSelectPlace;
+    EditText tvSelectPlace;
     @BindView(R.id.etAddressesLine)
     EditText etAddressesLine;
     @BindView(R.id.btnAddAddress)
@@ -87,7 +90,9 @@ public class AddAddressActivity extends BaseActivity implements
     @BindView(R.id.btnCheckPostcode)
     Button btnCheckPostcode;
 
+    String regex = "^([A-Za-z][A-Ha-hJ-Yj-y]?[0-9][A-Za-z0-9]? ?[0-9][A-Za-z]{2}|[Gg][Ii][Rr] ?0[Aa]{2})$";
 
+    Pattern pattern ;
     public static Intent start(Context context) {
         return new Intent(context, AddAddressActivity.class);
     }
@@ -102,14 +107,14 @@ public class AddAddressActivity extends BaseActivity implements
         userId = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         Log.e(TAG, "onCreate: "+ userId);
         addAddressPresenterInterface = new AddAddressPresenter(this);
-
+        pattern = Pattern.compile(regex);
         if (getIntent().getStringExtra(Constants.EDIT_ADDRESS_ID) != null){
             addressId = getIntent().getStringExtra(Constants.EDIT_ADDRESS_ID);
             isEditAddress = true;
             addAddressPresenterInterface.getAddress(userId, addressId);
         }
 
-        tvSelectPlace.setOnClickListener(this);
+//        tvSelectPlace.setOnClickListener(this);
         tvState.setOnClickListener(this);
         tvDistrict.setOnClickListener(this);
         tvCity.setOnClickListener(this);
@@ -123,7 +128,12 @@ public class AddAddressActivity extends BaseActivity implements
 
         btnCheckPostcode.setOnClickListener(view -> {
             if (!TextUtils.isEmpty(etPostcode.getText())) {
-                addAddressPresenterInterface.checkPostcode(etPostcode.getText().toString());
+                if (!pattern.matcher(etPostcode.getText().toString()).matches()) {
+                    etPostcode.setError(getString(R.string.invalid_pincode));
+                    etPostcode.findFocus();
+                }else {
+                    addAddressPresenterInterface.checkPostcode(etPostcode.getText().toString());
+                }
             } else {
                 etPostcode.setError("Enter postcode");
                 etPostcode.findFocus();
@@ -208,28 +218,29 @@ public class AddAddressActivity extends BaseActivity implements
         if (TextUtils.isEmpty(etFirstName.getText())) {
             etFirstName.setError("This field is required");
             etFirstName.findFocus();
-        } else if (TextUtils.isEmpty(etLastName.getText())) {
-            etLastName.setError("This field is required");
-            etLastName.findFocus();
-        } else if (TextUtils.isEmpty(etMobile.getText())) {
+        }
+//        else if (TextUtils.isEmpty(etLastName.getText())) {
+//            etLastName.setError("This field is required");
+//            etLastName.findFocus();
+//        }
+        else if (TextUtils.isEmpty(etMobile.getText())) {
             etMobile.setError("This field is required");
             etMobile.findFocus();
-        } else if (TextUtils.isEmpty(tvState.getText())) {
-            tvState.setError("This field is required");
-            tvState.findFocus();
-        } else if (TextUtils.isEmpty(tvDistrict.getText())) {
-            tvDistrict.setError("This field is required");
-            tvDistrict.findFocus();
-        } else if (TextUtils.isEmpty(tvCity.getText())) {
-            tvCity.setError("This field is required");
-            tvCity.findFocus();
-        } else if (TextUtils.isEmpty(etPostcode.getText())) {
+        }
+//        else if (TextUtils.isEmpty(tvState.getText())) {
+//            tvState.setError("This field is required");
+//            tvState.findFocus();
+//        } else if (TextUtils.isEmpty(tvDistrict.getText())) {
+//            tvDistrict.setError("This field is required");
+//            tvDistrict.findFocus();
+//        } else if (TextUtils.isEmpty(tvCity.getText())) {
+//            tvCity.setError("This field is required");
+//            tvCity.findFocus();
+//        }
+        else if (TextUtils.isEmpty(etPostcode.getText())) {
             etPostcode.setError("This field is required");
             etPostcode.findFocus();
-        } else if (!validPostcode) {
-            etPostcode.setError("Check postcode");
-            etPostcode.findFocus();
-        } else if (TextUtils.isEmpty(tvSelectPlace.getText()) || latLng == null) {
+        } else if (TextUtils.isEmpty(tvSelectPlace.getText()) ) {
             tvSelectPlace.setError("This field is required");
             tvSelectPlace.findFocus();
         } else if (TextUtils.isEmpty(etAddressesLine.getText())) {
@@ -258,18 +269,11 @@ public class AddAddressActivity extends BaseActivity implements
                     String.valueOf(latLng.longitude));
         } else {
             addAddressPresenterInterface.addAddress(
-                    userId,
                     etFirstName.getText().toString(),
-                    etLastName.getText().toString(),
                     etMobile.getText().toString(),
-                    district.getId(),
-                    city.getId(),
-                    state.getId(),
                     etPostcode.getText().toString(),
                     tvSelectPlace.getText().toString(),
-                    etAddressesLine.getText().toString(),
-                    String.valueOf(latLng.latitude),
-                    String.valueOf(latLng.longitude));
+                    etAddressesLine.getText().toString());
         }
     }
 
@@ -329,20 +333,20 @@ public class AddAddressActivity extends BaseActivity implements
             etLastName.setText(address.getLastname());
             etMobile.setText(address.getMobile());
 
-            tvState.setText(address.getState());
+            tvState.setText(address.getStateName());
             state = new State();
-            state.setName(address.getState());
+            state.setName(address.getStateName());
             state.setId(address.getStateId());
 
-            tvDistrict.setText(address.getDistrict());
+            tvDistrict.setText(address.getDistrictName());
             district = new District();
             district.setId(address.getDistrictId());
-            district.setName(address.getDistrict());
+            district.setName(address.getDistrictName());
 
-            tvCity.setText(address.getCity());
+            tvCity.setText(address.getCityName());
             city = new City();
             city.setId(address.getCityId());
-            city.setCity(address.getCity());
+            city.setCity(address.getCityName());
 
             etPostcode.setText(address.getPostcode());
             tvSelectPlace.setText(getString(R.string.select_place));
@@ -351,8 +355,8 @@ public class AddAddressActivity extends BaseActivity implements
     }
 
     @Override
-    public void addressAddedResult(AddressSavedResponse addressSavedResponse) {
-        if (addressSavedResponse.getStatus().equals(Constants.SUCCESS)) {
+    public void addressAddedResult(Result addressSavedResponse) {
+        if (addressSavedResponse.getSuccess() == 1) {
             CommonUtils.showToast(this, addressSavedResponse.getMessage());
             onBackPressed();
         }

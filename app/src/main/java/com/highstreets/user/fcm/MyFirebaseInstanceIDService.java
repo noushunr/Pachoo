@@ -14,6 +14,6 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     }
 
     private void sendRegistrationToServer(String token) {
-        SharedPrefs.setString(SharedPrefs.Keys.TOKEN, token);
+//        SharedPrefs.setString(SharedPrefs.Keys.TOKEN, token);
     }
 }

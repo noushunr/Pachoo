@@ -22,6 +22,7 @@ import com.highstreets.user.BuildConfig;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.ProductResult;
 import com.highstreets.user.models.ProfileData;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.LogoutDialogFragment;
@@ -197,18 +198,17 @@ public class ProfileActivity extends BaseActivity implements ProfileViewInterfac
     }
 
     @Override
-    public void onLoadingProfileSuccess(ProfileData ProfileData) {
+    public void onLoadingProfileSuccess(ProductResult ProfileData) {
 
-        txt_username.setText(ProfileData.getFirstname() + " " + ProfileData.getLastname());
-        txt_number.setText(ProfileData.getMobile());
-        txt_email.setText(ProfileData.getEmailId());
-        Glide.with(this)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.placeholder_circle))
-                .load(ApiClient.USERS_IMAGE_URL + ProfileData.getImage())
-                .apply(new RequestOptions().placeholder(R.drawable.ic_user).error(R.drawable.ic_user))
-                .into(profile_pic);
-        SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, ProfileData.getFirstname());
-        SharedPrefs.setString(SharedPrefs.Keys.USER_LAST_NAME, ProfileData.getLastname());
+        if (ProfileData!=null && ProfileData.getData()!=null){
+            txt_username.setText(ProfileData.getData().getName());
+            txt_number.setText(ProfileData.getData().getContactNo());
+            txt_email.setText(ProfileData.getData().getEmail());
+
+            SharedPrefs.setString(SharedPrefs.Keys.USER_FIRST_NAME, ProfileData.getData().getName());
+            SharedPrefs.setString(SharedPrefs.Keys.USER_LAST_NAME, "");
+        }
+
     }
 
     @Override

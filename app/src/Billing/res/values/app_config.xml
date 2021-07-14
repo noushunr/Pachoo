@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Bluemoon</string>
+
+    <color name="colorPrimary">#295184</color>
+    <color name="colorPrimaryDark">#174177</color>
+    <color name="colorAccent">#295184</color>
+    <color name="colorPrimaryLight">#4A80C5</color>
+</resources>
+

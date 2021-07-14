@@ -1,85 +1,33 @@
 {
   "project_info": {
-    "project_number": "777214460835",
-    "firebase_url": "https://dealsnest-6dcc1.firebaseio.com",
-    "project_id": "dealsnest-6dcc1",
-    "storage_bucket": "dealsnest-6dcc1.appspot.com"
+    "project_number": "1004332438374",
+    "project_id": "paachoo-583b4",
+    "storage_bucket": "paachoo-583b4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:777214460835:android:ba214e663773e1ba919016",
+        "mobilesdk_app_id": "1:1004332438374:android:abf59fe332782241692ea7",
         "android_client_info": {
-          "package_name": "com.highstreets.user"
+          "package_name": "com.bluemoon.pachoo"
         }
       },
       "oauth_client": [
         {
-          "client_id": "777214460835-tp7mirgs4qhudql3qr7gt0fa1f6c1cb7.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.highstreets.user",
-            "certificate_hash": "5170ef3d6c6d93aaecfdf157bc5110be897fe44f"
-          }
-        },
-        {
-          "client_id": "777214460835-8g19h3vhrts01raga2sjs5glv394plhh.apps.googleusercontent.com",
+          "client_id": "1004332438374-hj0mciusfrlnsooh8qe3pq5b7341evqv.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDXOzJm__l83EEvCWxgIa9Q5tJRPaKMEbY"
-        },
-        {
-          "current_key": "AIzaSyDEtV-VWFHdQgo0vySHT8OFHD38LThQU7w"
+          "current_key": "AIzaSyATnTnKJENNX9_w4S2RCSNmT_XgpbcRXPw"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "777214460835-4rs8sk4k9lsqaanaf3j1qja6qkqs9tsk.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:777214460835:android:cb11380295fa7b61919016",
-        "android_client_info": {
-          "package_name": "com.presentation.app.dealsnest"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "777214460835-h0479v9gcod4q216io8d7oo6r8iv3hqi.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.presentation.app.dealsnest",
-            "certificate_hash": "5170ef3d6c6d93aaecfdf157bc5110be897fe44f"
-          }
-        },
-        {
-          "client_id": "777214460835-8g19h3vhrts01raga2sjs5glv394plhh.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyDXOzJm__l83EEvCWxgIa9Q5tJRPaKMEbY"
-        },
-        {
-          "current_key": "AIzaSyDEtV-VWFHdQgo0vySHT8OFHD38LThQU7w"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "777214460835-4rs8sk4k9lsqaanaf3j1qja6qkqs9tsk.apps.googleusercontent.com",
+              "client_id": "1004332438374-hj0mciusfrlnsooh8qe3pq5b7341evqv.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

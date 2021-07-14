@@ -6,6 +6,9 @@ import android.util.Log;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.ProductResult;
+import com.highstreets.user.models.Result;
+import com.highstreets.user.models.ShopsList;
 import com.highstreets.user.ui.address.add_address.model.PostResponse;
 import com.highstreets.user.ui.cart.model.CartResponse;
 import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
@@ -14,6 +17,8 @@ import com.highstreets.user.utils.Constants;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.TOKEN;
 
 public class CartPresenter implements CartPresenterInterface {
 
@@ -41,23 +46,27 @@ public class CartPresenter implements CartPresenterInterface {
     @Override
     public void getCartProducts(String userId) {
         showProgressIndicator();
-        ApiClient.getApiInterface().getCartProducts(userId).enqueue(new Callback<CartResponse>() {
+        ApiClient.getApiInterface().getCartItems("Bearer "+SharedPrefs.getString(TOKEN,"")).enqueue(new Callback<ProductResult>() {
             @Override
-            public void onResponse(Call<CartResponse> call, Response<CartResponse> response) {
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()){
-                    CartResponse cartResponse = response.body();
-                    if (cartResponse.getStatus().equals(Constants.SUCCESS)) {
-                        cartViewInterface.setCartData(cartResponse.getCartData());
+                    ProductResult cartResponse = response.body();
+                    if (cartResponse.getSuccess()==1) {
+                        if (cartResponse.getData()!=null)
+                            cartViewInterface.setCartData(cartResponse.getData().getCartItems());
+                        else {
+                            cartViewInterface.setCartFailed();
+                        }
                     } else {
                         cartViewInterface.setCartFailed();
-                        SharedPrefs.setString(SharedPrefs.Keys.CART_COUNT, "");
+                        SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, 0);
                     }
                 }
             }
 
             @Override
-            public void onFailure(Call<CartResponse> call, Throwable t) {
+            public void onFailure(Call<ProductResult> call, Throwable t) {
                 dismissProgressIndicator();
             }
         });

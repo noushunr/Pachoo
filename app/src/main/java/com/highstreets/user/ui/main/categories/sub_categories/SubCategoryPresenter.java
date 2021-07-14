@@ -11,11 +11,14 @@ import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.models.FilterItemModel;
 import com.highstreets.user.models.FilterPriceModel;
+import com.highstreets.user.models.Result;
+import com.highstreets.user.models.ShopsList;
 import com.highstreets.user.models.SubCategory;
 import com.highstreets.user.models.shop.ShopBanner;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -32,31 +35,18 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
     }
 
     @Override
-    public void getSubCategories(String category_id) {
+    public void getSubCategories(String category_id,String shopId) {
         showProgressIndicator();
-        ApiClient.getApiInterface().get_sub_categories(category_id).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().get_sub_categories(category_id,shopId).enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<Result> call, Response<Result> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonArray subCategoryArray = jsonObject.get(Constants.DATA).getAsJsonArray();
-                            for (int i = 0; i < subCategoryArray.size(); i++) {
-                                JsonObject object = subCategoryArray.get(i).getAsJsonObject();
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_ID, object.get("id").getAsString());
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_NAME, object.get("sub_category").getAsString());
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_CREATED_DATE, object.get("created_date").getAsString());
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_UPDATED_DATE, object.get("updated_date").getAsString());
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_IMAGE, object.get("subcategory_image").getAsString());
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_STATUS, object.get("status").getAsString());
-                                SharedPrefs.setString(SharedPrefs.Keys.SUB_CATEGORY_IP, object.get("ip").getAsString());
-                            }
+                        Result jsonObject = response.body();
+                        if (jsonObject.getSuccess()==1) {
 
-                            List<SubCategory> brandsModelsList = new Gson().fromJson(subCategoryArray, new TypeToken<List<SubCategory>>() {
-                            }.getType());
-                            subCategoryViewInterface.onLoadingSubCategoriesSuccess(brandsModelsList);
+                            subCategoryViewInterface.onLoadingSubCategoriesSuccess(jsonObject.getData());
 
                         } else {
                             subCategoryViewInterface.onFailedToLoadSubCategories("Failed");
@@ -71,7 +61,7 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<Result> call, Throwable t) {
                 dismissProgressIndicator();
                 if (!CommonUtils.isNetworkAvailable(context)) {
                     subCategoryViewInterface.noInternet();
@@ -86,22 +76,20 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
     @Override
     public void getShopLists(String city, String category_id, String sub_category_id, String latitude, String longitude) {
         showProgressIndicator();
-        ApiClient.getApiInterface().get_shop_list(city, category_id, sub_category_id, latitude, longitude).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().get_shop_list(city, category_id, sub_category_id, latitude, longitude).enqueue(new Callback<ShopList>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ShopList> call, Response<ShopList> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonArray data = jsonObject.get(Constants.DATA).getAsJsonArray();
+                        ShopList shopList = response.body();
+                        if (shopList.getStatus().equals(Constants.SUCCESS)) {
+                            if (shopList.getData()!=null && shopList.getData().size()>0){
+                                subCategoryViewInterface.onLoadingShopListSuccess(shopList.getData());
+                            }else {
+                                subCategoryViewInterface.onLoadingShopListSuccess(new ArrayList<>());
+                            }
 
-                            List<ShopBanner> shopList = new Gson().fromJson(data, new TypeToken<List<ShopBanner>>() {
-                            }.getType());
-                            subCategoryViewInterface.onLoadingShopListSuccess(shopList);
-
-                        } else {
-                            subCategoryViewInterface.onFailedToLoadSubCategories(Constants.MESSAGE);
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
@@ -113,7 +101,7 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ShopList> call, Throwable t) {
                 subCategoryViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
                 dismissProgressIndicator();
             }
@@ -123,19 +111,20 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
     @Override
     public void getSortedShopList(String option, String city, String category_id, String sub_category_id, String latitude, String longitude) {
         showProgressIndicator();
-        ApiClient.getApiInterface().get_sorted_list(option, city, category_id, sub_category_id, latitude, longitude).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().get_sorted_list(option, city, category_id, sub_category_id, latitude, longitude).enqueue(new Callback<ShopList>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ShopList> call, Response<ShopList> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonArray data = jsonObject.get(Constants.DATA).getAsJsonArray();
-                            List<ShopBanner> sortedList = new Gson().fromJson(data, new TypeToken<List<ShopBanner>>() {
-                            }.getType());
-                            subCategoryViewInterface.onLoadingShopListSuccess(sortedList);
-                            dismissProgressIndicator();
+                        ShopList shopList = response.body();
+                        if (shopList.getStatus().equals(Constants.SUCCESS)) {
+                            if (shopList.getData()!=null && shopList.getData().size()>0){
+                                subCategoryViewInterface.onLoadingShopListSuccess(shopList.getData());
+                            }else {
+                                subCategoryViewInterface.onLoadingShopListSuccess(new ArrayList<>());
+                            }
+
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
@@ -147,7 +136,7 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ShopList> call, Throwable t) {
                 subCategoryViewInterface.onResponseFailed(Constants.ERROR_MESSAGE_SERVER);
                 dismissProgressIndicator();
             }
@@ -157,34 +146,19 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
     @Override
     public void getFilterList(String category_id, String sub_category_id, String latitude, String longitude) {
 //        showProgressIndicator();
-        ApiClient.getApiInterface().get_filter_list(category_id, sub_category_id, latitude, longitude).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().get_filter_list(category_id, sub_category_id, latitude, longitude).enqueue(new Callback<ShopList>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ShopList> call, Response<ShopList> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonObject object = jsonObject.get(Constants.DATA).getAsJsonObject();
-
-                            JsonObject BrandObject = object.get("Brand").getAsJsonObject();
-
-                            JsonObject PriceObject = object.get("Price").getAsJsonObject();
-
-                            FilterItemModel brandItems = new Gson().fromJson(BrandObject, new TypeToken<FilterItemModel>() {
-                            }.getType());
-
-                            subCategoryViewInterface.onLoadingBrandItemsSuccess(brandItems);
-                            dismissProgressIndicator();
-
-                            FilterPriceModel priceFilter = new Gson().fromJson(PriceObject, new TypeToken<FilterPriceModel>() {
-                            }.getType());
-
-                            subCategoryViewInterface.onLoadingPriceItemsSuccess(priceFilter);
-
-
-                        } else {
-                            subCategoryViewInterface.onResponseFailed("Failed");
+                        ShopList shopList = response.body();
+                        if (shopList.getStatus().equals(Constants.SUCCESS)) {
+                            if (shopList.getData()!=null && shopList.getData().size()>0){
+                                subCategoryViewInterface.onLoadingShopListSuccess(shopList.getData());
+                            }else {
+                                subCategoryViewInterface.onLoadingShopListSuccess(new ArrayList<>());
+                            }
 
                         }
                     } catch (JsonIOException e) {
@@ -197,7 +171,7 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ShopList> call, Throwable t) {
                 subCategoryViewInterface.onResponseFailed(Constants.ERROR_MESSAGE_SERVER);
                 dismissProgressIndicator();
             }
@@ -207,19 +181,19 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
     @Override
     public void getFilterResult(String category_id, String sub_category_id, String latitude, String longitude, String brand, String price, String city) {
        // showProgressIndicator();
-        ApiClient.getApiInterface().get_filter_result(category_id, sub_category_id, latitude, longitude, brand, price, city).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().get_filter_result(category_id, sub_category_id, latitude, longitude, brand, price, city).enqueue(new Callback<ShopList>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ShopList> call, Response<ShopList> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonArray data = jsonObject.get(Constants.DATA).getAsJsonArray();
-
-                            List<ShopBanner> FilteredList = new Gson().fromJson(data, new TypeToken<List<ShopBanner>>() {
-                            }.getType());
-                            subCategoryViewInterface.onLoadingShopListSuccess(FilteredList);
+                        ShopList shopList = response.body();
+                        if (shopList.getStatus().equals(Constants.SUCCESS)) {
+                            if (shopList.getData()!=null && shopList.getData().size()>0){
+                                subCategoryViewInterface.onLoadingShopListSuccess(shopList.getData());
+                            }else {
+                                subCategoryViewInterface.onLoadingShopListSuccess(new ArrayList<>());
+                            }
 
                         }
                     } catch (JsonIOException e) {
@@ -231,7 +205,7 @@ public class SubCategoryPresenter implements SubCategoryPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ShopList> call, Throwable t) {
                 subCategoryViewInterface.onResponseFailed(Constants.ERROR_MESSAGE_SERVER);
                 dismissProgressIndicator();
             }

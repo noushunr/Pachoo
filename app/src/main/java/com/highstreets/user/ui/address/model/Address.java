@@ -21,22 +21,22 @@ public class Address {
     @SerializedName("mobile")
     @Expose
     private String mobile;
+    @SerializedName("state_name")
+    @Expose
+    private String stateName;
     @SerializedName("state")
     @Expose
-    private String state;
-    @SerializedName("state_id")
-    @Expose
     private String stateId;
+    @SerializedName("district_name")
+    @Expose
+    private String districtName;
     @SerializedName("district")
     @Expose
-    private String district;
-    @SerializedName("district_id")
-    @Expose
     private String districtId;
-    @SerializedName("city")
+    @SerializedName("city_name")
     @Expose
-    private String city;
-    @SerializedName("city_id")
+    private String cityName;
+    @SerializedName("city")
     @Expose
     private String cityId;
     @SerializedName("postcode")
@@ -90,20 +90,20 @@ public class Address {
         this.mobile = mobile;
     }
 
-    public String getDistrict() {
-        return district;
+    public String getDistrictName() {
+        return districtName;
     }
 
-    public void setDistrict(String district) {
-        this.district = district;
+    public void setDistrictName(String districtName) {
+        this.districtName = districtName;
     }
 
-    public String getCity() {
-        return city;
+    public String getCityName() {
+        return cityName;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
     }
 
     public String getPostcode() {
@@ -138,12 +138,12 @@ public class Address {
         isSelected = selected;
     }
 
-    public String getState() {
-        return state;
+    public String getStateName() {
+        return stateName;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStateName(String stateName) {
+        this.stateName = stateName;
     }
 
     public String getStateId() {

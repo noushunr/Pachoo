@@ -6,6 +6,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.Category;
+import com.highstreets.user.models.Result;
+import com.highstreets.user.models.ShopsList;
 import com.highstreets.user.utils.Constants;
 
 import java.util.List;
@@ -23,24 +25,21 @@ public class CategoriesFragmentPresenter implements CategoriesFragmentPresenterI
     }
 
     @Override
-    public void getCategories(String cities) {
+    public void getCategories(String shopId) {
         showProgressIndicator();
-        ApiClient.getApiInterface().get_home_details(cities).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().getCategoryList(shopId).enqueue(new Callback<Result>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<Result> call, Response<Result> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
+                        Result jsonObject = response.body();
+                        if (jsonObject.getSuccess()== 1) {
 
-                            JsonObject data = jsonObject.get(Constants.DATA).getAsJsonObject();
-                            //Categories Array
-                            List<Category> categoryList = new Gson().fromJson(data.get("categories").getAsJsonArray(), new TypeToken<List<Category>>() {
-                            }.getType());
-                            categoriesFragmentViewInterface.setCategoryList(categoryList);
+                            categoriesFragmentViewInterface.setCategoryList(jsonObject.getData());
                         } else {
-                            categoriesFragmentViewInterface.onLoadingCategoriesFailed(jsonObject.get(Constants.MESSAGE).getAsString());
+                            String message = jsonObject.getMessage();
+                            categoriesFragmentViewInterface.onLoadingCategoriesFailed(message);
                         }
                     } catch (JsonIOException e) {
                         e.printStackTrace();
@@ -51,7 +50,7 @@ public class CategoriesFragmentPresenter implements CategoriesFragmentPresenterI
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<Result> call, Throwable t) {
                 dismissProgressIndicator();
                 categoriesFragmentViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }

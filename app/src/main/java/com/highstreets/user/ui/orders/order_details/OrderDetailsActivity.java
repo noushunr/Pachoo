@@ -118,24 +118,24 @@ public class OrderDetailsActivity extends BaseActivity implements OrderDetailsVi
     @Override
     public void setOrderDetails(OrderDetailsResponse orderDetailsResponse) {
         OrderDetails orderDetails = orderDetailsResponse.getOrderDetails();
-        String name = orderDetails.getFirstname() +" "+ orderDetails.getLastname();
-        tvName.setText(name);
-        tvNumber.setText(orderDetails.getTelephone());
-        tvEmail.setText(orderDetails.getEmail());
-        tvOrderId.setText(orderDetails.getOrderId());
-        tvServiceCharge.setText(getString(R.string.pound_symbol) + orderDetails.getServiceCharge());
-        tvShippingCharge.setText(getString(R.string.pound_symbol) + orderDetails.getShippingCharge());
-        tvTotal.setText(getString(R.string.pound_symbol) + orderDetails.getTotal());
-        tvDate.setText(orderDetails.getDateAdded());
-        tvAddress.setText(orderDetails.getPaymentAddress2());
-        Glide.with(this)
-                .load(orderDetails.getQrCodeImage())
-                .into(ivQRCode);
-
-        ivQRCode.setOnClickListener(view -> {
-            ShowQRCodeDialogFragment.newInstance(orderDetails.getQrCodeImage())
-                    .show(getSupportFragmentManager(), null);
-        });
+//        String name = orderDetails.getFirstname() +" "+ orderDetails.getLastname();
+//        tvName.setText(name);
+//        tvNumber.setText(orderDetails.getTelephone());
+//        tvEmail.setText(orderDetails.getEmail());
+//        tvOrderId.setText(orderDetails.getOrderId());
+//        tvServiceCharge.setText(getString(R.string.pound_symbol) + orderDetails.getServiceCharge());
+//        tvShippingCharge.setText(getString(R.string.pound_symbol) + orderDetails.getShippingCharge());
+//        tvTotal.setText(getString(R.string.pound_symbol) + orderDetails.getTotal());
+//        tvDate.setText(orderDetails.getDateAdded());
+//        tvAddress.setText(orderDetails.getPaymentAddress2());
+//        Glide.with(this)
+//                .load(orderDetails.getQrCodeImage())
+//                .into(ivQRCode);
+//
+//        ivQRCode.setOnClickListener(view -> {
+//            ShowQRCodeDialogFragment.newInstance(orderDetails.getQrCodeImage())
+//                    .show(getSupportFragmentManager(), null);
+//        });
 
         rvProducts.setAdapter(new OrderProductsAdapter(orderDetailsResponse.getProducts()));
     }

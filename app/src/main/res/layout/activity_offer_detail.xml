@@ -8,7 +8,7 @@
     android:background="@color/activities_bg"
     tools:context="com.highstreets.user.ui.shop_details.ShopActivity">
 
-    <include layout="@layout/layout_app_bar_white" />
+    <include layout="@layout/layout_app_bar" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,34 +28,35 @@
                 <LinearLayout
                     android:id="@+id/llShowImages"
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_margin="@dimen/activity_vertical_margin"
+                    android:layout_height="120dp"
+                    android:visibility="gone"
                     android:orientation="horizontal">
 
                     <androidx.cardview.widget.CardView
-                        android:layout_width="0dp"
-                        android:layout_height="80dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="120dp"
                         android:layout_weight="1"
                         card_view:cardCornerRadius="4dp"
                         card_view:cardElevation="4dp">
 
                         <ImageView
                             android:id="@+id/image_one"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:scaleType="centerCrop" />
+                            android:scaleType="fitXY" />
                     </androidx.cardview.widget.CardView>
 
                     <View
                         android:layout_width="8dp"
-                        android:layout_height="3dp" />
+                        android:layout_height="3dp"
+                        android:visibility="gone"/>
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cvImageSecond"
                         android:layout_width="0dp"
                         android:layout_height="80dp"
                         android:layout_weight="1"
-                        android:visibility="visible"
+                        android:visibility="gone"
                         card_view:cardCornerRadius="4dp"
                         card_view:cardElevation="4dp">
 
@@ -75,7 +76,7 @@
                         android:layout_width="0dp"
                         android:layout_height="80dp"
                         android:layout_weight="1"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="wrap_content"
@@ -96,6 +97,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
+                                android:visibility="gone"
                                 android:background="@color/dark_transparent"
                                 android:padding="2dp">
 
@@ -126,6 +128,7 @@
                         android:layout_alignParentStart="true"
                         android:layout_marginStart="@dimen/activity_vertical_margin"
                         android:layout_marginEnd="60dp"
+                        android:visibility="gone"
                         android:orientation="vertical">
 
                         <TextView
@@ -141,6 +144,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/nunito_regular"
+                            android:visibility="gone"
                             android:textColor="@color/text_color_black"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -162,6 +166,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     android:gravity="start">
 
                     <LinearLayout
@@ -173,7 +178,8 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/call_resize"/>
+                            android:padding="3dp"
+                            android:src="@drawable/ic_call_new"/>
 
                         <TextView
                             android:id="@+id/tvCall"
@@ -197,7 +203,8 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/ic_rating_resized"/>
+                            android:padding="3dp"
+                            android:src="@drawable/ic_rating_new"/>
 
                         <TextView
                             android:id="@+id/txt_rating"
@@ -243,6 +250,7 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
+                            android:padding="2dp"
                             android:src="@drawable/ic_heart_line"/>
 
                         <TextView
@@ -262,6 +270,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="10dp"
+                    android:visibility="gone"
                     android:background="@android:color/darker_gray" />
 
                 <androidx.recyclerview.widget.RecyclerView
@@ -269,7 +278,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
+                    android:visibility="visible"
                     android:layout_marginBottom="32dp" />
+                <TextView
+                    android:id="@+id/txt_no_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:drawablePadding="8dp"
+                    android:text="No Data Found"
+                    android:layout_marginTop="100dp"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/nunito_regular"
+                    android:textColor="@color/text_color_black"
+                    android:textSize="16sp" />
+
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 

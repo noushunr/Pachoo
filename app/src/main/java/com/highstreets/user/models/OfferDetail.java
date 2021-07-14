@@ -67,6 +67,9 @@ public class OfferDetail {
     @SerializedName("offers")
     @Expose
     private List<Offer> offers = null;
+    @SerializedName("featured_images")
+    @Expose
+    private List<Offer> featuredImages = null;
 
     public String getKms() {
         return kms;
@@ -228,4 +231,11 @@ public class OfferDetail {
         this.offers = offers;
     }
 
+    public List<Offer> getFeaturedImages() {
+        return featuredImages;
+    }
+
+    public void setFeaturedImages(List<Offer> featuredImages) {
+        this.featuredImages = featuredImages;
+    }
 }

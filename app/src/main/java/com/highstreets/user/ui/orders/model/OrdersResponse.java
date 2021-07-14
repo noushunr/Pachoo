@@ -7,6 +7,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrdersResponse {
 
+    @SerializedName("success")
+    @Expose
+    private Integer success;
+    @SerializedName("message")
+    @Expose
+    private String message;
     @SerializedName("status")
     @Expose
     private String status;

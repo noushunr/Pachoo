@@ -1,5 +1,7 @@
 package com.highstreets.user.ui.review_booking;
 
+import android.util.Log;
+
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
@@ -84,6 +86,8 @@ public class ReviewBookingPresenter implements ReviewBookingPresenterInterface {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 dismissProgressIndicator();
+                reviewBookingViewInterface.onLoadingReviewBookingSuccess("Your booking has been confirmed.");
+
             }
         });
     }

@@ -8,7 +8,7 @@
     app:cardUseCompatPadding="true"
     app:cardCornerRadius="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
@@ -16,23 +16,20 @@
 
         <TextView
             android:id="@+id/tvName"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
             android:text="@string/name"
             android:textColor="@color/colorPrimary"
             android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/ivQRCodeImage"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
 
         <TextView
             android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/total_colon"
-            app:layout_constraintStart_toStartOf="@+id/tvOrderIdText"
-            app:layout_constraintTop_toBottomOf="@+id/tvOrderIdText" />
+            android:layout_below="@+id/tvName"
+             />
 
         <TextView
             android:id="@+id/tvTotal"
@@ -40,9 +37,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/_123"
-            app:layout_constraintBottom_toBottomOf="@+id/textView10"
-            app:layout_constraintStart_toEndOf="@+id/textView10"
-            app:layout_constraintTop_toTopOf="@+id/textView10" />
+            android:layout_below="@+id/tvName"
+            android:layout_toRightOf="@+id/textView10"
+             />
 
         <TextView
             android:id="@+id/tvOrderIdText"
@@ -50,8 +47,8 @@
             android:layout_height="wrap_content"
             android:text="@string/order_id_colon"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/tvName"
-            app:layout_constraintTop_toBottomOf="@+id/tvName" />
+            android:layout_below="@+id/tvTotal"
+             />
 
         <TextView
             android:id="@+id/tvOrderId"
@@ -59,54 +56,71 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
             android:text="@string/_123"
+            android:layout_below="@+id/tvTotal"
+            android:layout_toRightOf="@+id/tvOrderIdText"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toBottomOf="@+id/tvOrderIdText"
-            app:layout_constraintStart_toEndOf="@+id/tvOrderIdText"
-            app:layout_constraintTop_toTopOf="@+id/tvOrderIdText" />
+            />
 
         <ImageView
             android:id="@+id/ivQRCodeImage"
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:scaleType="centerCrop"
+            android:layout_below="@+id/tvOrderIdText"
             android:src="@mipmap/ic_launcher"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.493" />
+            android:visibility="gone"
+             />
 
         <TextView
             android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/status_colon"
-            app:layout_constraintStart_toStartOf="@+id/textView10"
-            app:layout_constraintTop_toBottomOf="@+id/textView10" />
+            android:layout_below="@+id/tvOrderIdText"
+             />
 
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/delivered"
-            android:layout_marginStart="4dp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView7"
-            app:layout_constraintStart_toEndOf="@+id/textView7"
-            app:layout_constraintTop_toTopOf="@+id/textView7" />
+            android:layout_below="@+id/tvOrderIdText"
+            android:layout_toRightOf="@+id/textView7"
+            android:layout_marginStart="4dp" />
 
         <Button
             android:id="@+id/btnView"
             android:layout_width="wrap_content"
             android:layout_height="28dp"
-            android:minWidth="80dp"
             android:background="@drawable/button_bg_primary"
             android:textSize="12sp"
             android:text="@string/view"
+            android:layout_alignParentRight="true"
             android:textColor="@color/white"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_below="@+id/tvName"
+            />
 
+        <TextView
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="28dp"
+            android:layout_below="@+id/btnView"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="11dp"
+            android:layout_marginRight="26dp"
+            android:text="@string/places_cancel"
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="14sp" />
+        <TextView
+            android:id="@+id/tvNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:layout_marginTop="@dimen/margin10"
+            android:text="*Cancel button navigates you to dialer for cancelling the order"
+            android:layout_below="@+id/tvStatus"
+            />
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

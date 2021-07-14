@@ -135,6 +135,9 @@ public class Offer implements Parcelable {
         bought = in.readString();
         count = in.readInt();
     }
+    public Offer(){
+
+    }
 
     public String getShare_url() {
         return share_url;

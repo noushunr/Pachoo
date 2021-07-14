@@ -30,6 +30,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
                 android:layout_marginEnd="16dp"
+                android:visibility="gone"
                 android:background="@drawable/offer_ribbon"
                 android:gravity="center"
                 android:orientation="vertical">
@@ -100,17 +101,18 @@
                     android:maxLines="1"
                     android:text="Good And Foods"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/txt_offer_price"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@null"
+
                     android:text="50dp"
                     android:textColor="@color/white"
                     android:textSize="10sp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </LinearLayout>
         </RelativeLayout>
     </LinearLayout>

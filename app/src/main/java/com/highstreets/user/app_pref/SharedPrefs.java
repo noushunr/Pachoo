@@ -204,6 +204,7 @@ public class SharedPrefs {
         public static final String USER_PROFILE_ID = "user_profile_id";
         public static final String CHECKED_ITEM_ID = "checked_item_id";
         public static final String CART_COUNT = "cart_count";
+        public static final String SESSION_ID = "session_id";
     }
 
 

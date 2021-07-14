@@ -13,6 +13,7 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.highstreets.user.R;
+import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.notification.notification_details.NotificationDetailActivity;
 
 
@@ -30,7 +31,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
         try {
-            intent = new Intent(this, NotificationDetailActivity.class);
+            intent = new Intent(this, HomeMainActivity.class);
             intent.putExtra("id", ID);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0  /*Request code */, intent,

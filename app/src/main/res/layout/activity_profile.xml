@@ -27,6 +27,7 @@
                 android:layout_width="80dp"
                 android:layout_height="75dp"
                 android:layout_gravity="center"
+                android:src="@drawable/user_profile"
                 android:scaleType="centerCrop" />
 
             <TextView
@@ -87,6 +88,7 @@
                 android:layout_marginTop="24dp"
                 android:gravity="center"
                 android:text="Share To your friends"
+                android:visibility="gone"
                 android:textAllCaps="true"
                 android:textColor="@color/text_color_black"
                 android:textSize="14sp"
@@ -99,6 +101,7 @@
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/nunito_regular"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="Share the app with your friends and earn referral income"
                 android:textAllCaps="false"
                 android:textColor="@color/text_color_black"
@@ -112,6 +115,7 @@
                 android:layout_marginTop="30dp"
                 android:layout_marginBottom="56dp"
                 android:gravity="center"
+                android:visibility="gone"
                 card_view:cardCornerRadius="6dp"
                 card_view:cardElevation="0dp">
 

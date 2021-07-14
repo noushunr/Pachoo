@@ -4,6 +4,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,10 @@ import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.shop.ShopBanner;
+import com.highstreets.user.ui.main.categories.sub_categories.Shop;
+import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
+import com.highstreets.user.ui.shop_details.ShopActivity;
+import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
@@ -56,6 +62,17 @@ public class ShopListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                         .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
                         .load(ApiClient.BANNERS_IMAGE_URL + shopBanner.getImage())
                         .into(((BannerViewHolder) viewHolder).ivBanner);
+                ((BannerViewHolder) viewHolder).ivBanner.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (shopBanner.getMerchantId()!=null){
+                            Intent toShopDetailIntent = ShopActivity.getActivityIntent(mContext);
+                            toShopDetailIntent.putExtra(Constants.MERCHANT_ID, shopBanner.getMerchantId());
+                            mContext.startActivity(toShopDetailIntent);
+                        }
+
+                    }
+                });
                 break;
             }
             case TYPE_SHOP_LIST: {

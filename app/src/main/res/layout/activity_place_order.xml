@@ -119,6 +119,59 @@
                         android:layout_marginStart="8dp"
                         android:text="Voucher will be completely controlled by merchants and not be valid after the expiry date, quantity of product sold out."
                         android:textSize="10sp" />
+
+
+
+                </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:text="Payment Method"
+                    android:textColor="@color/text_color_black" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin10"
+                    android:layout_marginRight="@dimen/margin10"
+                    android:layout_marginTop="@dimen/margin10"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="@dimen/margin5"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:checked="true"
+                        android:clickable="false"
+                        android:enabled="false"
+                        android:buttonTint="@color/colorPrimary">
+
+                    </RadioButton>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#262626"
+                        android:text="Cash on Delivery"
+                        />
+                    <RadioButton
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:checked="false"
+                        android:clickable="false"
+                        android:layout_marginLeft="@dimen/margin10"
+                        android:enabled="false"
+                        android:buttonTint="#686767">
+
+                    </RadioButton>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="14sp"
+                        android:textColor="#686767"
+                        android:text="Online"
+                        />
                 </LinearLayout>
             </LinearLayout>
 
@@ -141,6 +194,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/sub_total_colon"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/textView9"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -149,6 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView8"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView8" />
@@ -159,6 +214,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/delivery_charge_colon"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/textView10"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -167,6 +223,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView9" />
@@ -177,6 +234,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:text="@string/service_charge_colon"
+            android:visibility="gone"
             app:layout_constraintBottom_toTopOf="@+id/textView11"
             app:layout_constraintStart_toStartOf="parent" />
 
@@ -185,6 +243,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/_0"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/textView10"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textView10" />

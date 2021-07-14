@@ -1,6 +1,9 @@
 package com.highstreets.user.ui.main;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageInfo;
@@ -12,15 +15,19 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -29,15 +36,18 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
-import com.google.android.play.core.appupdate.AppUpdateInfo;
-import com.google.android.play.core.appupdate.AppUpdateManager;
-import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
-import com.google.android.play.core.install.InstallStateUpdatedListener;
-import com.google.android.play.core.install.model.AppUpdateType;
-import com.google.android.play.core.install.model.InstallStatus;
-import com.google.android.play.core.install.model.UpdateAvailability;
-import com.google.android.play.core.tasks.Task;
+//import com.google.android.play.core.appupdate.AppUpdateInfo;
+//import com.google.android.play.core.appupdate.AppUpdateManager;
+//import com.google.android.play.core.appupdate.AppUpdateManagerFactory;
+//import com.google.android.play.core.install.InstallStateUpdatedListener;
+//import com.google.android.play.core.install.model.AppUpdateType;
+//import com.google.android.play.core.install.model.InstallStatus;
+//import com.google.android.play.core.install.model.UpdateAvailability;
+//import com.google.android.play.core.tasks.Task;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
+import com.highstreets.user.BuildConfig;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
@@ -62,6 +72,10 @@ import com.highstreets.user.ui.profile.ProfileActivity;
 import com.highstreets.user.ui.search.SearchActivity;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
+
+import org.json.JSONObject;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -88,7 +102,7 @@ public class HomeMainActivity extends BaseActivity
     private HashMap<String, Fragment> mFragmentHashMap = new HashMap<>();
     private HomeMainPresenterInterface homeMainPresenterInterface;
     private static final int MY_UPDATE_REQUEST_CODE = 112;
-    AppUpdateManager appUpdateManager;
+//    AppUpdateManager appUpdateManager;
 
     @BindView(R.id.tvToolbarText)
     TextView tvToolBarText;
@@ -124,16 +138,27 @@ public class HomeMainActivity extends BaseActivity
     @BindView(R.id.drawerLayout)
     DrawerLayout drawerLayout;
 
-
-
-    public static Intent start(Context context) {
-        return new Intent(context, HomeMainActivity.class);
+    private FirebaseRemoteConfig mFirebaseRemoteConfig = FirebaseRemoteConfig.getInstance();
+    boolean isAPPLaunch;
+    boolean isFirstTime = true;
+    String currentVersion, latestVersion;
+    Dialog dialog;
+    public static Intent start(Context context, boolean isAppLaunch) {
+        Bundle bundle = new Bundle();
+        bundle.putBoolean("isAppLaunch",isAppLaunch);
+        Intent intent = new Intent(context, HomeMainActivity.class);
+        intent.putExtras(bundle);
+        return intent;
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.bind(this);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle!=null){
+            isAPPLaunch = bundle.getBoolean("isAppLaunch");
+        }
 
         userId = SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "");
         homeMainPresenterInterface = new HomeMainPresenter();
@@ -156,11 +181,42 @@ public class HomeMainActivity extends BaseActivity
             llLogout.setVisibility(View.GONE);
         }
         mLocationChange = (LocationChange) mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT);
-        getFirebaseToken();
-        initiateFragments();
-        loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
-        bottomNavigation.setSelectedItemId(R.id.navigation_home);
-        appUpdateManager = AppUpdateManagerFactory.create(HomeMainActivity.this);
+//        getFirebaseToken();
+//        initiateFragments();
+//        checkForUpdate();
+        getCurrentVersion();
+        SharedPrefs.setString(SharedPrefs.Keys.MERCHANT_ID, "1");
+        loadFragment(new HomeFragment());
+//        loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
+//        bottomNavigation.setSelectedItemId(R.id.navigation_home);
+//        appUpdateManager = AppUpdateManagerFactory.create(HomeMainActivity.this);
+//        getCurrentVersion();
+
+
+    }
+
+    private void checkForUpdate() {
+        FirebaseRemoteConfigSettings configSettings = new FirebaseRemoteConfigSettings.Builder()
+                .setMinimumFetchIntervalInSeconds(3600)
+                .build();
+        mFirebaseRemoteConfig.setConfigSettingsAsync(configSettings);
+        int latestAppVersion = Integer.parseInt(mFirebaseRemoteConfig.getString("force_update_current_version"));
+        if (latestAppVersion > BuildConfig.VERSION_CODE) {
+            new AlertDialog.Builder(this).setTitle("Please Update the App")
+                    .setMessage("A new version of this app is available. Please update it").setPositiveButton(
+                    "OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                            try {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                            } catch (android.content.ActivityNotFoundException anfe) {
+                                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                            }
+                        }
+                    }).setCancelable(false).show();
+        } else {
+        }
     }
 
     private void getFirebaseToken() {
@@ -177,7 +233,8 @@ public class HomeMainActivity extends BaseActivity
     @Override
     protected void onResume() {
         super.onResume();
-        checkNewBuildAvailable();
+//        checkNewBuildAvailable();
+
         invalidateOptionsMenu();
     }
 
@@ -270,7 +327,7 @@ public class HomeMainActivity extends BaseActivity
 
     @Override
     public void reloadPage() {
-        startActivity(HomeMainActivity.start(this));
+        startActivity(HomeMainActivity.start(this,false));
         finish();
     }
 
@@ -296,6 +353,11 @@ public class HomeMainActivity extends BaseActivity
 
     private void loadFragment(Fragment fragment) {
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (fragment instanceof HomeFragment){
+            Bundle args = new Bundle();
+            args.putBoolean("isAppLaunch",isAPPLaunch);
+            fragment.setArguments(args);
+        }
         transaction.replace(R.id.flContainer, fragment);
         try {
             transaction.commit();
@@ -310,12 +372,12 @@ public class HomeMainActivity extends BaseActivity
         getMenuInflater().inflate(R.menu.home_menu, menu);
         MenuItem menuItem = menu.findItem(R.id.navigation_searching);
         if (getSupportFragmentManager().findFragmentById(R.id.flContainer) instanceof HomeFragment)
-            menuItem.setVisible(true);
+            menuItem.setVisible(false);
         else
             menuItem.setVisible(false);
         defaultMenu = menu;
-        if (!SharedPrefs.getString(SharedPrefs.Keys.CART_COUNT,"").equals("")){
-            setCount(this, SharedPrefs.getString(SharedPrefs.Keys.CART_COUNT,""), defaultMenu);
+        if (SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0)>0){
+            setCount(this, SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0), defaultMenu);
         }
         return true;
     }
@@ -335,7 +397,7 @@ public class HomeMainActivity extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
-    public void setCount(Context context, String count, Menu menu) {
+    public void setCount(Context context, int count, Menu menu) {
         MenuItem menuItem = menu.findItem(R.id.navigation_cart);
         LayerDrawable icon = (LayerDrawable) menuItem.getIcon();
 
@@ -349,7 +411,7 @@ public class HomeMainActivity extends BaseActivity
             badge = new CountDrawable(context);
         }
 
-        badge.setCount(count);
+        badge.setCount(String.valueOf(count));
         icon.mutate();
         icon.setDrawableByLayerId(R.id.ic_group_count, badge);
     }
@@ -359,10 +421,12 @@ public class HomeMainActivity extends BaseActivity
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.flContainer);
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
-        } else if (!(fragment instanceof HomeFragment)) {
-            loadFragment(new HomeFragment());
-            bottomNavigation.setSelectedItemId(R.id.navigation_home);
-        } else {
+        }
+//        else if (!(fragment instanceof HomeFragment)) {
+//            loadFragment(new HomeFragment());
+//            bottomNavigation.setSelectedItemId(R.id.navigation_home);
+//        }
+        else {
             super.onBackPressed();
         }
     }
@@ -418,7 +482,7 @@ public class HomeMainActivity extends BaseActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llMyProfile: {
-                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
+                if (!SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN,false)) {
                     toLogin();
                 } else {
                    startActivity(ProfileActivity.start(this));
@@ -427,7 +491,7 @@ public class HomeMainActivity extends BaseActivity
                 break;
             }
             case R.id.llMyBooking: {
-                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
+                if (!SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN,false)) {
                     toLogin();
                 } else {
                     loadFragment(mFragmentHashMap.get(Constants.TAG_BOOKINGS_FRAGMENT));
@@ -438,17 +502,17 @@ public class HomeMainActivity extends BaseActivity
                 break;
             }
             case R.id.llMyFavorites: {
-                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
-                    toLogin();
-                } else {
-                    loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
-                    bottomNavigation.setSelectedItemId(R.id.navigation_favorites);
-                    drawerLayout.closeDrawers();
-                }
+//                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
+//                    toLogin();
+//                } else {
+//                    loadFragment(mFragmentHashMap.get(Constants.TAG_FAVORITES_FRAGMENT));
+//                    bottomNavigation.setSelectedItemId(R.id.navigation_favorites);
+//                    drawerLayout.closeDrawers();
+//                }
                 break;
             }
             case R.id.llMyOrders:{
-                if (SharedPrefs.getString(SharedPrefs.Keys.USER_ID, "").equals("")) {
+                if (!SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN,false)){
                     toLogin();
                 } else {
                     startActivity(MyOrdersActivity.start(this));
@@ -496,8 +560,14 @@ public class HomeMainActivity extends BaseActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         invalidateOptionsMenu();
+
         switch (menuItem.getItemId()) {
             case R.id.navigation_home:
+                if (isFirstTime){
+                    isFirstTime = false;
+                }
+                else
+                    isAPPLaunch = false;
                 loadFragment(mFragmentHashMap.get(Constants.TAG_HOME_FRAGMENT));
                 return true;
             case R.id.navigation_categories:
@@ -532,51 +602,127 @@ public class HomeMainActivity extends BaseActivity
         void onLocationChanged(String place);
     }
 
-    private void checkNewBuildAvailable() {
-        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
-        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
-            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                    && appUpdateInfo.updatePriority() >= 0
-                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
-                try {
-                    appUpdateManager.startUpdateFlowForResult(
-                            appUpdateInfo,
-                            AppUpdateType.FLEXIBLE,
-                            this,
-                            MY_UPDATE_REQUEST_CODE);
-                } catch (IntentSender.SendIntentException e) {
-                    e.printStackTrace();
+    private void getCurrentVersion(){
+        PackageManager pm = this.getPackageManager();
+        PackageInfo pInfo = null;
+
+        try {
+            pInfo =  pm.getPackageInfo(this.getPackageName(),0);
+
+        } catch (PackageManager.NameNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+        currentVersion = pInfo.versionName;
+
+        new GetLatestVersion().execute();
+
+    }
+
+    private class GetLatestVersion extends AsyncTask<String, String, JSONObject> {
+
+        private ProgressDialog progressDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... params) {
+            try {
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+//It retrieves the latest version by scraping the content of current version from play store at runtime
+                Document doc = Jsoup.connect("https://play.google.com/store/apps/details?id="+appPackageName).get();
+                latestVersion = doc.getElementsByClass("htlgb").get(6).text();
+
+            }catch (Exception e){
+                e.printStackTrace();
+
+            }
+
+            return new JSONObject();
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject jsonObject) {
+            if(latestVersion!=null) {
+                if (!currentVersion.equalsIgnoreCase(latestVersion)){
+                    if(!isFinishing()){ //This would help to prevent Error : BinderProxy@45d459c0 is not valid; is your activity running? error
+                        showUpdateDialog();
+                    }
                 }
             }
-            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
-                popupSnackbarForCompleteUpdate();
-                appUpdateManager.unregisterListener(listener);
+
+            super.onPostExecute(jsonObject);
+        }
+    }
+
+    private void showUpdateDialog(){
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("A New Update is Available");
+        builder.setPositiveButton("Update", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                final String appPackageName = getPackageName(); // getPackageName() from Context or Activity object
+                try {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
+                } catch (android.content.ActivityNotFoundException anfe) {
+                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
+                }
+                dialog.dismiss();
             }
         });
-        appUpdateManager.registerListener(listener);
-    }
 
-    private void popupSnackbarForCompleteUpdate() {
-        Snackbar snackbar =
-                Snackbar.make(
-                        findViewById(R.id.drawerLayout),
-                        "An update has just been downloaded.",
-                        Snackbar.LENGTH_INDEFINITE);
-        snackbar.setAction("RESTART", view -> appUpdateManager.completeUpdate());
-        snackbar.setActionTextColor(
-                getResources().getColor(R.color.colorPrimary));
-        snackbar.show();
+        builder.setCancelable(false);
+        dialog = builder.show();
     }
+//    private void checkNewBuildAvailable() {
+//        appUpdateManager = AppUpdateManagerFactory.create(HomeMainActivity.this);
+//        Task<AppUpdateInfo> appUpdateInfoTask = appUpdateManager.getAppUpdateInfo();
+//        appUpdateInfoTask.addOnSuccessListener(appUpdateInfo -> {
+//            if (appUpdateInfo.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+//                    && appUpdateInfo.updatePriority() >= 0
+//                    && appUpdateInfo.isUpdateTypeAllowed(AppUpdateType.FLEXIBLE)) {
+//                try {
+//                    appUpdateManager.startUpdateFlowForResult(
+//                            appUpdateInfo,
+//                            AppUpdateType.FLEXIBLE,
+//                            this,
+//                            MY_UPDATE_REQUEST_CODE);
+//                } catch (IntentSender.SendIntentException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            if (appUpdateInfo.installStatus() == InstallStatus.DOWNLOADED) {
+//                popupSnackbarForCompleteUpdate();
+//                appUpdateManager.unregisterListener(listener);
+//            }
+//        });
+//        appUpdateManager.registerListener(listener);
+//    }
 
-    InstallStateUpdatedListener listener = state -> {
-        // (Optional) Provide a download progress bar.
-        if (state.installStatus() == InstallStatus.DOWNLOADING) {
-            long bytesDownloaded = state.bytesDownloaded();
-            long totalBytesToDownload = state.totalBytesToDownload();
-            // Implement progress bar.
-        }
-        // Log state or install the update.
-    };
+//    private void popupSnackbarForCompleteUpdate() {
+//        Snackbar snackbar =
+//                Snackbar.make(
+//                        findViewById(R.id.drawerLayout),
+//                        "An update has just been downloaded.",
+//                        Snackbar.LENGTH_INDEFINITE);
+//        snackbar.setAction("RESTART", view -> appUpdateManager.completeUpdate());
+//        snackbar.setActionTextColor(
+//                getResources().getColor(R.color.colorPrimary));
+//        snackbar.show();
+//    }
+
+//    InstallStateUpdatedListener listener = state -> {
+//        // (Optional) Provide a download progress bar.
+//        if (state.installStatus() == InstallStatus.DOWNLOADING) {
+//            long bytesDownloaded = state.bytesDownloaded();
+//            long totalBytesToDownload = state.totalBytesToDownload();
+//            // Implement progress bar.
+//        }
+//        // Log state or install the update.
+//    };
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

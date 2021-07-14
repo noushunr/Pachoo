@@ -13,9 +13,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
-import com.facebook.AccessToken;
-import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
+//import com.facebook.AccessToken;
+//import com.facebook.login.LoginManager;
+//import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.highstreets.user.R;
@@ -26,7 +26,7 @@ public class LogoutDialogFragment extends DialogFragment implements View.OnClick
 
     private Button btnLogout;
     private Button btnCancel;
-    private GoogleApiClient mGoogleApiClient;
+//    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,10 +34,10 @@ public class LogoutDialogFragment extends DialogFragment implements View.OnClick
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
-        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
-                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
-                .build();
-        mGoogleApiClient.connect();
+//        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+//                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+//                .build();
+//        mGoogleApiClient.connect();
         super.onStart();
     }
 
@@ -77,15 +77,15 @@ public class LogoutDialogFragment extends DialogFragment implements View.OnClick
     }
 
     private void logout() {
-        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
-        LoginManager.getInstance().logOut();
-        AccessToken.setCurrentAccessToken(null);
+//        Auth.GoogleSignInApi.signOut(mGoogleApiClient);
+//        LoginManager.getInstance().logOut();
+//        AccessToken.setCurrentAccessToken(null);
         SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, false);
         SharedPrefs.remove(SharedPrefs.Keys.USER_ID);
         SharedPrefs.clear();
         Intent intent = new Intent(getActivity(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
-        getActivity().finish();
+        getActivity().finishAffinity();
     }
 }

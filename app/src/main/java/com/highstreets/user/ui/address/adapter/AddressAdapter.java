@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.highstreets.user.R;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.ui.address.add_address.AddAddressActivity;
 import com.highstreets.user.ui.address.model.Address;
 import com.highstreets.user.utils.Constants;
@@ -26,10 +27,10 @@ import butterknife.ButterKnife;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold> {
 
-    private List<Address> addressList;
+    private List<Success> addressList;
     private Context context;
 
-    public AddressAdapter(List<Address> addressList) {
+    public AddressAdapter(List<Success> addressList) {
         this.addressList = addressList;
     }
 
@@ -43,11 +44,11 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
-        Address address = addressList.get(position);
-        String name = address.getFirstname() + " " + address.getLastname();
+        Success address = addressList.get(position);
+        String name = address.getName() ;
         holder.tvName.setText(name);
-        holder.tvNumber.setText(address.getMobile());
-        holder.tvAddress.setText(address.getAddress2());
+        holder.tvNumber.setText(address.getPhone());
+        holder.tvAddress.setText(address.getAddress());
 
         if (address.isSelected()){
             holder.checkAddress.setChecked(true);
@@ -78,14 +79,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
         holder.ivEditAddress.setOnClickListener(view -> {
             Intent editAddressIntent = AddAddressActivity.start(context);
-            editAddressIntent.putExtra(Constants.EDIT_ADDRESS_ID, address.getAddressId());
+            editAddressIntent.putExtra(Constants.EDIT_ADDRESS_ID, address.getDeliveryAddressId());
             context.startActivity(editAddressIntent);
         });
 
     }
 
     private void clearSelection(){
-        for (Address address : addressList){
+        for (Success address : addressList){
             address.setSelected(false);
         }
     }

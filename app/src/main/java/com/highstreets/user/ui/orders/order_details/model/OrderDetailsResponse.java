@@ -7,13 +7,19 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderDetailsResponse {
 
+    @SerializedName("success")
+    @Expose
+    private Integer success;
+    @SerializedName("message")
+    @Expose
+    private String message;
     @SerializedName("status")
     @Expose
     private String status;
     @SerializedName("order_details")
     @Expose
     private OrderDetails orderDetails;
-    @SerializedName("products")
+    @SerializedName("data")
     @Expose
     private List<Product> products = null;
 

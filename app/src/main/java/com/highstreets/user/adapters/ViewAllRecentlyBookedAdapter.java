@@ -42,7 +42,9 @@ public class ViewAllRecentlyBookedAdapter extends RecyclerView.Adapter<ViewAllRe
         final ViewAllRecentlyBooked recentlyBooked = viewAllRecentlyBookedList.get(i);
 
         myViewHolder.TxtOfferName.setText(recentlyBooked.getBusinessName());
-        myViewHolder.TxtOfferPrice.setText(recentlyBooked.getOfferPrice());
+        String priceWithSymbol = mContext.getString(R.string.pound_symbol) + recentlyBooked.getOfferPrice();
+        myViewHolder.TxtOfferPrice.setText(priceWithSymbol);
+//        myViewHolder.TxtOfferPrice.setText(recentlyBooked.getOfferPrice());
         myViewHolder.TxtPercentage.setText(recentlyBooked.getOfferPercentage() + "%");
 
         Glide.with(mContext).load(ApiClient.MERCHANTS_IMAGE_URL + recentlyBooked.getImage())

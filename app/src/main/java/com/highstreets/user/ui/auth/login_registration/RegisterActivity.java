@@ -5,33 +5,38 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.annotation.Nullable;
 
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+//import com.facebook.AccessToken;
+//import com.facebook.CallbackManager;
+//import com.facebook.FacebookCallback;
+//import com.facebook.FacebookException;
+//import com.facebook.GraphRequest;
+//import com.facebook.GraphResponse;
+//import com.facebook.login.LoginManager;
+//import com.facebook.login.LoginResult;
+//import com.google.android.gms.auth.api.signin.GoogleSignIn;
+//import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+//import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.highstreets.user.R;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.ui.SplashActivity;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 import com.highstreets.user.ui.main.HomeMainActivity;
+import com.highstreets.user.ui.main.MoreCategoriesActivity;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
 
@@ -39,6 +44,7 @@ import org.json.JSONObject;
 
 import java.util.Arrays;
 
+import androidx.appcompat.app.AlertDialog;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -52,24 +58,24 @@ public class RegisterActivity extends BaseActivity implements
     private LoginRegisterPresenterInterface loginRegisterPresenterInterface;
     private ProgressDialogFragment progressDialogFragment;
     private GoogleSignInOptions mGoogleSignInOptions;
-    private GoogleSignInClient mGoogleSignInClient;
+//    private GoogleSignInClient mGoogleSignInClient;
     private int PasswordLength = 8;
-    private CallbackManager mFBCallbackManager;
-    private LoginManager mFBLoginManager;
+//    private CallbackManager mFBCallbackManager;
+//    private LoginManager mFBLoginManager;
     private String  GenderHolder, profileImage;
 
     @BindView(R.id.itEtFirstName)
-    TextInputEditText itEtFirstName;
+    EditText itEtFirstName;
     @BindView(R.id.tiEtLastName)
     TextInputEditText tiEtLastName;
     @BindView(R.id.tiEtEmailID)
-    TextInputEditText tiEtEmailID;
+    EditText tiEtEmailID;
     @BindView(R.id.tiEtPassword)
-    TextInputEditText tiEtPassword;
+    EditText tiEtPassword;
     @BindView(R.id.tiEtConfirmPassword)
-    TextInputEditText tiEtConfirmPassword;
+    EditText tiEtConfirmPassword;
     @BindView(R.id.tiEtMobile)
-    TextInputEditText tiEtMobile;
+    EditText tiEtMobile;
     @BindView(R.id.radio_group)
     RadioGroup mGenderGroup;
     @BindView(R.id.btnToLogin)
@@ -80,7 +86,11 @@ public class RegisterActivity extends BaseActivity implements
     Button btnFacebookSignIn;
     @BindView(R.id.btnGoogleSignIn)
     Button btnGoogleSignIn;
-
+    private EditText etOtp;
+    private Button btnCancel;
+    private Button btnOk;
+    AlertDialog dialog;
+    private String tokenId;
     public static Intent start(Context context){
         return new Intent(context, RegisterActivity.class);
     }
@@ -104,47 +114,53 @@ public class RegisterActivity extends BaseActivity implements
                 .requestId()
                 .build();
 
-        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions);
-
-        mFBCallbackManager = CallbackManager.Factory.create();
-        mFBLoginManager = LoginManager.getInstance();
-        mFBLoginManager.registerCallback(mFBCallbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                loginResult.getAccessToken();
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
-                    @Override
-                    public void onCompleted(JSONObject object, GraphResponse response) {
-                        String email = object.optString("email");
-                        String name = object.optString("name");
-                        String id = object.optString("id");
-                        String profileImage = String.format("http://graph.facebook.com/%s/picture?type=square", id);
-
-                        loginRegisterPresenterInterface.userRegisterSocial(
-                                Constants.TYPE_SOCIAL_FACEBOOK,
-                                id,
-                                name,
-                                email,
-                                profileImage);
-                    }
-                });
-                Bundle parameters = new Bundle();
-                parameters.putString("fields", "id,name,email,picture");
-                request.setParameters(parameters);
-                request.executeAsync();
+        FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                return;
             }
-
-
-            @Override
-            public void onCancel() {
-
-            }
-
-            @Override
-            public void onError(FacebookException error) {
-
-            }
+            tokenId = task.getResult().getToken();
         });
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, mGoogleSignInOptions);
+//
+//        mFBCallbackManager = CallbackManager.Factory.create();
+//        mFBLoginManager = LoginManager.getInstance();
+//        mFBLoginManager.registerCallback(mFBCallbackManager, new FacebookCallback<LoginResult>() {
+//            @Override
+//            public void onSuccess(LoginResult loginResult) {
+//                loginResult.getAccessToken();
+//                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+//                    @Override
+//                    public void onCompleted(JSONObject object, GraphResponse response) {
+//                        String email = object.optString("email");
+//                        String name = object.optString("name");
+//                        String id = object.optString("id");
+//                        String profileImage = String.format("http://graph.facebook.com/%s/picture?type=square", id);
+//
+//                        loginRegisterPresenterInterface.userRegisterSocial(
+//                                Constants.TYPE_SOCIAL_FACEBOOK,
+//                                id,
+//                                name,
+//                                email,
+//                                profileImage);
+//                    }
+//                });
+//                Bundle parameters = new Bundle();
+//                parameters.putString("fields", "id,name,email,picture");
+//                request.setParameters(parameters);
+//                request.executeAsync();
+//            }
+//
+//
+//            @Override
+//            public void onCancel() {
+//
+//            }
+//
+//            @Override
+//            public void onError(FacebookException error) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -175,65 +191,65 @@ public class RegisterActivity extends BaseActivity implements
                 break;
             }
             case R.id.btnFacebookSignIn: {
-                facebookSignIn();
+//                facebookSignIn();
                 break;
             }
             case R.id.btnGoogleSignIn: {
-                googleSignIn();
+//                googleSignIn();
                 break;
             }
         }
     }
 
-    private void facebookSignIn() {
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        if (isLoggedIn) {
-            LoginManager.getInstance().logOut();
-            AccessToken.setCurrentAccessToken(null);
-        } else {
-            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
-        }
-
-    }
-
-    private void googleSignIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, Constants.GOOGLE_SIGN_IN_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        mFBCallbackManager.onActivityResult(requestCode, resultCode, data);
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.GOOGLE_SIGN_IN_CODE) {
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleGoogleSignInResult(task);
-        }
-    }
-
-
-    private void handleGoogleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
-            String id = account.getId();
-            String name = account.getDisplayName();
-            String email = account.getEmail();
-            if (account.getPhotoUrl()!=null) {
-                profileImage = account.getPhotoUrl().toString();
-
-            }
-
-            loginRegisterPresenterInterface.userRegisterSocial(
-                    Constants.TYPE_SOCIAL_GOOGLE,
-                    id,
-                    name,
-                    email,
-                    profileImage);
-
-        } catch (ApiException e) {
-        }
-    }
+//    private void facebookSignIn() {
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        if (isLoggedIn) {
+//            LoginManager.getInstance().logOut();
+//            AccessToken.setCurrentAccessToken(null);
+//        } else {
+//            LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("email", "public_profile"));
+//        }
+//
+//    }
+//
+//    private void googleSignIn() {
+//        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+//        startActivityForResult(signInIntent, Constants.GOOGLE_SIGN_IN_CODE);
+//    }
+//
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        mFBCallbackManager.onActivityResult(requestCode, resultCode, data);
+//        super.onActivityResult(requestCode, resultCode, data);
+//        if (requestCode == Constants.GOOGLE_SIGN_IN_CODE) {
+//            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+//            handleGoogleSignInResult(task);
+//        }
+//    }
+//
+//
+//    private void handleGoogleSignInResult(Task<GoogleSignInAccount> completedTask) {
+//        try {
+//            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+//            String id = account.getId();
+//            String name = account.getDisplayName();
+//            String email = account.getEmail();
+//            if (account.getPhotoUrl()!=null) {
+//                profileImage = account.getPhotoUrl().toString();
+//
+//            }
+//
+//            loginRegisterPresenterInterface.userRegisterSocial(
+//                    Constants.TYPE_SOCIAL_GOOGLE,
+//                    id,
+//                    name,
+//                    email,
+//                    profileImage);
+//
+//        } catch (ApiException e) {
+//        }
+//    }
 
     private void validateFields() {
         String emailId = tiEtEmailID.getText().toString();
@@ -245,9 +261,6 @@ public class RegisterActivity extends BaseActivity implements
         if (TextUtils.isEmpty(itEtFirstName.getText())) {
             itEtFirstName.requestFocus();
             CommonUtils.showToast(this, "First Name is not entered");
-        } else if (TextUtils.isEmpty(tiEtLastName.getText())) {
-            tiEtLastName.requestFocus();
-            CommonUtils.showToast(this, "Last Name is not entered");
         } else if (TextUtils.isEmpty(emailId)) {
             tiEtEmailID.requestFocus();
             CommonUtils.showToast(this, "Email ID is not entered");
@@ -273,13 +286,13 @@ public class RegisterActivity extends BaseActivity implements
             tiEtMobile.requestFocus();
             CommonUtils.showToast(this, "Please Enter Valid 10 Digits Number");
         } else {
-            loginRegisterPresenterInterface.userRegister(tiEtLastName.getText().toString(),
-                    tiEtLastName.getText().toString(),
+            loginRegisterPresenterInterface.userRegister(itEtFirstName.getText().toString(),
                     emailId,
                     password,
                     confirmPassword,
+                    checkedGender.getText().toString().substring(0,1),
                     mobile,
-                    checkedGender.getText().toString());
+                    tokenId);
         }
     }
 
@@ -290,6 +303,51 @@ public class RegisterActivity extends BaseActivity implements
 
     @Override
     public void onSighInSuccess(String message) {
+        CommonUtils.showToast(this, message);
+//        SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, true);
+//        Intent toAllCategories = MoreCategoriesActivity.start(RegisterActivity.this);
+//        SharedPrefs.setString(SharedPrefs.Keys.MERCHANT_ID, "16");
+//        toAllCategories.putExtra(Constants.MERCHANT_ID, "16");
+//        startActivity(toAllCategories);
+//        finishAffinity();
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(RegisterActivity.this);
+        LayoutInflater inflater = getLayoutInflater();
+        final View alertDialogView = inflater.inflate(R.layout.fragment_otp, null);
+        alertDialog.setView(alertDialogView);
+//        alertDialog.setTitle(title);
+        alertDialog.setCancelable(false);
+//        alertDialog.setPositiveButton(android.R.string.ok, null);
+        dialog = alertDialog.create();
+        dialog.show();
+        etOtp = alertDialogView.findViewById(R.id.etOtp);
+        btnCancel = alertDialogView.findViewById(R.id.cancel);
+        btnOk = alertDialogView.findViewById(R.id.ok);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (etOtp.getText().toString().isEmpty()){
+                    etOtp.requestFocus();
+                    CommonUtils.showToast(RegisterActivity.this, "OTP is not entered");
+                }else {
+                    loginRegisterPresenterInterface.otpVerification(tiEtMobile.getText().toString(),etOtp.getText().toString(),SharedPrefs.getString(SharedPrefs.Keys.SESSION_ID,""));
+                }
+            }
+        });
+//        startActivity(new Intent(this, HomeMainActivity.class));
+//        finishAffinity();
+    }
+
+    @Override
+    public void onOtpVerified(String message) {
+        if (dialog!=null)
+            dialog.dismiss();
         CommonUtils.showToast(this, message);
         SharedPrefs.setBoolean(SharedPrefs.Keys.IS_LOGIN, true);
         startActivity(new Intent(this, HomeMainActivity.class));

@@ -4,21 +4,32 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".ui.auth.login_registration.LoginActivity">
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="250dp"
+                android:layout_height="70dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                android:src="@drawable/logo"></ImageView>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <TextView
@@ -48,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/activity_horizontal_margin"
                 android:fontFamily="@font/nunito_regular"
+                android:visibility="gone"
                 android:text="@string/your_top_stop_destination"
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp" />
@@ -56,16 +68,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/loginButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="30dp"
-                    android:layout_marginBottom="30dp"
-                    android:visibility="gone" />
+<!--                <com.facebook.login.widget.LoginButton-->
+<!--                    android:id="@+id/loginButton"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_gravity="center_horizontal"-->
+<!--                    android:layout_marginTop="30dp"-->
+<!--                    android:layout_marginBottom="30dp"-->
+<!--                    android:visibility="gone" />-->
 
                 <Button
                     android:id="@+id/btnFacebookSignIn"
@@ -108,6 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <View
@@ -137,108 +151,246 @@
             </LinearLayout>
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColorHint="@color/black"
-                android:theme="@style/TextLabelBlack"
-                android:layout_margin="@dimen/activity_horizontal_margin">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiEtEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:hint="@string/email_id"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColorHint="@color/black"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:textColorHint="@color/black"
-                android:theme="@style/TextLabelBlack"
-                app:passwordToggleContentDescription="Show"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiEtPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/nunito_regular"
-                    android:hint="@string/password"
-                    android:imeOptions="actionDone"
-                    android:inputType="textPassword"
-                    android:textColorHint="@color/black"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <TextView
-                android:id="@+id/tvForgotPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginTop="10dip"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="10dip"
-                android:fontFamily="@font/nunito_regular"
-                android:gravity="end"
-                android:text="@string/forgot_password_with_question"
-                android:textColor="@color/text_color_black"
-                android:textSize="12sp" />
-
-            <Button
-                android:id="@+id/btnLogin"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
-                android:layout_marginTop="10dip"
-                android:background="@drawable/button_bg_primary"
-                android:fontFamily="@font/nunito_regular"
-                android:text="@string/sign_in"
-                android:textAllCaps="true"
-                android:textColor="@color/white"
-                android:textSize="12sp"
-                android:textStyle="bold" />
-
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/activity_vertical_margin"
-                android:layout_marginTop="40dp">
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColorHint="@color/black"
+                    android:theme="@style/TextLabelBlack"
+                    android:layout_margin="10dp">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_regular"
+                        android:hint="@string/email_id"
+                        android:imeOptions="actionNext"
+                        android:inputType="textEmailAddress"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:textColorHint="@color/black"
+                    android:theme="@style/TextLabelBlack"
+                    app:passwordToggleContentDescription="Show"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_regular"
+                        android:hint="@string/password"
+                        android:imeOptions="actionDone"
+                        android:inputType="textPassword"
+                        android:textColorHint="@color/black"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="16sp" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="10dip"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="10dip"
                     android:fontFamily="@font/nunito_regular"
-                    android:gravity="center"
-                    android:text="@string/don_t_have_an_account"
+                    android:gravity="end"
+                    android:text="@string/forgot_password_with_question"
                     android:textColor="@color/text_color_black"
-                    android:textSize="10sp" />
+                    android:textSize="12sp" />
 
-                <TextView
-                    android:id="@+id/tvSignUp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="8dp"
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginHorizontal="@dimen/activity_horizontal_margin"
+                    android:layout_marginTop="10dip"
                     android:background="@drawable/button_bg_primary"
                     android:fontFamily="@font/nunito_regular"
-                    android:gravity="center"
-                    android:paddingHorizontal="10dp"
-                    android:paddingVertical="4dp"
-                    android:text="@string/sign_up"
+                    android:text="@string/sign_in"
                     android:textAllCaps="true"
                     android:textColor="@color/white"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/activity_vertical_margin"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="40dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/nunito_regular"
+                        android:gravity="center"
+                        android:text="@string/don_t_have_an_account"
+                        android:textColor="@color/text_color_black"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="8dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:gravity="center"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="4dp"
+                        android:text="@string/sign_up"
+                        android:textAllCaps="true"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </LinearLayout>
+
+
             </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/logo"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:visibility="visible"
+                android:layout_gravity="center"
+                android:gravity="center"
+
+                android:layout_marginTop="30dp"
+                android:layout_centerVertical="true"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/ll_user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/border_layout">
+
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_user_"
+                        android:paddingLeft="5dp"
+                        android:tint="@color/colorPrimary"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="center_vertical"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:background="@color/colorPrimary"
+                        android:padding="5dp">
+
+                    </View>
+                    <EditText
+                        android:id="@+id/tiEtEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="10dp"
+                        android:hint="Contact Number"
+                        android:textSize="15dp"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textColorHint="@color/colorPrimary"
+                        android:focusableInTouchMode="true"
+                        android:inputType="phone"
+                        android:digits="+0123456789"
+                        android:padding="10dp"
+                        android:textColor="@color/colorPrimary"
+                        />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/ll_user_name"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:background="@drawable/border_layout">
+                    <ImageView
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:src="@drawable/ic_password"
+                        android:tint="@color/colorPrimary"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:layout_gravity="center_vertical"/>
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        android:background="@color/colorPrimary"
+                        android:padding="5dp">
+
+                    </View>
+
+                    <EditText
+                        android:id="@+id/tiEtPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:drawablePadding="10dp"
+                        android:hint="Password"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textSize="15dp"
+                        android:textColorHint="@color/colorPrimary"
+                        android:focusableInTouchMode="true"
+                        android:inputType="textPassword"
+                        android:padding="10dp"
+                        android:textColor="@color/colorPrimary" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@+id/ll_password"
+                    android:fontFamily="@font/nunito_regular"
+                    android:layout_margin="10dp"
+                    android:background="@color/colorPrimary"
+                    android:text="Login"
+                    android:textColor="@color/white" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/btnLogin"
+                    android:layout_margin="10dp">
+
+                    <TextView
+                        android:id="@+id/tvForgotPassword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Forgot Password?"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp" />
+
+                    <TextView
+                        android:id="@+id/tvSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="Sign Up"
+                        android:fontFamily="@font/nunito_regular"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12dp" />
+                </RelativeLayout>
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvLoginAsGuest"
@@ -246,11 +398,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_gravity="center"
                 android:fontFamily="@font/nunito_regular"
                 android:padding="8dp"
+                android:visibility="gone"
                 android:text="@string/login_as_guest"
                 android:textColor="@color/text_color_black"
                 android:textSize="12sp" />
         </LinearLayout>
+
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

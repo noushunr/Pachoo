@@ -4,11 +4,14 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.ui.orders.order_details.model.OrderDetailsResponse;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.TOKEN;
 
 public class OrderDetailsPresenter implements OrderDetailsPresenterInterface {
 
@@ -32,7 +35,7 @@ public class OrderDetailsPresenter implements OrderDetailsPresenterInterface {
     @Override
     public void getOrder(String userId, String orderId) {
         showProgressIndicator();
-        ApiClient.getApiInterface().getOrder(userId, orderId).enqueue(new Callback<OrderDetailsResponse>() {
+        ApiClient.getApiInterface().getOrder("Bearer "+ SharedPrefs.getString(TOKEN,""), orderId).enqueue(new Callback<OrderDetailsResponse>() {
             @Override
             public void onResponse(Call<OrderDetailsResponse> call, Response<OrderDetailsResponse> response) {
                 dismissProgressIndicator();

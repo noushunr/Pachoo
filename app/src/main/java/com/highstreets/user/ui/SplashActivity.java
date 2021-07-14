@@ -34,7 +34,7 @@ public class SplashActivity extends AppCompatActivity {
 
         if (SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN, false)) {
             new Handler().postDelayed(() -> {
-                startActivity(HomeMainActivity.start(SplashActivity.this));
+                startActivity(HomeMainActivity.start(SplashActivity.this,true));
                 finish();
             }, SPLASH_TIME_OUT);
         } else {
@@ -44,20 +44,6 @@ public class SplashActivity extends AppCompatActivity {
             }, SPLASH_TIME_OUT);
         }
 
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.highstreets.user",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.e("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        }
-        catch (PackageManager.NameNotFoundException e) {
-        }
-        catch (NoSuchAlgorithmException e) {
-        }
     }
 
 }

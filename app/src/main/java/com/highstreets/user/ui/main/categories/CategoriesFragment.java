@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.highstreets.user.R;
 import com.highstreets.user.adapters.AllCategoriesAdapter;
@@ -16,9 +17,13 @@ import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.Category;
+import com.highstreets.user.models.Success;
+import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.MERCHANT_ID;
 
 
 public class CategoriesFragment extends Fragment implements CategoriesFragmentViewInterface {
@@ -28,7 +33,7 @@ public class CategoriesFragment extends Fragment implements CategoriesFragmentVi
     private RecyclerView.LayoutManager layoutManager;
     private AllCategoriesAdapter allCategoriesAdapter;
     private CategoriesFragmentPresenterInterface categoriesFragmentPresenterInterface;
-    private ArrayList<Category> brands_modelsArrayList = new ArrayList<>();
+    private List<Success> alCategories = new ArrayList<>();
     private String SELECTED_CITY;
     private OnFragmentInteractionListener mListener;
     private CommonViewInterface mCommonListener;
@@ -46,31 +51,20 @@ public class CategoriesFragment extends Fragment implements CategoriesFragmentVi
         categoriesFragmentPresenterInterface = new CategoriesFragmentPresenter(this);
 
         view = inflater.inflate(R.layout.fragment_categories, container, false);
-        mListener.setTitle("Categories");
+//        mListener.setTitle("Categories");
         rvCategoryList = view.findViewById(R.id.rvCategoryList);
         layoutManager = new GridLayoutManager(getContext(), 3);
         rvCategoryList.setLayoutManager(layoutManager);
         rvCategoryList.setHasFixedSize(false);
         rvCategoryList.setNestedScrollingEnabled(false);
+        categoriesFragmentPresenterInterface.getCategories(SharedPrefs.getString(MERCHANT_ID,""));
 
-        SELECTED_CITY = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
-        if (TextUtils.isEmpty(SELECTED_CITY)) {
-            categoriesFragmentPresenterInterface.getCategories("-1");
-        } else {
-            categoriesFragmentPresenterInterface.getCategories(SELECTED_CITY);
-        }
         return view;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
 
         if (context instanceof CommonViewInterface){
             mCommonListener = (CommonViewInterface) context;
@@ -84,20 +78,21 @@ public class CategoriesFragment extends Fragment implements CategoriesFragmentVi
     }
 
     @Override
-    public void setCategoryList(List<Category> categoryList) {
-        brands_modelsArrayList = (ArrayList<Category>) categoryList;
-        allCategoriesAdapter = new AllCategoriesAdapter(getContext(), brands_modelsArrayList);
+    public void setCategoryList(List<Success> categoryList) {
+        alCategories = (ArrayList<Success>) categoryList;
+        allCategoriesAdapter = new AllCategoriesAdapter(getContext(), alCategories, "");
         rvCategoryList.setAdapter(allCategoriesAdapter);
     }
 
     @Override
     public void onLoadingCategoriesFailed(String message) {
 
+        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onResponseFailed(String message) {
-
+        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override

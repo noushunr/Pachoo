@@ -8,6 +8,8 @@ import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.ProductResult;
 import com.highstreets.user.models.ProfileData;
 import com.highstreets.user.utils.CommonUtils;
 import com.highstreets.user.utils.Constants;
@@ -22,6 +24,8 @@ import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.TOKEN;
 
 public class ProfilePresenter implements ProfilePresenterInterface {
 
@@ -41,28 +45,16 @@ public class ProfilePresenter implements ProfilePresenterInterface {
                               String mobile,
                               final String profile_pic) {
         showProgressIndicator();
-        MultipartBody.Part picprofile = null;
-        if (!TextUtils.isEmpty(profile_pic)) {
-            File file = new File(profile_pic);
-            RequestBody requestBody = RequestBody.create(MediaType.parse("*/*"), file);
-            picprofile = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
-        }
-        Map<String, RequestBody> params = new HashMap<>();
-        params.put("register_id", RequestBody.create(MediaType.parse("multipart/form-data"), register_id));
-        params.put("firstname", RequestBody.create(MediaType.parse("multipart/form-data"), firstname));
-        params.put("lastname", RequestBody.create(MediaType.parse("multipart/form-data"), lastname));
-        params.put("email_id", RequestBody.create(MediaType.parse("multipart/form-data"), email_id));
-        params.put("mobile", RequestBody.create(MediaType.parse("multipart/form-data"), mobile));
-        ApiClient.getApiInterface().update_profile(params, picprofile).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().update_profile("Bearer "+ SharedPrefs.getString(TOKEN,""),firstname,email_id,lastname, mobile).enqueue(new Callback<JsonObject>() {
             @Override
             public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
                 dismissProgressIndicator();
                 if (response.isSuccessful()) {
                     try {
                         JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            String IMG = jsonObject.get("image").getAsString();
-                            profileViewInterface.onProfileUpdateSuccess("Profile Updated", IMG);
+                        if (jsonObject.get("success").getAsInt()== 1) {
+                            String IMG = jsonObject.get("message").getAsString();
+                            profileViewInterface.onProfileUpdateSuccess(IMG, IMG);
                         } else {
                             profileViewInterface.failedToUpdateProfile(Constants.MESSAGE);
                         }
@@ -89,22 +81,19 @@ public class ProfilePresenter implements ProfilePresenterInterface {
     @Override
     public void loadProfileDetails(final String register_id) {
         showProgressIndicator();
-        ApiClient.getApiInterface().get_profile_details(register_id).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().get_profile_details("Bearer "+ SharedPrefs.getString(TOKEN,"")).enqueue(new Callback<ProductResult>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                JsonObject contentResponse;
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
+                ProductResult contentResponse;
                 if (response.isSuccessful()) {
                     contentResponse = response.body();
-                    JsonObject loginData = contentResponse.getAsJsonObject();
-                    ProfileData ProfileData = new Gson().fromJson(loginData, new TypeToken<ProfileData>() {
-                    }.getType());
-                    profileViewInterface.onLoadingProfileSuccess(ProfileData);
+                    profileViewInterface.onLoadingProfileSuccess(contentResponse);
                     dismissProgressIndicator();
                 }
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ProductResult> call, Throwable t) {
                 profileViewInterface.dismissProgressIndicator();
                 profileViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
             }

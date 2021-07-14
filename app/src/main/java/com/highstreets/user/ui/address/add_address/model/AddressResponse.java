@@ -4,8 +4,6 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.highstreets.user.ui.address.model.Address;
 
-import java.util.List;
-
 public class AddressResponse {
     @SerializedName("status")
     @Expose

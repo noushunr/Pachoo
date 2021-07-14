@@ -49,9 +49,12 @@ public class MostlyViewShopAdapter extends RecyclerView.Adapter<MostlyViewShopAd
         myViewHolder.TxtPercentage.setText(mostVisitedShops.getOfferPercentage() + "%");
 
         if (mostVisitedShops.getOfferPrice() != null) {
-            myViewHolder.TxtOfferPrice.setText(mostVisitedShops.getOfferPrice());
+            String priceWithSymbol = mContext.getString(R.string.pound_symbol) + mostVisitedShops.getOfferPrice();
+            myViewHolder.TxtOfferPrice.setText(priceWithSymbol);
+//            myViewHolder.TxtOfferPrice.setText(mostVisitedShops.getOfferPrice());
         } else {
-            myViewHolder.TxtOfferPrice.setText("0.00");
+            String priceWithSymbol = mContext.getString(R.string.pound_symbol) +"0.00";
+            myViewHolder.TxtOfferPrice.setText(priceWithSymbol);
         }
 
         Glide.with(mContext)

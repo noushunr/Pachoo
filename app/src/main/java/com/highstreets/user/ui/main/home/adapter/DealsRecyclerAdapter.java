@@ -17,19 +17,25 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.Category;
 import com.highstreets.user.models.Deal;
+import com.highstreets.user.models.Success;
+import com.highstreets.user.ui.main.MoreCategoriesActivity;
+import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
 import com.highstreets.user.ui.shop_details.ShopActivity;
 import com.highstreets.user.utils.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DealsRecyclerAdapter extends RecyclerView.Adapter<DealsRecyclerAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Deal> list;
+    private List<Success> list;
     private ActionBar toolbar;
 
-    public DealsRecyclerAdapter(Context mContext, List<Deal> list) {
+    public DealsRecyclerAdapter(Context mContext, List<Success> list) {
         this.mContext = mContext;
         this.list = list;
     }
@@ -45,31 +51,28 @@ public class DealsRecyclerAdapter extends RecyclerView.Adapter<DealsRecyclerAdap
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
 
-        final Deal deal = list.get(i);
+        final Success success = list.get(i);
 
-        myViewHolder.TxtOfferName.setText(deal.getBusinessName());
-
-        if (deal.getOfferPercentage() != null) {
-            myViewHolder.TxtOfferPrice.setText(mContext.getString(R.string.pound_symbol) + deal.getOfferPrice());
-            myViewHolder.TxtPercentage.setText(deal.getOfferPercentage() + "%");
-            if (deal.getOfferPercentage().equals("null")) {
-                myViewHolder.TxtPercentage.setText("0" + "%");
-            }
-        } else {
-            myViewHolder.TxtOfferPrice.setText(mContext.getString(R.string.pound_symbol) + "0.00");
-            myViewHolder.TxtPercentage.setText("0%");
-        }
+        myViewHolder.TxtOfferName.setText(success.getShopName());
 
         Glide.with(mContext)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                .load(ApiClient.MERCHANTS_IMAGE_URL + deal.getImage())
+                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.shop))
+                .load(success.getImage())
                 .into(myViewHolder.DealsThumbnails);
         myViewHolder.linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent shopDetailIntent = ShopActivity.getActivityIntent(mContext);
-                shopDetailIntent.putExtra(Constants.MERCHANT_ID, deal.getMerchantId());
-                mContext.startActivity(shopDetailIntent);
+                Intent toAllCategories = MoreCategoriesActivity.start(mContext);
+                SharedPrefs.setString(SharedPrefs.Keys.MERCHANT_ID, String.valueOf(success.getShopId()));
+                toAllCategories.putExtra(Constants.MERCHANT_ID, success.getShopId());
+                mContext.startActivity(toAllCategories);
+//                Intent toSubCategoryIntent = SubCategoryActivity.getActivityIntent(mContext);
+//                toSubCategoryIntent.putExtra(Constants.CATEGORY_ID, "63");
+//                toSubCategoryIntent.putExtra(Constants.CATEGORY_NAME, "Grocery");
+//                mContext.startActivity(toSubCategoryIntent);
+//                Intent shopDetailIntent = ShopActivity.getActivityIntent(mContext);
+//                shopDetailIntent.putExtra(Constants.MERCHANT_ID, deal.getMerchantId());
+//                mContext.startActivity(shopDetailIntent);
             }
         });
     }

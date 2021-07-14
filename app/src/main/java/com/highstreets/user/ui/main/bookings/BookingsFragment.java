@@ -18,6 +18,7 @@ import com.highstreets.user.common.CommonViewInterface;
 import com.highstreets.user.common.OnFragmentInteractionListener;
 import com.highstreets.user.models.BookedOffers;
 import com.highstreets.user.ui.base.BaseFragment;
+import com.highstreets.user.ui.cart.model.DeleteCartItemResponse;
 import com.highstreets.user.ui.dialog_fragment.ProgressDialogFragment;
 
 import java.util.List;
@@ -85,7 +86,14 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
 
     @Override
     public void onLoadingBookedOffersSuccess(final List<BookedOffers> booked_modelList) {
-        mBookingsAdapter = new BookingsAdapter(getContext(), booked_modelList);
+        mBookingsAdapter = new BookingsAdapter(getContext(), booked_modelList, new BookingsAdapter.RemoveBookingItem() {
+            @Override
+            public void remove(String bookingId) {
+                bookingsPresenter.deleteBookings(
+                        SharedPrefs.getString(SharedPrefs.Keys.USER_ID, ""),
+                        bookingId);
+            }
+        });
         mBookedRecyclerView.setAdapter(mBookingsAdapter);
         if (booked_modelList.size() <= 0) {
             tvNoData.setVisibility(View.VISIBLE);
@@ -97,6 +105,11 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
     @Override
     public void onLoadingBookedOffersFailed(String message) {
 
+    }
+
+    @Override
+    public void deleteResponse(DeleteCartItemResponse deleteCartItemResponse) {
+        getBookedOffer(USER_ID);
     }
 
     @Override
@@ -132,4 +145,6 @@ public class BookingsFragment extends BaseFragment implements BookingsViewInterf
     public void onRetry() {
         getBookedOffer(USER_ID);
     }
+
+
 }

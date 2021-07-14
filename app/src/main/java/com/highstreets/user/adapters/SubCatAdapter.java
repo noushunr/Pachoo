@@ -1,6 +1,7 @@
 package com.highstreets.user.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,18 +17,24 @@ import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.models.SubCategory;
+import com.highstreets.user.models.Success;
+import com.highstreets.user.ui.main.categories.sub_categories.SubCategoryActivity;
+import com.highstreets.user.ui.product.ShopProductsActivity;
+import com.highstreets.user.utils.Constants;
 
 import java.util.List;
 
 
 public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.MyViewHolder> {
     private Context mContext;
-    private List<SubCategory> subCategoryModelList;
+    private List<Success> subCategoryModelList;
     private SubCategoryAdapterCallback subCategoryAdapterCallback;
+    private String merchantId;
 
-    public SubCatAdapter(Context mContext, List<SubCategory> subCategoryModelList) {
+    public SubCatAdapter(Context mContext, List<Success> subCategoryModelList, String merchantId) {
         this.mContext = mContext;
         this.subCategoryModelList = subCategoryModelList;
+        this.merchantId = merchantId;
         if (mContext instanceof SubCategoryAdapterCallback) {
             this.subCategoryAdapterCallback = (SubCategoryAdapterCallback) mContext;
         }
@@ -42,28 +49,40 @@ public class SubCatAdapter extends RecyclerView.Adapter<SubCatAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull final MyViewHolder myViewHolder, final int i) {
-        final SubCategory subCategory = subCategoryModelList.get(i);
-        myViewHolder.SubCategoryName.setText(subCategory.getSubCategory());
+        final Success subCategory = subCategoryModelList.get(i);
+        myViewHolder.SubCategoryName.setText(subCategory.getCategoryName());
 
         Glide.with(mContext)
-                .load(ApiClient.SUB_CATEGORIES_IMAGE_URL + subCategory.getSubcategoryImage())
+                .load(subCategory.getImage())
+                .placeholder(R.drawable.shop)
                 .into(myViewHolder.SubCategoryThumbnail);
 
-        if (subCategory.isSelected())
-            myViewHolder.bgThumbnail.setBackgroundColor(mContext.getResources().getColor(R.color.white_transparent));
-        else
-            myViewHolder.bgThumbnail.setBackgroundColor(Color.TRANSPARENT);
+        myViewHolder.bgThumbnail.setBackgroundColor(Color.TRANSPARENT);
 
         myViewHolder.SubCategoryThumbnail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                for (SubCategory sub : subCategoryModelList) {
-                    sub.setSelected(false);
+//                for (SubCategory sub : subCategoryModelList) {
+//                    sub.setSelected(false);
+//                }
+//                subCategory.setSelected(true);
+//                subCategoryAdapterCallback.getShops(subCategory.getId(), subCategory.getCategoryId());
+//                notifyItemChanged(i);
+//                notifyDataSetChanged();
+
+                if (subCategory.isChild()){
+                    Intent toSubCategoryIntent = SubCategoryActivity.getActivityIntent(mContext);
+                    toSubCategoryIntent.putExtra(Constants.CATEGORY_ID, String.valueOf(subCategory.getCategoryId()));
+                    toSubCategoryIntent.putExtra(Constants.CATEGORY_NAME, subCategory.getCategoryName());
+                    toSubCategoryIntent.putExtra(Constants.MERCHANT_ID, merchantId);
+                    mContext.startActivity(toSubCategoryIntent);
+                }else {
+                    Intent offerDetailIntent = ShopProductsActivity.getActivityIntent(mContext);
+                    offerDetailIntent.putExtra(Constants.MERCHANT_ID, merchantId);
+                    offerDetailIntent.putExtra(Constants.SUBCATEGORY_ID, String.valueOf(subCategory.getCategoryId()));
+                    mContext.startActivity(offerDetailIntent);
                 }
-                subCategory.setSelected(true);
-                subCategoryAdapterCallback.getShops(subCategory.getId(), subCategory.getCategoryId());
-                notifyItemChanged(i);
-                notifyDataSetChanged();
+
             }
         });
 

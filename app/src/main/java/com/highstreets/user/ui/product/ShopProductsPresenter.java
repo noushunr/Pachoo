@@ -7,8 +7,13 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.highstreets.user.api.ApiClient;
 import com.highstreets.user.app_pref.SharedPrefs;
+import com.highstreets.user.models.CartResponse;
 import com.highstreets.user.models.Offer;
 import com.highstreets.user.models.OfferDetail;
+import com.highstreets.user.models.ProductResult;
+import com.highstreets.user.models.Result;
+import com.highstreets.user.models.ShopsList;
+import com.highstreets.user.models.shop.Shop;
 import com.highstreets.user.ui.product.model.AddToCartResponse;
 import com.highstreets.user.utils.Constants;
 
@@ -18,6 +23,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.TOKEN;
 
 public class ShopProductsPresenter implements ShopProductsPresenterInterface {
 
@@ -46,16 +53,7 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
                 if (response.isSuccessful()) {
                     try {
                         JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonArray offerDetailArray = jsonObject.get("data").getAsJsonArray();
-                            List<OfferDetail> offerDetailList = new Gson().fromJson(offerDetailArray, new TypeToken<List<OfferDetail>>() {
-                            }.getType());
-                            shopProductsViewInterface.setOfferDetail(offerDetailList.get(0));
-                            dismissProgressIndicator();
-                        } else {
-                            shopProductsViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
-                            dismissProgressIndicator();
-                        }
+
                     } catch (JsonIOException e) {
                         e.printStackTrace();
                     }
@@ -73,29 +71,29 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
     }
 
     @Override
-    public void getAllOfferDetails(String merchantId,
-                                   String user_id,
-                                   String latitude,
-                                   String longitude) {
+    public void getAllProducts(String shopId,String categoryId) {
         showProgressIndicator();
-        ApiClient.getApiInterface().getAllOfferDetails(
-                merchantId,
-                user_id,
-                latitude,
-                longitude).enqueue(new Callback<JsonObject>() {
+        ApiClient.getApiInterface().getProducts("Bearer "+SharedPrefs.getString(TOKEN,""),
+                categoryId, "1").enqueue(new Callback<ProductResult>() {
             @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
                 if (response.isSuccessful()) {
                     try {
-                        JsonObject jsonObject = response.body();
-                        if (jsonObject.get(Constants.STATUS).getAsString().equals(Constants.SUCCESS)) {
-                            JsonArray offerDetailArray = jsonObject.get("data").getAsJsonArray();
-                            List<OfferDetail> offerDetailList = new Gson().fromJson(offerDetailArray, new TypeToken<List<OfferDetail>>() {
-                            }.getType());
-                            shopProductsViewInterface.setOfferDetail(offerDetailList.get(0));
+                        ProductResult jsonObject = response.body();
+                        if (jsonObject.getSuccess()== 1 && jsonObject.getData()!=null) {
+                            if (jsonObject.getData().getCart()!=null){
+                                if (jsonObject.getData().getCart().getTotalItems()!=null){
+                                    int count = Integer.parseInt(jsonObject.getData().getCart().getTotalItems());
+                                    SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, count);
+                                }
+                                int count = Integer.parseInt(jsonObject.getData().getCart().getTotalItems());
+                                SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, count);
+                            }
+                            shopProductsViewInterface.setProductList(jsonObject.getData().getProductList());
                             dismissProgressIndicator();
                         } else {
-                            shopProductsViewInterface.onServerError(Constants.ERROR_MESSAGE_SERVER);
+
+                            shopProductsViewInterface.onServerError(jsonObject.getMessage());
                             dismissProgressIndicator();
                         }
                     } catch (JsonIOException e) {
@@ -107,65 +105,55 @@ public class ShopProductsPresenter implements ShopProductsPresenterInterface {
             }
 
             @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
+            public void onFailure(Call<ProductResult> call, Throwable t) {
                 dismissProgressIndicator();
             }
         });
     }
 
     @Override
-    public void addToCart(String userId, ArrayList<Offer> offerArrayList){
+    public void addToCart(String shopId, String productId, String quantity) {
         showProgressIndicator();
-        String city = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
-        int noOfOffers = offerArrayList.size();
-        for (Offer offer : offerArrayList){
-            ApiClient.getApiInterface().addToCart(
-                    userId,
-                    offer.getId(),
-                    String.valueOf(offer.getCount()),
-                    city).enqueue(new Callback<AddToCartResponse>() {
-                @Override
-                public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
-                    if (response.isSuccessful()){
-                        AddToCartResponse addToCartResponse = response.body();
-                        if (addToCartResponse.getCityStatus().equals(Constants.TRUE)) {
-                            noOfferAddedToCart++;
-                            if (noOfferAddedToCart == noOfOffers) {
-                                dismissProgressIndicator();
-                                noOfferAddedToCart = 0;
-                                shopProductsViewInterface.setAddedToCartSuccess(addToCartResponse);
-                            }
-                        } else {
-                            dismissProgressIndicator();
-                            shopProductsViewInterface.cityChanged(addToCartResponse);
-                        }
+        ApiClient.getApiInterface().addToCart(
+                "Bearer "+SharedPrefs.getString(TOKEN,""),
+                quantity,
+                shopId).enqueue(new Callback<ProductResult>() {
+            @Override
+            public void onResponse(Call<ProductResult> call, Response<ProductResult> response) {
+                if (response.isSuccessful()) {
+                    ProductResult addToCartResponse = response.body();
+                    dismissProgressIndicator();
+                    if (addToCartResponse.getSuccess()==1){
+                        shopProductsViewInterface.setAddedToCartSuccess(addToCartResponse);
                     }
-                }
-
-                @Override
-                public void onFailure(Call<AddToCartResponse> call, Throwable t) {
 
                 }
-            });
-        }
+            }
+
+            @Override
+            public void onFailure(Call<ProductResult> call, Throwable t) {
+
+            }
+        });
+
     }
 
     @Override
     public void clearCart(String userId) {
         ApiClient.getApiInterface().clearCart(userId)
-        .enqueue(new Callback<AddToCartResponse>() {
-            @Override
-            public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
-                if (response.isSuccessful()){
-                    shopProductsViewInterface.cartCleared(response.body());
-                }
-            }
+                .enqueue(new Callback<AddToCartResponse>() {
+                    @Override
+                    public void onResponse(Call<AddToCartResponse> call, Response<AddToCartResponse> response) {
+                        if (response.isSuccessful()) {
+                            shopProductsViewInterface.cartCleared(response.body());
+                        }
+                    }
 
-            @Override
-            public void onFailure(Call<AddToCartResponse> call, Throwable t) {
+                    @Override
+                    public void onFailure(Call<AddToCartResponse> call, Throwable t) {
 
-            }
-        });
+                    }
+                });
     }
 
     @Override

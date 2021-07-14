@@ -3,6 +3,7 @@ package com.highstreets.user.adapters;
 import android.content.Context;
 import android.content.Intent;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,10 +28,11 @@ import java.util.List;
 public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<BookedOffers> bookedModels;
-
-    public BookingsAdapter(Context mContext, List<BookedOffers> bookedModels) {
+    private RemoveBookingItem removeBookingItem;
+    public BookingsAdapter(Context mContext, List<BookedOffers> bookedModels, RemoveBookingItem removeBookingItem) {
         this.mContext = mContext;
         this.bookedModels = bookedModels;
+        this.removeBookingItem = removeBookingItem;
     }
 
     @NonNull
@@ -39,7 +41,9 @@ public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         RecyclerView.ViewHolder viewHolder = null;
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-
+//        if (mContext instanceof RemoveBookingItem){
+//            removeBookingItem = (RemoveBookingItem) mContext;
+//        }
         View v = null;
         switch (viewType) {
             case 0: {
@@ -92,9 +96,21 @@ public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             e.printStackTrace();
         }
 
+        offersViewHolder.ivRemove.setOnClickListener(view -> {
+            new AlertDialog.Builder(mContext)
+                    .setTitle("Remove?")
+                    .setMessage("Are you sure to remove this item")
+                    .setPositiveButton("yes", (dialogInterface, i1) -> {
+                        removeBookingItem.remove(bookedOffers.getBookingId());
+                    })
+                    .setNegativeButton("no", (dialogInterface, i1) -> {
+                        dialogInterface.dismiss();
+                    })
+                    .show();
+        });
         if (bookedOffers.getBookedStatus().equals("2")) {
             offersViewHolder.tvBookedStatus.setText(Constants.OFFER_USED);
-            offersViewHolder.btnWriteOfferReview.setVisibility(View.VISIBLE);
+            offersViewHolder.btnWriteOfferReview.setVisibility(View.GONE);
             offersViewHolder.btnWriteOfferReview.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -182,6 +198,7 @@ public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         private Button btnViewDeals, btnWriteOfferReview;
         private ImageView imgCoupon;
         private ImageView ivQRCode;
+        ImageView ivRemove;
 
         public OffersViewHolder(View v2) {
             super(v2);
@@ -197,6 +214,10 @@ public class BookingsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             btnWriteOfferReview = v2.findViewById(R.id.write_review);
             imgCoupon = v2.findViewById(R.id.imgCoupon);
             ivQRCode = v2.findViewById(R.id.ivQRCode);
+            ivRemove = v2.findViewById(R.id.ivRemove);
         }
+    }
+    public interface RemoveBookingItem{
+        void remove(String bookingId);
     }
 }

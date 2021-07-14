@@ -3,6 +3,8 @@ package com.highstreets.user.ui.cart.adapter;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +19,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.highstreets.user.R;
 import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.ui.cart.model.Product;
 import com.highstreets.user.ui.cart.product_details.ProductDetailsActivity;
+import com.highstreets.user.ui.product.OfferDetailActivity;
 import com.highstreets.user.utils.Constants;
 
 import java.util.List;
@@ -28,12 +32,12 @@ import butterknife.ButterKnife;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
 
-    private List<Product> productList;
+    private List<Success> productList;
     private Context context;
     private QuantityChange quantityChange;
     private RemoveCartItem removeCartItem;
 
-    public CartAdapter(List<Product> productList) {
+    public CartAdapter(List<Success> productList) {
         this.productList = productList;
     }
 
@@ -53,13 +57,13 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
-        Product product = productList.get(position);
-        holder.tvItemName.setText(product.getTitle());
-        String totalPrice = context.getString(R.string.pound_symbol)+ product.getTotalPrice();
-        holder.tvPrice.setText(totalPrice);
-        holder.tvQuantity.setText(product.getQty());
+        Success product = productList.get(position);
+        holder.tvItemName.setText(String.valueOf(Html.fromHtml(product.getProductName())));
+        String totalPrice = context.getString(R.string.pound_symbol)+ "50.00";
+        holder.tvPrice.setText(product.getSellingPrice());
+        holder.tvQuantity.setText(product.getQuantity());
         Glide.with(context)
-                .load(ApiClient.OFFERS_IMAGE_URL + product.getImage())
+                .load(product.getImage())
                 .into(holder.ivItemImage);
 
         holder.ivRemove.setOnClickListener(view -> {
@@ -67,7 +71,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
                     .setTitle("Remove?")
                     .setMessage("Are you sure to remove this item")
                     .setPositiveButton("yes", (dialogInterface, i) -> {
-                        removeCartItem.remove(product.getCartId());
+                        removeCartItem.remove(product.getShopProductid());
                     })
                     .setNegativeButton("no", (dialogInterface, i) -> {
                         dialogInterface.dismiss();
@@ -76,11 +80,27 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         });
 
         holder.itemView.setOnClickListener(view -> {
-            Intent toDetailsIntent = ProductDetailsActivity.start(context);
-            toDetailsIntent.putExtra(Constants.PRODUCT_ID, product.getProductId());
+            Intent toDetailsIntent = new Intent(context, OfferDetailActivity.class);
+            Bundle args = new Bundle();
+            args.putSerializable("product",product);
+            toDetailsIntent.putExtras(args);
             context.startActivity(toDetailsIntent);
         });
+        holder.addWish.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeCartItem.addWish(product.getCartId());
+            }
+        });
 
+        if (product.getWishes()!=null){
+            holder.addWish.setVisibility(View.GONE);
+            holder.tvWishes.setVisibility(View.VISIBLE);
+            holder.tvWishes.setText("Wishes : "+ product.getWishes());
+        }else {
+            holder.addWish.setVisibility(View.VISIBLE);
+            holder.tvWishes.setVisibility(View.GONE);
+        }
 //        holder.btnMinus.setOnClickListener(view -> {
 //            quantityChange.decrementCount(product);
 //            holder.btnMinus.setEnabled(false);
@@ -114,7 +134,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
         TextView tvCount;
         @BindView(R.id.ivRemove)
         ImageView ivRemove;
-
+        @BindView(R.id.btnAddWish)
+        TextView addWish;
+        @BindView(R.id.tv_wishes)
+        TextView tvWishes;
         public ViewHold(@NonNull View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
@@ -128,6 +151,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHold> {
 
     public interface RemoveCartItem{
         void remove(String cartId);
+        void addWish(String cartId);
     }
 
 }

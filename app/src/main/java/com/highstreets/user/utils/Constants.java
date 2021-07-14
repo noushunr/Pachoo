@@ -47,5 +47,7 @@ public class Constants {
     public static final String ORDER_ID = "order_id";
     public static final String PRODUCT_ID = "product_id";
     public static final String WORLD_PAY_CARD_TOKEN = "world_pay_card_token";
+    public static final String STRIPE_PAY_CARD = "stripe_pay_card";
     public static final String TRUE = "true";
+    public static final String SUBCATEGORY_ID = "subcategory_id";
 }

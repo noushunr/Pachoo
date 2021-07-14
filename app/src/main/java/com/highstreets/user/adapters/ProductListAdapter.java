@@ -3,8 +3,8 @@ package com.highstreets.user.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import androidx.annotation.NonNull;
 import androidx.core.content.FileProvider;
@@ -20,12 +20,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.highstreets.user.R;
-import com.highstreets.user.api.ApiClient;
+import com.highstreets.user.app_pref.SharedPrefs;
 import com.highstreets.user.common.OfferDetailAdapterCallback;
-import com.highstreets.user.models.Offer;
+import com.highstreets.user.models.Success;
+import com.highstreets.user.ui.auth.login_registration.LoginActivity;
 import com.highstreets.user.ui.product.OfferDetailActivity;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
+import com.highstreets.user.utils.Constants;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -35,14 +35,12 @@ import java.util.List;
 public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.MyViewHolder> {
 
     private Context mContext;
-    private List<Offer> offerList;
+    private List<Success> products;
     private OfferDetailAdapterCallback listener;
-    private String timing;
 
-    public ProductListAdapter(Context mContext, List<Offer> offerList, String timing) {
+    public ProductListAdapter(Context mContext, List<Success> products) {
         this.mContext = mContext;
-        this.offerList = offerList;
-        this.timing = timing.replaceAll(" ", "");
+        this.products = products;
         if (mContext instanceof OfferDetailAdapterCallback) {
             this.listener = (OfferDetailAdapterCallback) mContext;
         }
@@ -59,67 +57,52 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder myViewHolder, int i) {
-        final Offer offer = offerList.get(i);
-
-        String DEAL_OFF = offer.getOfferPercentage();
-        final String offer_percentage = DEAL_OFF + " % OFF ";
-
-        myViewHolder.VALID_FOR = Integer.parseInt(offer.getValidFor().trim());
-        myViewHolder.tvValidity.setText(offer.getOfferValidTo());
-        myViewHolder.tvBoughtCount.setText(offer.getBought() + " bought");
-        myViewHolder.tvDealName.setText(offer.getName());
-        myViewHolder.tvValidFor.setText(offer.getValidFor() + " Person");
-        myViewHolder.tvTiming.setText(timing);
-        myViewHolder.tvMrpPrice.setText(mContext.getString(R.string.pound_symbol) + offer.getMrpPrice());
-        myViewHolder.tvOfferPrice.setText(mContext.getString(R.string.pound_symbol) + offer.getOfferPrice());
-        myViewHolder.tvOfferPercentage.setText(offer_percentage);
-        if (offer.getOfferPercentage().equals("null")) {
-            myViewHolder.tvOfferPercentage.setText("0" + "%");
-        }
+        final Success success = products.get(i);
+        myViewHolder.tvDealName.setText(success.getProductName());
+        myViewHolder.tvQuantityUnit.setText(success.getBoxQuantity() + " "+ success.getUnit());
+        myViewHolder.tvOfferPrice.setText(mContext.getResources().getString(R.string.pound_symbol)+success.getSellingPrice());
         Glide.with(mContext)
-                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_small))
-                .load(ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage()).into(myViewHolder.imDealThumbnail);
+                .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.shop))
+                .load(success.getImage()).into(myViewHolder.imDealThumbnail);
 
-        myViewHolder.mDetails.setOnClickListener(v -> {
+        myViewHolder.imDealThumbnail.setOnClickListener(v -> {
             Intent toDetailsIntent = new Intent(mContext, OfferDetailActivity.class);
-            toDetailsIntent.putExtra("image", ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage());
-            toDetailsIntent.putExtra("name", offer.getName());
-            toDetailsIntent.putExtra("desc", offer.getDescription());
-            toDetailsIntent.putExtra("validity_for", offer.getValidFor() + " Person");
-            toDetailsIntent.putExtra("timing", timing);
-            toDetailsIntent.putExtra("mrp", offer.getOfferPrice());
-            toDetailsIntent.putExtra("offer_percentage", offer_percentage);
-            toDetailsIntent.putExtra("valid_till", offer.getOfferValidTo());
+            Bundle args = new Bundle();
+            args.putSerializable("product",success);
+            toDetailsIntent.putExtras(args);
             mContext.startActivity(toDetailsIntent);
         });
 
+        if (success.getQuantity()!=null){
+            myViewHolder.setCount(Integer.parseInt(success.getQuantity()),i,false);
+        }
         myViewHolder.mShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                Uri IMAGE_URL = Uri.parse(ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage());
-                final String shareLink = offer.getShare_url();
-
-                Picasso.get().load(IMAGE_URL).into(new Target() {
-                    @Override
-                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
-                        Intent i = new Intent(Intent.ACTION_SEND);
-                        i.setType("*/*");
-                        i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
-                        i.putExtra(Intent.EXTRA_TEXT, shareLink);
-                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                        mContext.startActivity(Intent.createChooser(i, "Share Image"));
-                    }
-
-                    @Override
-                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-                    }
-
-                    @Override
-                    public void onPrepareLoad(Drawable placeHolderDrawable) {
-                    }
-                });
+//                Uri IMAGE_URL = Uri.parse(ApiClient.OFFERS_IMAGE_URL + offer.getFeaturedImage());
+//                final String shareLink = offer.getShare_url();
+//
+//                Picasso.get().load(IMAGE_URL).into(new Target() {
+//                    @Override
+//                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+//                        Intent i = new Intent(Intent.ACTION_SEND);
+//                        i.setType("*/*");
+//                        i.putExtra(Intent.EXTRA_STREAM, getLocalBitmapUri(bitmap));
+//                        i.putExtra(Intent.EXTRA_TEXT, shareLink);
+//                        i.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                        mContext.startActivity(Intent.createChooser(i, "Share Image"));
+//                    }
+//
+//                    @Override
+//                    public void onBitmapFailed(Exception e, Drawable errorDrawable) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+//                    }
+//                });
 
 
             }
@@ -145,17 +128,16 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
 
     @Override
     public int getItemCount() {
-        return offerList.size();
+        return products.size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView mDetails, mShare, mQuantity, tvValidity, tvBoughtCount, tvDealName, tvTiming, tvValidFor, tvOfferPercentage, tvMrpPrice, tvOfferPrice;
+        TextView mDetails, mShare, mQuantity, tvValidity, tvBoughtCount, tvDealName, tvQuantityUnit, tvValidFor, tvOfferPercentage, tvMrpPrice, tvOfferPrice;
         Button mAddButton, mPlus, mMinus;
         LinearLayout mAddingLayout;
         ImageView imDealThumbnail;
         int mCount = 0;
-        int VALID_FOR;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -164,7 +146,7 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             tvBoughtCount = itemView.findViewById(R.id.booked_count);
             imDealThumbnail = itemView.findViewById(R.id.deals_thumbnail);
             tvDealName = itemView.findViewById(R.id.txt_deal_name);
-            tvTiming = itemView.findViewById(R.id.txt_timing_value);
+            tvQuantityUnit = itemView.findViewById(R.id.txt_quantity_unit);
             tvValidFor = itemView.findViewById(R.id.txt_valid_for_value);
             tvOfferPercentage = itemView.findViewById(R.id.txt_off_percentage);
             tvMrpPrice = itemView.findViewById(R.id.txt_mrp_rate);
@@ -181,29 +163,53 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
             mPlus.setOnClickListener(this);
             mMinus.setOnClickListener(this);
 
-            mQuantity.setText("1");
         }
 
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.txt_add_button:
-                    setCount(++mCount, getAdapterPosition());
+                case R.id.txt_plus:
+                    mCount = products.get(getAdapterPosition()).getCount();
+                    if (!SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN,false)) {
+                        toLogin();
+                    }else {
+                        if (mCount == 0){
+                            int count = SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0);
+                            count = count +1;
+                            SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, count);
+                        }
+                        setCount(++mCount, getAdapterPosition(), true);
+                    }
+
 
                     break;
-                case R.id.txt_plus:
-                    if (mCount <= VALID_FOR - 1) {
-                        setCount(++mCount, getAdapterPosition());
-                    }
-                    break;
                 case R.id.txt_minus:
-                    setCount(--mCount, getAdapterPosition());
+                    if (!SharedPrefs.getBoolean(SharedPrefs.Keys.IS_LOGIN,false)) {
+                        toLogin();
+                    }else {
+                        mCount = products.get(getAdapterPosition()).getCount();
+                        if (mCount == 1){
+                            int count = SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0);
+                            count = count -1;
+                            SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, count);
+                        }
+//                        int count = SharedPrefs.getInt(SharedPrefs.Keys.CART_COUNT,0);
+//                        count = count -1;
+//                        SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, count);
+                        setCount(--mCount, getAdapterPosition(), true);
+                    }
                     break;
 
             }
         }
 
-        private void setCount(int count, int position) {
+        private void toLogin() {
+            Intent toLoginIntent = LoginActivity.start(mContext);
+            toLoginIntent.putExtra(Constants.FROM_INSIDE, Constants.FROM_INSIDE);
+            mContext.startActivity(toLoginIntent);
+        }
+        private void setCount(int count, int position, boolean b) {
             if (count > 0) {
                 mAddButton.setVisibility(View.GONE);
                 mAddingLayout.setVisibility(View.VISIBLE);
@@ -212,8 +218,9 @@ public class ProductListAdapter extends RecyclerView.Adapter<ProductListAdapter.
                 mAddingLayout.setVisibility(View.GONE);
             }
             mQuantity.setText(String.valueOf(count));
-            offerList.get(position).setCount(count);
-            listener.onClick(offerList);
+            products.get(position).setCount(count);
+            if (b)
+            listener.onClick(products.get(position));
         }
     }
 }

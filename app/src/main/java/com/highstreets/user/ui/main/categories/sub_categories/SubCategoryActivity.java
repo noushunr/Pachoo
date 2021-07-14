@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
@@ -27,12 +28,15 @@ import com.highstreets.user.models.FilterItem;
 import com.highstreets.user.models.FilterItemModel;
 import com.highstreets.user.models.FilterPriceModel;
 import com.highstreets.user.models.SubCategory;
+import com.highstreets.user.models.Success;
 import com.highstreets.user.models.shop.ShopBanner;
 import com.highstreets.user.ui.base.BaseActivity;
 import com.highstreets.user.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.highstreets.user.app_pref.SharedPrefs.Keys.MERCHANT_ID;
 
 public class SubCategoryActivity extends BaseActivity implements SubCategoryViewInterface, SubCatAdapter.SubCategoryAdapterCallback {
     private Button mBrandButton, mPriceButton, mDistanceButton;
@@ -48,6 +52,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
     private SubCatAdapter subCatAdapter;
     private ShopListAdapter shopListAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private GridLayoutManager gridLayoutManager;
     private TextView tvToolbarText;
     private TextView tvNoData;
     private BrandFilterListAdapter brandFilterListAdapter;
@@ -57,6 +62,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
     private List<FilterItem> brandHeaderList;
     private String CITY_NAME, LATITUDE, LONGITUDE, SUB_CATEGORY_ID, SELECTED_BRAND, SELECTED_PRICE;
     private String categoryId, SortedOption;
+    private String merchantId;
 
     public static Intent getActivityIntent(Context context) {
         return new Intent(context, SubCategoryActivity.class);
@@ -70,6 +76,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
         tvToolbarText = findViewById(R.id.tvToolbarText);
         tvToolbarText.setText(getIntent().getStringExtra(Constants.CATEGORY_NAME));
         categoryId = getIntent().getStringExtra(Constants.CATEGORY_ID);
+        merchantId = getIntent().getStringExtra(Constants.MERCHANT_ID);
 
         CITY_NAME = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_NAME, "");
         LATITUDE = SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE, "");
@@ -83,7 +90,8 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
         mSubCatGrid = findViewById(R.id.sub_cat_recyclerView);
         tvNoData = findViewById(R.id.tvNoData);
         layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mSubCatGrid.setLayoutManager(layoutManager);
+        gridLayoutManager = new GridLayoutManager(this,3);
+        mSubCatGrid.setLayoutManager(gridLayoutManager);
         mSubCatGrid.setHasFixedSize(false);
         rvShopList = findViewById(R.id.rvShop);
         layoutManager = new LinearLayoutManager(this);
@@ -117,7 +125,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
                 if (priceFilterListAdapter != null)
                     priceFilterListAdapter.reset();
                 FilterDialog.dismiss();
-                subCategoryPresenter.getSubCategories(categoryId);
+                subCategoryPresenter.getSubCategories(categoryId, SharedPrefs.getString(MERCHANT_ID,""));
             }
         });
 
@@ -217,7 +225,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
                     @Override
                     public void onClick(View v) {
                         mSortGroup.clearCheck();
-                        subCategoryPresenter.getSubCategories(categoryId);
+                        subCategoryPresenter.getSubCategories(categoryId,SharedPrefs.getString(MERCHANT_ID,""));
                         SharedPrefs.remove(SharedPrefs.Keys.CHECKED_ITEM_ID);
                         dialog.dismiss();
                     }
@@ -280,7 +288,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
 
             }
         });
-        subCategoryPresenter.getSubCategories(categoryId);
+        subCategoryPresenter.getSubCategories(categoryId,SharedPrefs.getString(MERCHANT_ID,""));
     }
 
     private boolean isPriceSelected() {
@@ -327,25 +335,25 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
     }
 
     @Override
-    public void onLoadingSubCategoriesSuccess(final List<SubCategory> subCategoryModelList) {
+    public void onLoadingSubCategoriesSuccess(final List<Success> subCategoryModelList) {
         dismissProgress();
-        subCatAdapter = new SubCatAdapter(this, subCategoryModelList);
+        subCatAdapter = new SubCatAdapter(this, subCategoryModelList,merchantId);
         mSubCatGrid.setAdapter(subCatAdapter);
-        if (!CITY_NAME.equals("") && !LATITUDE.equals("") && !LONGITUDE.equals("")) {
-            getShopList(CITY_NAME, categoryId, "-1", LATITUDE, LONGITUDE);
-            if (SUB_CATEGORY_ID != null) {
-                subCategoryPresenter.getFilterList(categoryId, SUB_CATEGORY_ID, LATITUDE, LONGITUDE);
-            } else {
-                subCategoryPresenter.getFilterList(categoryId, "-1", LATITUDE, LONGITUDE);
-            }
-        } else {
-            getShopList("-1", categoryId, "-1", "-1", "-1");
-            if (SUB_CATEGORY_ID != null) {
-                subCategoryPresenter.getFilterList(categoryId, SUB_CATEGORY_ID, "-1", "-1");
-            } else {
-                subCategoryPresenter.getFilterList(categoryId, "-1", "-1", "-1");
-            }
-        }
+//        if (!CITY_NAME.equals("") && !LATITUDE.equals("") && !LONGITUDE.equals("")) {
+//            getShopList(CITY_NAME, categoryId, "-1", LATITUDE, LONGITUDE);
+//            if (SUB_CATEGORY_ID != null) {
+//                subCategoryPresenter.getFilterList(categoryId, SUB_CATEGORY_ID, LATITUDE, LONGITUDE);
+//            } else {
+//                subCategoryPresenter.getFilterList(categoryId, "-1", LATITUDE, LONGITUDE);
+//            }
+//        } else {
+//            getShopList("-1", categoryId, "-1", "-1", "-1");
+//            if (SUB_CATEGORY_ID != null) {
+//                subCategoryPresenter.getFilterList(categoryId, SUB_CATEGORY_ID, "-1", "-1");
+//            } else {
+//                subCategoryPresenter.getFilterList(categoryId, "-1", "-1", "-1");
+//            }
+//        }
 
         if (subCategoryModelList.size() <= 0) {
             tvNoData.setVisibility(View.VISIBLE);
@@ -360,7 +368,7 @@ public class SubCategoryActivity extends BaseActivity implements SubCategoryView
         shopListAdapter = new ShopListAdapter(this, shopList);
         rvShopList.setAdapter(shopListAdapter);
         if (shopList.size() <= 0) {
-            tvNoData.setVisibility(View.VISIBLE);
+            tvNoData.setVisibility(View.GONE);
         } else {
             tvNoData.setVisibility(View.GONE);
         }

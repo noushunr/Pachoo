@@ -7,11 +7,12 @@
     <item
         android:id="@+id/navigation_categories"
         android:icon="@drawable/ic_categories"
+        android:visible="false"
         android:title="@string/title_category" />
 
     <item
         android:id="@+id/navigation_coupons"
-        android:icon="@drawable/ic_coupon"
+        android:icon="@drawable/ic_coupon_new"
         android:title="@string/title_coupons" />
 
     <item

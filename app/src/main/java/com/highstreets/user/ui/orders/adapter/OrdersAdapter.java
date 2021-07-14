@@ -3,6 +3,8 @@ package com.highstreets.user.ui.orders.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,24 +48,66 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
     @Override
     public void onBindViewHolder(@NonNull ViewHold holder, int position) {
         Order order = orderList.get(position);
-        String name = order.getFirstname() + " " + order.getLastname();
-        holder.tvName.setText(name);
-        holder.tvTotal.setText(context.getString(R.string.pound_symbol) + order.getTotal());
-        holder.tvOrderId.setText(order.getOrderId());
-        holder.tvStatus.setText(order.getOrderStatus());
-        Glide.with(context)
-                .load(order.getQrCodeImage())
-                .into(holder.ivQRCodeImage);
+        String name = "";
+        holder.tvName.setText(String.valueOf(Html.fromHtml(name)));
+        holder.tvTotal.setText(context.getString(R.string.pound_symbol) + order.getAmount());
+        holder.tvOrderId.setText(order.getOrderId()+"");
+        String status = order.getOrderStatus();
+        switch (order.getOrderStatus()){
+            case "1":
+                status = "Placed";
+                holder.tvCancel.setVisibility(View.VISIBLE);
+                holder.tvNote.setVisibility(View.VISIBLE);
+                break;
+            case "2":
+                status = "Item prepared";
+                holder.tvCancel.setVisibility(View.VISIBLE);
+                holder.tvNote.setVisibility(View.VISIBLE);
+                break;
+            case "3":
+                status = "Packed";
+                holder.tvCancel.setVisibility(View.VISIBLE);
+                holder.tvNote.setVisibility(View.VISIBLE);
+                break;
+            case "4":
+                status = "Picked";
+                holder.tvCancel.setVisibility(View.GONE);
+                holder.tvNote.setVisibility(View.GONE);
+                break;
+            case "5":
+                status = "Delivered";
+                holder.tvCancel.setVisibility(View.GONE);
+                holder.tvNote.setVisibility(View.GONE);
+                break;
+            case "0":
+                status = "Cancelled";
+                holder.tvCancel.setVisibility(View.GONE);
+                holder.tvNote.setVisibility(View.GONE);
+                break;
 
-        holder.ivQRCodeImage.setOnClickListener(view -> {
-            ShowQRCodeDialogFragment.newInstance(order.getQrCodeImage())
-                    .show(((AppCompatActivity)context).getSupportFragmentManager(), null);
-        });
+        }
+        holder.tvStatus.setText(status);
+//        Glide.with(context)
+//                .load(order.getQrCodeImage())
+//                .into(holder.ivQRCodeImage);
+
+//        holder.ivQRCodeImage.setOnClickListener(view -> {
+//            ShowQRCodeDialogFragment.newInstance(order.getQrCodeImage())
+//                    .show(((AppCompatActivity)context).getSupportFragmentManager(), null);
+//        });
 
         holder.btnView.setOnClickListener(view -> {
             Intent orderDetailsIntent = OrderDetailsActivity.start(context);
-            orderDetailsIntent.putExtra(Constants.ORDER_ID, order.getOrderId());
+            orderDetailsIntent.putExtra(Constants.ORDER_ID, String.valueOf(order.getOrderId()));
             context.startActivity(orderDetailsIntent);
+        });
+        holder.tvCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:+918589800002"));
+                context.startActivity(intent);
+            }
         });
     }
 
@@ -75,6 +119,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
     public class ViewHold extends RecyclerView.ViewHolder {
         @BindView(R.id.tvName)
         TextView tvName;
+        @BindView(R.id.btnCancel)
+        TextView tvCancel;
         @BindView(R.id.tvTotal)
         TextView tvTotal;
         @BindView(R.id.tvOrderId)
@@ -85,6 +131,8 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.ViewHold> 
         TextView tvStatus;
         @BindView(R.id.btnView)
         Button btnView;
+        @BindView(R.id.tvNote)
+        TextView tvNote;
 
         public ViewHold(@NonNull View itemView) {
             super(itemView);

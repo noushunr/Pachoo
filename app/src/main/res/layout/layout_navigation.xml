@@ -36,7 +36,7 @@
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="32dp"
-                android:fontFamily="@font/nunito_light"
+                android:fontFamily="@font/nunito_regular"
                 android:text="@string/nav_header_subtitle"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp"
@@ -66,11 +66,36 @@
                     android:layout_height="0.5dp"
                     android:background="@color/black" />
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/llLogin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/nunito_regular"
+                    android:text="@string/login"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/black" />
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/llMyBooking"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginEnd="32dp"
                 android:orientation="vertical">
 
@@ -96,6 +121,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -142,6 +168,7 @@
             <LinearLayout
                 android:id="@+id/llMyAddress"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
                 android:orientation="vertical">
@@ -192,6 +219,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView
@@ -240,6 +268,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="32dp"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <TextView

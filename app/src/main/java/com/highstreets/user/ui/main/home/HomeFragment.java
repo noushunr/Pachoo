@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.ActionBar;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,9 +25,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.highstreets.user.BuildConfig;
 import com.highstreets.user.R;
+import com.highstreets.user.adapters.AllCategoriesAdapter;
 import com.highstreets.user.adapters.BrandedShopAdapter;
 import com.highstreets.user.adapters.CategoryRecyclerAdapter;
+import com.highstreets.user.models.ShopsList;
+import com.highstreets.user.models.Success;
+import com.highstreets.user.ui.main.categories.sub_categories.Data;
+import com.highstreets.user.ui.main.categories.sub_categories.ShopList;
 import com.highstreets.user.ui.main.home.adapter.DealsRecyclerAdapter;
 import com.highstreets.user.adapters.MostVisitedShopAdapter;
 import com.highstreets.user.ui.main.home.adapter.RecentlyBookedRecyclerAdapter;
@@ -48,6 +56,7 @@ import com.highstreets.user.ui.main.HomeMainActivity;
 import com.highstreets.user.ui.main.MoreCategoriesActivity;
 import com.highstreets.user.ui.most_viewed_shop.ViewAllMostViewShopActivity;
 import com.highstreets.user.ui.select_location.SelectLocationActivity;
+import com.highstreets.user.ui.shop_details.ShopActivity;
 import com.highstreets.user.ui.view_all_deals.ViewAllDealsActivity;
 import com.highstreets.user.ui.view_all_recently_booked.ViewAllRecentlyBookedActivity;
 import com.highstreets.user.utils.CommonUtils;
@@ -75,6 +84,7 @@ public class HomeFragment extends BaseFragment implements
     private HomePresenterInterface homeFragmentPresenter;
     private List<Slider> mSliderList = new ArrayList<>();
     private List<Deal> mDealsModelList = new ArrayList<>();
+    private List<Success> mShopsList = new ArrayList<>();
     private List<TopBanner> mTopBannerList = new ArrayList<>();
     private List<BrandedShop> mBrandedShopList = new ArrayList<>();
     private List<MiddleBanner> mMiddleBannerList = new ArrayList<>();
@@ -93,6 +103,12 @@ public class HomeFragment extends BaseFragment implements
 
     @BindView(R.id.tvLocation)
     TextView tvLocation;
+    @BindView(R.id.heading2)
+    TextView heading2;
+    @BindView(R.id.heading3)
+    TextView heading3;
+    @BindView(R.id.heading1)
+    TextView heading1;
     @BindView(R.id.viewpager)
     ViewPager viewpager;
     @BindView(R.id.rvCategories)
@@ -111,6 +127,7 @@ public class HomeFragment extends BaseFragment implements
     ImageView ivMiddleBanner;
     @BindView(R.id.ivLastBanner)
     ImageView ivLastBanner;
+    private RecyclerView.LayoutManager layoutManager;
     private TextView view_more;
     private TextView view_more3;
     private TextView view_more4;
@@ -124,9 +141,13 @@ public class HomeFragment extends BaseFragment implements
     private LinearLayout ll_branded;
     private LinearLayout ll_deals;
 
+    private boolean isAPPLaunch;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args!=null)
+            isAPPLaunch = args.getBoolean("isAppLaunch");
         homeFragmentPresenter = new HomePresenter(context, this);
     }
 
@@ -146,7 +167,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        mListener.setTitle(getString(R.string.high_streets));
+        mListener.setTitle(getString(R.string.app_name));
         toolbar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         view = inflater.inflate(R.layout.fragment_home, container, false);
         ButterKnife.bind(this, view);
@@ -157,11 +178,26 @@ public class HomeFragment extends BaseFragment implements
             isCitySelected = false;
             getCategories("-1");
             tvLocation.setText("Choose area or city");
+
         } else {
             isCitySelected = true;
             getCategories(SELECTED_CITY);
             tvLocation.setText(SELECTED_CITY);
         }
+
+//        if (isAPPLaunch){
+//            new AlertDialog.Builder(getActivity())
+//                    .setTitle("Select your Location")
+//                    .setMessage("High streets Needs your Location to show you whats's best around you")
+//                    .setPositiveButton("SET LOCATION", (dialogInterface, i1) -> {
+//                        Intent intent = new Intent(getContext(), SelectLocationActivity.class);
+//                        startActivityForResult(intent, LOCATION_REQUEST_CODE);
+//                    })
+//                    .setNegativeButton("NOT NOW", (dialogInterface, i1) -> {
+//                        dialogInterface.dismiss();
+//                    })
+//                    .show();
+//        }
         return view;
     }
 
@@ -180,17 +216,17 @@ public class HomeFragment extends BaseFragment implements
         rvCategories.setHasFixedSize(false);
         rvCategories.setNestedScrollingEnabled(false);
         rlDealOfTheDay = view.findViewById(R.id.rlDealsOfTheDay);
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager = new GridLayoutManager(getContext(), 3);
         rvDealsGrid.setLayoutManager(layoutManager);
         rvDealsGrid.setHasFixedSize(false);
         rvDealsGrid.setNestedScrollingEnabled(false);
         rlOfferOfTheDay = view.findViewById(R.id.rlOffersForYou);
-        layoutManager = new GridLayoutManager(getContext(), 2);
+        layoutManager = new GridLayoutManager(getContext(), 3);
         rvRecentlyBooked.setLayoutManager(layoutManager);
         rvRecentlyBooked.setHasFixedSize(false);
         rvRecentlyBooked.setNestedScrollingEnabled(false);
         rlBrandedShops = view.findViewById(R.id.rlBrandedShops);
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        layoutManager = new GridLayoutManager(getContext(), 3);
         rvBrandedShops.setLayoutManager(layoutManager);
         rvBrandedShops.setHasFixedSize(false);
         rvBrandedShops.setNestedScrollingEnabled(false);
@@ -204,7 +240,9 @@ public class HomeFragment extends BaseFragment implements
         view_more.setOnClickListener(this);
         view_more3.setOnClickListener(this);
         view_more4.setOnClickListener(this);
-
+        ivLastBanner.setOnClickListener(this);
+        ivMiddleBanner.setOnClickListener(this);
+        ivTopBanner.setOnClickListener(this);
         tvLocation.setOnClickListener(v -> {
             Intent intent = new Intent(getContext(), SelectLocationActivity.class);
             startActivityForResult(intent, LOCATION_REQUEST_CODE);
@@ -215,7 +253,7 @@ public class HomeFragment extends BaseFragment implements
     }
 
     private void getCategories(String city) {
-        homeFragmentPresenter.getHomeDetails(city);
+        homeFragmentPresenter.getHomeDetails(SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE,""),SharedPrefs.getString(SharedPrefs.Keys.GET_CITY_LATITUDE,""));
     }
 
 
@@ -240,10 +278,86 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
-    public void setCategoryList(final List<Category> categoryList) {
-        mCategoryList = (ArrayList<Category>) categoryList;
-        CategoryRecyclerAdapter categoryRecyclerAdapter = new CategoryRecyclerAdapter(getActivity(), categoryList, this);
-        rvCategories.setAdapter(categoryRecyclerAdapter);
+    public void setCategoryList(Data categoryList) {
+
+        if (categoryList!=null){
+            if (categoryList.getCart()!=null){
+                if (categoryList.getCart().getTotalItems()!=null){
+                    int count = Integer.parseInt(categoryList.getCart().getTotalItems());
+                    SharedPrefs.setInt(SharedPrefs.Keys.CART_COUNT, count);
+                    getActivity().invalidateOptionsMenu();
+                }
+            }
+            Log.d("Build", BuildConfig.FLAVOR);
+            if (BuildConfig.FLAVOR.equals("Billing")){
+                viewpager.setVisibility(View.GONE);
+            }else {
+                if (categoryList.getSlider()!=null){
+                    mSliderList = categoryList.getSlider();
+                    try {
+                        if (mSliderList.size() > 0) {
+                            viewpager.setVisibility(View.VISIBLE);
+                            mPagerAdapter = new CustomPagerAdapter(getActivity(), mSliderList);
+                            viewpager.setAdapter(mPagerAdapter);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            if (categoryList.getCategories()!=null){
+                layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                rvDealsGrid.setLayoutManager(layoutManager);
+                rvDealsGrid.setHasFixedSize(false);
+                rvDealsGrid.setNestedScrollingEnabled(false);
+                AllCategoriesAdapter allCategoriesAdapter = new AllCategoriesAdapter(getContext(), categoryList.getCategories(), "");
+                rvDealsGrid.setAdapter(allCategoriesAdapter);
+            }else {
+                heading1.setVisibility(View.GONE);
+            }
+            if (categoryList.getOurSpecial()!=null){
+                try {
+                    if (categoryList.getOurSpecial().size() > 0) {
+                        if (categoryList.getOurSpecial().size()>6){
+                            view_more.setVisibility(View.VISIBLE);
+                        }else {
+                            view_more.setVisibility(View.GONE);
+                        }
+                        BrandedShopAdapter brandedShopAdapter = new BrandedShopAdapter(getActivity(), categoryList.getOurSpecial());
+                        rvBrandedShops.setAdapter(brandedShopAdapter);
+                    }else {
+                        view_more.setVisibility(View.GONE);
+                        heading2.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+                heading2.setVisibility(View.GONE);
+            }
+
+            if (categoryList.getTodaySpecial()!=null){
+                try {
+                    if (categoryList.getTodaySpecial().size() > 0) {
+                        if (categoryList.getTodaySpecial().size()>6){
+                            view_more3.setVisibility(View.VISIBLE);
+                        }else {
+                            view_more3.setVisibility(View.GONE);
+                        }
+                        BrandedShopAdapter brandedShopAdapter = new BrandedShopAdapter(getActivity(), categoryList.getTodaySpecial());
+                        rvRecentlyBooked.setAdapter(brandedShopAdapter);
+                    }else {
+                        view_more3.setVisibility(View.GONE);
+                        heading3.setVisibility(View.GONE);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }else {
+                heading3.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
@@ -261,26 +375,15 @@ public class HomeFragment extends BaseFragment implements
     }
 
     @Override
-    public void setDealList(List<Deal> dealsModelList) {
-        mDealsModelList = dealsModelList;
+    public void setShopList(List<Success> shopList) {
+
+        mShopsList = shopList;
         try {
-            if (dealsModelList.size() > 0) {
-                String viewMoreStr = String.format("View All(%d)", dealsModelList.get(0).getTotalCount());
-                view_more.setText(viewMoreStr);
-                List<Deal> dealList;
-                if (dealsModelList.size() > 4) {
-                    dealList = dealsModelList.subList(0, 4);
-                } else {
-                    dealList = dealsModelList;
-                }
-                DealsRecyclerAdapter dealsRecyclerAdapter = new DealsRecyclerAdapter(getActivity(), dealList);
+            if (mShopsList.size() > 0) {
+
+                DealsRecyclerAdapter dealsRecyclerAdapter = new DealsRecyclerAdapter(getActivity(), mShopsList);
                 rvDealsGrid.setAdapter(dealsRecyclerAdapter);
-                int count = dealsModelList.get(0).getTotalCount();
-                if (count <= 4) {
-                    view_more.setVisibility(View.GONE);
-                } else {
-                    view_more.setVisibility(View.VISIBLE);
-                }
+                view_more.setVisibility(View.GONE);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -310,14 +413,7 @@ public class HomeFragment extends BaseFragment implements
     @Override
     public void setBrandedShopList(List<BrandedShop> brandedShopList) {
         mBrandedShopList = brandedShopList;
-        try {
-            if (brandedShopList.size() > 0) {
-                BrandedShopAdapter brandedShopAdapter = new BrandedShopAdapter(getActivity(), brandedShopList);
-                rvBrandedShops.setAdapter(brandedShopAdapter);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
     }
 
 
@@ -414,14 +510,14 @@ public class HomeFragment extends BaseFragment implements
         }
         if (!isCitySelected) {
             tvNoData.setVisibility(View.GONE);
-            viewpager.setVisibility(View.VISIBLE);
+            viewpager.setVisibility(View.GONE);
             rlDealOfTheDay.setVisibility(View.VISIBLE);
-            ivTopBanner.setVisibility(View.VISIBLE);
-            rlBrandedShops.setVisibility(View.VISIBLE);
-            ivMiddleBanner.setVisibility(View.VISIBLE);
-            rlOfferOfTheDay.setVisibility(View.VISIBLE);
-            ivLastBanner.setVisibility(View.VISIBLE);
-            rlMostlyViewShops.setVisibility(View.VISIBLE);
+            ivTopBanner.setVisibility(View.GONE);
+            rlBrandedShops.setVisibility(View.GONE);
+            ivMiddleBanner.setVisibility(View.GONE);
+            rlOfferOfTheDay.setVisibility(View.GONE);
+            ivLastBanner.setVisibility(View.GONE);
+            rlMostlyViewShops.setVisibility(View.GONE);
         } else if (!isDataExists()) {
             tvNoData.setVisibility(View.VISIBLE);
             viewpager.setVisibility(View.GONE);
@@ -467,19 +563,40 @@ public class HomeFragment extends BaseFragment implements
         switch (v.getId()) {
             case R.id.view_more:
                 Intent intent = new Intent(getContext(), ViewAllDealsActivity.class);
-                intent.putExtra("city", SELECTED_CITY);
+                intent.putExtra("is_today", false);
                 startActivity(intent);
                 break;
             case R.id.view_more3:
-                Intent i = new Intent(getContext(), ViewAllRecentlyBookedActivity.class);
-                i.putExtra("city", SELECTED_CITY);
-                startActivity(i);
+                Intent intent1 = new Intent(getContext(), ViewAllDealsActivity.class);
+                intent1.putExtra("is_today", true);
+                startActivity(intent1);
                 break;
 
             case R.id.view_more4:
                 Intent mostView = new Intent(getContext(), ViewAllMostViewShopActivity.class);
                 mostView.putExtra("city", SELECTED_CITY);
                 startActivity(mostView);
+                break;
+            case R.id.ivTopBanner:
+                if (mTopBannerList!=null && mTopBannerList.size()>0){
+                    Intent toShopDetailIntent = ShopActivity.getActivityIntent(getActivity());
+                    toShopDetailIntent.putExtra(Constants.MERCHANT_ID, mTopBannerList.get(0).getMerchantId());
+                    startActivity(toShopDetailIntent);
+                }
+                break;
+            case R.id.ivMiddleBanner:
+                if (mMiddleBannerList!=null && mMiddleBannerList.size()>0){
+                    Intent toShopDetailIntent = ShopActivity.getActivityIntent(getActivity());
+                    toShopDetailIntent.putExtra(Constants.MERCHANT_ID, mMiddleBannerList.get(0).getMerchantId());
+                    startActivity(toShopDetailIntent);
+                }
+                break;
+            case R.id.ivLastBanner:
+                if (mBottomBannersList!=null && mBottomBannersList.size()>0){
+                    Intent toShopDetailIntent = ShopActivity.getActivityIntent(getActivity());
+                    toShopDetailIntent.putExtra(Constants.MERCHANT_ID, mBottomBannersList.get(0).getMerchantId());
+                    startActivity(toShopDetailIntent);
+                }
                 break;
         }
     }
@@ -526,7 +643,7 @@ public class HomeFragment extends BaseFragment implements
             ll_deals.setVisibility(View.VISIBLE);
             rlDealOfTheDay.setVisibility(View.VISIBLE);
             if (mSliderList.size() > 0)
-                viewpager.setVisibility(View.VISIBLE);
+                viewpager.setVisibility(View.GONE);
             else
                 viewpager.setVisibility(View.GONE);
         } else {
@@ -536,10 +653,10 @@ public class HomeFragment extends BaseFragment implements
         }
 
         if (mBrandedShopList.size() > 0) {
-            ll_branded.setVisibility(View.VISIBLE);
-            rlBrandedShops.setVisibility(View.VISIBLE);
+            ll_branded.setVisibility(View.GONE);
+            rlBrandedShops.setVisibility(View.GONE);
             if (mTopBannerList.size() > 0)
-                ivTopBanner.setVisibility(View.VISIBLE);
+                ivTopBanner.setVisibility(View.GONE);
             else
                 ivTopBanner.setVisibility(View.GONE);
         } else {
@@ -549,10 +666,10 @@ public class HomeFragment extends BaseFragment implements
         }
 
         if (mRecentlyBookedShopList.size() > 0) {
-            ll_recent.setVisibility(View.VISIBLE);
-            rlOfferOfTheDay.setVisibility(View.VISIBLE);
+            ll_recent.setVisibility(View.GONE);
+            rlOfferOfTheDay.setVisibility(View.GONE);
             if (mMiddleBannerList.size() > 0)
-                ivMiddleBanner.setVisibility(View.VISIBLE);
+                ivMiddleBanner.setVisibility(View.GONE);
             else
                 ivMiddleBanner.setVisibility(View.GONE);
         } else {
@@ -562,10 +679,10 @@ public class HomeFragment extends BaseFragment implements
         }
 
         if (mMostViewedShopList.size() > 0) {
-            ll_most_viewed.setVisibility(View.VISIBLE);
-            rlMostlyViewShops.setVisibility(View.VISIBLE);
+            ll_most_viewed.setVisibility(View.GONE);
+            rlMostlyViewShops.setVisibility(View.GONE);
             if (mBottomBannersList.size() > 0)
-                ivLastBanner.setVisibility(View.VISIBLE);
+                ivLastBanner.setVisibility(View.GONE);
             else
                 ivLastBanner.setVisibility(View.GONE);
         } else {
@@ -594,9 +711,17 @@ public class HomeFragment extends BaseFragment implements
             ImageView imageView = Item.findViewById(R.id.banner_image);
             Glide.with(mContext)
                     .setDefaultRequestOptions(new RequestOptions().placeholder(R.drawable.place_holder_rectangle))
-                    .load(ApiClient.SLIDERS_IMAGE_URL + slider.getImage())
+                    .load(slider.getImage())
                     .into(imageView);
             container.addView(Item);
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    Intent toShopDetailIntent = ShopActivity.getActivityIntent(mContext);
+//                    toShopDetailIntent.putExtra(Constants.MERCHANT_ID, slider.getMerchantId());
+//                    startActivity(toShopDetailIntent);
+                }
+            });
 
             return Item;
         }

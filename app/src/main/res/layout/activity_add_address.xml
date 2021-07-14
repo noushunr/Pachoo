@@ -32,21 +32,15 @@
                     android:layout_height="40dp"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/edit_text_stroke_black"
+                    android:background="@drawable/border_layout"
                     android:hint="@string/first_name"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
-                <EditText
-                    android:id="@+id/etLastName"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp"
-                    android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/last_name"
-                    android:paddingStart="8dp"
-                    android:paddingEnd="8dp" />
+
 
                 <EditText
                     android:id="@+id/etMobile"
@@ -54,9 +48,11 @@
                     android:layout_height="40dp"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
-                    android:background="@drawable/edit_text_stroke_black"
+                    android:background="@drawable/border_layout"
                     android:hint="@string/mobile"
                     android:inputType="number"
+                    android:singleLine="true"
+                    android:imeOptions="actionNext"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
@@ -66,9 +62,11 @@
                     android:layout_height="40dp"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/state"
+
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
@@ -78,6 +76,7 @@
                     android:layout_height="40dp"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:gravity="center_vertical"
                     android:background="@drawable/edit_text_stroke_black"
                     android:hint="@string/county"
@@ -90,12 +89,23 @@
                     android:layout_height="40dp"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
+                    android:visibility="gone"
                     android:gravity="center_vertical"
-                    android:background="@drawable/edit_text_stroke_black"
+                    android:background="@drawable/border_layout"
                     android:hint="@string/city"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
-
+                <EditText
+                    android:id="@+id/etLastName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:textSize="16sp"
+                    android:visibility="gone"
+                    android:layout_marginTop="16dp"
+                    android:background="@drawable/border_layout"
+                    android:hint="@string/house_no"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -108,8 +118,10 @@
                         android:layout_height="40dp"
                         android:textSize="16sp"
                         android:layout_weight="1"
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/edit_text_stroke_black"
+                        android:maxLength="8"
+                        android:singleLine="true"
+                        android:imeOptions="actionNext"
+                        android:background="@drawable/border_layout"
                         android:hint="@string/postcode"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp" />
@@ -119,6 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="32dp"
                         android:layout_marginStart="8dp"
+                        android:visibility="gone"
                         android:layout_weight="2"
                         android:background="@drawable/button_bg_primary"
                         android:text="@string/check"
@@ -134,15 +147,17 @@
                     android:text="@string/postcode_check_result"
                     android:visibility="gone"/>
 
-                <TextView
+                <EditText
                     android:id="@+id/tvSelectPlace"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:textSize="16sp"
                     android:layout_marginTop="16dp"
                     android:gravity="center_vertical"
-                    android:background="@drawable/edit_text_stroke_black"
-                    android:hint="@string/select_place"
+                    android:background="@drawable/border_layout"
+                    android:hint="@string/land_mark"
+                    android:imeOptions="actionNext"
+                    android:inputType="textCapWords"
                     android:paddingStart="8dp"
                     android:paddingEnd="8dp" />
 
@@ -154,7 +169,8 @@
                     android:gravity="start"
                     android:textSize="16sp"
                     android:padding="8dp"
-                    android:background="@drawable/edit_text_stroke_black"
+                    android:inputType="textCapSentences"
+                    android:background="@drawable/border_layout"
                     android:hint="@string/address_line_2"/>
 
             </LinearLayout>
@@ -162,8 +178,8 @@
             <Button
                 android:id="@+id/btnAddAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_bg_primary"
+                android:layout_height="35dp"
+                android:background="@drawable/rounded_border_layout"
                 android:text="@string/add_address"
                 android:textColor="@color/white"
                 android:layout_marginTop="16dp"
